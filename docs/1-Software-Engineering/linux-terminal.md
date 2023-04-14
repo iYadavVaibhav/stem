@@ -219,7 +219,24 @@ Virtual box add on:
 - `sudo apt update`
 - `sudo apt install virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils`
 
+## Enable SSH and access from remote
 
+- On ubuntu server or desktop
+
+    ```sh
+    sudo apt install openssh-server # install ssh
+    sudo systemctl status ssh  # view status
+    sudo ufw allow ssh    # Ubuntu ships with a firewall configuration tool called UFW
+    ip a  # get IP address, something like 10.0.2.15
+    ```
+
+- on virtual box [enable network port forwarding on virtual box](https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/#:~:text=Step%202%3A%20Configuring%20the%20VirtualBox%20Network)
+
+- on remote `ssh -p 2222 username@10.0.2.15`
+
+- Links
+  - <https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/>
+  - <https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/?utm_content=cmp-true>
 
 ## Linux Ways
 
