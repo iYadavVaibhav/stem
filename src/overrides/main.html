@@ -1,0 +1,13 @@
+{% import "partials/language.html" as lang with context %}
+
+{% extends "base.html" %}
+
+{% block content %}
+
+    {{ super() }}
+
+    {% if page.is_homepage %}
+        {% include "partials/articles_list.html" %}
+    {% endif %}
+    
+{% endblock %}

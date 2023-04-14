@@ -1,0 +1,21 @@
+
+{% set ns = namespace(index=0) %}
+<!-- to skip first nav link -->
+
+<div class="vy-homenav"></div>
+{% for nav_item in nav %} 
+    {% if ns.index !=0 %}
+        {% if nav_item.children %}
+            <div class="vy-section">
+                <div class="vy-section-title">{{ nav_item.title[2:] }}</div>
+                {% for nav_item in nav_item.children %}
+                    {% if not nav_item.children %}
+                        <div class="vy-note"><a href="{{ nav_item.url | url }}" class="vy-nav-link">{{ nav_item.title }}</a></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+    {% set ns.index = ns.index + 1 %}
+{% endfor %}
+</div>

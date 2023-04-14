@@ -1,0 +1,95 @@
+site_name: Vaibhav Yadav's Wiki
+site_description: Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence
+site_url: https://iYadavVaibhav.github.io/wiki/
+site_author: Vaibhav Yadav - Data Engineer, Scientist and Analyst
+
+repo_url: https://github.com/iYadavVaibhav/wiki
+repo_name: iyadavvaibhav/wiki
+
+
+theme:
+  name: material
+  custom_dir: src/overrides
+  favicon: assets/images/apple-touch-icon.png
+  logo: assets/images/apple-touch-icon.png
+  
+  features:
+    # - navigation.sections
+    # - navigation.expand
+    # - navigation.path
+    - toc.follow
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+  
+  icon:
+    edit: material/file-edit-outline
+    view: material/file-eye-outline
+
+  palette:
+    primary: blue
+    accent: blue
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/extra.js
+  - assets/javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+copyright:
+  Copyright &copy; 2016 - 2023 Vaibhav Yadav
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://in.linkedin.com/in/iyadavvaibhav
+    - icon: fontawesome/brands/github
+      link: https://github.com/iYadavVaibhav/
+    - icon: fontawesome/brands/twitter 
+      link: https://twitter.com/iYadavVaibhav/
+    - icon: fontawesome/brands/kaggle
+      link: https://www.kaggle.com/iyadavvaibhav/kernels
+    - icon: simple/tableau
+      link: https://public.tableau.com/profile/iyadavvaibhav
+
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+      type: timeago
+      enabled: !ENV [CI, false]
+
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+  - pymdownx.tasklist:
+      clickable_checkbox: true
+
+  - pymdownx.arithmatex:
+      generic: true
+      
+  - mdx_truly_sane_lists

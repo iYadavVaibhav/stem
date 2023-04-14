@@ -1,0 +1,38 @@
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+{% if not page.is_homepage %}
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        {% if page.meta.revision_date %}
+            <span class="md-icon" title="Last Updated">
+                {% include ".icons/material/clock-edit-outline.svg" %}
+            </span> 
+            <span class="timeago" datetime="{{ page.meta.revision_date }}" locale="en"></span>
+        {% elif page.meta.git_revision_date_localized %}
+            <span class="md-icon" title="Last Updated">
+                {% include ".icons/material/clock-edit-outline.svg" %}
+            </span> 
+            {{ page.meta.git_revision_date_localized }}
+        {% endif %}
+        
+
+        {% if page.meta.date %}
+            <span class="md-icon" title="Written On">
+                {% include ".icons/material/clock-plus-outline.svg" %}
+            </span>
+            <span> {{ page.meta.date.strftime("%b %Y") }} </span>
+        {% elif page.meta.git_revision_date_localized %}
+            <span class="md-icon" title="Written On">
+                {% include ".icons/material/clock-plus-outline.svg" %}
+            </span> 
+            <span> {{ page.meta.git_site_revision_date_localized_raw_date }} </span>
+        {% endif %}
+        
+    </small>
+</div>
+
+{% endif %}
