@@ -53,7 +53,7 @@ active threads, sometimes sharing resources such as memory or file
 handles. Multithreaded web servers start a pool of threads and
 select a thread from the pool to handle each incoming request.
 
-### OOPS
+## OOPS
 
 - Object is a Class and has
   - `attributes` - variables

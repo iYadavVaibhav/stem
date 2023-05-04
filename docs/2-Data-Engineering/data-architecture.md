@@ -87,3 +87,7 @@ In Data Modelling, Logical Model is conceptual (pen & paper), focus on business 
 
 It implemets logical model, with variations based on system parameters like memory, disk, network and software type.
 
+
+## Multi Dimentional Modelling
+
+BI developers create cubes to support fast response times, and to provide a single data source for business reporting.

@@ -2,3 +2,4 @@ venv
 site
 history.txt
 .vscode
+*.log

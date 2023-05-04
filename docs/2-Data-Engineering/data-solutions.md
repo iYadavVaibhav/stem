@@ -1,6 +1,11 @@
+---
+description: Data Solutions
+date: 2022-09-05
+---
+
 # Data Solutions
 
-*Here are all the "conceptual" notes related to data soulutions, archirecture and engineering. It can have links to practical notes.*
+_Here are all the "conceptual" notes related to data soulutions, archirecture and engineering. It can have links to practical notes._
 
 ## Data Strategy
 
@@ -26,8 +31,30 @@ C --> D{Data Strategy}
 D -->|Roadmap| E[(Target\nData State)] --> F(Data-driven\ndecision making)
 ```
 
-## Data Architecture
+## Data Lifecycle
 
+- Generation
+- Collection
+- Storage
+- Processing - integration, cleaning, reduction, transformation
+- Management
+- Analysis - Clustering, Regression, Forecasting, Prediction
+- Visualization - Interpretation
+- Decision Making
+- Destruction
+
+```mermaid
+graph LR;
+
+a[data collection \n or generation] --> b[data storage] --> c[data processing] --> d1[data analysis \n or visualization] --> e[decision making]
+
+subgraph governance
+b
+c
+end
+```
+
+## Data Architecture
 
 
 *Now that you have a strategy with known challenges and a roadmap to target state, it is time to build the architecture and do the engineering work aligned to roadmap to rach the target state.*

@@ -1,0 +1,664 @@
+diff --git a/.gitignore b/.gitignore
+index 6ca1032..e37b95c 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,5 +1,4 @@
+ venv
+ site
+ history.txt
+-.vscode
+-*.log
+\ No newline at end of file
++.vscode
+\ No newline at end of file
+diff --git a/docs/0-Information-Technology/python-notes.md b/docs/0-Information-Technology/python-notes.md
+index 325e720..d174288 100644
+--- a/docs/0-Information-Technology/python-notes.md
++++ b/docs/0-Information-Technology/python-notes.md
+@@ -219,9 +219,6 @@ file = open('note.txt','a')
+ file.write("quick brown")
+ file.write("munde, not fox")
+ file.close()
+-
+-# if excists
+-os.makedirs(pdf_dir, exist_ok=True)
+ ```
+ 
+ - non recursive replace`[os.rename(f, f.replace('_', '-')) for f in os.listdir('.') if not f.startswith('.')]`
+@@ -238,25 +235,6 @@ for subdir, dirs, files in os.walk(directory):
+     print(file_path, new_file_path) #rename your file
+ ```
+ 
+-- zip a folder
+-
+-  ```python
+-  import zipfile, os
+-  dir_to_zip = 'path to dir'
+-      
+-  def zipdir(path, ziph):
+-      # ziph is zipfile handle
+-      for root, dirs, files in os.walk(path):
+-          for file in files:
+-              ziph.write(os.path.join(root, file), 
+-                        os.path.relpath(os.path.join(root, file), 
+-                                        os.path.join(path, '..')))
+-
+-  with zipfile.ZipFile(dir_to_zip+'.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+-      zipdir(dir_to_zip, zipf)
+-  ```
+-  
+-
+ 
+ 
+ ## Logging in Python
+@@ -385,14 +363,6 @@ dt.now().ctime() # Thu Oct 20 08:16:51 2022
+ end = dt.now()
+ end - start # datetime.timedelta(seconds=11, microseconds=129035)
+ delta = (end - start).seconds # 11
+-
+-# get last week start and end
+-today = datetime.date.today()
+-# my_date = datetime.date(2023,4,6)
+-my_date = today
+-start = my_date - datetime.timedelta(days=my_date.weekday(), weeks=1)
+-end = start + datetime.timedelta(days=6)
+-print(start, end)
+ ```
+ 
+ ## Testing in Python
+@@ -498,81 +468,8 @@ Install web driver
+ 
+ - visit `https://chromedriver.chromium.org/downloads` and download version same as your browser version.
+ - unzip and move `chromedriver` to `/usr/local/bin/chromedriver`
+-- selenium, beautiful-soup and pandas works best
+-
+-
+-
+-```python
+-import os, time, datetime, json
+-
+-from selenium import webdriver
+-from selenium.webdriver.common.by import By # search elem by
+-
+-from bs4 import BeautifulSoup   # to parse DOM
+-import pandas as pd             # to store data structure
+-
+-# Download drive that is compatible to your chrome installation
+-driver_path = "C:\code\chromedriver_win32\chromedriver.exe"
+-pdf_dir = r"C:\code\path-to-pdfs"
+-
+-chrome_options = webdriver.ChromeOptions()
+-
+-# print PDF to file
+-settings = {"recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}], "selectedDestinationId": "Save as PDF", "version": 2}
+-prefs = {'printing.print_preview_sticky_settings.appState': json.dumps(settings), "savefile.default_directory": pdf_dir}
+-#change destination to save as pdf and save in required folder
+-chrome_options.add_experimental_option('prefs', prefs)
+-chrome_options.add_argument('--kiosk-printing')
+ 
+-driver = webdriver.Chrome(driver_path, options=chrome_options)
+-
+-url_to_scrape = "https://www.something.com"
+-driver.get(url_to_scrape)
+-driver.implicitly_wait(5)
+-
+-# find by name and send keys
+-username_box=driver.find_element(by=By.NAME, value="username")
+-username_box.send_keys("some text")
+-
+-# find by x-path and click
+-driver.find_element(By.XPATH,'//*[@id="submit-button"]').click()
+-
+-# scroll to click, Can not click on a Element: ElementClickInterceptedException
+-checkbox_xpath = f"/html/body/div[4]/.../div"
+-checkbox_elem = driver.find_element(By.XPATH,checkbox_xpath)
+-driver.execute_script("arguments[0].scrollIntoView(true);", checkbox_elem)
+-
+-driver.back()
+-driver.quit() 
+-
+-# parse HTML
+-soup = BeautifulSoup(driver.page_source)
+-
+-# find all where
+-items = soup.find_all('li', attrs={'class': 'the-items'})
+-
+-# building lists of data
+-rows = []
+-for i,item in enumerate(items):
+-    row = []
+-    row.append(i) # index of elem, can be used later for traversing
+-    row.append(item.p.text)
+-    row.append(item.find_all('li')[0].text)
+-    row.append(item.find_all('li')[1].text)
+-    row.append(item.find_all('li')[2].text)
+-    row.append(item.h3.text)
+-    rows.append(row)
+-
+-# build DataFrame
+-df = pd.DataFrame(columns=['id','date_','region','strength','source','title'], data=rows)
+-```
+-
+-
+-- Links
+-  - <https://realpython.com/modern-web-automation-with-python-and-selenium/>
+-  - [Kiwidamien Github - Webscraping Beyond Beautifulsoup And Selenium](https://kiwidamien.github.io/webscraping-beyond-beautifulsoup-and-selenium.html)
+-  - [Beautiful Soup 4 Readthedocs - En Latest Index](https://beautiful-soup-4.readthedocs.io/en/latest/index.html)
+-  - [Stackoverflow - PDF printing from Selenium with chromedriver](https://stackoverflow.com/q/59893671/1055028)
++More - <https://realpython.com/modern-web-automation-with-python-and-selenium/>
+ 
+ 
+ 
+diff --git a/docs/1-Software-Engineering/cs-se-basics.md b/docs/1-Software-Engineering/cs-se-basics.md
+index c8782f3..57b49dc 100644
+--- a/docs/1-Software-Engineering/cs-se-basics.md
++++ b/docs/1-Software-Engineering/cs-se-basics.md
+@@ -53,7 +53,7 @@ active threads, sometimes sharing resources such as memory or file
+ handles. Multithreaded web servers start a pool of threads and
+ select a thread from the pool to handle each incoming request.
+ 
+-## OOPS
++### OOPS
+ 
+ - Object is a Class and has
+   - `attributes` - variables
+diff --git a/docs/1-Software-Engineering/devops.md b/docs/1-Software-Engineering/devops.md
+deleted file mode 100644
+index a0b1a0d..0000000
+--- a/docs/1-Software-Engineering/devops.md
++++ /dev/null
+@@ -1,105 +0,0 @@
+----
+-date: 2023-05-03
+----
+-
+-# DevOps
+-
+-It is a methodology that brings, development, QA and IT operations close together, automated and test driven, container based to have isolated similar environment so that the changes are minimal and are tested and hence don’t break.
+-
+-## CI/CD Pipeline
+-
+-- CI/CD stands for Continuous Integrationa and Continuous deployment.
+-- it is DevOps methodology to being IT and Ops together.
+-- It is a series of steps to deliver new version of software. Improves delivery throughout SDLC (software development life cycle) which is development, testing, production and monitoring. These steps can be automated to make it error free and fast.
+-- Steps may include - compiling code, unit tests, code analysis, security and binaries creations. And/or packaging code into container image.
+-- benefits, includes early integrating and testing, enhancing developer productivity, accelerating delivery, and finding/fixing bugs faster.
+-- commit to production is continuous and automated.
+-- CI/CD pipelines are completely tailor-made based on the needs and requirements and could have multiple stages and jobs, and could be complex and comprehensive.
+-
+-```mermaid
+-graph LR
+-
+-Build --> Test --> Merge --> Release[Automatically Release to Repository] --> Deploy[Automatically Deploy to Production]
+-
+-subgraph a[Continuous Integration]
+-  Build
+-  Test
+-  Merge
+-end
+-
+-subgraph b[Continuous Delivery]
+-  Release
+-end
+-
+-subgraph c[Continuous Deployment]
+-  Deploy
+-end
+-```
+-
+-- CI-CD has increased over years because on cloud-native development it is much more efficient way and is more required way. Compared to traditional Virtual-Machine deployment where it could had been left to be done manually
+-
+-- CI-CD Implementation
+-  - Typically building a CI/CD pipeline consists of the following phases/stages.
+-    - Code: Checked into the repository.
+-    - Build: Build is triggered and deployed in a test environment.
+-    - Test: Automated tests are executed.
+-    - Deploy: Code is deployed to stage, and production environments.
+-
+-## Containers
+-
+-- Containers are **packages of code** together with **necessary elements** (like runtimes, libraries) required to run a software on any environment.
+-- application is **abstracted** from environmant on which they run. It makes software run anywhere, be it on-prem, cloud or personal-laptop. container is packaged in a way that it can run on any OS and it makes **shared use** of resources like CPU, Memory, Storage and Network at OS level.
+-- **Separation** of Responsibilities - if you use containers, developers only code and containerize without worrying about deploment env, IT-Ops only deploy container without worrying about version, dependencies, OS-requirements.
+-- Compared to Virtual-Machines, Containers are **lightweight**, use less resource and virtualize at the **OS level** while VMs virtualize at the hardware level, use more resouse and are heavy.
+-
+-
+-- [Cloud Google - Learn What Are Containers](https://cloud.google.com/learn/what-are-containers)
+-
+-## Kubernetes
+-
+-- lets you **manage containers**
+-- automated container orchestration project
+-- manages containers, machine and services
+-- improves reliability and reduces time on devops
+-- `Google Kubernetes Engine` (GKE) - Is Google cloud kubernetes **service**
+-- `Kubernetes cluster` is a **set of nodes** that run containerized applications.
+-- `Edge computing` is a distributed computing paradigm that brings **computation and storage closer** to the sources of data. Often called 'The Edge' or 'at the edge'. Good for time-sensitive data.
+-
+-## Docker
+-
+-- lets you **build container**
+-- it  is a set of platform as a service products that use OS-level virtualization
+-- Docker lets you put everything you need to run your application into a box that can be stored and opened when and where it is required
+-- `Docker Image` is read-only immutable **template** that defines the layout of container.
+-- `Docker Container` is runtime instance of Docker Image. Created using `docker run` command. It runs on Docker Engine.
+-- `Docker Engine` is the software that hosts (runs) the containers. it is container runtime.
+-
+-## Jenkins
+-
+-- open source **automation server** that facilitates **automating CI** (Continuous Integration) and DevOps by automating build, test, deploy.
+-- it is orchestration tool, that manages 'chain of actions' to acieve CI.
+-- it is used to implement CI/CD workflows as pipelines.
+-- it is written in Java
+-- automation reduces time, minizes error, makes release frequent.
+-
+-- CI - on commit, code is build, then tested. if test is passed, build is tested for deployment. if deployment is successful on UAT, code is pushed to PROD.
+-- Jobs (collection of steps) is called stages.
+-- Alternatives - `Github Actions`
+-
+-## Github Actions
+-
+-- GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
+-- You can create workflows that has jobs, and its trigger.
+-- on an event, job(s) gets triggered, that has steps, which can be actions or script to execute.
+-
+-- [Docs Github - Actions Learn Github Actions Understanding Github Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
+-
+-## Chef DevOps
+-
+-- for Automating Infrastructure Management
+-- Chef is an automation tool that provides a way to define infrastructure as code. Infrastructure as code (IC) simply means that managing infrastructure by writing code.
+-
+-## AWS CloudFormation
+-
+-- it is a service provided by Amazon Web Services that enables users to model and manage infrastructure resources in an automated and secure manner. Using CloudFormation, developers can define and provision AWS infrastructure resources using a JSON or YAML formatted Infrastructure as Code template.
+-
+diff --git a/docs/1-Software-Engineering/linux-terminal.md b/docs/1-Software-Engineering/linux-terminal.md
+index d2e1ba2..63ae536 100644
+--- a/docs/1-Software-Engineering/linux-terminal.md
++++ b/docs/1-Software-Engineering/linux-terminal.md
+@@ -219,7 +219,24 @@ Virtual box add on:
+ - `sudo apt update`
+ - `sudo apt install virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils`
+ 
++## Enable SSH and access from remote
+ 
++- On ubuntu server or desktop
++
++    ```sh
++    sudo apt install openssh-server # install ssh
++    sudo systemctl status ssh  # view status
++    sudo ufw allow ssh    # Ubuntu ships with a firewall configuration tool called UFW
++    ip a  # get IP address, something like 10.0.2.15
++    ```
++
++- on virtual box [enable network port forwarding on virtual box](https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/#:~:text=Step%202%3A%20Configuring%20the%20VirtualBox%20Network)
++
++- on remote `ssh -p 2222 username@10.0.2.15`
++
++- Links
++  - <https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/>
++  - <https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/?utm_content=cmp-true>
+ 
+ ## Linux Ways
+ 
+diff --git a/docs/2-Data-Engineering/data-architecture.md b/docs/2-Data-Engineering/data-architecture.md
+index ce82cae..facb5ec 100644
+--- a/docs/2-Data-Engineering/data-architecture.md
++++ b/docs/2-Data-Engineering/data-architecture.md
+@@ -87,7 +87,3 @@ In Data Modelling, Logical Model is conceptual (pen & paper), focus on business
+ 
+ It implemets logical model, with variations based on system parameters like memory, disk, network and software type.
+ 
+-
+-## Multi Dimentional Modelling
+-
+-BI developers create cubes to support fast response times, and to provide a single data source for business reporting.
+diff --git a/docs/0-Information-Technology/data-frameworks-tools.md b/docs/2-Data-Engineering/data-frameworks-tools.md
+similarity index 100%
+rename from docs/0-Information-Technology/data-frameworks-tools.md
+rename to docs/2-Data-Engineering/data-frameworks-tools.md
+diff --git a/docs/2-Data-Engineering/data-solutions.md b/docs/2-Data-Engineering/data-solutions.md
+index 312b5af..2a4b7f5 100644
+--- a/docs/2-Data-Engineering/data-solutions.md
++++ b/docs/2-Data-Engineering/data-solutions.md
+@@ -1,11 +1,6 @@
+----
+-description: Data Solutions
+-date: 2022-09-05
+----
+-
+ # Data Solutions
+ 
+-_Here are all the "conceptual" notes related to data soulutions, archirecture and engineering. It can have links to practical notes._
++*Here are all the "conceptual" notes related to data soulutions, archirecture and engineering. It can have links to practical notes.*
+ 
+ ## Data Strategy
+ 
+@@ -31,32 +26,10 @@ C --> D{Data Strategy}
+ D -->|Roadmap| E[(Target\nData State)] --> F(Data-driven\ndecision making)
+ ```
+ 
+-## Data Lifecycle
+-
+-- Generation
+-- Collection
+-- Storage
+-- Processing - integration, cleaning, reduction, transformation
+-- Management
+-- Analysis - Clustering, Regression, Forecasting, Prediction
+-- Visualization - Interpretation
+-- Decision Making
+-- Destruction
+-
+-```mermaid
+-graph LR;
+-
+-a[data collection \n or generation] --> b[data storage] --> c[data processing] --> d1[data analysis \n or visualization] --> e[decision making]
+-
+-subgraph governance
+-b
+-c
+-end
+-```
+-
+ ## Data Architecture
+ 
+ 
++
+ *Now that you have a strategy with known challenges and a roadmap to target state, it is time to build the architecture and do the engineering work aligned to roadmap to rach the target state.*
+ 
+ Data Architecture defines the **blueprint** for managing data from **collection** to **storage** and **transformation** to **consumption**. It is base foundation to support business objectives. It is essential to determine the sharp and quick tools that solve the purpose.
+diff --git a/docs/2-Data-Engineering/data-testing.md b/docs/2-Data-Engineering/data-testing.md
+deleted file mode 100644
+index ba20cd3..0000000
+--- a/docs/2-Data-Engineering/data-testing.md
++++ /dev/null
+@@ -1,12 +0,0 @@
+----
+-date: 2023-05-03
+----
+-
+-# Data Testing
+-
+-With incresed data focused apps, it is improtant to have data fully tested
+-
+-- great expectations
+-  - is python library to test data
+-
+-
+diff --git a/docs/2-Data-Engineering/pandas.md b/docs/2-Data-Engineering/pandas.md
+deleted file mode 100644
+index 5171ddb..0000000
+--- a/docs/2-Data-Engineering/pandas.md
++++ /dev/null
+@@ -1,12 +0,0 @@
+-# Pandas
+-
+-
+-
+-```python
+-df['date'] = pd.to_datetime(df['date_'], format='%d %b %Y')
+-```
+-
+-- Links:
+-  - <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>
+-  - [Towardsdatascience - 15 Ways To Create A Pandas Dataframe](https://towardsdatascience.com/15-ways-to-create-a-pandas-dataframe)
+-  
+diff --git a/docs/3-Management-&-Strategy/ajile-sprint-scrum.md b/docs/3-Management-&-Strategy/ajile-sprint-scrum.md
+index d97eab3..6d7b2ca 100644
+--- a/docs/3-Management-&-Strategy/ajile-sprint-scrum.md
++++ b/docs/3-Management-&-Strategy/ajile-sprint-scrum.md
+@@ -2,76 +2,25 @@
+ 
+ _all about agile, scrum, sprints_
+ 
+-Agile is **methodology** that helps you move away from waterfall methodology of software development. Agility is a **mindset**. It helps **adapt** to changes which are inevital in software development.
+ 
+-## Agile Approach
+-
+-It is **interactive** and **incremental**, it not that you need to develop like manufacturing unit. It lets you develop interactivily with business users and lets you do incremental developments with entire development cycle involved in each increment and using **best practices** like TDD, XP, CI CD. Making flat structure and having a **collective ownership**. Having **customer satisfaction** as top priority. Keeping **people over process**, and always **welcome change** as it is inevitable. **Frequent feedback** from business people and developer is required and they **work daily together**. The measure is working software and **value** it brings. All this can be facilitated by Scrum.
+-
+-Following shows small batch of development lifecycle
+-
+-```mermaid
+-graph LR
+-subgraph s1[Sprint 1]
+-r1[Requirements] --> a1[Analysis-Design] --> d1[Development] --> t1[Test] --> m1[Deployment-Maintenance]
+-end
+-
+-subgraph s2[Sprint 2]
+-r2[Requirements] --> a2[Analysis-Design] --> d2[Development] --> t2[Test] --> m2[Deployment-Maintenance]
+-end
+-
+-subgraph s3[Sprint 3]
+-r3[Requirements] --> a3[Analysis-Design] --> d3[Development] --> t3[Test] --> m3[Deployment-Maintenance]
+-end
+-
+-s1 --Release 1--> s2 --Release 2--> s3 --Release 3--> fr[Final Product]
+-
+-```
+-
+-## Scrum
+-
+-Scrum is a framework that facilitates development in an agile way, it is not a methodology. Scrum has three pillars on which Scrum values are defined. Empiricism – don't predict but keep adjusting based on situations. Scrum makes it possible. Feature over document.
+-
+-The three pillars are:
+-
+-- Transparency - be transaparent with work and team members. share progress and artifacts
+-- Inspection - have boards, dashboards ready to inspect
+-- Adaptation - adapt to change based on inspection, what needs to be corrected.
+-
+-```mermaid
+-graph TD;
+-
+-subgraph s1[Scrum - The three Pillars TIA]
+-  Transparency
+-  Inspection
+-  Adaptation
+-end
+-
+-s1 --> Focus
+-s1 --> Commitment
+-s1 --> Courage
+-s1 --> Openness
+-s1 --> Respect
+-
+-```
+-
+-## Scrum Roles
+-
+-Three team roles – product owner, scrum master, developers
+-
+-- **Product Owner**
+-  - A person who created backlog and shows vision of stakeholder
+-  - Build backlog and prioritise
+-
+-- **Development Team** – 3-9 members, flat structure, all own everything, collective ownership
+-
+-- **Scrum Master** – make product owner and developers align to scrum practise, solves conflicts, coaches individuals to implement scrum
+-
+-## Scrum Events
++- Retrospective
++  - What did we do well?
++  - What should we have done better?
++  - actions to take based on "What should we have done better"
++  - actions taken from last retro actions? else carry them
++  - Learnings
++    - don't under estimate tasks
++    - keep buffer capacity for meetings/PR-requests
+ 
+-- **Sprint** – is time bound container event
++- Backlog Grooming / Refinement
++  - Break stories into smaller **tasks**
++  - Tasks have "Definition of Ready" DoR - covers requirements coming into the sprint
++  - Tasks are **prioritized**, estimated
++  - Tasks may get assigned
++  - 1-2 hour productive meeting
++  - [link](https://www.productplan.com/glossary/backlog-grooming/)
+ 
+-- **Sprint Planning** – what to work on and how
++- Sprint Planning
+   - Ahead of our sprint planning:
+     - Please update your capacity for the next sprint. link
+     - Please create, estimate and assign tasks with "definition of done" DoD
+@@ -89,155 +38,11 @@ Three team roles – product owner, scrum master, developers
+     - Estimated and assigned
+     - Reestimate tasks carried forward
+ 
++Backlog Grooming vs Sprint Planning
+ 
+-- **Daily Scrum** – keep on track
+-
+-- **Sprint Review** – reviews work
+-
+-- **Sprint Retrospective** – discuss to be more effective
+-  - What did we do well?
+-  - What should we have done better?
+-  - actions to take based on "What should we have done better"
+-  - actions taken from last retro actions? else carry them
+-  - Learnings
+-    - don't under estimate tasks
+-    - keep buffer capacity for meetings/PR-requests
+-
+-- **Backlog Grooming / Refinement** (unofficial event) – break large items into small implementable items
+-  - Break stories into smaller **tasks**
+-  - Tasks have "Definition of Ready" DoR - covers requirements coming into the sprint
+-  - Tasks are **prioritized**, estimated
+-  - Tasks may get assigned
+-  - 1-2 hour productive meeting
+-  - [link](https://www.productplan.com/glossary/backlog-grooming/)
+-
+-- **Backlog Grooming vs Sprint Planning**
+-  - Scope - BG looks at entire project for months, SP looks at near future for weeks
+-  - Grain - BG breaks into tasks, SP breaks in to sub-tasks
+-  - Detail - BG adds DoR, SP adds DoD
+-
+-## Scrum Artifacts
+-
+-They are either done or not done
+-
+-- **Product backlog** – has large and small tasks, small can be picked, large are broken in grooming
+-  - Requirements
+-  - Enhancement requests
+-  - Defects
+-  - User stories
+-  - New feature
+-
+-- **Sprint backlog**
+-
+-- **Product increment** – done version, product itself, has value and is usable, not necessarily a release but is polished enough to be shippable.
+-
+-## Excellence in Development
+-
+-Excellence in development help align with scrum principles like flat structure, collaborative ownership, welcoming change and frequent releases. One such methodology is **Extreme Programming** (**XP**) . It is standards that lets program effectively. Agile team combine XP programming with scrum to be highly productive. It has following ways of working:
+-
+-- **Execution** – small tasks in scrum, whole team is accountable, readily changeable
+-
+-- **Incremental Design** – not all at once, by one by one, refactoring code. Code 10 mins and run test – it gives quick feedback on quality.
+-
+-- **Pair Programming** – two individual on one machine,  one types another reviews and suggested and they swap
+-  - Instant peer review, improved code quality
+-  - Knowledge sharing – helps become T-shape knowledge than I-shaped
+-  - Inclusiveness, more interactions, less distractions.  
+-
+-- **Test Driven Development** - TDD
+-  - do not code until you fail a test
+-  - First write a test to fail, then code to pass the test, then improve the test to fail and complete the code to pass. Repeat it.
+-  - Think of test before implementation
+-  - There are tools to mock dependencies to function, it makes tests easy.
+-  - Coverage is good to be 100%.
+-  - Removes bugs in monolithic code, in early stage
+-
+-
+-```mermaid
+-graph LR;
+-
+-a[write a failing test] --> b[make the test pass] --> c[refactor] --> a
+-
+-```
+-
+-
+-- **DevOps**
+-  - Problem – release bringing changes that can break prod. Agile brings frequent releases, hence frequent break in prod.
+-  - Solution – a methodology that brings, development, QA and IT operations close together, automated and test driven, container based to have isolated similar environment so that the changes are minimal and are tested and hence don’t break.
+-  - Continuous integration – commit frequently, trigger build and test automatically to identify risks
+-  - Continuous delivery and deployment – code is delivered and deployed continuously in prod
+-  - Devops and Agile are mindset shift that remove hand-off in teams and bring them together with collective responsibility using automation in tests and builds.
+-
+-
+-```mermaid
+-graph LR;
+-
+-code --> build --> test --> release --> deploy --> operate --> monitor --> plan --DevOps--> code
+-
+-```
+-
+-## User Story / Tasks
+-
+-- **User Story** - it is user requirement in sticky note – having requirement in form "As a … I want… so that I .. . Done when..", where
+-  - `As a..` - user role who will be benefited
+-  - `I want...` - what feature or outcome
+-  - `So that I...` – reason why this needs to be done
+-  - `Done when...` - acceptance criteria
+-  - User story is a promise, not a contract. It can be small or large task or an epic.
+-
+-- **Epic** – large user story, a process to large to be estimated
+-
+-- **Themes** – groups epic with tags
+-
+-- **Estimations**
+-  - absolute it days, hours
+-  - relative is estimating based on story relative to other stories. Use fibrinocci – 1,2,3,5,8,13. or exponential scale. 1,2,4,8,16. Or t-shirt size. Xs,s,m,l,xl.
+-  - Planning poker – lets users share a score. Have discussion based on score, why 3 or 8. Play again to get closer score. Discuss again, until you get same score from team members
+-
+-## Agile reports
+-
+-- **Burndown** – work left and time to do
+-
+-- **Burnup** – work done and time to do
+-
+-- **Cumulative  Flow Diagram** – CFD – shows work done by state – to-do, in progress, done. Mostly used in Kanban, show bottleneck like acceptance is taking more time or developing, or delivering.
+-
+-## Kanban
+-
+-- Kanban – lean manufacturing principles like cars. Work process management methodology
+-  - Little’s law = work in progress L = completion rate ($\lambda$) X cycle time (W)
+-  - $L = \lambda \times W$
+-  - Visual mode to track.
+-  - WIP is limited as we are not good multi-taskers. Every stage has a WIP limit. Like you can have on 2 tasks in progress, or 4 in review, the other tasks can come in only if the previous ones are done.
+-
+-- [ ] How to use Kanban or Agile for personal management.
+-
+-## Jira - Atlassian
+-
+-Jira is a work management tool. We can create `Project`, which can have `issues`. Issues can be in `backlog` or can be part of `sprint`.
+-
+-**Issues** mostly have:
+-
+-- Summary - one liner
+-- Type - task / story / subtask / bug / epic
+-- Description - As a.. I want to.. so that.. - has definition of done
+-- Reporter - Person who creted this
+-- Assignee - Person who will do this
+-- Status - Backlog / ToDo / In Progress / In Review / Done
+-- Epic Link - Broader work
+-- Story points - Estimate of duration
+-- Linked Issue - Dependencies / blocker
+-- Priority - Trivial / Critical / High / Medium / Low
+-- Version/Release
+-
+-Issues can be arranged and managed by versions / epics / sprints. **Hierarchy** is by portfolio outcome, business outcome, epic, task, sub-task.
+-
+-**Boards** are used to displays issues and to track progress of project(s). **Kanban** is simple board, shows tasks on board with swimlanes and state. Also
+-
+-- Scrum is Ajile board concentrated on backlog and Sprints.
+-- Dashboards can display activity, filters, boards etc
+-- Filters can be created and shared. They have search criteria, can add JQL (Jira Query Language) to it.
+-- Project - can have confluence page to have documentation of project
++- Scope - BG looks at entire project for months, SP looks at near future for weeks
++- Grain - BG breaks into tasks, SP breaks in to sub-tasks
++- Detail - BG adds DoR, SP adds DoD
+ 
+ ## Links
+ 

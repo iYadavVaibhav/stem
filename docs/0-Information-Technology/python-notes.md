@@ -219,6 +219,9 @@ file = open('note.txt','a')
 file.write("quick brown")
 file.write("munde, not fox")
 file.close()
+
+# if excists
+os.makedirs(pdf_dir, exist_ok=True)
 ```
 
 - non recursive replace`[os.rename(f, f.replace('_', '-')) for f in os.listdir('.') if not f.startswith('.')]`
@@ -234,6 +237,25 @@ for subdir, dirs, files in os.walk(directory):
     # os.rename(file_path, new_file_path) #rename your file
     print(file_path, new_file_path) #rename your file
 ```
+
+- zip a folder
+
+  ```python
+  import zipfile, os
+  dir_to_zip = 'path to dir'
+      
+  def zipdir(path, ziph):
+      # ziph is zipfile handle
+      for root, dirs, files in os.walk(path):
+          for file in files:
+              ziph.write(os.path.join(root, file), 
+                        os.path.relpath(os.path.join(root, file), 
+                                        os.path.join(path, '..')))
+
+  with zipfile.ZipFile(dir_to_zip+'.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+      zipdir(dir_to_zip, zipf)
+  ```
+  
 
 
 
@@ -363,6 +385,14 @@ dt.now().ctime() # Thu Oct 20 08:16:51 2022
 end = dt.now()
 end - start # datetime.timedelta(seconds=11, microseconds=129035)
 delta = (end - start).seconds # 11
+
+# get last week start and end
+today = datetime.date.today()
+# my_date = datetime.date(2023,4,6)
+my_date = today
+start = my_date - datetime.timedelta(days=my_date.weekday(), weeks=1)
+end = start + datetime.timedelta(days=6)
+print(start, end)
 ```
 
 ## Testing in Python
@@ -468,8 +498,81 @@ Install web driver
 
 - visit `https://chromedriver.chromium.org/downloads` and download version same as your browser version.
 - unzip and move `chromedriver` to `/usr/local/bin/chromedriver`
+- selenium, beautiful-soup and pandas works best
 
-More - <https://realpython.com/modern-web-automation-with-python-and-selenium/>
+
+
+```python
+import os, time, datetime, json
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By # search elem by
+
+from bs4 import BeautifulSoup   # to parse DOM
+import pandas as pd             # to store data structure
+
+# Download drive that is compatible to your chrome installation
+driver_path = "C:\code\chromedriver_win32\chromedriver.exe"
+pdf_dir = r"C:\code\path-to-pdfs"
+
+chrome_options = webdriver.ChromeOptions()
+
+# print PDF to file
+settings = {"recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}], "selectedDestinationId": "Save as PDF", "version": 2}
+prefs = {'printing.print_preview_sticky_settings.appState': json.dumps(settings), "savefile.default_directory": pdf_dir}
+#change destination to save as pdf and save in required folder
+chrome_options.add_experimental_option('prefs', prefs)
+chrome_options.add_argument('--kiosk-printing')
+
+driver = webdriver.Chrome(driver_path, options=chrome_options)
+
+url_to_scrape = "https://www.something.com"
+driver.get(url_to_scrape)
+driver.implicitly_wait(5)
+
+# find by name and send keys
+username_box=driver.find_element(by=By.NAME, value="username")
+username_box.send_keys("some text")
+
+# find by x-path and click
+driver.find_element(By.XPATH,'//*[@id="submit-button"]').click()
+
+# scroll to click, Can not click on a Element: ElementClickInterceptedException
+checkbox_xpath = f"/html/body/div[4]/.../div"
+checkbox_elem = driver.find_element(By.XPATH,checkbox_xpath)
+driver.execute_script("arguments[0].scrollIntoView(true);", checkbox_elem)
+
+driver.back()
+driver.quit() 
+
+# parse HTML
+soup = BeautifulSoup(driver.page_source)
+
+# find all where
+items = soup.find_all('li', attrs={'class': 'the-items'})
+
+# building lists of data
+rows = []
+for i,item in enumerate(items):
+    row = []
+    row.append(i) # index of elem, can be used later for traversing
+    row.append(item.p.text)
+    row.append(item.find_all('li')[0].text)
+    row.append(item.find_all('li')[1].text)
+    row.append(item.find_all('li')[2].text)
+    row.append(item.h3.text)
+    rows.append(row)
+
+# build DataFrame
+df = pd.DataFrame(columns=['id','date_','region','strength','source','title'], data=rows)
+```
+
+
+- Links
+  - <https://realpython.com/modern-web-automation-with-python-and-selenium/>
+  - [Kiwidamien Github - Webscraping Beyond Beautifulsoup And Selenium](https://kiwidamien.github.io/webscraping-beyond-beautifulsoup-and-selenium.html)
+  - [Beautiful Soup 4 Readthedocs - En Latest Index](https://beautiful-soup-4.readthedocs.io/en/latest/index.html)
+  - [Stackoverflow - PDF printing from Selenium with chromedriver](https://stackoverflow.com/q/59893671/1055028)
 
 
 
