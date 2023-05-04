@@ -232,7 +232,7 @@ Virtual box add on:
 
 - on virtual box [enable network port forwarding on virtual box](https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/#:~:text=Step%202%3A%20Configuring%20the%20VirtualBox%20Network)
 
-- on remote `ssh -p 2222 username@10.0.2.15`
+- on remote `ssh -p 2222 username@127.0.0.1`
 
 - Links
   - <https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/>
