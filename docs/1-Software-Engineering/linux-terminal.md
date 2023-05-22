@@ -268,7 +268,7 @@ Other
 
 - `pkg` is **similar** to `apt`, it is another package manager in termux, it is even higher wrapper on apt. You can use both.
 
-- Installing termux
+- **Installing termux**
   - Termux is no more updated on play store, so you can use old or download latest from [F-droid.org](https://f-droid.org/en/packages/com.termux/)
   - Once installed do following on phone
 
@@ -279,7 +279,7 @@ Other
     exit
     ```
 
-- Enabling SSH
+- **Enabling SSH**
   - SSH lets you use phone linux from another laptop. Do this on phone:
 
     ```shell
@@ -292,24 +292,46 @@ Other
 
   - Now open cmd or terminal on a machine connected to same wifi and do `ssh 192.168.1.17 -p 8022`, where IP is address of phone.
 
-- Termux - working with packages
+- **Termux - working with packages**
   - Search:  `pkg search <query>`
   - Install: `pkg install <package>`
   - Upgrade: `pkg upgrade`
 
-- Termux - subscribing to additional repositories
+- **Termux - subscribing to additional repositories**
   - Root:    `pkg install root-repo`
   - X11:     `pkg install x11-repo`
 
-- Setting Python and Git
+- **Setting Python and Git**
 
   ```shell
   pkg install python -y
   pkg install git -y
   ```
 
+- **Crontab on Termux**
+  - it is used to schedule jobs in linux and make them run at certain intervals.
 
-- Links
+    ```sh
+    pkg install cronie termux-services
+    sv-enable crond
+
+    # `service-daemon start` or restart terminal 
+
+    ~/code$ crontab -l
+    no crontab for u0_a234
+
+    crontab -e 
+
+    0 * * * * cd /data/data/com.termux/files/home/code && /data/data/com.termux/files/usr/bin/python tbd_logger.py
+
+    ```
+
+  - Example run logs
+    - `time 2023-04-22 19:39 - battery 85% - cron at 1m`
+    - `time 2023-04-23 12:22 - battery 68% - cron switched to 1hr`
+
+
+- **Links**
   - [Termux - Docs](https://termux.dev/docs)
   - [Termux - Installing](https://github.com/termux/termux-app#installation)
   - [Termux - Backing up](https://wiki.termux.com/wiki/Backing_up_Termux)
@@ -354,5 +376,6 @@ pip install youtube-dl
 
 ## Links
 
-- cheat book - <https://github.com/0nn0/terminal-mac-cheatsheet#english-version>
-
+- [terminal cheat book - mac](https://github.com/0nn0/terminal-mac-cheatsheet#english-version)
+- [Setting cronjob on mac](https://www.jcchouinard.com/python-automation-with-cron-on-mac/)
+- [vim Getting Started](https://opensource.com/article/19/3/getting-started-vim)

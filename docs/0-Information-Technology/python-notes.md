@@ -425,8 +425,8 @@ def test_sum():
 
 ## Documenting Code in Python
 
-- **Why** - when you revisit after months, it _saves time_ to pick back
-  - when it is public or team work, it helps _others contribute_
+- **Why** - when you revisit after months, it *saves time* to pick back
+  - when it is public or team work, it helps *others contribute*
 
 - Documenting is making it understandable to users, like react-docs
 - Commenting is for developers, to understand why code is written. It can be to understand, reasons, description or
@@ -437,7 +437,7 @@ def test_sum():
   - you can set this as `my_func.__doc__ = "Some string"`
   - or the next line after function in `"""Some string"""` automatically sets the docstring for the function.
   - docstring structures are of three types
-    - Google - google's way (_mostly used_)
+    - Google - google's way (*mostly used*)
     - reStructured - python style
     - em - same as done in java
 
@@ -494,13 +494,29 @@ Taking input - `msg = str(input("Message? : "))`
 
 ## Web Scraping - Selenium
 
-Install web driver
+- Selenium is browser automation tool
+- BeautifulSoup is DOM parser
+- Pandas for data handling
+- Both can work together, bs4 is best for extraction while selenium is best for performing actions or interactions.
 
-- visit `https://chromedriver.chromium.org/downloads` and download version same as your browser version.
-- unzip and move `chromedriver` to `/usr/local/bin/chromedriver`
-- selenium, beautiful-soup and pandas works best
+- **Selenium Setup**  
+  - *browser* - You need browser installed (Firefox or Chrome)
+  
+  - *driver* - you need driver for browser installed and added to bath. Its a binary or exe.
+    - visit `https://chromedriver.chromium.org/downloads` and download version same as your browser version.
+    - unzip and move `chromedriver` to `/usr/local/bin/chromedriver`
+  
+  - *python package* - you need selenium installed in python
+    - `python -m pip install selenium`
 
+  - [Install Chromium, ChromeDriver and Selenium on Ubuntu .sh](https://gist.github.com/DerekChia/d8b30e035def0ce875ff45ae6b2002f5)
 
+- **XPATH in Chrome**
+  - it is easy to find DOM elems in browser using console. It highlights the element and lets you hit and try.
+  - to inspect a xpath in chrome, write `$x('//div[@role="button"]')`, it finds all elements and returns a list, expand the list the hover to see which element is where on page. then use it in Python.
+  - to get any attribute value in python use `elem.get_attribute('innerText')`
+
+- **Python Code Snippets for Web Scraping**
 
 ```python
 import os, time, datetime, json
@@ -511,35 +527,89 @@ from selenium.webdriver.common.by import By # search elem by
 from bs4 import BeautifulSoup   # to parse DOM
 import pandas as pd             # to store data structure
 
-# Download drive that is compatible to your chrome installation
-driver_path = "C:\code\chromedriver_win32\chromedriver.exe"
-pdf_dir = r"C:\code\path-to-pdfs"
+import pickle
+import requests
 
 chrome_options = webdriver.ChromeOptions()
 
+# Download drive that is compatible to your chrome installation
+driver_path = "C:\code\chromedriver_win32\chromedriver.exe"
+driver_path = "/usr/local/bin/chromedriver"
+
+# Optional Options and preferences
+
 # print PDF to file
-settings = {"recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}], "selectedDestinationId": "Save as PDF", "version": 2}
-prefs = {'printing.print_preview_sticky_settings.appState': json.dumps(settings), "savefile.default_directory": pdf_dir}
+pdf_dir = r"C:\code\path-to-pdfs"
+
 #change destination to save as pdf and save in required folder
-chrome_options.add_experimental_option('prefs', prefs)
+pdf_settings = {
+  "recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}],
+  "selectedDestinationId": "Save as PDF",
+  "version": 2
+  }
+
+prefs = {
+  "credentials_enable_service": False,
+  "profile.password_manager_enabled": False,
+  "printing.print_preview_sticky_settings.appState": json.dumps(pdf_settings),
+  "savefile.default_directory": pdf_dir
+  }
+
+chrome_options.add_experimental_option("prefs", prefs)
+chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+chrome_options.add_experimental_option("useAutomationExtension", False)
+
 chrome_options.add_argument('--kiosk-printing')
 
 driver = webdriver.Chrome(driver_path, options=chrome_options)
 
 url_to_scrape = "https://www.something.com"
-driver.get(url_to_scrape)
+driver.get(url_to_scrape) # web page loads
 driver.implicitly_wait(5)
 
+
+""" Cookie Handling """
+cookies_path = username+"_cookies.pkl"
+
+# read pickle
+if(os.path.exists(cookies_path)):
+    cookies = pickle.load(open(cookies_path, "rb"))
+    print('Cookie exists')
+
+    # Check logged in by finding insta-home icon
+    driver.get(url_to_scrape)
+    sleep(randint(2,5))
+    # set cookie from pickle
+    try:
+        for cookie in cookies:
+            driver.add_cookie(cookie)
+        print('Cookies added')
+    except e:
+        print('Error adding existing cookie.'+e)
+
+# Save cookie to pickle
+pickle.dump( driver.get_cookies() , open(username+"_cookies.pkl","wb"))
+
+""" Doing actions """
+
+# Check if a field exists
+xlogin = '//*[@id="loginForm"]/div/div[3]/button'
+xlogin_exists = len(driver.find_elements(By.XPATH, value=xlogin)) != 0
+
+
 # find by name and send keys
-username_box=driver.find_element(by=By.NAME, value="username")
-username_box.send_keys("some text")
+driver.find_element(by=By.NAME, value="username").send_keys("some text")
 
 # find by x-path and click
 driver.find_element(By.XPATH,'//*[@id="submit-button"]').click()
 
+# Get attribute
+xpath = '//span[@id="ctdat"]'
+elem = browser.find_element(By.XPATH, value=xpath)
+date_text = elem.get_attribute('innerText')       # use any JS attribute
+
 # scroll to click, Can not click on a Element: ElementClickInterceptedException
-checkbox_xpath = f"/html/body/div[4]/.../div"
-checkbox_elem = driver.find_element(By.XPATH,checkbox_xpath)
+checkbox_elem = driver.find_element(By.XPATH, "/html/body/div[4]/.../div")
 driver.execute_script("arguments[0].scrollIntoView(true);", checkbox_elem)
 
 driver.back()
@@ -550,6 +620,14 @@ soup = BeautifulSoup(driver.page_source)
 
 # find all where
 items = soup.find_all('li', attrs={'class': 'the-items'})
+
+# Request and Beautiful - Scrapping HashTags
+term = "nature"
+hastag_url = 'https://best-hashtags.com/hashtag/'+term
+page = requests.get(hastag_url)
+soup = BeautifulSoup(page.content, 'html.parser')
+hashtags = soup.select("body > div.wrapper > div.job-description > div > div > div.col-md-8 > div > div > div:nth-child(1) > div:nth-child(4) > p1")[0].text.strip()
+
 
 # building lists of data
 rows = []
@@ -569,10 +647,12 @@ df = pd.DataFrame(columns=['id','date_','region','strength','source','title'], d
 
 
 - Links
-  - <https://realpython.com/modern-web-automation-with-python-and-selenium/>
+  - [Real Python](https://realpython.com/modern-web-automation-with-python-and-selenium/)
   - [Kiwidamien Github - Webscraping Beyond Beautifulsoup And Selenium](https://kiwidamien.github.io/webscraping-beyond-beautifulsoup-and-selenium.html)
   - [Beautiful Soup 4 Readthedocs - En Latest Index](https://beautiful-soup-4.readthedocs.io/en/latest/index.html)
   - [Stackoverflow - PDF printing from Selenium with chromedriver](https://stackoverflow.com/q/59893671/1055028)
+  - [XPATH - Guide](https://www.lambdatest.com/blog/complete-guide-for-using-xpath-in-selenium-with-examples/)
+  - [XPATH - text contains](https://stackoverflow.com/questions/12323403/how-do-i-find-an-element-that-contains-specific-text-in-selenium-webdriver-pyth)
 
 
 
