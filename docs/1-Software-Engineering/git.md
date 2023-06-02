@@ -288,6 +288,37 @@ Now once you have written your code, you can add and commit new code to local gi
 - finally make `master` as default on remote and delete `main`.
 - or simply rename on github.com.
 
+## Different username push to GitHub
+
+- you can get error if you have tow different github user account or you want to push to someone else's account. In that case you can do following to push to GitHub as a different user.
+
+```sh
+# Configre new username
+git config user.name username
+git config user.email user.name@gmail.com
+
+# Amend last commit if done wrong
+git commit --amend --author="User Name <user.name@gmail.com>"
+
+# Check if last commit is updated
+git log
+
+# Generate SSH Key for new user
+ssh-keygen -t rsa -C "user.name@gmail.com"
+
+# Change SSH Key to be used in Git Repo
+git config --local core.sshcommand 'ssh -i /home/username1/.ssh/id_rsa_username -F /dev/null'
+
+# Pull GitHub content to rebase
+git config pull.rebase true 
+
+# Pull to avoid conflict
+git pull origin main
+
+# Push to GitHub with new username
+git push --set-upstream origin main
+```
+
 ## SSH Authentication to push to remote
 
 You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It can help connect one machine to another using keys and thus avoiding to provide username and password/token on each request. `id_rsa.pub` is default public key.
