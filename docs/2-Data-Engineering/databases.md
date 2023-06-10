@@ -7,6 +7,30 @@ date: 2019-05-06
 
 *all about databases, SQL only*
 
+**Database** lets store data ususally in tabular format.
+
+## Type of Databases
+
+- **Relational Databases**
+  - store in rows. Eg, MySQL, `PostgreSQl`
+  - good to store transactions and build relationships.
+  - Eg, **PostgreSQL** is relational db.
+
+- **Columnar Databases**
+  - used commonly in warehousing. eg, Amazon Redshift, Google BigQuery, Apache Cassandra.
+
+- **NoSQL Databases**
+  - They do not have defined structure and are document based.
+  - **Elasticsearch** - a search engine based on `Apache Lucene` and can be used as nosql db.
+  - **Apache Kibana** - adds GUI to ElasticSearch.
+
+## PostgreSQL
+
+- **PostgreSQL** is relational db.
+  - `pgadmin4` is GUI to it.
+  - login with linux user on the server as `username@server`
+  - then add server, expand it, see database, schemas, public.
+
 ## SQLite
 
 - It is a micro database that can work in memory or a saved in file, eg, `store.db` .
@@ -107,4 +131,18 @@ WHERE EmailPromotion = 2
 ## Redis
 
 - `redis-server` to start the server.
+
+## Elasticsearch
+
+- **Elastic Search** is a search engine based on `Apache Lucene` and can be used as nosql db.
+- you can set cluster and node in elastic search.
+- once installed it doesn't has GUI but is rather an API. at `localhost:9200` you can see JSON out from API
+- uses JSON Query called Elastic Query DSL (Domain Specific Language)
+
+- **Apache Kibana**
+  - adds GUI to ElasticSearch.
+  - you can use it to build visualizations and dashboards of your data held in Elasticsearch.
+  - after installation it can be accessed on `http://localhost:5601`
+  - you can create viz from index in elasticsearch. viz is widget that can be added to dashboard. dashboard filter filter all widget if field is present.
+  - `developer tools` is scratchpad area where you can crate and query data/indices.
 

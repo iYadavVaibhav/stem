@@ -238,7 +238,20 @@ for subdir, dirs, files in os.walk(directory):
     print(file_path, new_file_path) #rename your file
 ```
 
-- zip a folder
+- **Handling CSV and JSON**
+
+  - use python std `csv` n `json` library for data handling with file.
+
+    ```py
+    # pandas iter rows
+    def CSVToJson():
+      df=pd.read_CSV('/home/paulcrickard/data.CSV')
+      for i,r in df.iterrows():
+      print(r['name'])
+      df.to_JSON('fromAirflow.JSON',orient='records')
+    ```
+
+- **zip a folder**
 
   ```python
   import zipfile, os
@@ -487,9 +500,12 @@ def test_sum():
   - [Tstdriven.io - Concurrency  Parallelism AsyncIO](https://testdriven.io/blog/concurrency-parallelism-asyncio/)
 
 
-## Snippets Python
+## Snippets & Ways Python
 
-Taking input - `msg = str(input("Message? : "))`
+- Taking input - `msg = str(input("Message? : "))`
+- use `//` to divide and return only integer part of division or Quotient
+- you can pass function as an argument to another function.
+- you can define a function in an function. the inner function has access to arguments in outer function.
 
 
 ## Web Scraping - Selenium

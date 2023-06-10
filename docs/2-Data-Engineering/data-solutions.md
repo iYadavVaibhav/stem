@@ -7,21 +7,25 @@ date: 2022-09-05
 
 _Here are all the "conceptual" notes related to data soulutions, archirecture and engineering. It can have links to practical notes._
 
+**Data engineering** is the development, operation, and maintenance of data infrastructure, either on-premises or in the cloud (or hybrid or multi-cloud), comprising databases and pipelines to extract, transform, and load data.
+
+**Data engineers** need to be knowledgeable in many areas – programming, operations, data modeling, databases, and operating systems. The **breadth** of the field is part of what makes it fun, exciting, and challenging.
+
 ## Data Strategy
 
 To meet medium or long term business objectives, many aspect of organisation need to work in harmony - all in same direction. **Data Strategy** underpins business strategy and sets agenda for IT delivery **roadmap**. Basically, it defines where and how data supports orgs critical business process. It includes **data challenges** and **unlocks opportunities** by using right strategy and solution in place, thus achieve the business objectives. Eg, if all tables have key to trace back?; all row have identifier; data is being captured; data can be tied up at all hierarchies and dimensions.
 
 **Steps to build a Data Strategy**
 
-- understand the business objectives. Eg, how often are email responded. why the money is going?
+- understand the **business objectives**. Eg, how often are email responded. why the money is going?
 - assess how data is stored and consumed in org.
-- understand current data challenges. Eg, not being captured. isolated availability with no link up or down. non traceble data. stale data. not connected to pipeline or lake.
+- understand current **data challenges**. Eg, not being captured. isolated availability with no link up or down. non traceble data. stale data. not connected to pipeline or lake.
   - how can you collect data, apply data
 - work with business to define optimum target state to meet business objectives, incorporating
   - data architecture and engineering
   - data management and operating model
   - data analytics, reporting and visualization - or business intelligence
-- build a road map for data journey, define actionable data strategy.
+- **build a road map** for data journey, define actionable **data strategy**.
 
 ```mermaid
 flowchart LR
@@ -56,8 +60,7 @@ end
 
 ## Data Architecture
 
-
-*Now that you have a strategy with known challenges and a roadmap to target state, it is time to build the architecture and do the engineering work aligned to roadmap to rach the target state.*
+_Now that you have a strategy with known challenges and a roadmap to target state, it is time to build the architecture and do the engineering work aligned to roadmap to rach the target state._
 
 Data Architecture defines the **blueprint** for managing data from **collection** to **storage** and **transformation** to **consumption**. It is base foundation to support business objectives. It is essential to determine the sharp and quick tools that solve the purpose.
 
