@@ -6,7 +6,7 @@ Visit at: <https://iYadavVaibhav.github.io/wiki>
 
 ## ToDo
 
-- [ ] update old repo's landing page to be your resume and a link to this wiki.
+- [ ] update old repo's landing page to be your resume and a link to this wiki..
 - [ ] test if comments giscus are working as expected
 - [ ] move date created updated to top?
 - [ ] `move to top` to down
