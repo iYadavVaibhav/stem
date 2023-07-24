@@ -239,3 +239,4 @@ Based on a year of work, following structure has emerged and has worked in arran
 
 - [Sphinx - Furo - theme](https://github.com/pradyunsg/furo)
 - [Sphinx - Pydata-sphinx-theme](https://github.com/pydata/pydata-sphinx-theme)
+- [Github - Using YAML + Markdown format in documentation comments #878](https://github.com/dotnet/csharplang/discussions/878)

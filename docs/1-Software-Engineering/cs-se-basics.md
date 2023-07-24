@@ -47,11 +47,11 @@ title: CSE Basics
 
 ## Computer Science
 
-A thread is the smallest sequence of instructions that can be man‐
-aged independently. It is common for a process to have multiple
-active threads, sometimes sharing resources such as memory or file
-handles. Multithreaded web servers start a pool of threads and
-select a thread from the pool to handle each incoming request.
+- **Thread** is the smallest sequence of instructions that can be managed independently. It is common for a process to have multiple active threads, sometimes sharing resources such as memory or file handles. Multithreaded web servers start a pool of threads and select a thread from the pool to handle each incoming request.
+
+- **Daemon** - In multitasking computer operating systems, a daemon is a computer program that *runs as a background process*, rather than being under the direct control of an interactive user.
+
+- **Unix Domain Socket** or Unix-Socket is endpoint for data communication between processes. Eg, Docket client (process-1) and Docker daemon (process-2) communicate using a REST API over Unix Sockets.
 
 ## OOPS
 

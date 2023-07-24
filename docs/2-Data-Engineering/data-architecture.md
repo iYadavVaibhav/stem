@@ -1,20 +1,25 @@
 # Data Architecture
 
-Aim is to collect and store data in a way that it is optimised for reading to enable analytics and BI.
+_how to architect, where to architect, stages of storage, storage solutions_
 
-## Concepts
+Aim of architecturing database is to collect and store data in a way that it is optimised for reading to enable analytics and BI.
 
-- Modeling - Logical is modeling on paper/ppt. Physical is modelling on database with the data.
-- Data storage can follow this journey
-  - staging area where it is dump from feeds
-  - then 3nf schema - where it is clean and ready for joining, it is data warehouse
-  - then denormalised simple query for consumers, it is data mart
-- schema is collection of database objects (tables, views and indexes).
-- 3NF Schema minimizes redundancy by splitting data in multiple tables and linking them with relationships. Adding new entity is easy without effecting current applicaiton. But, this makes reading data slow as the query joins multiple tables.
-- Data Warehouse can have multiple star-schema, each based on a business-process such as sales tracking or shipments. Each star-schema represents a data-mart, this can serve the BI needs. Star-schema have fraction of table compared to 3NF. 15-20 star-schema can cover all LOBs of enterprise. BI users can easily query and join multiple star-schemas as they few tables.
-- Star schemas can have denormalized dimensions for easy understanding and faster data retrieval and less complex queries.
-  - Most important is to consider the level of detail, grain of data.
-- Both 3NF and Star-schema don't contradict but can work in layers with 3NF as foundation and star-schema as access and opttimized layer.
+## Overview / Concepts
+
+- **Database Modeling**
+  - _Logical Model_ is modeling on paper/ppt
+  - _Physical Model_ is modeling on database with the data.
+
+- **Data Storage Stages** can follow this journey
+  - Staging area where it is dump from feeds, can be OLTP dumps
+  - Data Warehouse - where it is stored in star schema, is clean, easy to understand and update and ready to use.
+  - Data Mart - then denormalised simple query for consumers, focusing on small business areas / purpose.
+
+- **Database Schema** is collection of _database objects_ (tables, views and indexes).
+
+- **3NF Schema** minimizes redundancy by splitting data in multiple tables and linking them with relationships. Adding new entity is easy without effecting current applicaiton. But, this makes reading data slow as the query joins multiple tables.
+
+- Data Warehousing, data mart build, database modeling, dimentional modeling, data modeling,  - they all have a common goal to **improve data retrieval** (select query optimized).
 
 
 ## Data Storage Solutions
@@ -34,11 +39,51 @@ Aim is to collect and store data in a way that it is optimised for reading to en
 - Usually - Data Lake > Data Warehouse > Data Mart
 - Data Warehousing, data mart build, database modeling, dimentional modeling, data modeling,  - they all have a common goal to **improve data retrieval** (select query optimized).
 
-  
-Figure: **Architecture** of a Data Model (with optional "Staging Area" and "Data Marts")
-  
-  ![Data Warehouse](https://docs.oracle.com/en/database/oracle/oracle-database/21/dwhsg/img/dwhsg064.gif)
 
+## Data Warehousing Concepts
+
+- **What is Data Warehouse**
+  - simply it is a database.
+  - designed in a way to facilitate easy reads and accomodates change in model like adding a new dimension.
+  - lets slice and dice data from different dimensions and by time.
+  - lets view highly-aggregated data and same time lets drill-down to lowest granularity.
+  - the data is non-volatile (does not change) and lets analyze what occured over time.
+  - it includes **ETL process**, multi-dimensional modeling, backups, availability
+  - Big data warehousing handling petabytes in an distributed environment. Handle 3Vs, real time, no sql, petabytes? It is ETL but at industry level.
+
+- **Why is Data Warehouse required**
+  - to combine data from different sources intoe **single source of truth** on which BI and Analysts can rely.
+  - to enhance organization's performance by analyzing data.
+  - to maintian historical records to look over years.  
+
+- **How Data Warehouse works**
+  - _Read Optimized_ - they are designed to query and analyze rather than transaction processing.
+
+- **Characteristics of a Data Warehouse**
+  - simplicity of access and high-speed query performance.
+
+- **OLAP vs OLTP** - OLTP (Online Transaction Processing), OLAP (Online Analytical Processing)
+  - OLAP is optimized for quick reads and analysis, OLTP is optimized for insert/update/delete
+  - OLAP is denormalized for reads, OLTP is fully normalized for consistency
+  - OLAP is populated with ETL batch updates, OLTP is always up to date with transactional writes.
+
+- **Data Mart** - similar to warehouse but is usually build for single purpose, for particualr LOBs.
+  - It can be physically designed or implemented logically by creating views, materialized view or summary data in warehouse (they have an overlap).
+  - It mainly focuses on a subset of data instead of complete enterprise data.
+  
+  - They can exist as
+    - _Island Data Marts_ - it is right from source (OLTP), can be inconsistent. Quick workaround if there is no data warehouse.
+    - _Dependent Data Marts_ - it is fed from warehouse, mostly consistent. Lengthy as it needs data warehouse to be built.
+
+- **Operation Data Store** - ODS gives data warehouses a place to get access to the _most current data_, which has not yet been loaded into the data warehouse. Usually _current day_ data. It **not** historic.
+
+- **Data Warehouse Architectures**
+  - Basic - Source-data to warehouse to users, no data-marts, no staging-area.
+  - Staging and warehouse - from source data is landed to staging area then to warehouse.
+  - Staging, warehouse and datamarts - data lands from source to staging area, then to warehouse, then individual LOBs can have data-marts for more refined usecases. Also called EDW (Enterprise Data Warehousing)
+
+> Figure: **Architecture** of a Data Model (with optional "Staging Area" and "Data Marts")
+  
   ```mermaid
   flowchart LR
   ds1[(Ops Sys 1)] --> sa[(Staging\nArea)]
@@ -59,35 +104,60 @@ Figure: **Architecture** of a Data Model (with optional "Staging Area" and "Data
   dm3 --> u3
   ```
 
-## Build a Data Warehouse
 
-*This defines process to turn architecture to system deliverable*
+## Logical Design in Data Warehousing
 
-### Logical Model
+- **What is Logical Modeling**
+  - Logical Model is conceptual (pen & paper), focus on business needs and build subject-oriented `schema`. It more to understand use case, end user and the information you need.
 
-In Data Modelling, Logical Model is conceptual (pen & paper), focus on business needs and build subject-oriented `schema`
+- **How to build Logical Model**
+  - Identify the things of importance, _entity_ (data item, like user, book) and its properties _attributes_ (columns; like name, dob).
+  - Determine data _granularity_, week, day, month.
+  - Determine how entities are related to each other, _relationships_. Also called _entity relationship modeling_.
+  - Determine the _unique identifier_ for each entity record, which is `primary_key` in physical model. It applies to OLAP, OLTP, 3NF EDW, star and snowflake.
+  - Next, divide data into _facts_ and _dimensions_. Write down all dimension and facts required. Several distinct dimensions, combined with facts, enable you to answer business questions.
+  - _Identify the source data_ that will feed the data mart model, that is, populate the facts and dimensions.
+  - _Design your schema_ for data mart, star-schema, snow-flake schema or other.
+  - Lastly you need a _routine/pipeline_ to _move data_ from sources to mart as facts and dimensions. Determine the _frequency_ at which the data is refreshed.
+  
+- **Facts**
+  - It is numeric, transactional data, fast changing. Mostly tall table with numeric data, datetime and contains forign keys  of dimaension table which combined make composite key as its primary key.
+  - Fact table with aggregated facts is called _summary table_.
+  - A fact table has a _composite key_ made up of the primary keys of the dimension tables of the schema.
+  
+  - **Adding rows to fact table**, there are three ways
+    - Transaction-based: row shows a lowest grain transaction for a combination of dimension.
+    - Periodic Snapshot: each row is related to a period, like daily or weekly.
+    - Accumulating Snapshot: each row shows occurance of process, that is, multiple rows for one process but each row tracks a movement.
 
-- **Data Gathering** - Identify the things of importance, `entity` (data item, like user, book) and its properties `attributes` (columns; like name, dob).
-- **Entity-Relationship Modeling** - Determine how entities are related to each other, `relationships`. Determine the unique identifier for each entity record, `primary key`. It applies to OLAP, OLTP, 3NF EDW, star and snowflake.
-- Determine data `granularity`, week, day, month.
-- Divide data into
-  - **facts** - numeric, transactional data, fast changing. Mostly tall table with numeric data, datetime and contains forign keys  of dimaension table which combined make composite key as its primary key.
-    - Summary fact tables contain aggregated facts.
-  - **dimensions** - descriptive, slow changing, known as lookup tables or reference tables. Mostly wide. It may contain hierarchies. Eg, product, customer, time. Data is kept at lowest level of detail, it can be rolled up higher level of hierarchy.
-- Write down all dimension and facts required. Several distinct dimensions, combined with facts, enable you to answer business questions.
-- **Identify the Source Data** - that will feed the data mart model, that is populate the facts and dimensions.
-- Design your `schema` for data mart
-  - **Star Schema**
-    - it is simple, having fact in centre and dimensions around it, just like a star, where only one join establishes the relationship between the fact table and any one of the dimension tables.
-- Your design should result in
-  - set of entitis and attributes corresponding to fact and dimentions tables.
-  - a model/pipeline to move data from sources to mart as facts and dimensions.
+- **Dimensions**
+  - It is descriptive, slow changing, known as lookup tables or reference tables. Mostly wide. It may contain hierarchies. Eg, product, customer, time.
+  - Data is kept at lowest level of detail, it can be rolled up higher level of hierarchy.
 
-### Physical Model
+- **Star Schema**
+  - It is simple, having fact in centre and dimensions around it, just like a star, where only one join establishes the relationship between the fact table and any one of the dimension tables.
+  - Star-schema have fraction of table compared to 3NF. 15-20 star-schema can cover all LOBs of enterprise. BI users can **easily query** and join multiple star-schemas as they have few tables.
+  - Star schemas can have **denormalized dimensions** for easy understanding and **faster data retrieval** and less complex queries.
+  - Most important is to consider the level of detail, grain of data.
+  - Both 3NF and Star-schema don't contradict but can work in layers with 3NF as foundation (OLTP) and star-schema as access and optimized layer.
+  - Data Warehouse can have multiple star-schema, each based on a business-process such as sales / tracking / shipments. Each star-schema represents a data-mart, this can serve the BI needs.
 
+
+## Physical Design in Data Warehousing
+
+*This defines process to turn architecture to system deliverable. From - Oracle® Database - Data Warehousing Guide 21c*
 It implemets logical model, with variations based on system parameters like memory, disk, network and software type.
 
 
-## Multi Dimentional Modelling
+## Multi Dimentional Modeling
 
 BI developers create cubes to support fast response times, and to provide a single data source for business reporting.
+
+## Other Tasks in Data Warehousing
+
+- Configuring database to be used as a warehouse.
+- Performing upgrades of new release.
+- Managing users, security and objects.
+- Backing up and performing recoveries.
+- Monitoring performance and taking preventive actions.
+

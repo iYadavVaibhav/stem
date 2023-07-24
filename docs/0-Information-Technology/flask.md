@@ -41,6 +41,16 @@ Flask is a microframework in Python. It is used to create a webapp. It can start
     or
   - `export FLASK_APP=main.py` will make an variable that tells python which app to run.
   - `flask run` executes the app or if flask is not in path then do `python -m flask run`
+  - flask --app has app command
+  - flask run has --host or -h, --port or -p and --no-debug
+
+```sh
+set FLASK_ENV=production
+set FLASK_DEBUG=0
+cd repo\prj1
+venv\Scripts\activate
+flask --app app:create_app('uat') run --no-debug -h 0.0.0.0 -p 5002
+```
 
 
 
@@ -58,7 +68,7 @@ _flask basics, request-response handling, contexts_
   - `request` Object has methods and attributes having info on method, form, args, cookies, files, remote_addr, get_data().
 
 - **Contexts**
-  - Code needs data to be processed, that data can be configurations, input data or data from file/database. Context is used to keep track of this data.
+  - Code is logic with data. Data is variables or constants or objects. This data can be configurations, input data or data from file/database. In flask, "Context" is used to keep track of this data.
   - It let certain objects to be globally accessible, but are not global variable. They are globally accessible to only one thread. There can be multiple threads serving multiple requests from multiple client.
   - Context is simply data that is specific to something. Eg
     - **App-context** is specific to app, like its mail server, its database location, or other configurations. Keeps track of application-level data. Objects: `current_app`, `g`.
@@ -68,7 +78,7 @@ _flask basics, request-response handling, contexts_
   - context is automatically made available once app is initialized.
   - context can be made explicitly available by calling `with app.app_context():`
   
-- **Request Handling**
+- **Request Handling** - How flask handles a request?
   - when there is request, web server activates a thread that initializes app and this app context is pushed with data that is available globally, similarly request context is also pushed.
 
     ```mermaid
@@ -78,6 +88,7 @@ _flask basics, request-response handling, contexts_
 
 - **Flask variables for Request Handling**
   - `current_app` variable in Application context, has info of active application.
+  - **Imp**: `current_app` is app-context, but is **only available when serving a request**, that is, in a route function only. It can be used in any module but the function should be called when serving a request.
   - `g` variable in Application context, it is object that is unique for each request, temp access **during** handling of a request. It resets once request is served. Holds app info hence app context. Can be used to load user on each request. show logged in user on templates.
   - `request`, in request context, obj having client req data.
   - `session`, in request context, stores data across requests, i.e., a dictionary to store values that can be accessed in different requests from same session.
@@ -366,6 +377,9 @@ DB_package or ORM - Python has packages for most database engines like MySQL, Po
     # where clause
     user = User.query.filter_by(username=data['username']).first() # or .all()
 
+    # order, after select or where, add. Its, Model.field.
+    .order_by(Response.responded_at.desc())
+
     # select * from users
     users = User.query.all()
 
@@ -489,12 +503,20 @@ DB_package or ORM - Python has packages for most database engines like MySQL, Po
   export MAIL_PASSWORD="password"
   ```
 
+- Email is only sent when FLASK_ENV = production
+
 - **Sending errors via Email**
   - Errors can be sent via email using Logs.
+
+- **Dev - send emails to console**
+  - `MAIL_SERVER = 'localhost'`
+  - `MAIL_PORT = 8025`
+  - `python -m smtpd -n -c DebuggingServer localhost:8025`
 
   - Links
     - [Flask docs - Email errors to admin](https://flask.palletsprojects.com/en/2.2.x/logging/#email-errors-to-admins)
     - [MG's microblog - email errors](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-unit-testing-legacy#:~:text=of%20the%20application.-,Sending%20errors%20via%20email,-To%20address%20our)
+    - [Pythonbasics - Flask Mail](https://pythonbasics.org/flask-mail/)
 
 
 ## Blueprint - Large App Structure in Flask
@@ -1073,8 +1095,30 @@ _needs improvements after hands-on_
 
 ## Error Handling
 
-- We can have templates for exceptions and errors so they don't go out to end users.
-- Link [RealPython Flask App Part III](https://realpython.com/python-web-applications-with-flask-part-iii/#error-handling)
+- **Try.. Except..**
+  - You can use `try except finally` block to handle errors that you think might occur. With requests, it is **best** to handle errors at **last step** , that is before making the response, because, if at any previous step an error has occured it will bubble up. In another scenario, use `try.. except` at the step where you have another option to do in case of error. Eg, handle error in view when you make a db call that is last function before returning response. Do not handle it in model or db connections unless you have another database to fall over to or another table to ping.
+
+- **Email / Log error**
+  - Error can be emailed to admin automatically.
+
+- **Error Templates**
+  - You can have templates for exceptions and errors so they don't go out to end users.
+  - These templates only work, when `FLASK_ENV=production` and `FLASK_DEBUG=0` in your environment.
+
+    ```py
+    # blueprint handler
+    @bp.app_errorhandler(404)
+    def internal_error(error):
+        return render_template('errors/404.html'), 404
+    
+    # app handler
+    @app.errorhandler(500)
+    def internal_error(error):
+        return render_template('errors/500.html'), 500
+    ```
+
+- Links
+  - [RealPython Flask App Part III](https://realpython.com/python-web-applications-with-flask-part-iii/#error-handling)
 
 
 

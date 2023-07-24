@@ -14,9 +14,11 @@
 class Book:
 
     # Class attribute, common for all instances
+    # executes when class is imported
     kind = "Novels"
     
     def __init__(self, row):
+        # executes when object is created
         # row is db record
 
         # instance attribute
@@ -32,7 +34,7 @@ class Book:
     @classmethod
     def fetch_book(cls, id):
         # fetch the row from db or api
-        row = fetch_service(id)
+        row = fetch_service(id) # some other database function
         obj = cls(row)
         return obj
 

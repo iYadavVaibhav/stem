@@ -60,7 +60,7 @@ date: 2021-05-05
 - `venv\Scripts\activate` activate environment
 - `pip install -r requirements.txt --find-links=pip-packages --no-index` install requirements
   - `--no-index` tells to not use any repository like pypi
-  - `--find-links` tells a path to find all packages
+  - `--find-links` tells a path to find all packages, or `-f`
 - `flask --app app:create_app('testing') run`
 
 - Links
@@ -123,6 +123,16 @@ Undo `conda deactivate && conda remove --name prj1env --all` and remove files if
 
 
 ## Python Programming
+
+- **with**
+  - it is keyword, used to handle unmanaged resources like database and filestreams. It gurantees closing of resources once used.
+  - eg, `with open(filepath) as f:` - do something, and as the block ends, the resource is closed.
+
+- **next(iterable, default)**
+  - returns - next item in iterable
+  - params
+    - `default` - optional, value to return if end of list is reached.
+  - eg, `next(mylist, "orange")`
 
 - **Dictionary** - data type
 
@@ -197,6 +207,45 @@ Except:  Here you can handle the error
 Else: If there is no exception then this block will be executed
 Finally: Finally block always gets executed either exception is generated or not
 
+```py
+
+# minimum
+try:
+  2/0
+except:
+  print('err')
+
+# nesting, finally and multiple exception example
+try:
+  connection = pyodbc.connect(con_uri)
+  cursor = connection.cursor()
+
+  # nesting of try
+  try:
+    cursor.execute(query)
+    n_rows = cursor.rowcount
+    cursor.commit()
+    cursor.close()
+  
+  # in case of any exception
+  except Exception as e:
+    cursor.rollback()
+    logger.error(f'sql_execute - Query failed!. Error "{str(e)}".')
+  
+  # this executes irrestive of exception occuring
+  finally:
+    connection.close()
+
+# Excepting a custom error
+except pyodbc.OperationalError as e:
+  logger.error(f'sql_execute - No connection to "{service}". Message: "{str(e)}"')
+
+# Excepting all other errors
+except Exception as e:
+  logger.error(f'sql_execute - No connection to "{service}". Message: "{str(e)}"')
+
+```
+
 ## Files Handling in python
 
 `f  = open(filename, mode)` Where the following mode is supported:
@@ -209,10 +258,21 @@ Finally: Finally block always gets executed either exception is generated or not
 - a+: To append and read data from the file. It won’t override existing data.
 
 ```python
+
 ## read
-file_handle = open('notes/abc.txt', 'r')
-content = file_handle.read()
-file_handle.close()
+f = open('notes/abc.txt', 'r') # returns handle to file
+f.readline() # returns one line, keep using for next lines
+
+content = f.read() # returns whole file, arg is size. Not efficient.
+line_list = f.readlines() # read all lines as list, each list item is a line. Not efficient.
+
+f.close()
+
+# peak large file
+with open(filepath) as f:
+    head = [next(f) for _ in range(10)]
+print(head)
+
 
 ## write
 file = open('note.txt','a')
@@ -220,7 +280,7 @@ file.write("quick brown")
 file.write("munde, not fox")
 file.close()
 
-# if excists
+# if exists
 os.makedirs(pdf_dir, exist_ok=True)
 ```
 
@@ -323,7 +383,6 @@ logging.debug('Something is happenning')
 # 02/16/2023 01:50:17 PM - root - DEBUG - Something is happenning
 
 
-
 ## New filename for each run
 import os, time
 from time import localtime
@@ -345,26 +404,36 @@ logging.basicConfig(level=logging.DEBUG, \
 
 logging.info("New Working directory is: " + str(os.getcwd()))
 
+# or use RotatingFileHandler
 
+"""Using Components. Using Both File and Stream Handlers"""
 
-## Using Components
-import logging
 logger = logging.getLogger()
-fhandler = logging.FileHandler(filename='mylog.log', mode='a')
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(name)s.%(module)s: %(message)s')
+
+# Setup file handler
+fhandler  = logging.FileHandler('my.log')
+fhandler.setLevel(logging.DEBUG)
 fhandler.setFormatter(formatter)
+
+# Configure stream handler for the cells
+chandler = logging.StreamHandler()
+chandler.setLevel(logging.DEBUG)
+chandler.setFormatter(formatter)
+
+# Add both handlers
 logger.addHandler(fhandler)
+logger.addHandler(chandler)
 logger.setLevel(logging.DEBUG)
 
-logging.error('hello!')
-logging.debug('This is a debug message')
-logging.info('this is an info message')
-logging.warning('tbllalfhldfhd, warning.')
+# Show the handlers
+logger.handlers
 
-## 2015-01-28 09:49:25,026 - root - ERROR - hello!
-## 2015-01-28 09:49:25,028 - root - DEBUG - This is a debug message
-## 2015-01-28 09:49:25,029 - root - INFO - this is an info message
-## 2015-01-28 09:49:25,032 - root - WARNING - tbllalfhldfhd, warning.
+# Log Something
+logger.info("Test info")
+logger.debug("Test debug")
+logger.error("Test error")
 ```
 
 Links
@@ -382,13 +451,16 @@ Links
     - `dt.now()` => datetime.datetime(2022, 10, 20, 8, 14, 44, 277307)
   - `datetime.date` date specific methods
   - `datetime.time` time specific methods
+  - String to date - `datetime.strptime('some string', "%Y-%d-%m %H:%M:%S")`
 - `time` module has `sleep()` function to pause program execution
+  - DateTime as String - `time.strftime('%Y-%m-%d %H:%M:%S')`
 
 ```python
 import time
 
 time.time() # timestamp
 time.sleep(2) # sleeps for two seconds
+time.strftime('%Y-%m-%d %H:%M:%S') # '2023-06-12 11:18:06'
 ```
 
 ```python
@@ -438,8 +510,8 @@ def test_sum():
 
 ## Documenting Code in Python
 
-- **Why** - when you revisit after months, it *saves time* to pick back
-  - when it is public or team work, it helps *others contribute*
+- **Why** - when you revisit after months, it _saves time_ to pick back
+  - when it is public or team work, it helps _others contribute_
 
 - Documenting is making it understandable to users, like react-docs
 - Commenting is for developers, to understand why code is written. It can be to understand, reasons, description or
@@ -450,7 +522,7 @@ def test_sum():
   - you can set this as `my_func.__doc__ = "Some string"`
   - or the next line after function in `"""Some string"""` automatically sets the docstring for the function.
   - docstring structures are of three types
-    - Google - google's way (*mostly used*)
+    - Google - google's way (_mostly used_)
     - reStructured - python style
     - em - same as done in java
 
@@ -543,6 +615,7 @@ from selenium.webdriver.common.by import By # search elem by
 from bs4 import BeautifulSoup   # to parse DOM
 import pandas as pd             # to store data structure
 
+import getpass                  # to take hidden password inputs
 import pickle
 import requests
 
@@ -614,7 +687,10 @@ xlogin_exists = len(driver.find_elements(By.XPATH, value=xlogin)) != 0
 
 
 # find by name and send keys
-driver.find_element(by=By.NAME, value="username").send_keys("some text")
+username_box=driver.find_element(by=By.NAME, value="username")
+username_box.send_keys("some text")
+
+password = getpass.getpass('Enter your password:')
 
 # find by x-path and click
 driver.find_element(By.XPATH,'//*[@id="submit-button"]').click()
@@ -625,7 +701,8 @@ elem = browser.find_element(By.XPATH, value=xpath)
 date_text = elem.get_attribute('innerText')       # use any JS attribute
 
 # scroll to click, Can not click on a Element: ElementClickInterceptedException
-checkbox_elem = driver.find_element(By.XPATH, "/html/body/div[4]/.../div")
+checkbox_xpath = f"/html/body/div[4]/.../div"
+checkbox_elem = driver.find_element(By.XPATH,checkbox_xpath)
 driver.execute_script("arguments[0].scrollIntoView(true);", checkbox_elem)
 
 driver.back()

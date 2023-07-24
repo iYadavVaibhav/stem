@@ -256,3 +256,48 @@ Follow:
 - miguel grinberg - <https://twitter.com/miguelgrinberg>
 - Claudio Bernasconi - <https://twitter.com/CHBernasconiC>
 
+## DWBI
+
+- DW is creating a dimentional model of data that lets users easily ask questions.
+- Data is identified as DIm and Facts then stored as star schema
+- Facts are aggregatabe, or can be factless
+
+- Dimensions have primary-key, natural-key, surrogate-key. PK is simple numerical increment.  
+  - The degenerate dimension is a dimension key without a corresponding dimension table. So a order-number in fact table is a dimension key without a dimention table.
+  - Natural Key has a meaning, like Emp-ID, while surrogate keys are numneric that start from 1 and increment by 1. These meaning less surrogate keys should be used for join between facts and dimensions.
+
+
+- Four Steps to do dimentional modelling
+  
+  - 1 - Identify the business process
+    - what do you want to understand
+    - Eg:
+      - as a retail owner, i want to customer purchases at POS, so that I can analyze products selling, stores and promotions.
+  
+  - 2 - Identify the grain
+    - lowest atomic grain is best because it its highly dimensional hence gives more information
+    - Eg:
+      - Retail - individual product on POS transaction
+  
+  - 3 - Identify the dimensions
+    - they are determined automatically once we have the grain identified, if dimension breaks the grain futher then discard it or revisit grain statement.
+  
+  - 4 - Identify the facts, anything not in same grain goes to another fact table.
+
+
+- Date Dimension
+  - it has date attributes like `Date Key (PK)`, `Date`, `Day of Week`, `Holiday Indicator`, `Weekday Indicator`, `Day in Month`, `Day in Year`, `Last Day in Month Indicator`, `Week Ending Date`, `Week in Year`, `Month Name`, `Month in Year`, `Year-Month (YYYY-MM)`, `Quarter`, `Year-Quarter`, `Year`
+  - date is stored separately as dimension because it can help keep date-calculations in advance. Eg, a date can have, different formats, is-weekday?, is-holiday?, week-number, day-in-year?, day-of-week and many more. it helps to keep calendar-logic in dimension rather tahn application. Can have holiday indicator. Roughtly 20years of date can be listed in 7,300 rows.
+  - time-of-day - it should be date-time fact in fact table to avoid explosion of date dimention, if required to keep it as dimension, it can be separate dimension as time-of-day.
+
+- Product Dimension
+  - it can have attributes relate to procust like `Product Key (PK)`, `SKU Number (NK)`, `Product`, `Brand`, `Subcategory`, `Category`, `Department Number`, `Department`, `Package Type`, `Package Size`, `Fat Content`.
+  - it has merchandise hierarchy flattened out. Typically, individual SKUs roll up to brands, brands roll up to categories, and categories roll up to departments.
+  - List-Price is numeric but can be in dim as it is not additive and doesn't change on event, or is not event driven. It can be added once we know qunitity or weight at event. Or for some case it can be stored both in fact and dimension.
+  - a typical product dimension can have 50+ attributes and 300,000+ SKUs.
+  - Master File - In large grocery business, there can be a product master file where you can manage all products for all stores and then individual stores can pull a subset from it.
+
+- Store Dimension
+  - It can store attributes like `Store Key (PK)`, `Number (NK)`, `Name`, `Street Address`, `City`, `County`, `City-State`, `State`, `Zip Code`, `Manager`, `District`, `Region`. You can see there is a hierarchy here.
+
+- Promotion Dimension

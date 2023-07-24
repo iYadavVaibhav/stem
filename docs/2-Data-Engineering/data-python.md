@@ -9,7 +9,7 @@
 
 ### PyODBC
 
-Works with most databases but not well with MSSQL+Pandas
+Works with most databases but **not** well with MSSQL+Pandas. For MSSQL+Pandas use sqlalchemy MSSQL engine.
 
 ```python
 
@@ -50,32 +50,53 @@ fx_df = pd.read_sql(query, connection)
 
 Works as connection engine as well as ORM
 
-  ```python
+```python
 
-  import sqlalchemy
+import sqlalchemy
 
-  connection_url = "mssql+pyodbc://server_name\schema_name/database_name?driver=SQL+Server"
-  
-  ## MS SQL
-  connection_url = "mssql+pyodbc:///?odbc_connect="+urllib.parse.quote('driver={%s};server=%s;database=%s;Trusted_Connection=yes')
-  
-  ## Postgres
-  connection_url = "postgresql://user:pass@server:port/database"
+connection_url = "mssql+pyodbc://server_name\schema_name/database_name?driver=SQL+Server"
 
-  engine = sqlalchemy.create_engine(connection_url, echo=False)
-  connection = engine.connect()
-  sql = "select top 10 * from [db].[schema].[table]"
-  cursor = connection.execute(sql)
-  res = cursor.fetchall()    # list of rows 
-  connection.close()
+## MS SQL
+connection_url = "mssql+pyodbc:///?odbc_connect="+urllib.parse.quote('driver={%s};server=%s;database=%s;Trusted_Connection=yes')
 
-  # OR -- 
+## Postgres
+connection_url = "postgresql://user:pass@server:port/database"
 
-  with engine.connect() as connection:
-    connection.execute("UPDATE emp set flag=1")
+engine = sqlalchemy.create_engine(connection_url, echo=False)
+connection = engine.connect()
+sql = "select top 10 * from [db].[schema].[table]"
+cursor = connection.execute(sql)
+res = cursor.fetchall()    # list of rows 
+connection.close()
 
-  df.to_sql('table_name', con=engine, schema='dbo', if_exists='append', index=False)
-  ```
+# OR -- 
+
+with engine.connect() as connection:
+connection.execute("UPDATE emp set flag=1")
+
+df.to_sql('table_name', con=engine, schema='dbo', if_exists='append', index=False)
+
+
+## Transactions in v1.45
+
+engine = sqlalchemy.create_engine(con_mssql)
+connection = engine.connect()
+trans = connection.begin()
+
+try:
+    connection.execute(sql_mark_unpivoted)
+    df.to_sql(name='dv_flows_big', con=connection, if_exists='append', index=False)
+    # connection.execute('err') # <-- triggers error
+    trans.commit()
+    logger.info(f"Transaction of update and load completed successfully.")
+    logger.info(f"Data loaded to dv_bigflows, shape: {df.shape}")
+except Exception as e:
+    logger.error(f"Update and load failed! Rolling back. Error: {e}")
+    trans.rollback()
+    logger.error(f"Rolled back!")
+finally:
+    trans.close()
+```
 
 ### Flask_sqlalchemy
 
@@ -109,7 +130,7 @@ connection_url = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 ### Pandas
 
 - needs a connector to database like sqlalchemy or pyodbc
-- `df_txns = pd.read_sql(sql=sql, con=conn_dvs)`
+- `df_txns = pd.read_sql(sql=sql, con=conn_dsn)`
 - `df.to_sql('table_name', con=engine)` - sqlalchemy
 
 - pd write has issues
@@ -127,6 +148,30 @@ cursor.execute(query)
 rows = cursor.fetchall()
 connection.commit() # for non read tasks
 connection.close()
+
+
+"""
+    Transactions in SQLite
+    Works file for sql statements, 
+    but not for Pandas df.to_sql() as it commits as another transaction.
+"""
+connection = sqlite3.connect(sqlite_path)
+connection.isolation_level = None
+try:
+    c = connection.cursor()
+    c.execute("begin")
+    c.execute("some update")
+    c.execute("some insert")
+    #c.execute("fnord") # <-- trigger error, above update and insert will rollback
+    df.to_sql(name='orders', con=connection, if_exists='append', index=False)
+    #c.execute("fnord") # <-- trigger error, now, it raises exception, but pandas did the commit.
+    connection.commit()
+    logger.info(f"Transaction of update and load completed successfully.")
+except connection.Error as e:
+    logger.error(f"Update and load failed! Rolling back. Error: {e}")
+    connection.rollback()
+finally:
+    connection.close()
 
 ```
 
@@ -202,6 +247,13 @@ class Author(Base):
   - define the **class model**, `Author` for `author` database table
   - This uses SQLAlchemy ORM features, including `Table`, `ForeignKey`, `relationship`, and `backref`.
 
+-- **Querying**
+
+```py
+query.filter(people.student.is_not(None)) 
+query.filter(people.student.is_(None)) 
+```
+
 - **Links**
   - <https://realpython.com/python-sqlite-sqlalchemy/#working-with-sqlalchemy-and-python-objects>
   - Flask SQLAlchemy in Flask Notes
@@ -266,6 +318,34 @@ class Post:
 
 
 
+```
+
+## SQLite ETL
+
+- when **reading CSV** you can read data in correct data-type by specifying `dtype` and `thousands` and `parse_dates`.
+- when **adding** a column use proper data-type to new column has required format. eg, use `pd.to_datetime()` to add date column.
+- when **saving to SQL**, pandas creates tabes with data-type similar to pandas columns type.
+- when **reading a SQL**, pandas _might not_ read in proper date format. Again use `parse_dates` to fix it.
+
+```py
+# Data Types
+dtype_ = {
+    'Quantity' : 'int64',
+    'Amount' : 'float64',
+}
+dv_date_parser = lambda x: pd.to_datetime(x, format="%d/%m/%Y", errors='coerce')
+
+df = pd.read_csv(file, low_memory=False, dtype=dtype_, thousands=',',
+                 parse_dates=['Date'], date_parser=dv_date_parser)
+
+# Add datetime type column
+df['load_datetime'] = pd.to_datetime(arg='now', utc=True)
+
+# To SQL
+df.to_sql(name='orders_staging', con=conn_target, if_exists='append', index=False)
+
+# Read SQL
+df = pd.read_sql(sql=sql_read, con=conn_target, parse_dates=['Sale Date', 'load_datetime'])
 ```
 
 ## PyODBC ETL

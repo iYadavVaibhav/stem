@@ -260,7 +260,22 @@ Other
 - `rm -rf` removes non/empty dir and files forcefully
 - `rm` removes files not directories.
 
-### youtube-dl
+- **ls** - shows file in dir
+  - `ls -l` as a list
+  - `ls -h` human readable sizes
+  - `ls -r` reverse order
+  - `ls -t` sorts by last modified date and time, default is latest at top
+  - `ls -a` shows all, includes hidden files
+  - Examples
+    - `ls -lt | head` shows last 10 modified files.
+
+- **head/tail** - show first or last lines
+  - `head -n 2` - `--lines` - shows first 2 lines.
+  - Examples
+    - `ls -lt | head -n 5` shows only 5 files from prev command.
+    - `head -5 notes.txt` - shows top 5 lines from file.
+
+## youtube-dl
 
 - `youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" http://www.youtube.com/watch?v=fdf4542t5g` -o is --output of filename.
 
@@ -379,3 +394,4 @@ pip install youtube-dl
 - [terminal cheat book - mac](https://github.com/0nn0/terminal-mac-cheatsheet#english-version)
 - [Setting cronjob on mac](https://www.jcchouinard.com/python-automation-with-cron-on-mac/)
 - [vim Getting Started](https://opensource.com/article/19/3/getting-started-vim)
+- cheat book - <https://github.com/0nn0/terminal-mac-cheatsheet#english-version>

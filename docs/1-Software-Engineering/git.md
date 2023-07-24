@@ -36,10 +36,10 @@ Git is version control software to track changes in source code. GitHub is cloud
 
 ## Configuration
 
-- You can get/set/edit/unset options with this command
-- values can be set at **global** or **system** or **local** (repo) level
+- You can get/set/edit/unset variables that configure git. Values can be set at **global** or **system** or **local** (repo) level.
+- Global configs are stored in `.gitconfig` file in `home` dir usually. It holds YAML data. You can set values using commands and see the values set.
   - `~/.gitconfig` global
-  - `./.gitconfig` local in repo
+  - `./.git/config` local in repo
 - username and email are required to be correctly set locally as they are written in each commit (who did it?). This also helps to associate correct account when pushed to remote.
 - format is `git config --flag name.key value`
 
@@ -55,6 +55,7 @@ Git is version control software to track changes in source code. GitHub is cloud
   - `git config user.name "Your Name"` sets user name in local repo file
   - `git config --global credential.helper 'cache --timeout=72000'` caches. so enter credentials once every 20 hours
   - `git config --global credential.helper store` - stores the username and password in store utility
+  - `git config --global --unset http.proxy` to unset a variable
 
 ## Operations
 
@@ -190,22 +191,20 @@ do so (now or later) by using -c with the switch command. Example:
 - Merge process
 
 ```sh
-# in local on branch ofc, commited
-git checkout -b ofc_masked # create branch
-# delete internal files, commit
+# ON Secure   ---------------------------
+git checkout dev
 git add .
-git commit -m 'ofc_masked for diff'
+git commit -m "ready_to_diff"
 
 git checkout -b zip
-rm -rf . # delete all 
-# then extract zip downloaded from remote
+# delete all except `.git`, download zip, extract
 git add .
-git commit -m "remote for diff"
+git commit -m "downloaded_for_diff"
 
-git diff ofc_masked zip > diff.patch
+git diff dev zip > diff.patch
 
 
-# ON Remote   ----------------------------------
+# ON Public   ----------------------------------
 
 git checkout master
 git add .
@@ -217,6 +216,7 @@ git checkout -b master_patched
 # download diff.patch, and save
 
 "C:\Program Files\Git\usr\bin\patch.exe" -p1 < diff.patch
+# do Y for reverse patch
 
 # check manually for `*.orig` files and verify changes
 
@@ -230,7 +230,18 @@ git add .
 git commit -m "patched_merged"
 git push
 
-# download and extract in master on local
+# ON Secure   ---------------------------
+
+git checkout master
+git branch -D zip
+git branch -D dev
+# delete all except `.git`, download zip, extract
+git add .
+git commit -m "downloaded"
+git checkout -b dev
+# Done! Ready to work
+
+
 
 # git diff --no-prefix ofc_masked zip > diff.patch # for this
 # "C:\Program Files\Git\usr\bin\patch.exe" -p0 < diff.patch # use this
@@ -321,12 +332,19 @@ git push --set-upstream origin main
 
 ## SSH Authentication to push to remote
 
-You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It can help connect one machine to another using keys and thus avoiding to provide username and password/token on each request. `id_rsa.pub` is default public key.
+You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It can help connect one machine to another using keys and thus avoiding to provide username and password/token on each request.
 
-- if `~/.ssh/id_rsa.pub` exists do `cat ~/.ssh/id_rsa.pub` else generate SSH Key `ssh-keygen`, passphrase is optional.
-- copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button.
-- enter any title and key that you copied
-- more - <https://docs.github.com/en/authentication/connecting-to-github-with-ssh>
+- **SSH Basics**
+  - `~/.ssh` is a folder that has your keys.
+  - `ssh-keygen` is command to generate keys. It has switched -t -b -C [ ]
+  - file `id_rsa.pub` has your public key. This is secret, but can be givent to bitbucket, so that they have your public key and can authenticate you without your username password.
+  
+- **Add SSH** to another service
+  - if `~/.ssh/id_rsa.pub` exists do `cat ~/.ssh/id_rsa.pub` else generate SSH Key `ssh-keygen`, passphrase is optional.
+  - copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button.
+  - enter any title and key that you copied.
+
+- **Links** - <https://docs.github.com/en/authentication/connecting-to-github-with-ssh>
 
 Checking
 
@@ -363,6 +381,10 @@ If you push to git from two different repositories then there may be conflict. e
 - `========`, it divides your changes from the other branch as `>>>>>>>>YOUR_BRANCH_NAME`
 - You can decide if you want keep your branch changes or not. If you want to keep the changes what you did, delete the conflict marker they are, `<<<<<<<, =======, >>>>>>>` and then do a merge.
 - Once done, `add commit push` :)
+
+## Modifying Commits
+
+- `git log`
 
 ## Version controlling in GIT
 
