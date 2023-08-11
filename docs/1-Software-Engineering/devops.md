@@ -67,47 +67,7 @@ end
 
 ## Docker
 
-- **What is Docker**
-  - Docker is a platform that helps separate application from infrastructure by using isolated environments called _containers_.
-  - it  is a set of platform as a service products that use OS-level virtualization
-  - It lets you put everything you need to run your application into a box that can be stored and opened when and where it is required.
-  - Docker-Image is template that defines layout of container, container is runtime instance of image, and runs on docker-engine, which is software that runs containers.
-  - Docker containers are defined by docker-image (template) and are run on docker-engine (runtime on host).
-
-- **How Docker works** - It is built in Go language and uses Linux kernel features for isolation, functionality like `namespaces` lets it possible.
-
-- **Docker Architecture & Overview**
-  
-  - **Docker Objects** are items you create and use in docker. They are images, containers, networks, and volumes.
-  
-  - **Docker Image** is read-only immutable _template_ that defines the layout of container. They are based on other images (kinda inheritance), like your `app-image` can be build on `ubuntu-image` with added details as installation of python, mssql and configurations to run the application. To define image you create _docker-file_. Each instruction in file is like a layer in image. Each change in statement, update only that layer not the whole image. This makes it fast and lightweight.
-  
-  - **Docker Container** is runtime instance of Docker Image. Created using `docker run` command. It runs on Docker Engine. You can create, start, stop, move, or delete a container using the Docker API or CLI. Container can connect to network, storage and can be saved as new image in its current state. Containers are mostly isolate from each other but you can control isolation of network/storage/subsystem on host machine. Eg, to run a container with image name _ubuntu_ and then run command _/bin/bash_ use: `$ docker run -i -t ubuntu /bin/bash`. It pulls image from if not available locally, crates container, allocates storage resources, adds network interface, starts container and executes the command _/bin/bash_. `-i` is interactively and `-t` attached to terminal, this lets you interact and see output of container in your terminal.
-
-  - **Docker Engine** is the software that hosts (runs) the containers. it is container runtime.
-
-  - **Docker daemon** it is background process, `dockerd` that listens to Docker-API requests and manages Docker Objects (image, container, network, volume).
-
-  - **Docker client** a process, `docker` that lets users interactions. It sends users commands to daemon. So `docker run` is send from client to daemon `dockerd` which does the job.
-  - > Docker Desktop is GUI that is easy and has client and daemon, and other helpers.
-
-  - **Docker registries** a registry that stores docker-images. It can be yours or a public register _Docker Hub_ that anyonce can use (like GitHub). Commands like `docker pull` or `docker run` read, and `docker push` write docker-image to configured registry.
-
-    ```mermaid
-    graph LR;
-
-    User <--> Client <--> Docker_API <--> Daemon
-
-    subgraph Registry
-      Image-1
-      Image-2
-      
-    end
-
-    Daemon <--push / pull--> Image-2
-    Daemon <--run--> Image-1
-
-    ```
+_moved to docker notes in Information Technology. Link: [Docker Notes](/0-Information-Technology/docker/)_
 
 ## Jenkins
 

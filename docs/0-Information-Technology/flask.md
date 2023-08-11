@@ -390,6 +390,7 @@ DB_package or ORM - Python has packages for most database engines like MySQL, Po
     - We can define, table, its columns, data types, keys and relationships.
     - `__tablename__ = 'users'`
     - It has attributes that represent column name. `name = db.Column(db.String(64), unique=True)`
+    - **db.metadatas** - You can add schema of table in model using, `__table_args__ = {'schema': db.metadatas['SCHEMA']}` and define schema in metadata when initializing `db` object in `__init__.py` of app using `db.metadatas['SCHEMA'] = app.config.get("SCHEMA") or "[dbo]"`. You can also add more metadata here, like database name.
 
     - **Relationships** To create ER in OOPs way `users = db.relationship('User', backref='role')`
       - `backref` adds a back-reference to other models
@@ -867,7 +868,7 @@ _needs improvements after hands-on_
   - ensure code for all branch and function is run by changing scenarios.
   - 100% coverage is when you run all functions and code in all if else try catch is tested.
   - do test as you develop.
-  - `pytest` to test
+  - `pytest` or `unittest` to test
   - `coverage` to measure
 
 - **PyTest**
@@ -919,25 +920,6 @@ _needs improvements after hands-on_
   - **Run - Pytest**
     - `pytest` runs test
     - `pytest -v` runs and shows all files
-  
-- **Report - Coverage**
-  - `coverage run -m pytest` runs tests and measures coverage
-  - `coverage run -m unittest` runs tests using unittest and measures coverage
-  - `coverage report` shows coverage report on CLI
-  - `coverage html` builds dir for detailed report
-    - `htmlcov/index.html` has detailed report.
-    - shows code covered and not covered.
-  - To exempt a code block from coverage, add `# pragma: no cover` after code block. Make this a tough decision to skip code from testing.
-
-
-  - more [here](https://flask.palletsprojects.com/en/2.2.x/tutorial/tests/)
-
-- **Manual Testing**
-  - Basic testing can be done using flask shell and executing functions `flask --app flasky.py shell`
-  - do things similar to as you do in wrinting code, like import module, create objects, call functions etc.
-  - use `current_app` to use `app_context`, or
-  - `with app.app_context():` when using factory
-  - What you test in shell should be automated by making test cases.
 
 - **UnitTest** - test small units
   - use py native `import unittest`
@@ -946,31 +928,21 @@ _needs improvements after hands-on_
     - import modules you want to test, `User`, `current_app`
     - define class `class BasicsTestCase(unittest.TestCase):`
       - build functions
-        - `setUp()` runs before each test, builds env for testing
-        - `tearDown()` runs after each test, removes things from env
+        - `setUp()` runs before each test function, builds env for testing
+        - `tearDown()` runs after each test function, removes things from env
         - `test_somecase()` these functions run as test.
           - `assertTrue` Ok if True
           - `assertFalse` Ok if False
           - `with self.assertRaises(AttributeError):` statement that raise error.
   - tests can be written in separate py files (modules) and the folder `tests` can have `__init__.py` as blank to make it a pkg
-  - in `flasky.py` you can add code to run tests automatically by adding a cli command.
-  - do `flask --app flasky.py test` to run all test cases
-
-      ```python
-      @app.cli.command()
-      def test():
-        """Run the unit tests.""" # help msg on cli
-        import unittest
-        tests = unittest.TestLoader().discover('tests')
-        unittest.TextTestRunner(verbosity=2).run(tests)
-      ```
-
   - `python -m unittest` discovers and runs all tests.
+  - to run specific test class `unittest mypkg.tests.test_module.TestClass`
+  - to run specific method `unittest mypkg.tests.test_module.TestClass -k test_method`
 
 - **Unittest vs PyTest**
   - Unittest is universally accepted and is built in Python standard library
   - PyTest has lot of features and we need to write less
-  - Unitest needs classes & methods. Pytest only needs methods.
+  - Unitest needs classes & methods. Pytest only needs methods.d
   - Pytest runner has **full support** for test cases written in UnitTest clasees.
   - **Use both**, OOPs of Unittest and better assert of Pytest with and its better error reporting.
 
@@ -987,6 +959,10 @@ _needs improvements after hands-on_
     - Eg, `[('name1',32), ('name2',24)]`, `@parameterized.expand([(n,) for n in range(9)])`, `@parameterized.expand(itertools.product([True, False], range(9)))`
 
       ```python
+      from parameterized import parameterized
+
+      ...
+
       class TestLife(unittest.TestCase):
           # ...
 
@@ -1009,71 +985,243 @@ _needs improvements after hands-on_
     - More here on [MG's Unit Testing - Mocking](https://blog.miguelgrinberg.com/post/how-to-write-unit-tests-in-python-part-2-game-of-life#:~:text=72%20different%20tests!-,Mocking,-We%20are%20now)
 
 
-- **Test Code Structure**
-  - create a test module (file) of same name as test subject with test_ prefixed. Eg, `test_foo.py`
-  - import `unittest` and other required packages
-  - create classes and methods for testing.
-  - in test_method
-    - call code from your app, set varibles or directly put code in assert
-    - `assert some-code` some-code can be anything that evaluates to True.
+- **Report - Coverage**
+  - `coverage run -m pytest` runs tests and measures coverage
+  - `coverage run -m unittest` runs tests using unittest and measures coverage
+  - `coverage report` shows coverage report on CLI
+  - `coverage html` builds dir for detailed report
+    - `htmlcov/index.html` has detailed report.
+    - shows code covered and not covered.
+  - To exempt a code block from coverage, add `# pragma: no cover` after code block. Make this a tough decision to skip code from testing.
 
-    ```python
-    import unittest
-    from app import User, Engine
 
-    class TestUserAdd(unittest.TestCase):
-        def test_works(self):
-            u = User()
-            assert u.exists() # anything that evalueates to True
+  - more [here](https://flask.palletsprojects.com/en/2.2.x/tutorial/tests/)
 
-    class TestEngineWork(unittest.TestCase):
-        pass
-    ```
+### Manual Testing
 
-  - For a **Flask App**
-    - `setUp` and `tearDown` methods are special that automatically invoked before and after each test case. This makes every test case run on clean slate. You can have different one in each class, or make a base class and import it in other classes.
-    - request functions
-      - `response = app.client.get('/', follow_redirects=True)` - use response same as you do in flask app
-      - `response = self.client.post('/auth/register', data={some_json}, follow_redirects=True)` - submit a form this way
+- Basic testing can be done using flask shell and executing functions `flask --app flasky.py shell`
+- do things similar to as you do in wrinting code, like import module, create objects, call functions etc.
+- use `current_app` to use `app_context`, or
+- `with app.app_context():` when using factory
+- What you test in shell should be automated by making test cases.
 
-    - response methods
-      - `html = response.get_data(as_text=True)`
-      - `assert response.status_code == 200`
-      - `assert response.request.path == '/auth/login' # redirected to login`
-      - `response.json['token']`
+A practical way of doing manual tests is using interactive coding and running it on python shell. You can write code in editor or shell and keep executing it line by line to see outputs as you go. Once you are happy with the code, you can put them in test cases. Below is an example that shows how to get started.
 
-    ```python
-    # tests/test_base.py
-    import unittest
-    from flask import current_app
-    from app import create_app, db
+```py
+from flask import current_app
+from app import create_app, db
 
-    class TestWebApp(unittest.TestCase):
-        def setUp(self):
-            self.app = create_app()
-            self.appctx = self.app.app_context()
-            self.appctx.push()
-            db.do_something() # you can call any method as well here
-            self.do_something() # method in this class that has code to be executed before each test, like register
-            self.client = self.app.test_client()
+app = create_app('default')  # testing
+app.config['WTF_CSRF_ENABLED'] = False  # no CSRF during tests
+app_context = app.app_context()
+app_context.push()
+client = app.test_client()
 
-        def tearDown(self):
-            db.drop_something() # again execute anything at end of test case
-            self.appctx.pop()
-            self.app = None
-            self.appctx = None
-            self.client = None
+import app.db_conn as db_conn
+import app.sql_snippets as sql_snippets
+```
 
-        def test_app(self):
-            assert self.app is not None
-            assert current_app == self.app
+The code above builds basic app working with the configs and imports. It makes `client` available which can be used to interact with the flask routes. It also makes modules available which can be used for functionalities. More on how to use it below.
 
-        def test_home_page_redirect(self):
-            response = self.client.get('/', follow_redirects=True)
-            slef.do_login() # funciton in this class that logs in to the app can be reused
-            assert response.status_code == 200
-            assert response.request.path == '/auth/login'
-    ```
+### Writing Tests
+
+**Folder Structure** The below tree shows how to organise test package and modules.
+
+```sh
+├── requirements.txt          # on this level, project requirements
+├── tests                     # root folder for tests, this is outside app
+│   ├── conftest.py           # define fixtures (only in pytest)
+│   ├── assets                # keep files here to check file upload
+│   ├── functional            # tests functionality, usually routes
+│   │   ├── __init__.py
+│   │   ├── test_books.py
+│   │   └── test_users.py
+│   └── unit                  # tests units, usually models
+│       ├── __init__.py
+│       └── test_models.py
+└── venv
+```
+
+**Philosophy** - Use _GIVEN.. WHEN.. THEN.._ ideology when writing test cases. So your function for test can start as, in `tests/unit/test_models.py`:
+
+```py
+from project.models import User
+
+def test_new_user():
+    """
+    GIVEN a User model
+    WHEN a new User is created
+    THEN check the email, hashed_password, and role fields are defined correctly
+    """
+    user = User('johndoe@gmail.com', 'j0hnD0e')
+    assert user.email == 'johndoe@gmail.com'
+    assert user.hashed_password != 'j0hnD0e'
+    assert user.role == 'user'
+```
+
+A common practice is to use the GIVEN-WHEN-THEN structure:
+
+- GIVEN - what are the initial conditions for the test?
+- WHEN - what is occurring that needs to be tested?
+- THEN - what is the expected response?
+
+**Testing Web App**
+
+Web app testing needs `client` and client needs `app_context`. They are used in test cases. So as a minimum, you need three function in a `Class` to get started. So in `tests/functional/test_basic.py` add:
+
+```py
+import unittest
+from flask import current_app
+from app import create_app, db
+import app.db_conn as db_conn
+
+class BasicTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.app = create_app('testing')              # testing
+        self.app.config['WTF_CSRF_ENABLED'] = False   # no CSRF during tests
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        db_conn.init_db()                             # destroys and builds database
+        self.client = self.app.test_client()
+
+    def tearDown(self):
+        self.app_context.pop()
+        self.app = None
+        self.app_context = None
+        self.client = None
+
+    def test_app_exists(self):
+        """Tests the hello from __init__.py"""
+        assert self.app is not None
+        assert current_app == self.app
+        response = self.client.get('/hello')
+        html = response.get_data(as_text=True)
+        assert 'Hello, World!' in html
+```
+
+You can add more functions to this calls. Each of theses functions will be new test-cases and the `setUp` and `tearDown` methods will run before and after each of them.
+
+**Flow**: You can write a SQL query, get the results in variable. Use the variables to send request to client. Very response in HTML with other variables from SQL query. Eg, query user details and get `{id: 1, name: 'John'}`. The request `user/1` and `assert f'{name}' in html`. Basically, values in DB should match in HTML and values you POST as HTTP request should appear in DB. Access restrictions on routes should work as expected. Redirects should work as expected. User is able to do all actions required.
+
+**Imp**: Please note, `db_conn.init_db()` this will run for all `test_*()` methods in the class. Do this only if required.
+
+**Tip:**: Write what you expect users to do and don't. Then code test cases. You can use `print` in test cases to debug steps. You can use manual-interactive-testing to help write test cases.
+
+**Note**: Tests are executed in **alphabetical** order within a class. So ensure you do, `test_a_upload()` then `test_b_check()`
+
+**Test File Upload**
+
+You can test a page where user upload a file, and then match that result back with database update. In `tests/functional/test_admin.py`
+
+```py
+# ... prev imports
+
+from werkzeug.datastructures import FileStorage
+
+class AdminTestCase(unittest.TestCase):
+
+    # ... set up and teardown
+
+    def test_admin_upload(self):
+        """admin can upload csv"""
+        self.login()
+
+        # upload file
+        csv_file = FileStorage(
+            stream=open(r"tests/assets/sample.csv", "rb"),
+            filename="sample.csv",
+            content_type="text/csv"
+        )
+        response = self.client.post(
+            "admin/upload",
+            data={
+                "csv_file": csv_file,
+            },
+            content_type="multipart/form-data",
+            follow_redirects = True
+        )
+        assert response.status_code == 200
+        html = response.get_data(as_text=True)
+        assert 'Load successful!' in html
+
+        # match flow count
+        sql = f"""
+            select count(*) as flows
+            from {self.app.config.get("DATABASE")}.{self.app.config.get("SCHEMA")}.[my_table]
+            """
+        res = app.db_conn.get_db().execute(sql)
+        rows = res.fetchone()
+        rows_count = rows[0]
+        assert f'{rows_count} records loaded' in html
+```
+
+**Test Code Structure**
+
+- create a test module (file) of same name as test subject with test_ prefixed. Eg, `test_foo.py`
+- import `unittest` and other required packages
+- create classes and methods for testing.
+- in test_method
+  - call code from your app, set varibles or directly put code in assert
+  - `assert some-code` some-code can be anything that evaluates to True.
+
+  ```python
+  import unittest
+  from app import User, Engine
+
+  class TestUserAdd(unittest.TestCase):
+      def test_works(self):
+          u = User()
+          assert u.exists() # anything that evalueates to True
+
+  class TestEngineWork(unittest.TestCase):
+      pass
+  ```
+
+- For a **Flask App**
+  - `setUp` and `tearDown` methods are special that automatically invoked before and after each test case. This makes every test case run on clean slate. You can have different one in each class, or make a base class and import it in other classes.
+  - request functions
+    - `response = app.client.get('/', follow_redirects=True)` - use response same as you do in flask app
+    - `response = self.client.post('/auth/register', data={some_json}, follow_redirects=True)` - submit a form this way
+
+  - response methods
+    - `html = response.get_data(as_text=True)`
+    - `assert response.status_code == 200`
+    - `assert response.request.path == '/auth/login' # redirected to login`
+    - `response.json['token']`
+
+  ```python
+  # tests/test_base.py
+  import unittest
+  from flask import current_app
+  from app import create_app, db
+
+  class TestWebApp(unittest.TestCase):
+      def setUp(self):
+          self.app = create_app()
+          self.appctx = self.app.app_context()
+          self.appctx.push()
+          db.do_something() # you can call any method as well here
+          self.do_something() # method in this class that has code to be executed before each test, like register
+          self.client = self.app.test_client()
+
+      def tearDown(self):
+          db.drop_something() # again execute anything at end of test case
+          self.appctx.pop()
+          self.app = None
+          self.appctx = None
+          self.client = None
+
+      def test_app(self):
+          assert self.app is not None
+          assert current_app == self.app
+
+      def test_home_page_redirect(self):
+          response = self.client.get('/', follow_redirects=True)
+          slef.do_login() # funciton in this class that logs in to the app can be reused
+          assert response.status_code == 200
+          assert response.request.path == '/auth/login'
+  ```
 
 - **Do s**
   - If a piece of code is difficult to test with test case, consider refactoring it. Eg, some code that is not in funciton and just prints as part of execution can't be called from test case, so make a function for it. Alos, you can wrap any global code in a function and call it. This also makes code **only direct** executable when file is ran, **import doesn't** execute it.
@@ -1092,6 +1240,7 @@ _needs improvements after hands-on_
   - [Stackoverflow why to use PyTest](https://stackoverflow.com/questions/27954702/unittest-vs-pytest)
   - [Flask Docs - Pure Pytest](https://flask.palletsprojects.com/en/2.2.x/tutorial/tests/)
   - [RealPython - Flask testing](https://realpython.com/python-web-applications-with-flask-part-iii/) has a different package, so differs
+  - [Codethechange Stanford - Guides Guide_flask_unit_testing](https://codethechange.stanford.edu/guides/guide_flask_unit_testing.html)
 
 ## Error Handling
 
@@ -1163,12 +1312,57 @@ current_app.logger.debug('Some message')
       logging.getLogger("werkzeug").setLevel(logging.WARNING)
   ```
 
-- Links
-  - [FlaskDocs - Config Logger](https://flask.palletsprojects.com/en/2.2.x/logging/#basic-configuration)
-  - [MG - Logging to a File Legacy](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-unit-testing-legacy#:~:text=the%20console%20window.-,Logging%20to%20a%20file,-Receiving%20errors%20via)
-  - [RealPython - Flask Part III - Logging](https://realpython.com/python-web-applications-with-flask-part-iii/#logging). Eg, shows to Log Errors, keep 7 days history.
+**Links**
+
+- [FlaskDocs - Config Logger](https://flask.palletsprojects.com/en/2.2.x/logging/#basic-configuration)
+- [MG - Logging to a File Legacy](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-unit-testing-legacy#:~:text=the%20console%20window.-,Logging%20to%20a%20file,-Receiving%20errors%20via)
+- [RealPython - Flask Part III - Logging](https://realpython.com/python-web-applications-with-flask-part-iii/#logging). Eg, shows to Log Errors, keep 7 days history.
 
 
+
+## CLI in Flask
+
+_how to build CLI commands in flask_
+
+**Test - add a CLI command to run tests**
+
+You can build a CLI command to run  tests automatically. Add following code to files where you build app, usually `app/__init__.py`
+
+```py title="CLI command for running tests"
+@app.cli.command()
+def test():
+    """Run the unit tests."""       # help msg on cli
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+```
+
+To run this CLI command do following and it will run all the rest cases.
+
+```sh
+flask --app flasky.py test
+```
+
+
+## Security Flaws Checks
+
+You can use `bandit` package to check security flaws in app. It scans code and lets you know any possible security flaw.
+
+**Install and Run**
+
+```sh
+# install the package
+python -m pip install bandit
+
+# run on the app module
+bandit -r app
+```
+
+The second command above, runs the checks on the whole app and lists the issues by severity and confidance.
+
+**Links**
+
+- [Realpython - Python Testing](https://realpython.com/python-testing/#testing-for-security-flaws-in-your-application)
 
 
 ## Make the Project Installable

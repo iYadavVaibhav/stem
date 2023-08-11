@@ -3,3 +3,4 @@ site
 history.txt
 .vscode
 *.log
+*.patch

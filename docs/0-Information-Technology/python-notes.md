@@ -114,12 +114,22 @@ Undo `conda deactivate && conda remove --name prj1env --all` and remove files if
 - `conda update PACKAGENAME` updated pkg
 - `pip install pkg` aslo intalls to active env
 
-**Conda Env Commands**
+**Conda Environments**
 
 - `conda create --name py35 python=3.5` created new env called 'py35' and installs py 3.5
 - `conda activate py35` activates
 - `conda list` lists all packages installed in active env.
 - `conda remove --name my-env --all` deletes the env.
+
+
+```bash
+# Windows Create Python 3.8 env
+conda create -y --name py38 python=3.8
+python -m ensurepip
+python -m pip install --upgrade pip
+python -m pip install virtualenvwrapper-win
+activate py38
+```
 
 
 ## Python Programming

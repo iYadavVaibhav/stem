@@ -123,7 +123,19 @@ do so (now or later) by using -c with the switch command. Example:
 
 - delete
   - `git branch -d my-branch-name` - use `-D` to force delete
+  - `git remote prune origin` - removed deleted remote branch from local history in branch -a.
 
+**Remove Files and Folders**
+
+If a file is tracked in git then adding it to `.gitignore` will not ignore it. So you will have to do following for it.
+
+```sh
+# to remove dir
+git rm --cached -r the_project/dev_dir
+
+# to remove a file
+git rm --cached the_project/secrets.py
+```
 
 ### Read Remote Repo
 
@@ -239,15 +251,92 @@ $ git bundle create my_prj.repo HEAD
 - [Initialcommit - git-format-patch](https://initialcommit.com/blog/git-format-patch)
 - [Git bundle on Lindedin](https://www.linkedin.com/pulse/what-git-bundle-stephen-paynter/)
 
-## Guide - Disconnected sync when network is restricted
+## Guide - Disconnected Sync when Network is Restricted
+
+Scenario is that you need to sync repo1 and repo2 but there is no central server or connectivity between them. You can't do git push/pull as there is no remote. In this case we use text file having changes called patch.
+
+Here, repo1 is network restricted, repo2 is not.
+
+**Build Patch**
+
+On repo1, ensure you are on `dev` branch and that all changes are commited.
+
+```sh
+# Ensure
+git checkout dev
+git add .
+git commit -m "ready_to_diff"
+
+# Build Patch
+git diff master dev > diff.patch
+```
+
+This generates a patch with all changes done compared to master branch. Now copy the contents of this file to another machine having `repo2`
+
+
+**Applying patch on Repo2**
+
+Now on repo2, ensure you are on master branch and all changes are commited. Create a new branch to patch:
+
+```sh
+git checkout -b master_patched
+touch diff.path
+```
+
+Copy and paste contents to `diff.path`
+
+```sh
+git apply --reject --whitespace=fix diff.patch
+```
+
+Once you verify that patch is applied and all changes are in place, delete the patch file
+
+```sh
+git rm diff.patch
+git add .
+git commit -m "patched"
+
+# merge to master
+git checkout master
+git merge master_patched
+
+# commit and push
+git add .
+git commit -m "patched_merged"
+git push
+```
+
+Now you have synced changes from repo1 to repo2. Lastly, bring these changes to repo1 so that both are in perfect sync.
+
+**Resetting Repo 1**
+
+On repo1
+
+```sh
+git checkout master
+git branch -D dev
+```
+
+Now delete all files and folders except `.git`. Then download zip, extract.
+
+Then
+
+```sh
+git add .
+git commit -m "downloaded patched"
+git checkout -b dev
+```
+
+Now your repo1 is updated with all changes merged and is ready to work.
+
+
+**Old TBD**
 
 - Idea is to use following branches on local:
   - `master` - this will have files from remote and updated to last merged activity. Download and extract here.
   - `ofc` - branch moves ahead with updates in local environment
   - `ofc_masked` branch having only files that can go remote
   - `zip` - download and extract zip from remote when you have to merge
-
-- Merge process
 
 ```sh
 # ON Secure   ---------------------------
@@ -300,8 +389,6 @@ git commit -m "downloaded"
 git checkout -b dev
 # Done! Ready to work
 
-
-
 # git diff --no-prefix ofc_masked zip > diff.patch # for this
 # "C:\Program Files\Git\usr\bin\patch.exe" -p0 < diff.patch # use this
 ```
@@ -319,7 +406,7 @@ git checkout -b dev
   - delete all from `zip` and `ofc_masked`
 
 
-Link - <https://gist.github.com/nepsilon/22bc62a23f785716705c>
+**Link** - <https://gist.github.com/nepsilon/22bc62a23f785716705c>
 
 ## Guide - Git Local to Remote Basics
 
@@ -474,6 +561,21 @@ I have followed an excellent [post](https://kbroman.org/github_tutorial/) by Kar
 - Install git on local drive.
 - Setup RSA for SSL: RSA is used for making safe authentications via SSL.
 - Setup GitHub Account: You will get an online space to upload your code with version controlling.
+
+## Git Tags
+
+First commit and then add a tag, `git tag -a v1.4 -m "my version 1.4"` to add new annotated tag.
+
+`git push origin --tags` to push tags to remote.
+
+`git tag -d v0.6` to delete tag
+
+Remote tag example: `git push -d origin v0.6``
+
+
+**Links** - Git Tags
+
+- [https://git-scm.com/book/en/v2/Git-Basics-Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
 
 ## Todo
 
