@@ -219,7 +219,21 @@ Virtual box add on:
 - `sudo apt update`
 - `sudo apt install virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils`
 
-## Enable SSH and access from remote
+## SSH - Secure Shell Protocol
+
+Secure Shell Protocol (SSH) is a network protocol that lets a user access a computer securely over an unsecured network. It uses cryptography to secure communication. It lets connect using keys and thus avoiding to provide username and password/token on each request.
+
+- **SSH Basics**
+  - `~/.ssh` is a folder that has your keys.
+  - `ssh-keygen` is command to generate keys. It has switched -t -b -C [ ]
+  - file `id_rsa.pub` has your public key. This is secret, but can be givent to bitbucket, so that they have your public key and can authenticate you without your username password.
+  
+- **Add SSH** to another service
+  - if `~/.ssh/id_rsa.pub` exists do `cat ~/.ssh/id_rsa.pub` else generate SSH Key `ssh-keygen`, passphrase is optional.
+  - copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button.
+  - enter any title and key that you copied.
+
+**Enable SSH and access from remote**
 
 - On ubuntu server or desktop
 

@@ -180,7 +180,66 @@ do so (now or later) by using -c with the switch command. Example:
 - This will bring all the files from remote to local directory with git repository on local folder.
 - Now if you have permission to commit to this repo then you can **authenticate to push**, else **change the remote** to another repo that you can push to.
 
-## Guide - How to sync when network is restricted
+## Git Diff Patch & Bundle - Text Sync
+
+_all about syncing in network restrictions_
+
+**Git Patch** 
+
+It is changes in text-format. It lets collaborate using text files instead of remote servers.
+
+> "A patch in Git is a textual representation of the changes in a commit, formatted in a way that Git can reconstruct the commit and apply it on a branch in another repository." - InitialCommit
+
+It should be used when you want to share one or more commits over email. It was used to when push/pull to remote was not used, rather email was used to sync changes. So text having information of changes done was sent to another user via email and they can apply to branch in their repository.
+
+`git format-patch` command builds patch from multiple commits. It generates the patch file. To generate a patch file is called "format a patch".
+
+**Git  Diff**
+
+`git diff` command shows difference between two things (files/commits/branches).
+
+The output `format-patch` and `diff` is same, except that
+
+- the `format-patch` has additional information about the commits, author details, timestamp and file change meta data. This extra information is also merged when applying the patch to another repository.
+- the `format-patch` can be used over multiple-commits and generates one patch for each commits. You can then apply these patches in another repository to one-by-one to reach each commit.
+
+You can use diff to create patch
+
+```sh
+git diff <old-commit> <new-commit> > diff.patch
+
+git diff branch1 branch2 > diff.patch
+# diffs branch1 with branch2 and stores output in diff.patch file
+```
+
+Here, branch2 should be new to list latest changes in patch, else the patch will have reverse changes.
+
+**Applying Patch**
+
+`git apply` is command that lets apply patch to a branch. You can also use `patch` which is separate command for updates and not git specific.
+
+```sh
+$ git apply diff.patch
+```
+
+**Git Bundle**
+
+`git bundle` is a command that builds one file having whole repository with all commits. It allows easy file sharing without need of central server. Note: this file is binary not text.
+
+```sh
+$ git bundle create <bundle_file> <refs>
+
+$ git bundle create my_prj.repo HEAD
+```
+
+`<refs>` can be HEAD or branch name or tags.
+
+**Links**
+
+- [Initialcommit - git-format-patch](https://initialcommit.com/blog/git-format-patch)
+- [Git bundle on Lindedin](https://www.linkedin.com/pulse/what-git-bundle-stephen-paynter/)
+
+## Guide - Disconnected sync when network is restricted
 
 - Idea is to use following branches on local:
   - `master` - this will have files from remote and updated to last merged activity. Download and extract here.
@@ -332,7 +391,7 @@ git push --set-upstream origin main
 
 ## SSH Authentication to push to remote
 
-You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It can help connect one machine to another using keys and thus avoiding to provide username and password/token on each request.
+You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It lets connect using keys and thus avoiding to provide username and password/token on each request.
 
 - **SSH Basics**
   - `~/.ssh` is a folder that has your keys.
