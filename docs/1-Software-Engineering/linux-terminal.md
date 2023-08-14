@@ -233,24 +233,65 @@ Secure Shell Protocol (SSH) is a network protocol that lets a user access a comp
   - copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button.
   - enter any title and key that you copied.
 
-**Enable SSH and access from remote**
+## Enable SSH access to VM from remote
 
-- On ubuntu server or desktop
+_guide to let you use vm via SSH_
 
-    ```sh
-    sudo apt install openssh-server # install ssh
-    sudo systemctl status ssh  # view status
-    sudo ufw allow ssh    # Ubuntu ships with a firewall configuration tool called UFW
-    ip a  # get IP address, something like 10.0.2.15
-    ```
+**Install ssh server on virtual machine**
 
-- on virtual box [enable network port forwarding on virtual box](https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/#:~:text=Step%202%3A%20Configuring%20the%20VirtualBox%20Network)
+The machine you need to connect to should have ssh installed and enabled so that it can allow remotes to connect to it.
 
-- on remote `ssh -p 2222 username@127.0.0.1`
+On ubuntu server or desktop
 
-- Links
-  - <https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/>
-  - <https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/?utm_content=cmp-true>
+```sh
+# install ssh
+sudo apt install openssh-server
+
+# view status
+sudo systemctl status ssh
+
+# Ubuntu ships with a firewall configuration tool called UFW
+sudo ufw allow ssh
+
+# get IP address, something like 10.0.2.15
+ip a
+```
+
+**Configure Virtual Box Network**
+
+VirtualBox creates a Network Address Translation (NAT) adapter for VMs. This allows VM to access the internet but prevents other devices from accessing it via SSH. To configure the network, you need to use VirtualBox **port forwarding** on the default NAT adapter your VM is attached to.
+
+Click on `Virtual Machine > Settings > Network > Adapter 1 > Advanced > Port Forwarding`. Next, Add a Port Forwarding Rule. Click on the Plus (+) icon under the Port Forwarding Rules page. Give your rule a meaningful name (for example "SSH port forwarding"). Use the default protocol i.e. TCP. The host IP will be 127.0.0.1 or simply localhost and use 2222 as the Host Port.
+
+```yaml
+Name: SSH port forwarding
+Protocol: TCP
+Host IP: 127.0.0.1
+Host Port: 2222
+Guest IP: 10.0.2.15
+Guest Port: 22
+```
+
+Finally, press the Ok button. You can read more in detail on [enable network port forwarding on virtual box](https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/#:~:text=Step%202%3A%20Configuring%20the%20VirtualBox%20Network) page.
+
+**Connecting from Remote**
+
+On remote to connect via ssh
+
+```sh
+ssh -p 2222 gues_vm_username@127.0.0.1
+```
+
+**How does port forwarding work?**
+
+When you do ssh on `127.0.0.1:2222` it is forwarded to `10.0.2.15:22` which lets the connection happen.
+
+**Links**
+
+- <https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/>
+- <https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/?utm_content=cmp-true>
+
+
 
 ## Linux Ways
 

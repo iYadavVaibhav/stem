@@ -1,10 +1,10 @@
 site_name: Vaibhav Yadav's Wiki
 site_description: Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence
-site_url: https://iYadavVaibhav.github.io/wiki/
+site_url: https://iYadavVaibhav.github.io/stem/
 site_author: Vaibhav Yadav - Data Engineer, Scientist and Analyst
 
-repo_url: https://github.com/iYadavVaibhav/wiki
-repo_name: iyadavvaibhav/wiki
+repo_url: https://github.com/iYadavVaibhav/stem
+repo_name: iyadavvaibhav/stem
 
 
 theme:

@@ -1790,6 +1790,3 @@ _This is understanding of a tutorial by Miguel Grinberg, we are learning to crea
 - [Flask Mega Tutorial I Legacy - Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world-legacy)
   - no blueprint.
 
-
-
-
