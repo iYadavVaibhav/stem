@@ -132,7 +132,7 @@ VS Code is general purpose light weight highly customizable text editor. Suports
 
 ### Macro in VS Code
 
-You can use Macro in VS Code using extention [macro-commander]([macro-commander](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.macro-commander))
+You can use Macro in VS Code using extention [macro-commander](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.macro-commander)
 
 - You can run a sequence of vscode commands
 - Run javascript with access to vscode object

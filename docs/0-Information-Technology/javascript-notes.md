@@ -93,6 +93,6 @@ This copies the output to clipboard.
 
 ## Links
 
-- [NativeScript Notes](../nativescript-notes)
-- [ECMA6 Notes](../js-ecma6-notes)
-- [React JS Notes](../react-js-notes)
+- [NativeScript Notes](./nativescript-notes.md)
+- [ECMA6 Notes](../1-Software-Engineering/js-ecma6-notes.md)
+- [React JS Notes](./react-notes.md)

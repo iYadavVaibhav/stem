@@ -44,6 +44,20 @@ So one repo has your source markdown files and another repo has static site whic
 - Links
   - <https://blog.elmah.io/deploying-a-mkdocs-documentation-site-with-github-actions/>
 
+### Internal Links to Pages
+
+You can link to internal pages by providing relative filename. On compiliting these are converted to HTML links. Eg:
+
+```md
+Please view [documentation](documentation.md) for more information.
+
+Please view [documentation](../about/documentation.md) for more information.
+
+Please view [documentation](about.md#documentation) for more information.
+```
+
+Reference page [MkDocs - linking-to-pages](https://www.mkdocs.org/user-guide/writing-your-docs/#linking-to-pages)
+
 ## Material Theme
 
 - Requirements

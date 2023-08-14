@@ -105,7 +105,7 @@ Initialization:
 - create table, called collection, users
 - create rows, called document, doc_id
 
-More on [Flutter](../flutter-notes/) notes.
+More on [Flutter](./flutter.md) notes.
 
 ## App Script
 

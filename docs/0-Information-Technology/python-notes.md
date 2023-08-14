@@ -833,6 +833,6 @@ EdX
 
 - [Python Coding Kaggle](https://www.kaggle.com/iyadavvaibhav/python-notes)
 - [Pandas Kaggle](https://www.kaggle.com/iyadavvaibhav/pandas-notes)
-- [Flask](flask.md) - back end web framework micro
+- [Flask](./flask.md) - back end web framework micro
 - [Python Official Tutorial](https://docs.python.org/3.11/tutorial/index.html)
 - [pythonbasics.org](https://pythonbasics.org/)

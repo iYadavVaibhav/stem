@@ -67,7 +67,7 @@ end
 
 ## Docker
 
-_moved to docker notes in Information Technology. Link: [Docker Notes](/0-Information-Technology/docker/)_
+_moved to docker notes in Information Technology. Link: [Docker Notes](../0-Information-Technology/docker.md)_
 
 ## Jenkins
 

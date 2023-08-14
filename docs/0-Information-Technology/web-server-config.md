@@ -7,7 +7,7 @@ date: 2020-07-14
 
 Web server can be a linux server that takes client requests and provides a response. It can host a web app. Web app can be backed by a programming language that and process data and store this data in  a database.
 
-In this article we would be covering all that is listed in contents below. It is assumed that you have a machine with Ubuntu server installed. It can be on cloud like [GCP](../google-cloud-platform-notes) or AWS etc, or it can be on a virtual machine via [Vagrant](../vagrant-virtualbox-notes) and Virtual Box.
+In this article we would be covering all that is listed in contents below. It is assumed that you have a machine with Ubuntu server installed. It can be on cloud like [GCP](./google-cloud-platform.md) or AWS etc, or it can be on a virtual machine via [Vagrant](./virtual-box.md) and Virtual Box.
 
 - Do not remove this line (it will not be displayed)
 {:toc}

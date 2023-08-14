@@ -49,4 +49,4 @@ Another article that compares R and Python can be found [here](https://gist.gith
 
 [Comparison of Pandas with SQL](https://pandas.pydata.org/pandas-docs/version/0.23/comparison_with_sql.html)
 
-[Pandas docs]( https://pandas.pydata.org/pandas-docs/version/0.23/index.html) excellent details with examples.
+[Pandas docs](https://pandas.pydata.org/pandas-docs/version/0.23/index.html) excellent details with examples.
