@@ -219,29 +219,97 @@ Virtual box add on:
 - `sudo apt update`
 - `sudo apt install virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils`
 
+### Securing Ubuntu Server
+
+**Firewall**
+
+```sh
+# install firewall
+$ sudo apt-get install -y ufw
+
+# enable ports required
+$ sudo ufw allow ssh
+$ sudo ufw allow http
+$ sudo ufw allow 443/tcp
+
+# Add to startup
+$ sudo ufw --force enable
+Firewall is active and enabled on system startup
+
+# Check status
+$ sudo ufw status
+```
+
+This will install ufw, the Uncomplicated Firewall. Allow external traffic on port 22 (ssh), 80 (http) and 443 (https) only, rest ports are declined.
+
+**Links**
+
+- [Securing Ubuntu Prod - Miguel](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux/page/0#:~:text=Securing%20Your%20Server)
+
+
+
 ## SSH - Secure Shell Protocol
 
-Secure Shell Protocol (SSH) is a network protocol that lets a user access a computer securely over an unsecured network. It uses cryptography to secure communication. It lets connect using keys and thus avoiding to provide username and password/token on each request.
+Secure Shell Protocol (SSH) is a **network protocol** that lets a user **access a computer** securely over an unsecured network. It uses **cryptography** to secure communication. It also lets connect using keys and thus avoiding to provide username and password/token on each request.
 
-- **SSH Basics**
-  - `~/.ssh` is a folder that has your keys.
-  - `ssh-keygen` is command to generate keys. It has switched -t -b -C [ ]
-  - file `id_rsa.pub` has your public key. This is secret, but can be givent to bitbucket, so that they have your public key and can authenticate you without your username password.
-  
-- **Add SSH** to another service
-  - if `~/.ssh/id_rsa.pub` exists do `cat ~/.ssh/id_rsa.pub` else generate SSH Key `ssh-keygen`, passphrase is optional.
-  - copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button.
-  - enter any title and key that you copied.
+**View your RSA Keys**
 
-## Enable SSH access to VM from remote
+RSA keys are stored in your user-directory
 
-_guide to let you use vm via SSH_
+```sh
+$ ls ~/.ssh
+config  id_rsa  id_rsa.pub  known_hosts
+```
 
-**Install ssh server on virtual machine**
+if `id_rsa` and `id_rsa.pub` exist then you have rsa keys, else
 
-The machine you need to connect to should have ssh installed and enabled so that it can allow remotes to connect to it.
+**Generate Your SSH Keys**
 
-On ubuntu server or desktop
+Every machine need to have SSH public and private key to authenticate. To generate key:
+
+```sh
+$ ssh-keygen
+```
+
+**RSA Public Key**
+
+File `id_rsa.pub` has your public key, it represents you as a user in crytic key. This is secret, but can be givent to servers (vm, github etc.), so that they have your public key and can authenticate you without password. If a public key of a client-machine is in servers authorized keys, then connection from client-machine is authorized **without requiring password** of user.
+
+**Adding your Key to Server**
+
+On **Server** your have logged in with password. Copy your public key from your client machined, then on the server do:
+
+```sh
+$ echo <your-copied-public-key> >> ~/.ssh/authorized_keys
+$ chmod 600 ~/.ssh/authorized_keys
+```
+
+This adds your key to server. Then `600` changes permission to `-rw-------` from `-rw-rw-r--` so that it is secure and only current user can read write it. More information can be found here on [Miguel's Linux Deployment Guide](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux/page/0)
+
+On **Github.com** - Copy the content of Public RSA Key, then open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button. Enter any title (usually your user and machine) and key that you copied. This key lets the user and machine be identified without password. More on this [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+
+Once **added**, the **concept** is that `ssh` command on your terminal will do a cryptographic operation with your private key then this magic is sent to server which uses your copied public key to validate and authorize you. GULP it for now..!
+
+**What is the known_hosts file in SSH?**
+
+The known_hosts file stores the public keys of the server accessed by a user (on client). It stores identity of server so that user accidently does not connect to unknown host and get attacked. They are stored in `/etc/ssh/known_hosts` for system hosts or in `~/.ssh/known_hosts` for each user.
+
+If the host is unknow you see following message:
+
+```sh
+$ ssh -p 2222 vaibhav@127.0.0.1
+The authenticity of host '[127.0.0.1]:2222 ([127.0.0.1]:2222)' can't be established.
+ED25519 key fingerprint is SHA256:UystFEOFRcH1YLdhYgr543JgrecGeZ2jmg02naQQZVw.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[127.0.0.1]:2222' (ED25519) to the list of known hosts.
+```
+
+Otherwise it simply lets connect.
+
+**Install SSH Server and Enable on Ubuntu**
+
+Any server needs to run SSH server and enable SSH port on itself so that it can accept SSH connections.
 
 ```sh
 # install ssh
@@ -250,47 +318,16 @@ sudo apt install openssh-server
 # view status
 sudo systemctl status ssh
 
-# Ubuntu ships with a firewall configuration tool called UFW
+# allow ssh port on firewall
 sudo ufw allow ssh
 
-# get IP address, something like 10.0.2.15
+# get IP address of ubnutu machine
 ip a
 ```
 
-**Configure Virtual Box Network**
+You need to secure Ubunut server as well to prevent misuse, see "Securing Ubuntu Server" for more details.
 
-VirtualBox creates a Network Address Translation (NAT) adapter for VMs. This allows VM to access the internet but prevents other devices from accessing it via SSH. To configure the network, you need to use VirtualBox **port forwarding** on the default NAT adapter your VM is attached to.
-
-Click on `Virtual Machine > Settings > Network > Adapter 1 > Advanced > Port Forwarding`. Next, Add a Port Forwarding Rule. Click on the Plus (+) icon under the Port Forwarding Rules page. Give your rule a meaningful name (for example "SSH port forwarding"). Use the default protocol i.e. TCP. The host IP will be 127.0.0.1 or simply localhost and use 2222 as the Host Port.
-
-```yaml
-Name: SSH port forwarding
-Protocol: TCP
-Host IP: 127.0.0.1
-Host Port: 2222
-Guest IP: 10.0.2.15
-Guest Port: 22
-```
-
-Finally, press the Ok button. You can read more in detail on [enable network port forwarding on virtual box](https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/#:~:text=Step%202%3A%20Configuring%20the%20VirtualBox%20Network) page.
-
-**Connecting from Remote**
-
-On remote to connect via ssh
-
-```sh
-ssh -p 2222 gues_vm_username@127.0.0.1
-```
-
-**How does port forwarding work?**
-
-When you do ssh on `127.0.0.1:2222` it is forwarded to `10.0.2.15:22` which lets the connection happen.
-
-**Links**
-
-- <https://www.makeuseof.com/how-to-ssh-into-virtualbox-ubuntu/>
-- <https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/?utm_content=cmp-true>
-
+Now this machine can accept SSH connections.
 
 
 ## Linux Ways
@@ -410,6 +447,10 @@ Other
     [Medium - Installing Linux](https://medium.com/junior-dev/how-to-re-purpose-your-old-android-phone-by-running-linux-on-it-1310df46b3fe)
   - [Use Ubuntu in Termux](https://github.com/MFDGaming/ubuntu-in-termux)
 
+
+## Alpine Linux
+
+Installation detailed steps can be found in this [Alpine Linux Virtual box Guide](https://linuxhint.com/install-alpine-linux-virtualbox/)
 
 ## Mobile Linux
 
