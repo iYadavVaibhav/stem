@@ -160,3 +160,57 @@ Apps can be:
 More:
 
 - <https://www.mobiloud.com/blog/native-web-or-hybrid-apps>
+
+## User Journey, REST Resources and Routes
+
+_architecture patterns, models, routes, rest end points, crud, philosophy_
+
+**User Journey** should be well thought of before doing any hands on. It will define the tables of your app, the models, relationships and finally routes. This is _most important_ part of SaaS development.
+
+Step by Step - Think of user journey for immediate goal, future goal. Good to have and best possible. Translate user journey into action map for now and for future enhancements.
+
+**Routes**
+
+They are endpoints and should have a pattern, like:
+
+  - TIA - `x.com/<Type>/<Identifier?>/<Action?>`, eg, `x.com/posts/1/edit`
+  - Nested TIA - `/<Type>/<Identifier?>/<Type>/<Identifier?>/<Action?>`. Eg, `/posts/1/comments/create`
+
+**API URLs** should have versioning and api prefix like `http://hostname/todo/api/v1.0/tasks`
+
+
+| HTTP Method | URI | Action |
+| ---|---|--- |
+| GET | <http://hostname/todo/api/v1.0/tasks> | Retrieve list of tasks |
+| GET | <http://hostname/todo/api/v1.0/tasks/new> | HTML Form to add new resource |
+| GET | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Retrieve a task |
+| GET | <http://hostname/todo/api/v1.0/tasks/[task_id]/edit> | HTML form to edit resource |
+| POST |  <http://hostname/todo/api/v1.0/tasks> | Create a new task |
+| PUT | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Update an existing task |
+| DELETE |  <http://hostname/todo/api/v1.0/tasks/[task_id]> | Delete a task |
+
+**Flask Web** Routes Methods and Template naming
+
+| HTTP Method | URI | Method | Template |Action |
+| --- | --- | --- | --- | --- |
+| GET | tasks/ | all() | all.html | View all tasks |
+| GET | tasks/new | new() | new.html |  HTML Form to add new task |
+| POST |  tasks | new() |  |  Insert a new task |
+| GET | tasks/[task_id] | view() | task.html |  View one task |
+| GET | tasks/[task_id]/edit | edit() | edit.html |  HTML form to edit a task |
+| PUT | tasks/[task_id] | edit() |  |  Update an existing task |
+| POST |  tasks/[task_id] | delete() |  |  Delete a task |
+
+In above, `new.html` and `edit.html` can be combined together to be `form.html` as fields are same. Also, same form, `TaskForm` can be used for add and edit.
+
+In `tasks` `all()` method, which shows all resources, you need to implement filters, pagination, sorting and searches. These are usually URL query parameters. Eg:
+
+- `<tasks/?tag=shop&sort=asc&done=true&page=2>` this will provide you param to filter the result returned and you need to do
+  - `tag` - `where tag='shop'`
+  - sort - order by
+  - done - where done=true
+  - page - use limit or offset
+
+Links:
+
+- <https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa>

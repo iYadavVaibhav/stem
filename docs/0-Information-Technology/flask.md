@@ -307,7 +307,7 @@ bootstrap = Bootstrap(app)
   - validator functions can help validate, like `Email()`.
   - Link to [Flask-WTF](http://pythonhosted.org/Flask-WTF/)
   
-  - **Validation & Prefill** controller
+  - **Validation** controller
 
     ```python
     from flask import Flask, render_template, session, redirect, url_for
@@ -315,32 +315,110 @@ bootstrap = Bootstrap(app)
     @app.route('/', methods=['GET', 'POST'])
     def index():
       form = NameForm() # defined as OOP model
+      
       if form.validate_on_submit(): # cheks POST and validates
         session['name'] = form.name.data
         return redirect(url_for('index')) # POST -> back to this function as GET
+      
       return render_template('index.html', form=form, name=session.get('name')) # When GET
     ```
 
     - Route - define new route, import form class and use. On submit, create object of model class to save/query data.
 
-  - **Rendering** view
+**Editing Resource**
 
-    ```html
-    <form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.name.label }} {{ form.name() }}
-    {{ form.submit() }}
-    </form>
-    ```
+You can use same form to edit or add a resource. To populate the form with what is saved in database is one-line:
 
-    - HTML template - in `templates` folder, rendered from route with form passed as data. Display form elements, errors and hidden_tag.
+```py
+task = Task.query.get(id)
+form = taskForm(obj=task)   # one line form fill
+```
 
-    - You can use **bootstrap** and flask-wtf combine to avoid writing template code and just use
+On getting edited response back from client, again one-line to update the resource object:
 
-      ```html
-      {% import "bootstrap/wtf.html" as wtf %}
-      {{ wtf.quick_form(form) }}
-      ```
+```py
+if form.validate_on_submit():
+    form.populate_obj(task)      # one-line object update
+    db.session.commit()
+```
+
+When combined, it looks like:
+
+```py
+@app.route('task/<int:id>/edit', methods=['GET', 'POST'])
+def edit(id):
+    task = Task.query.get(id)
+    form = TaskForm(obj=task)
+
+    if form.validate_on_submit():
+        form.populate_obj(task)
+        db.session.commit()
+        return redirect(url_for('task.all'))
+
+    return render_template('task/form.html', form=form)
+```
+
+**Rendering View**
+
+You can use same view (html template) to add or edit resource. This template recieves `form` as object and it has all the members to show label, button, inputs etc.
+
+Here is code to show form fileds one ny one
+
+```jinja
+<form method="POST">
+{{ form.hidden_tag() }}
+{{ form.name.label }} {{ form.name() }}
+{{ form.submit() }}
+</form>
+```
+
+Or, use `flask-bootstrap` with `flask-wtf` to magically display form with one-line
+
+```jinja
+{% import "bootstrap/wtf.html" as wtf %}
+{{ wtf.quick_form(form) }} <!-- one line -->
+```
+
+**Deleting Resource**
+
+Delete can be done via POST request, this needs form to be built.
+
+Add delete route
+
+```py
+@task.route('/<int:id>', methods=['DELETE', 'POST'])
+def delete(id):
+    task = Task.query.get(id)
+    task.active = False
+    db.session.commit()
+    flash('Task deactivated!', 'danger')
+    return redirect(url_for('task.all'))
+```
+
+Add delete button where you list resource, the code below will only add a button with a confirm check:
+
+```jinja
+<form action="{{ url_for('task.delete', id=task.id) }}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-outline-danger" 
+      onclick="return confirm('Are you sure?')" 
+    >
+      Delete
+    </button>
+</form>
+```
+
+**Adding CSRF to whole app**
+
+You may also need to add CSRF in app, in `app.py` or `__init__.py`, add
+
+```py
+from flask_wtf.csrf import CSRFProtect
+...
+csrf = CSRFProtect()
+...
+csrf.init_app(app)
+```
 
 ## Databases in Flask
 
