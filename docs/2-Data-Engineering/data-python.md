@@ -187,76 +187,26 @@ connection.commit() # for non read tasks
 
 ## SQLAlchemy ORM
 
-- **Why?** - When you’re working in an **object-oriented** language like Python, it’s often useful to think in terms of objects. It’s possible to map the results returned by SQL queries to objects, but doing so works against the grain of how the database works. Sticking with the scalar results provided by SQL works against the grain of how Python developers work. This problem is known as **object-relational impedance mismatch**.
+**What?** - The ORM provided by SQLAlchemy sits between the database and Python program and transforms the data flow between the database engine and Python objects. SQLAlchemy allows you to think in terms of objects and still retain the powerful features of a database engine. It is ORM for Python, has two parts
 
-- **What?**
-  - The ORM provided by SQLAlchemy sits between the database and Python program and transforms the data flow between the database engine and Python objects. SQLAlchemy allows you to think in terms of objects and still retain the powerful features of a database engine.
-  - It is ORM for Python, has two parts
-    - CORE - can be used to manage SQL from python,
-    - ORM - can be used in Object oriented way to access SQL from python.
+- CORE - can be used to manage SQL from python,
+- ORM - can be used in Object oriented way to access SQL from python.
 
-- **ORMs** allow applications to manage a database using high-level entities such as classes, objects and methods instead of tables and SQL. The job of the ORM is to translate the high-level operations into database commands.
-  - It is an ORM not for one, but for many relational databases. SQLAlchemy supports a long list of database engines, including the popular MySQL, PostgreSQL and SQLite.
-  - The ORM translates Python classes to tables for relational databases and automatically converts Pythonic SQLAlchemy Expression Language to SQL statements
+**Why use SQLAlchemy?** - When you’re working in an **object-oriented** language like Python, it’s often useful to think in terms of objects. It’s possible to map the results returned by SQL queries to objects, but doing so works against the grain of how the database works. Sticking with the scalar results provided by SQL works against the grain of how Python developers work. This problem is known as **object-relational impedance mismatch**.
 
-- **Mappings** - There are two types of mapping
+**ORMs** allow applications to manage a database using high-level entities such as classes, objects and methods instead of tables and SQL. The job of the ORM is to translate the high-level operations into database commands.
+
+- It is an ORM not for one, but for many relational databases. SQLAlchemy supports a long list of database engines, including the popular MySQL, PostgreSQL and SQLite.
+- The ORM translates Python classes to tables for relational databases and automatically converts Pythonic SQLAlchemy Expression Language to SQL statements
+
+**Mappings** - There are two types of mapping
   - Declarative - new - more like oops
   - Imperative - old - less like oops
 
-Mappings
+**Links**
 
-- There are two types of mapping
-  - Declarative - new - more like oops
-  - Imperative - old - less like oops
-
-Mappings
-
-- There are two types of mapping
-  - Declarative - new - more like oops
-  - Imperative - old - less like oops
-
-```python
-from sqlalchemy import Column, Integer, String, ForeignKey, Table
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
-
-## Instance of Table Class, creates many to many association
-author_publisher = Table(
-  "author_publisher",
-  Base.metadata,
-  Column("author_id", Integer, ForeignKey("author.author_id")),
-  Column("publisher_id", Integer, ForeignKey("publisher.publisher_id")),
-)
-
-## Inherits Base class
-class Author(Base):
-  __tablename__ = "author"
-  author_id = Column(Integer, primary_key=True)
-  first_name = Column(String)
-  last_name = Column(String)
-  books = relationship("Book", backref=backref("author"))
-  publishers = relationship(
-    "Publisher", secondary=author_publisher, back_populates="authors"
-  )
-```
-
-- **Steps**
-  - create the **association table model**, `author_publisher`
-  - define the **class model**, `Author` for `author` database table
-  - This uses SQLAlchemy ORM features, including `Table`, `ForeignKey`, `relationship`, and `backref`.
-
--- **Querying**
-
-```py
-query.filter(people.student.is_not(None)) 
-query.filter(people.student.is_(None)) 
-```
-
-- **Links**
-  - <https://realpython.com/python-sqlite-sqlalchemy/#working-with-sqlalchemy-and-python-objects>
-  - Flask SQLAlchemy in Flask Notes
+- <https://realpython.com/python-sqlite-sqlalchemy/#working-with-sqlalchemy-and-python-objects>
+- [Flask SQLAlchemy](../0-Information-Technology/flask.md#databases-in-flask) in Flask Notes
 
 ## PyODBC Manual ORM
 

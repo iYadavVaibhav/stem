@@ -424,118 +424,416 @@ csrf.init_app(app)
 
 DB_package or ORM - Python has packages for most database engines like MySQL, Postgres, SQLite, MongoDb etc. If not, you can use ORM that lets you use Python objects to do SQL operations, SQLAlchemy or MongoEngine are such packages.
 
-- [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/) is wrapper on [SQLAlchemy](http://www.sqlalchemy.org/). You have to use SQLAlchemy pattern but it helps by making things tied to Flask way like session of SQLAlchemy is tied to web-request of flask.
-  - It is an design for Flask that adds support for SQLAlchemy to your application.
+[Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/) is wrapper on [SQLAlchemy](http://www.sqlalchemy.org/). You have to use SQLAlchemy pattern but it helps by making things tied to Flask way like session of SQLAlchemy is tied to web-request of flask.
+  - It is designed for Flask and adds support for SQLAlchemy to your application. So basically you use all knowledge and concept of SQLAlchemy but tied up with flask. Remember, SQL Alchemy can be used withour flask from command line or any other python program.
   - You can define table as a class, called model, with member variables as column names.
+  SQLAlchemy documentation is to be reffered, just add `db` before commands. so 
 
-  - **Installation** `pip install flask-sqlalchemy`
-  
-  - **Initiation**
-    - create `SQLAlchemy()` class object and pass `app` for context.
+    ```py
+    session.add(user)       # SQLAlchemy
+    db.session.add(user)    # Flask-SQLAlchemy
+    ```
 
-    ```python
-    from flask_sqlalchemy import SQLAlchemy
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db = SQLAlchemy(app) # Object for all ops
+**Installation** 
 
-    class User(db.Model):
+```sh
+python -m pip install flask-sqlalchemy
+```
+
+
+**Initiation**
+
+create `SQLAlchemy()` class object and pass `app` for context. In `app.py`
+
+```python
+from flask_sqlalchemy import SQLAlchemy
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app) # Object for all ops
+
+
+
+
+db.session.add(obj)     # insert new record to database
+db.session.delete(obj)  # delete a record from database
+db.session.commit()     # updates modifications in object if any
+
+# where clause
+user = User.query.filter_by(username=data['username']).first() # or .all()
+
+# order, after select or where, add. Its, Model.field.
+.order_by(Response.responded_at.desc())
+
+# select * from users
+users = User.query.all()
+
+```
+
+**Define Tables**
+
+Conventions:
+
+- in database, table name is plural - users, books etc
+- in python, model class name is singular - User, Book etc
+
+Tables can be defined in OOP pattern as a class called "model". Model is a Class which represents application entities, like, User, Task, Author, Book etc. You can define, table, its columns, data types, keys and relationships. The class has attributes that represent column name, eg `name = db.Column(db.String(64)`.
+
+In `model.py` 
+
+```py
+from datetime import datetime
+from app import db
+
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(50), unique=True)
     admin = db.Column(db.Boolean)
     created_on = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.now)
+```
+
+You can define column as following **Data Types**:
+
+DataType|Detail
+-|-
+Integer|an integer
+String(size)|a string with a maximum length (optional in some databases, e.g. PostgreSQL)
+Text|some longer unicode text
+DateTime|date and time expressed as Python datetime object.
+Float|stores floating point values
+Boolean|stores a boolean value
+
+You can define **properties** like:
+
+Prop|Value|Detail
+-|-|-
+primary_key|True|makes primary key
+unique|True|ensures unique
+nullable|True/False|allows NULLs or not
+default|any value of same data-type|provides default value that is inserted if value is NONE
+onupdate|any value of same data-type|changes on update
+db.ForeignKey('some.id')|pass table_name.column_name| Adds relationship
+
+**Create Tables**
+
+Once you have created a db model in flask app, you can create db and tables using following steps, open python shell:
+
+```py
+from app import db
+db.create_all() # creates all tables from model class, if they don't exist
+```
+
+**Advanced**, if you are using application factory, then you need app_context to work with database object:
+
+```py
+from app import db, create_app
+
+app = create_app('default')
+app_context = app.app_context()
+app_context.push()
+
+db.create_all()
+```
+
+Now you can check SQL for tables created. You can do:
+
+```sh
+sqlite3 filename.db
+.tables
+```
+
+If you have done any _changes_ to the model, like adding a column, you need to again recreate tables, but command above doesn't recreate existing tabke, you need to drop them and recreate, in python shell
+
+```py
+db.drop_all()
+db.create_all()
+```
+
+[Migrations](#migrations-in-database) is a better way to do this without dropping created data and keeping version control to go back is, more on this later.
 
 
-    db.session.add(obj)     # insert new record to database
-    db.session.delete(obj)  # delete a record from database
-    db.session.commit()     # updates modifications in object if any
+**Relationships in Database**
 
-    # where clause
-    user = User.query.filter_by(username=data['username']).first() # or .all()
+You can define relationship in OOPs way as attribute of class. Beauty is that the tables are linked both ways. In `model.py`.
 
-    # order, after select or where, add. Its, Model.field.
-    .order_by(Response.responded_at.desc())
+Example of **One to Many** relationship. User has multiple posts but post has only one author. `User 1-m Post`:
 
-    # select * from users
-    users = User.query.all()
+```py
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), nullable=False)
+    body = db.Column(db.Text, nullable=False)
 
-    ```
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    
+    # relationships
+    posts = db.relationship('Post', backref=db.backref('author'), lazy=False)
+```
 
-  - **DB Model**
-    - It is a Class which represents application entities, like, User, Task, Author, Book etc.
-    - We can define, table, its columns, data types, keys and relationships.
-    - `__tablename__ = 'users'`
-    - It has attributes that represent column name. `name = db.Column(db.String(64), unique=True)`
-    - **db.metadatas** - You can add schema of table in model using, `__table_args__ = {'schema': db.metadatas['SCHEMA']}` and define schema in metadata when initializing `db` object in `__init__.py` of app using `db.metadatas['SCHEMA'] = app.config.get("SCHEMA") or "[dbo]"`. You can also add more metadata here, like database name.
+Here you **note**, the `ForeignKey()` relation has to be defined in the table that has many records but `db.relationship(.. ,backref=)` can be in either of the two tables, so following statements are same:
 
-    - **Relationships** To create ER in OOPs way `users = db.relationship('User', backref='role')`
-      - `backref` adds a back-reference to other models
-      - `lazy` does not execute until you add executor.
-        - add `lazy='dynamic'` to prevent query execution.
+```py
+# in Post table, this tells Post has 1 Author and that has MANY posts
+author = db.relationship('User', backref=db.backref('posts'))
 
-    - **Create**
-      - Once you have created a db model in flask app, you can create db and tables using following steps:
-        - `python`
-        - `from main import db` main is filename of flask app
-        - `db.create_all()` creates all tables from model class, if they don't exist
+# OR in User table, this tells User has MANY Posts, and that has 1 author
+    posts = db.relationship('Post', backref=db.backref('author'))
 
-      - Now you can check SQL for tables created. You can do:
+```
 
-        - `sqlite3 filename.db`
-        - `.tables`
+Here, `backref` adds a back-reference to other model. `lazy=False` tells SQLAlchemy to load the relationship in the same query as the parent using a JOIN statement.
 
-  - **Insert** a new row
-    - Create an Object of Class to build a new row. `user_john = User(username='john', role=admin_role)`
-    - add - `db.session.add(user_john)`
-    - `id` is added to object after `db.session.commit()commit()`
-  - **Update** - `db.session.add()` also edits.
-  - **Delete** - `db.session.delete(obj_name)`
-  - **Read** - `query` object is available to all model class. It has filter-options and executors that build a SQL Query statement.
-    - Filter-Options - `filter()`, `filter_by()`, `limit()`, `offset()`, `order_by()`, `group_by()`
-    - Executors - `all()`, `first()`, `first_or_404()`, `get()`, `get_or_404()`, `count()`, `paginate()`
-    - Examples
-      - `User.query.all()` reads all records
-      - `User.query.filter_by(role=user_role).all()`
-    - `str(User.query.filter_by(role=user_role))` returns SQL query
+Example of **multiple One to Many** relation between tables. Lets say, User has many memberships and has many membership approvals. But Membership has only one User and one Approver. Also, both member and approver are user, so two relationships. Here we have to include, `foreign_keys=[]` argument to relationship to define which foreign-key it is reffering to and avoid ambiguity.
 
-  - **RAW SQL** - give your SQL statements
-    - `db.session.execute(SQL)` returns cursor
-    - `db.session.execute(SQL).all()` - returns List result set
+```py
+class User(db.Model):
+    ...
+    # One to Many relationships
+    memberships = db.relationship(Membership, backref='user', foreign_keys=[Membership.user_id])
+    memberships_approved = db.relationship(Membership, backref='approver', foreign_keys=[Membership.approved_by])
 
-  - **Shell Operations** - CRUD from Flask Shell
-    - `flask --app hello.py shell` start shell with *app_context*, python shell will not have that.
-    - `db.cratte_all()` creates SQLite file.
+class Membership(db.Model):
+    ...
+    # Many to One relationships
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    approved_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+```
 
-- **Py ORM Model from SQL**
-  - Generate SQLAlchemy class model from database table - `sqlacodegen mssql+pyodbc://<servername>\<schema>/<database>/<table_name>?driver=SQL+Server --outfile db.py`
+Example, **One to One** relationship, like User has a Profile but only one which can have extra user details like height, weight etc. You can pass `uselist=False` to `relationship()`.
 
-- **Migrations** DB changes version controlled
+```py
+class Profile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    height = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    
+    # relationships
+    profile = db.relationship('Profile', backref=db.backref('user'), uselist=False)
+```
 
-  - **Why?** - When DB is handled using ORM, all changes to DB is done via ORM. If you have to add a column it is added by ORM so it will delete the table and create new but to prevent data loss in table it will create a migration script to create and populate again.
-  
-  - **What?** - `Flask-Migrate` is wrapper on `Alembic` a SQLAlchemy migration framework. It generates Py script to keep the database schema updated with the models defined. It help upgrade and roll back the schemas.
-  
-  - **Installation** - `pip install flask-migrate`
-  
-  - **Initiation**
-    - `from flask_migrate import Migrate`
-    - `migrate = Migrate(app, db)`
-    - `flask --app hello.py db init` migration directory, script is generated
-  
-  - **Execution**
-    - `upgrade()` has data changes to be done in this migration
-    - `downgrade()` rolls back to previous state
-    - Example: Steps to make a migration
-      - Make changes to model classes
-      - `flask --app hello.py db migrate -m "initial migration"` to generate script
-      - review for accurate changes. add to source control
-      - `flask--app hello.py db upgrade` to do migration in database
-  
-  - **Reference**
-    - [How To Make a Web Application Using Flask in Python 3](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
-    - [SQLite explorer](https://sqlitebrowser.org/)
+Example, **Many-to-Many Relationships** you will need to define a helper table. Say, Post has multiple Tags and Tags have multiple Posts
+
+```py
+# this is table
+post_tag_m2m = db.Table('tags',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True)
+)
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tags = db.relationship('Tag', secondary=post_tag_m2m, lazy='subquery',
+        backref=db.backref('posts', lazy=True))
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+```
+
+Link: [Models - FlaskSqlAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/)
+
+**Insert or Create**
+
+Create an Object of Class to build a new row. Usually in a route in `views.py` or in python shell:
+
+```py
+user = User()
+
+user.username = 'john'
+user.role = 'admin'
+
+db.session.add(user)
+db.session.commit()
+```
+
+Here, we create a new object. Initialize it's attributes. Finally add it to be saved. Lastly, commit it to datebase, this where `INSERT` is performed.
+
+To use INSERTed object for another operation, `id` is added to object after `commit()` and is made available for use.
+
+**Read or Select or Query**
+
+Each model has `query` object is available. It has to be chained with _filter-options_ and/or _executors_ that build a SQL Query statement.
+
+**Filter-Options** - They are added to choose records. Eg, `filter()`, `filter_by()`, `limit()`, `offset()`, `order_by()`, `group_by()`
+
+**Executors** - they are at end of chained methods and finally execute the query to get result set. Eg, `all()`, `first()`, `first_or_404()`, `get()`, `get_or_404()`, `count()`, `paginate()`.
+
+Examples:
+
+```py
+user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
+
+users = db.session.execute(db.select(User).order_by(User.username)).scalars()
+
+users = db.session.execute(db.select(User).order_by(User.username)).scalars()
+
+u = db.session.get(User, 4)
+
+u = db.session.execute(db.select(User).filter_by(name="sandy")).scalar_one()
+
+u = session.execute(db.select(User.fullname).where(User.id == 2)).scalar_one()
+
+# view queries
+user = db.get_or_404(User, id)
+
+user = db.one_or_404(db.select(User).filter_by(username=username))
+
+# 404 with message for abort
+user = db.one_or_404(
+    db.select(User).filter_by(username=username),
+    description=f"No user named '{username}'."
+)
+
+# Pagination
+users = db.paginate(db.select(User).order_by(User.join_date))
+return render_template("user/list.html", users=users)
+
+```
+
+Links:
+
+- More on [pagination](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/pagination/)
+- More on [ORM quering](https://docs.sqlalchemy.org/en/20/orm/queryguide/index.html)
+
+Examples, OLD and Legacy, uses `Model.query`, Prefer using `db.session.execute(db.select(...))` instead.:
+
+```py
+# select by primary key, ID
+u = User.query.get(1)   # 1 is id in table
+u.name                  # prints name
+posts = u.posts.all()   # if user has 1-m relationship with Post table
+
+# SELECT
+users = User.query.all()
+
+# select WHERE
+admins = User.query.filter_by(role='admin').all()
+
+# select TOP 1 where
+u = User.query.filter_by(username='johndoe').first()
+# u is None if username does not exist
+
+# Select TOP n or LIMIT
+User.query.limit(10).all()
+
+# WHERE column ENDSWITH
+users = User.query.filter(User.email.endswith('@example.com')).all()
+
+# ORDER BY
+users = User.query.order_by(User.username).all()
+
+# Get SQL query Statement, see there is no executor
+sql_stmt = str(User.query.filter_by(role='admin'))
+
+# 404 errors, this will raise 404 errors instead of returning None
+@app.route('/user/<username>')
+def show_user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    p = Post.query.get_or_404(1)
+    return render_template('show_user.html', user=user)
+
+# Pagination
+page = User.query.order_by(User.join_date).paginate()
+```
+
+For pagination, during a request, this will take page and per_page arguments from the query string request.args. Pass max_per_page to prevent users from requesting too many results on a single page. If not given, the default values will be page 1 with 20 items per page.
+
+Link: [Quickstart - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/)
+
+**Update**
+
+Load the object, modify its attributes, then do `add` and `commit`.
+
+```py
+u = User.query.get(1)   # 1 is id in table
+u.role = 'staff'        # modified attribute
+
+db.session.add(user)    # ready to save
+db.session.commit()     # UPDATE is performed
+```
+
+**Delete**
+
+```py
+u = User.query.get(1)   # 1 is id in table
+db.session.delete(u)
+db.session.commit()     # DELETE is performed
+```
+
+**RAW SQL**
+
+Give your SQL statements
+
+- `db.session.execute(SQL)` returns cursor
+- `db.session.execute(SQL).all()` - returns List result set
+
+**Shell Operations**
+
+CRUD from Flask Shell
+
+- `flask --app hello.py shell` start shell with *app_context*, python shell will not have that.
+- `db.create_all()` creates SQLite file.
+
+**Extras - Database Schema**
+
+For MS-SQL you may need to use schema name along with table and database name. It can be defined in configuration and then used in models. **db.metadatas** - You can add schema of table in model using:
+```py
+class User:
+    __table_args__ = {'schema': db.metadatas['SCHEMA']}
+```
+
+and define schema in metadata when initializing `db` object in `__init__.py` of app using:
+
+```py
+db.metadatas['SCHEMA'] = app.config.get("SCHEMA") or "[dbo]"
+```
+
+You can also add more metadata here, like database name.
+
+**Extras - Py ORM Model from SQL**
+
+If you have a existing tables in database and want o Generate SQLAlchemy class model from database table - `sqlacodegen mssql+pyodbc://<servername>\<schema>/<database>/<table_name>?driver=SQL+Server --outfile db.py`
+
+## Migrations in Database
+
+- **Why?** - When DB is handled using ORM, all changes to DB is done via ORM. If you have to add a column it is added by ORM so it will delete the table and create new but to prevent data loss in table it will create a migration script to create and populate again.
+
+- **What?** - `Flask-Migrate` is wrapper on `Alembic` a SQLAlchemy migration framework. It generates Py script to keep the database schema updated with the models defined. It help upgrade and roll back the schemas.
+
+- **Installation** - `pip install flask-migrate`
+
+**Initiation**
+
+```sh
+from flask_migrate import Migrate
+migrate = Migrate(app, db)
+flask --app hello.py db init
+```
+
+This generates migration directory, script is generated
+
+- **Execution**
+  - `upgrade()` has data changes to be done in this migration
+  - `downgrade()` rolls back to previous state
+  - Example: Steps to make a migration
+    - Make changes to model classes
+    - `flask --app hello.py db migrate -m "initial migration"` to generate script
+    - review for accurate changes. add to source control
+    - `flask--app hello.py db upgrade` to do migration in database
+
+- **Reference**
+  - [How To Make a Web Application Using Flask in Python 3](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
+  - [SQLite explorer](https://sqlitebrowser.org/)
 
 
 ## Emails in Flask
