@@ -668,9 +668,36 @@ Each model has `query` object is available. It has to be chained with _filter-op
 
 **Executors** - they are at end of chained methods and finally execute the query to get result set. Eg, `all()`, `first()`, `first_or_404()`, `get()`, `get_or_404()`, `count()`, `paginate()`.
 
+**Imp**, when refering column of a Models, `.c` is not required. When refering a col from table, like many2many join table, helper table, then use `.c` collection of columns, eg, `Post.query.join(followers, (followers.c.followed_id == Post.user_id))`.
+
+Links:
+
+- [operators, is_()](https://docs.sqlalchemy.org/en/20/core/operators.html)
+- [select ORM, join where](https://docs.sqlalchemy.org/en/20/orm/queryguide/select.html#selecting-orm-entities-and-attributes)
+- [models - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/queries/#)
+- [pagination - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/pagination/)
+
 Examples:
 
 ```py
+# Get list of objects
+db.session.scalars(db.select(User).order_by(User.id)).all()
+
+# Complex Where with Join
+
+db.session.scalars(
+    db.select(Gym)
+    .join(Membership)
+    .where(
+        (Membership.user_id == 3) &
+        (Gym.active) &                          # Boolean
+        (~Gym.closed) &                         # Boolean Reverse
+        (Membership.approved_by.is_not(None))   # NOT NULL
+    )
+).all()
+
+
+# Get ScalarResult, not scriptable, but works with for
 user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
 
 users = db.session.execute(db.select(User).order_by(User.username)).scalars()
@@ -698,14 +725,33 @@ user = db.one_or_404(
 users = db.paginate(db.select(User).order_by(User.join_date))
 return render_template("user/list.html", users=users)
 
+# ORM Queries
+db.select(user_table).where(user_table.c.name == "spongebob")
+
+# JOINs
+db.select(user_table.c.name, address_table.c.email_address).join(address_table)
+
+db.select(address_table.c.email_address)
+  .select_from(user_table)
+  .join(address_table, user_table.c.id == address_table.c.user_id)
+
+# outer join
+print(select(user_table).join(address_table, isouter=True))
+print(select(user_table).join(address_table, full=True))
+
+# order group having
+db.select(User.name, func.count(Address.id).label("count"))
+        .join(Address)
+        .group_by(User.name)
+        .having(func.count(Address.id) > 1)
+
+select(Address.user_id, func.count(Address.id).label("num_addresses"))
+    .group_by("user_id")
+    .order_by("user_id", desc("num_addresses")
 ```
 
-Links:
 
-- More on [pagination](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/pagination/)
-- More on [ORM quering](https://docs.sqlalchemy.org/en/20/orm/queryguide/index.html)
-
-Examples, OLD and Legacy, uses `Model.query`, Prefer using `db.session.execute(db.select(...))` instead.:
+Examples, **OLD and Legacy**, uses `Model.query`, Prefer using `db.session.execute(db.select(...))` instead.:
 
 ```py
 # select by primary key, ID
@@ -744,6 +790,14 @@ def show_user(username):
 
 # Pagination
 page = User.query.order_by(User.join_date).paginate()
+
+# Joins
+
+Post.query.join(...).filter(...).order_by(...)
+
+followed = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id)
 ```
 
 For pagination, during a request, this will take page and per_page arguments from the query string request.args. Pass max_per_page to prevent users from requesting too many results on a single page. If not given, the default values will be page 1 with 20 items per page.

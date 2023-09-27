@@ -589,6 +589,11 @@ def test_sum():
 - you can pass function as an argument to another function.
 - you can define a function in an function. the inner function has access to arguments in outer function.
 
+View Python Shell History
+
+```py
+import readline; print('\n'.join([str(readline.get_history_item(i + 1)) for i in range(readline.get_current_history_length())]))
+```
 
 ## Web Scraping - Selenium
 
