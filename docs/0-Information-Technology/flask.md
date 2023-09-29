@@ -297,6 +297,8 @@ bootstrap = Bootstrap(app)
       username     = StringField('Username', [validators.Length(min=4, max=25)])
       email        = StringField('Email Address', [validators.Length(min=6, max=35)])
       accept_rules = BooleanField('I accept the site rules', [validators.InputRequired()])
+
+      # add date
     ```
 
     - Form Class - in main `app.py` or in module `forms.py` make class with fields and validate functions.

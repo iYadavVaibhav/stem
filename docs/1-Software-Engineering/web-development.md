@@ -194,14 +194,14 @@ They are endpoints and should have a pattern, like:
 | HTTP Method | URI | Method | Template |Action |
 | --- | --- | --- | --- | --- |
 | GET | tasks/ | all() | all.html | View all tasks |
-| GET | tasks/new | new() | new.html |  HTML Form to add new task |
-| POST |  tasks | new() |  |  Insert a new task |
-| GET | tasks/[task_id] | view() | task.html |  View one task |
-| GET | tasks/[task_id]/edit | edit() | edit.html |  HTML form to edit a task |
-| PUT | tasks/[task_id] | edit() |  |  Update an existing task |
-| POST |  tasks/[task_id] | delete() |  |  Delete a task |
+| GET | tasks/new | new() | new.html or form.html |  HTML Form to add new task |
+| `POST` |  tasks/ | new() |  |  **Create** / Insert a new task |
+| GET | tasks/[task_id] | one() | one.html |  **Read** View one task |
+| GET | tasks/[task_id]/edit | edit() | edit.html or form.html |  HTML form to edit a task |
+| `POST` | tasks/[task_id]/edit | edit() |  |  **Update** an existing task |
+| `POST` |  tasks/[task_id]/delete | delete() |  |  **Delete** a task |
 
-In above, `new.html` and `edit.html` can be combined together to be `form.html` as fields are same. Also, same form, `TaskForm` can be used for add and edit.
+In above, `new.html` and `edit.html` can be combined together to be `form.html` as fields are same. Also, same form, `TaskForm` can be used for add and edit. The names are kept generic so that it is easy to replicate across resources (or you can name one:task and all:tasks).
 
 In `tasks` `all()` method, which shows all resources, you need to implement filters, pagination, sorting and searches. These are usually URL query parameters. Eg:
 
