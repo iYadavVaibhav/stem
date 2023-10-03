@@ -454,26 +454,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'da
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app) # Object for all ops
-
-
-
-
-db.session.add(obj)     # insert new record to database
-db.session.delete(obj)  # delete a record from database
-db.session.commit()     # updates modifications in object if any
-
-# where clause
-user = User.query.filter_by(username=data['username']).first() # or .all()
-
-# order, after select or where, add. Its, Model.field.
-.order_by(Response.responded_at.desc())
-
-# select * from users
-users = User.query.all()
-
 ```
 
-**Define Tables**
+### Define Tables/Models
 
 Conventions:
 
@@ -493,33 +476,36 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(50), unique=True)
     admin = db.Column(db.Boolean)
-    created_on = db.Column(db.DateTime(), default=datetime.now)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.now)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow())
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow(),
+                            onupdate=datetime.utcnow())
 ```
 
 You can define column as following **Data Types**:
 
-DataType|Detail
+DataType | Detail
 -|-
-Integer|an integer
-String(size)|a string with a maximum length (optional in some databases, e.g. PostgreSQL)
-Text|some longer unicode text
-DateTime|date and time expressed as Python datetime object.
-Float|stores floating point values
-Boolean|stores a boolean value
+Integer | an integer
+String(size) | a string with a maximum length (optional in some databases, e.g. PostgreSQL)
+Text | some longer unicode text
+DateTime | date and time expressed as Python datetime object.
+Float | stores floating point values
+Boolean | stores a boolean value
 
 You can define **properties** like:
 
-Prop|Value|Detail
+Prop | Value | Detail
 -|-|-
-primary_key|True|makes primary key
-unique|True|ensures unique
-nullable|True/False|allows NULLs or not
-default|any value of same data-type|provides default value that is inserted if value is NONE
-onupdate|any value of same data-type|changes on update
-db.ForeignKey('some.id')|pass table_name.column_name| Adds relationship
+primary_key | True | makes primary key
+unique | True | ensures unique
+nullable | True/False | allows NULLs or not
+default | any value of same data-type | provides default value that is inserted if value provided is NONE. The default value is provided in INSERT query.
+onupdate | any value of same data-type | changes on row update
+db.ForeignKey('some.id') | pass table_name.column_name |  Adds relationship
+server_default | any value of same data-type | It adds to DDL, create table statement, [more](https://docs.sqlalchemy.org/en/20/core/defaults.html#server-invoked-ddl-explicit-default-expressions)
 
-**Create Tables**
+
+### Create Tables
 
 Once you have created a db model in flask app, you can create db and tables using following steps, open python shell:
 
@@ -557,7 +543,7 @@ db.create_all()
 [Migrations](#migrations-in-database) is a better way to do this without dropping created data and keeping version control to go back is, more on this later.
 
 
-**Relationships in Database**
+### Relationships in Database
 
 You can define relationship in OOPs way as attribute of class. Beauty is that the tables are linked both ways. In `model.py`.
 
@@ -644,7 +630,7 @@ class Tag(db.Model):
 
 Link: [Models - FlaskSqlAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/)
 
-**Insert or Create**
+### Insert or Create
 
 Create an Object of Class to build a new row. Usually in a route in `views.py` or in python shell:
 
@@ -662,7 +648,7 @@ Here, we create a new object. Initialize it's attributes. Finally add it to be s
 
 To use INSERTed object for another operation, `id` is added to object after `commit()` and is made available for use.
 
-**Read or Select or Query**
+### Read or Select or Query
 
 Each model has `query` object is available. It has to be chained with _filter-options_ and/or _executors_ that build a SQL Query statement.
 
@@ -806,7 +792,7 @@ For pagination, during a request, this will take page and per_page arguments fro
 
 Link: [Quickstart - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/)
 
-**Update**
+### Update
 
 Load the object, modify its attributes, then do `add` and `commit`.
 
@@ -818,7 +804,7 @@ db.session.add(user)    # ready to save
 db.session.commit()     # UPDATE is performed
 ```
 
-**Delete**
+### Delete
 
 ```py
 u = User.query.get(1)   # 1 is id in table
@@ -826,7 +812,7 @@ db.session.delete(u)
 db.session.commit()     # DELETE is performed
 ```
 
-**RAW SQL**
+### RAW SQL
 
 Give your SQL statements
 
