@@ -281,27 +281,106 @@ bootstrap = Bootstrap(app)
 
 ## Forms in Flask
 
-- **WTForms** - **Object Oriented** Form building, rendering and validations.
-  - supports forms validation, CSRF protection, internationalization (I18N), rendering form and more for any Python framework, its generic. [WTForms](http://wtforms.simplecodes.com/).
-  - Cons - It lets you build form in python and help validate it. It adds a extra learning curve than using HTML for the same. It same as ORM that you define things as class variables.
-  - You have to build a template but can use `Form.field`
-  - It lets you extend forms.
-  - lets you show error easily without using `flash`.
-  
-  - **Model Building**
-  
-    ```python
-    from wtforms import Form, BooleanField, StringField, validators
+**WTForms** - **Object Oriented** Form building. It supports forms validation, CSRF protection, internationalization (I18N), showing errors, extending forms, rendering form, file upload, reCAPTCHA and more for any Python framework, its generic. [WTForms](http://wtforms.simplecodes.com/).
 
-    class RegistrationForm(Form):
-      username     = StringField('Username', [validators.Length(min=4, max=25)])
-      email        = StringField('Email Address', [validators.Length(min=6, max=35)])
-      accept_rules = BooleanField('I accept the site rules', [validators.InputRequired()])
+It also works well with other extensions like Flask-Bootstrap and Flask-SQLAlchemy to do common tasks in one line.
 
-      # add date
-    ```
+**Installation**
 
-    - Form Class - in main `app.py` or in module `forms.py` make class with fields and validate functions.
+```sh
+pip install -U Flask-WTF
+```
+
+**Instantiation**
+
+Global CSRF protection
+
+```sh
+from flask_wtf.csrf import CSRFProtect
+
+csrf = CSRFProtect()
+
+def create_app():
+    ...
+    csrf.init_app(app)
+    ...
+```
+
+### Build a Form
+
+Make a class to build form, members are form fields. See [quick-start flask-wtf](https://flask-wtf.readthedocs.io/en/1.2.x/quickstart/). Form Class can be build in main `app.py` or in module `forms.py` with fields and validate functions.
+
+```python
+from flask_wtf import FlaskForm
+
+from wtforms import StringField, SubmitField, SelectField, DateField, BooleanField
+
+from wtforms.validators import DataRequired, Length, Optional
+
+class RegistrationForm(FlaskForm):
+    username = StringField(
+                    'Username', 
+                    validators=[DataRequired(), Length(min=4, max=25)]
+                )
+        username = StringField('Username', [validators.Length(max=40)])
+    level    = IntegerField('User Level', [validators.NumberRange(min=0, max=10)])
+        birthday  = DateTimeField('Your Birthday', format='%m/%d/%y')
+    signature = TextAreaField('Forum Signature')
+    accept_rules = BooleanField('I accept the site rules', [validators.InputRequired()])
+
+    # Select
+    period = SelectField('Period', [DataRequired()],
+                        choices=[('a','Apple'), ('b','Ball')],
+                        prepend_blank=False))
+
+    # Select from Database
+    gym_choices = [(gym.id, gym.name) for gym in Gym.get_gyms()]
+    gym_id = SelectField('Select Gym', choices=gym_choices)
+
+    # Date
+    start_date = DateField('Start Date', format='%Y-%m-%d')
+
+    # Submit
+    submit = SubmitField('Submit')
+```
+
+**Data Types Fields** in `wtforms` that can be used to build form fields. [more on wtforms fields](https://wtforms.readthedocs.io/en/3.0.x/fields/#basic-fields)
+
+DataType        | Details
+-|-
+StringField     | One line string
+BooleanField    | check box
+DateField       | date only
+DateTimeField   | date and time
+DecimalField    | decimal numbers
+IntegerField    | whole numbers
+SelectField     | dropdown picklist
+RadioField      | radio buttons
+SubmitField     | submit button
+HiddenField     | not visible
+EmailField      | Email type
+PasswordField   | Password type dots
+TextAreaField   | multi-line
+
+**Validators** that can be used for each field. Each field accepts list of validators in `validators=` argument. [More on wtform validations](https://wtforms.readthedocs.io/en/3.0.x/validators/#built-in-validators)
+
+Validator           | Details
+-|-
+DataRequired() | Required Field
+NumberRange(min=0, max=10) | For IntegerField
+Optional() | Lets continue form submission, used with DateField
+
+
+**Custom Validation** lets you define your own validation method
+
+```py
+class SignupForm(Form):
+    age = IntegerField('Age')
+
+    def validate_age(form, field):
+        if field.data < 13:
+            raise ValidationError("We're sorry, you must be 13 or older to register")
+```
 
 - **Flask-WTF** integration of Flask and WTForms
   - Includes CSRF, file upload, and reCAPTCHA. You mostly have to use formats of WTForms but write less as few things are done automatically that are related to Flask patter.
