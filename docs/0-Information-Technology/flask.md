@@ -2103,6 +2103,22 @@ Data of a task can be, JSON blob, as:
   - [ ] will this be more secure and beneficial?
     - `curl -u username_or_token:password_or_unused -i -X GET http://127.0.0.1:5000/users`
 
+## Flask Snippets
+
+**URL Redirect to previous**
+
+```py
+def redirect_url(default='index'):
+    return request.args.get('next') or \
+           request.referrer or \
+           url_for(default)
+
+# Use it in in the view
+def some_view():
+    # some action
+    return redirect(redirect_url())
+```
+
 ## App - RESTful API in Flask
 
 to be added
