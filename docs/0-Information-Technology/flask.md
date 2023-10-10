@@ -317,6 +317,8 @@ from wtforms import StringField, SubmitField, SelectField, DateField, BooleanFie
 
 from wtforms.validators import DataRequired, Length, Optional
 
+from wtforms.widgets import DateTimeLocalInput
+
 class RegistrationForm(FlaskForm):
     username = StringField(
                     'Username', 
@@ -339,9 +341,23 @@ class RegistrationForm(FlaskForm):
 
     # Date
     start_date = DateField('Start Date', format='%Y-%m-%d')
+    
+    in_at = DateTimeField('In Date-Time',
+                      validators=[
+                          DataRequired()
+                          ],
+                      format="%Y-%m-%dT%H:%M",
+                      default=datetime.now,
+                      widget=DateTimeLocalInput()
+                      )
 
     # Submit
     submit = SubmitField('Submit')
+
+    def validate_in_at(form, field):
+    """max 10 minutes from now can be in time"""
+    if field.data > datetime.now() + timedelta(minutes=10):
+        raise ValidationError('Your in time cannot be in future!')
 ```
 
 **Data Types Fields** in `wtforms` that can be used to build form fields. [more on wtforms fields](https://wtforms.readthedocs.io/en/3.0.x/fields/#basic-fields)
@@ -364,6 +380,10 @@ TextAreaField   | multi-line
 
 **Validators** that can be used for each field. Each field accepts list of validators in `validators=` argument. [More on wtform validations](https://wtforms.readthedocs.io/en/3.0.x/validators/#built-in-validators)
 
+```py
+from wtforms.validators import DataRequired
+```
+
 Validator           | Details
 -|-
 DataRequired() | Required Field
@@ -371,16 +391,47 @@ NumberRange(min=0, max=10) | For IntegerField
 Optional() | Lets continue form submission, used with DateField
 
 
-**Custom Validation** lets you define your own validation method
+**Custom Validation** lets you define your own validation method.  In the form class one can define a method `validate_{fieldname}` that validates the corresponding field. This method takes as arguments `field` and `form` so I can refer to the startdate field as `form.startdate_field`.
 
 ```py
 class SignupForm(Form):
     age = IntegerField('Age')
+    startdate_field = DateField('Start Date', format='%Y-%m-%d')
+    enddate_field = DateField('End Date', format='%Y-%m-%d')
 
     def validate_age(form, field):
         if field.data < 13:
             raise ValidationError("We're sorry, you must be 13 or older to register")
+    
+    def validate_enddate_field(form, field):
+        if field.data < form.startdate_field.data:
+            raise ValidationError("End date must not be earlier than start date.")
 ```
+
+**Widgets**
+
+Widgets are Classes that bring a specific selector UI for input field. Eg, Date-Picker, Color-Picker etc. [WTForm Widgets](https://wtforms.readthedocs.io/en/3.0.x/widgets/?highlight=widget#widgets) and [HTML5 Input Types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) for more.
+
+
+```py
+from wtforms.widgets import DateTimeLocalInput
+```
+
+Widget           | Details
+-|-
+DateTimeLocalInput | Show datetime-local input type. Lets user input date and time.
+
+For extra `input` params, you can use render_kw argument to send.
+
+```py
+in_at = DateTimeField('In Date-Time',
+                      format="%Y-%m-%dT%H:%M",
+                      widget=DateTimeLocalInput(),
+                      render_kw={"step": "300"} 
+                     )
+```
+
+--------------------------------------------------
 
 - **Flask-WTF** integration of Flask and WTForms
   - Includes CSRF, file upload, and reCAPTCHA. You mostly have to use formats of WTForms but write less as few things are done automatically that are related to Flask patter.
@@ -641,7 +692,10 @@ class User(db.Model):
     name = db.Column(db.String(50), nullable=False)
     
     # relationships
-    posts = db.relationship('Post', backref=db.backref('author'), lazy=False)
+    posts = db.relationship('Post',
+                backref=db.backref('author'),
+                lazy=False,
+                order_by="desc(Post.created_at)")
 ```
 
 Here you **note**, the `ForeignKey()` relation has to be defined in the table that has many records but `db.relationship(.. ,backref=)` can be in either of the two tables, so following statements are same:
@@ -656,6 +710,8 @@ author = db.relationship('User', backref=db.backref('posts'))
 ```
 
 Here, `backref` adds a back-reference to other model. `lazy=False` tells SQLAlchemy to load the relationship in the same query as the parent using a JOIN statement.
+
+Here, `order_by` lets you specify and order and returns and ordered `InstrumentList`.
 
 Example of **multiple One to Many** relation between tables. Lets say, User has many memberships and has many membership approvals. But Membership has only one User and one Approver. Also, both member and approver are user, so two relationships. Here we have to include, `foreign_keys=[]` argument to relationship to define which foreign-key it is reffering to and avoid ambiguity.
 
