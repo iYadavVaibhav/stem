@@ -455,33 +455,93 @@ Links
 
 ## Datetime and Time in Python
 
-- `datetime` and `time` are separate modules.
-- `datetime` has most methods to work with date and time, some sub modules are
-  - `datetime.datetime` has both date and time handling methods, mostly used, `from datetime import datetime as dt`
-    - `dt.now()` => datetime.datetime(2022, 10, 20, 8, 14, 44, 277307)
-  - `datetime.date` date specific methods
-  - `datetime.time` time specific methods
-  - String to date - `datetime.strptime('some string', "%Y-%d-%m %H:%M:%S")`
-- `time` module has `sleep()` function to pause program execution
+`datetime` and `time` are separate python packages
+
+```py
+import datetime
+import time
+# they are different
+```
+
+**Datetime** package
+
+`datetime` has most methods to work with date and time, some sub modules are. [more datetime docs](https://docs.python.org/3/library/datetime.html#available-types)
+
+```py
+import datetime
+
+# modules
+datetime.datetime
+datetime.date     # date specific methods
+datetime.time     # time specific methods
+```
+
+### Datetime.datetime as dt module
+
+Mostly can handle date and time. [eg geek4geek](https://www.geeksforgeeks.org/working-with-datetime-objects-and-timezones-in-python/)
+  
   - DateTime as String - `time.strftime('%Y-%m-%d %H:%M:%S')`
 
 ```python
-import time
+from datetime import datetime as dt
 
-time.time() # timestamp
-time.sleep(2) # sleeps for two seconds
-time.strftime('%Y-%m-%d %H:%M:%S') # '2023-06-12 11:18:06'
+my_dt_obj = dt(2001, 12, 9, 14, 28, 55)
+my_dt_obj
+# obj: datetime.datetime(2001, 12, 9, 14, 28, 55)
+
+my_dt_obj.hour
+# int: 14
+
+start = dt.now() 
+# obj: datetime.datetime(2022, 10, 20, 8, 14, 44, 277307)
+# it is datetime object, not a string
+
+dt.now().ctime() 
+# str: Thu Oct 20 08:16:51 2022
+
+end = dt.now()
+end - start 
+# obj: datetime.timedelta(seconds=11, microseconds=129035)
+
+delta = (end - start).seconds 
+# int: 11
+
+# Str to Obj
+dt.strptime('2023-22-03 12:28:11', "%Y-%d-%m %H:%M:%S")
+# obj: datetime.datetime(2023, 3, 22, 12, 28, 11)
+
+# Obj to Str
+dt.now().strftime('%Y-%m-%d %H:%M:%S')
+# str: '2023-10-27 17:43:23'
 ```
 
-```python
-from datetime import datetime as dt
-start = dt.now() # datetime.datetime(2022, 10, 20, 8, 14, 44, 277307)
-dt.now().ctime() # Thu Oct 20 08:16:51 2022
-end = dt.now()
-end - start # datetime.timedelta(seconds=11, microseconds=129035)
-delta = (end - start).seconds # 11
+[date time formats - w3 school](https://www.w3schools.com/python/python_datetime.asp#:~:text=The%20strftime()%20Method)
 
-# get last week start and end
+**TimeZone** Hell
+
+```py
+dt.now()
+# obj: datetime.datetime(2023, 10, 27, 17, 33, 58, 183305)
+dt.utcnow()
+# obj: datetime.datetime(2023, 10, 27, 16, 34, 7, 908839)
+```
+
+**timedelta**
+
+```py
+from datetime import datetime as dt
+from datetime import timedelta
+
+# Add 10 minutes to now
+dt.now() + timedelta(minutes=10)
+# obj: datetime.datetime(2023, 10, 27, 17, 41, 50, 848715)
+```
+
+### Snippets
+
+```py
+# 1. Get last week start and end
+import datetime
 today = datetime.date.today()
 # my_date = datetime.date(2023,4,6)
 my_date = today
@@ -489,6 +549,21 @@ start = my_date - datetime.timedelta(days=my_date.weekday(), weeks=1)
 end = start + datetime.timedelta(days=6)
 print(start, end)
 ```
+
+
+### Time Package
+
+```python
+import time
+
+time.time() # timestamp
+
+# pause program execution
+time.sleep(2) # sleeps for two seconds
+
+time.strftime('%Y-%m-%d %H:%M:%S') # '2023-06-12 11:18:06'
+```
+
 
 ## Testing in Python
 

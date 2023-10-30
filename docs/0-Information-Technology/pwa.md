@@ -2,7 +2,7 @@
 date: 2023-10-20
 ---
 
-# Progressive Web Applications with Flask
+# PWA with Flask
 
 _making PWA and Flask work best togther_
 
@@ -55,6 +55,8 @@ Link <https://github.com/uwi-info3180/flask-pwa>
 This is based on the [First Progressive Web App Tutorial](https://codelabs.developers.google.com/codelabs/your-first-pwapp/) by Google.
 
 The files are cached (stored in browser on device) to make the app-shell work offline. **App Shell** is basic app, may be just landing page. This may include caching the html, javascript, css, images and any other files important to the operation of the application shell.
+
+Non JS App - It is good to avoid your index page as app shell specially if it contains new information, because it may show cached page. Instead you can catch a landing page and an offline page. So landing page is assumed to not change frequently with data. It can show instantly form cache and the other offline page can show when the user is offline and is requesting a n/w reasource.
 
 In `sw.js` (service worker), the cache has a name, `cacheName` and a list of files to cache, `filesToCache`. Note: `sw.js` is not cached.
 
@@ -263,3 +265,5 @@ Use SW of uwi-info3180
 - [Web.dev PWA](https://web.dev/explore/progressive-web-apps)
 - [Handon - Flipkart](https://auth0.com/blog/introduction-to-progressive-apps-part-one/)
 - [Notifications - Mozilla](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/Re-engageable_Notifications_Push)
+- [pwafire.org](https://pwafire.org/developer/codelabs/pwafire/)
+- [tool - realfavicongenerator.net](https://realfavicongenerator.net/)

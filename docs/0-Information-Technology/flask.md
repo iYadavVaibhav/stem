@@ -1012,6 +1012,51 @@ This generates migration directory, script is generated
   - [How To Make a Web Application Using Flask in Python 3](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
   - [SQLite explorer](https://sqlitebrowser.org/)
 
+## Login in Flask - Flask Login
+
+Flask-Login is minimal and powerful tool to manage logins in flask. It does the job and gives the flexibility as well to handle things
+
+### Role based control
+
+You may also need to check role of user when logged in. For this you can build your own decorator function and use with login_required. Eg:
+
+```py
+from functools import wraps
+
+from flask import redirect, flash, url_for
+from flask_login import current_user
+
+# define below somewhere (utils or lib) and import in views
+def role_required(*roles):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            
+            if current_user.role not in roles:
+                flash('You do not have permission to do that.', 'danger')
+                return redirect('/')
+
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
+
+
+# For all requests in a blueprint
+@bp.before_request
+@login_required
+@role_required('member', 'staff')
+def before_request():
+    """ Protect all of the checkin endpoints. """
+    pass
+
+# For individual routes
+@app.route('/<int:id>/delete', methods=['POST'])
+@role_required('admin', 'staff', 'owner')
+def delete(id):
+    pass
+
+```
 
 ## Emails in Flask
 
