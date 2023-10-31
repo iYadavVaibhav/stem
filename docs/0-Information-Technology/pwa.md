@@ -267,3 +267,4 @@ Use SW of uwi-info3180
 - [Notifications - Mozilla](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/Re-engageable_Notifications_Push)
 - [pwafire.org](https://pwafire.org/developer/codelabs/pwafire/)
 - [tool - realfavicongenerator.net](https://realfavicongenerator.net/)
+- [what pwa can do today](https://whatpwacando.today/)

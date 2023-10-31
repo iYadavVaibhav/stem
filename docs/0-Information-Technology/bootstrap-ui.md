@@ -48,6 +48,21 @@ Show divs of different width on different devices
 </div>
 ```
 
+## CSS Variables
+
+BS uses CSS variables that are defined once and used in whole CSS document. Eg,
+
+```css
+/* declare */
+:root {
+  --bs-blue: #0d6efd;
+}
+
+/* Usage */
+a {
+  color: var(--bs-blue);
+}
+  ```
 
 
 
@@ -81,4 +96,4 @@ Hide only on Small Devices `.d-none .d-sm-block`, [more](https://getbootstrap.co
 
 ## Links
 
-- 
+- [CM - BS5 Starter Template](https://github.com/CodeoMascot/frontends/blob/main/bs5-1.html)
