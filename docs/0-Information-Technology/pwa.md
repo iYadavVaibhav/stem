@@ -26,13 +26,37 @@ As John Price explained in his article, How to Turn Your Website into a PWA, the
 In order to convert a web application to a PWA, there are three main requirements.
 
 - Run it over HTTPS.
-- Create and serve a manifest file in JSON format.
-- Create and serve a JavaScript file to be registered as a service worker file.
+- For Installation: Create and serve a manifest file in JSON format.
+- For Offline and more: Create and serve a JavaScript file to be registered as a service worker file.
+
+## Manifest
 
 Web App [Manifest](https://app-manifest.firebaseapp.com/) Generator to create `manifest.json`.
 
+## Service Worker
+
 Now depending on your use-case you will expand you `serviceWorker.js` to add more listeners, opening the cache, activating the cache, and adding/fetching URLs and responses to/from the cache and handling offline state.
 
+### Notifications
+
+It **does not** require Service-Worker. There are two main things to notification:
+
+- Is supported?
+- Have permission?
+
+If both are `True` you can send notifications.
+
+### Push API
+
+Push notifications extend the notifications and help push notification from server to user. Each client installation gets a `push-endpoint` which device vendor gives.
+
+It requires service worker and public key from server and much more to push.
+
+```js
+Eg:
+https://fcm.googleapis.com/fcm/send/ctqg6w78iYE:APA9...srGoQ
+https://web.push.apple.com/fjthuwerh53iv4mn...dshnfu4
+```
 
 ## Flask and PWA
 
@@ -268,3 +292,6 @@ Use SW of uwi-info3180
 - [pwafire.org](https://pwafire.org/developer/codelabs/pwafire/)
 - [tool - realfavicongenerator.net](https://realfavicongenerator.net/)
 - [what pwa can do today](https://whatpwacando.today/)
+- [Github IO PWA Bug Fix Gist](https://gist.github.com/kosamari/7c5d1e8449b2fbc97d372675f16b566e#file-_serviceworker_for_github_pages-md)
+- [Github IO PWA Guide](https://christianheilmann.com/2022/01/13/turning-a-github-page-into-a-progressive-web-app/)
+- [Github CM Minimal Demo](https://github.com/CodeoMascot/frontends/blob/main/pwa1.html)
