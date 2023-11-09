@@ -93,8 +93,25 @@ Usually check for following dirs and remove:
 Tasks
 
 - Add repository
-  - `sudo add-apt-repository universe` to enable a repo. This means packages can be searched in this repository
-  - `sudo add-apt-repository ppa:mkusb/ppa` add a PPA repo
+  - `sudo add-apt-repository universe`
+  - `` add a PPA repo
+
+```sh
+# Enable a repo
+sudo add-apt-repository universe
+
+# Add a repo
+sudo add-apt-repository ppa:whatever/ppa
+
+# list the repos added to system
+sudo add-apt-repository --list
+
+# Remove repo
+sudo add-apt-repository --remove ppa:whatever/ppa
+```
+
+Here, when you enable a repo, itmeans packages can be searched in this repository
+
 
 - Update and Upgrade
   - `sudo apt-get update` - updates local copy of packages database. The result has :
@@ -241,6 +258,48 @@ $ sudo ufw status
 ```
 
 This will install ufw, the Uncomplicated Firewall. Allow external traffic on port 22 (ssh), 80 (http) and 443 (https) only, rest ports are declined.
+
+**Fail2ban**
+
+```sh
+# Install fail2ban
+$ sudo apt install fail2ban
+# keeps logs of login attempts and bans if multiple failed attempts are done```
+```
+
+**SSH Only Login**
+
+Restric to ssh login and no root login. Do `nano /etc/ssh/sshd_config` and add
+
+```
+PubkeyAuthentication yes
+PermitRootLogin no
+```
+
+and do
+
+```sh
+systemctl restart ssh
+```
+
+### User Management
+
+```sh
+# Add user
+$ adduser john
+```
+
+```sh
+# make user root user
+$ usermod -aG sudo john
+```
+Here, it adds user `john` to sudo `group`. `-a, --append` is to add group, use with -G. And `-G, --groups GROUP1[,GROUP2,...[,GROUPN]]` is to add groups.
+
+```sh
+# switch user
+$ su john
+```
+
 
 **Links**
 
