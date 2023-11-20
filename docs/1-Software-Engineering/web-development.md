@@ -161,6 +161,17 @@ More:
 
 - <https://www.mobiloud.com/blog/native-web-or-hybrid-apps>
 
+
+## Python Web Development Stack
+
+Python has extensive libraries and choices when it comes to do a specific part of web developemnt. Below, it helps understand the library and list reason when to use it and when not to
+
+- Flask to handle requests
+- SQLAlchemy to handle DB requests
+- Pandas to do data-analysis including reads, grouping, bulk-downloads. It is bad for insert/update/delete.
+- Bokeh/Plotly/Dash for visualization. TBC.
+
+
 ## User Journey, REST Resources and Routes
 
 _architecture patterns, models, routes, rest end points, crud, philosophy_

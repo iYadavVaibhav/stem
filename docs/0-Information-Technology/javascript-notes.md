@@ -75,7 +75,45 @@ It is superset of javascript, basically used to make use of new features of JS c
 
 
 
-## JS Snippet - How to quickly scrape all links from page
+## JS Snippets
+
+### Action on DOM Elements
+
+```js
+// items selection
+const items = document.querySelectorAll(".some-class");
+
+// item selection
+const item = document.querySelector('#item-id');
+
+// Function definition
+var showOverlay = function overlay() {
+  // do something
+};
+
+// if item exists
+if (item) {
+  // do something
+}
+
+// on click one item
+item.addEventListener("click", function () {
+    // do something
+});
+
+// on click to all
+items.forEach( function (item) => {
+    item.addEventListener("click", function () {
+        // do something
+    })
+});
+
+// CSS Display change
+item.style.display = 'block';
+
+```
+
+### How to quickly scrape all links from page
 
 Use JS path to get all a tags you are interested in, do inspect, go to div having all a, then right click and copy `JS Path`. Then add path till `a` tag to this `div JS Path`. Now that you have JS Path to all the anchor tags, you can iterate over them and make a list then copy. You can execute this in console directly, eg:
 
@@ -85,7 +123,11 @@ Use JS path to get all a tags you are interested in, do inspect, go to div havin
 
 ```javascript
 links = '';
-document.querySelectorAll("#root > div > div.sc-AxjAm.tlQbp > div > main > div > div > div > article > div:nth-child(2) > div > div:nth-child(5) > a").forEach(function (e) {links+="yourCmd "+e.href+" \n";})
+document.querySelectorAll("#root > div:nth-child(5) > a").forEach(
+  function (e) {
+    links+="yourCmd "+e.href+" \n";
+  }
+)
 copy(links)
 ```
 

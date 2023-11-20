@@ -54,26 +54,30 @@ Works as connection engine as well as ORM
 
 import sqlalchemy
 
+## Microsoft SQL with Server Name
 connection_url = "mssql+pyodbc://server_name\schema_name/database_name?driver=SQL+Server"
 
-## MS SQL
+## Microsoft SQL with ODBC and Server Name
 connection_url = "mssql+pyodbc:///?odbc_connect="+urllib.parse.quote('driver={%s};server=%s;database=%s;Trusted_Connection=yes')
 
-## Postgres
+## Postgres with Server Name
 connection_url = "postgresql://user:pass@server:port/database"
 
+# Connection
 engine = sqlalchemy.create_engine(connection_url, echo=False)
 connection = engine.connect()
+
+# Querying and Reading
 sql = "select top 10 * from [db].[schema].[table]"
 cursor = connection.execute(sql)
 res = cursor.fetchall()    # list of rows 
 connection.close()
 
-# OR -- 
-
+# OR, using with you do not need to close connection
 with engine.connect() as connection:
-connection.execute("UPDATE emp set flag=1")
+    connection.execute("UPDATE emp set flag=1")
 
+# With Pandas
 df.to_sql('table_name', con=engine, schema='dbo', if_exists='append', index=False)
 
 
@@ -114,15 +118,27 @@ Flask wrapper for sqlalchemy
 
   ```
 
-### Flask SQLite SQLAlchemy
+### SQLite SQLAlchemy Pandas
 
 ```python
-import os, sqlite3
+import sqlalchemy
 
+# SQLite path - If same directory as code
+import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-connection_url = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+connection_url = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
 
-# then same as SQLAlchemy
+# SQLite path - Absolute path
+connection_url = 'sqlite:///' + r'C:\code\db.sqlite3'
+
+# SQLite Connection
+engine = sqlalchemy.create_engine(connection_url, echo=False)
+connection = engine.connect()
+
+# Pandas Read and Write
+import pandas as pd
+df = pd.read_csv('my.csv')
+df.to_sql(name='my_table', con=connection, if_exists='append', index=False)
 ```
 
 - Execution - from flask shell do `db.create_all()` - creates table with schema.
@@ -136,6 +152,18 @@ connection_url = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 - pd write has issues
   - pyodbc lets read but not write, `pyodbc==4.0.35`
   - sqlalchemy lets read and write but with version `SQLAlchemy==1.4.46` with `pandas==1.3.5` as on Feb-2023.
+
+### SQLite and Pandas
+
+```python
+import sqlite3
+
+# Data Load
+conn = sqlite3.connect(app_path + '\db.sqlite')
+df.to_sql(name='table_name', con=conn, if_exists='append', index=False)
+conn.close()
+
+```
 
 ### SQLite
 

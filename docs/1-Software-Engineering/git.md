@@ -176,13 +176,59 @@ git rm --cached the_project/secrets.py
 - `git push origin` pushes **all** branches to remote
 
 
-### Pull Requests
+### Pull Requests - PR
 
-- approvals
-  - `git checkout remote_branch_name` - this creates a new local branch and links remote with it.
+Is a request made by developer (coder) to other developers (reviewers) so that reviewers can review the _feature-branch_ and up on satisfaction they can approve it. On required approvals coder can `merge` the _feature_ branch to _main_ branch. This will pull the feature branch to main branch, hence named _pull request_.
 
-- create
-  - you can create pull request when your branch (source) is ahead of the destination branch, else pull and merge destination.
+**Review**
+
+To approve a Pull Request you need to create the same on your local machine. So on terminal do:
+
+```sh
+$ git checkout JIRA-123
+Switched to a new branch 'JIRA-123'
+branch 'JIRA-123' set up to track 'origin/JIRA-123'.
+
+$ git pull
+remote: Enumerating objects: 22, done.
+remote: Counting objects: 100% (22/22), done.
+...
+Already up to date.
+```
+
+**Create a Pull Request**
+
+When you develop a new feature, you can create a Pull Request so that reviewers can review and approve it.
+
+Pull Request needs a source (your feature branch) and destination (the main branch).
+
+It is good to have a **template** for the documentation of Pull Request that reviews can use to review.
+
+```md
+**Title**
+
+JIRA-123 - The Story Name
+
+
+**Info**
+
+I have done ...
+
+So that...
+
+**Steps for reviewers**
+
+- Ensure that ...
+- Copy this to ...
+- Add env ...
+- Run below commands ...
+
+`Insert Code`
+
+- Check that ...
+- Verify that ...
+- Approve PR.
+```
 
 
 ## How to clone a repository from GitHub.com
@@ -292,7 +338,7 @@ git apply --reject --whitespace=fix diff.patch
 Once you verify that patch is applied and all changes are in place, delete the patch file
 
 ```sh
-git rm diff.patch
+rm diff.patch
 git add .
 git commit -m "patched"
 

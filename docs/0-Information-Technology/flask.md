@@ -218,6 +218,52 @@ Templates can be used to build responses.
   - {{ super() }}, includes code from parent block, if overriding a block.
 
 
+### Snippets
+
+**Show All Table Columns with skipping a few**
+
+```html
+<h4>{{user.user_name | title}}</h4>
+
+<h5>User Posts</h5>
+
+<div class="row row-cols-2 g-2">
+
+  {% for post in user.posts %}
+
+    {# each post #}
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+
+          {% for attr, value in post.__dict__.items() %}
+            {% if attr not in ('_sa_instance_state', 'user_id') and (value) %}
+
+              <p class="mb-1">
+                <span class="text-muted">{{attr | replace("_"," ") | title }}: </span>
+                <b>
+                  {% if value is float %}
+                    {{"%.2f"|format(value)}}
+                  {% else %}
+                    {{ value }}
+                  {% endif %}
+                </b>
+              </p>
+
+            {% endif %}
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  {% endfor %}
+
+</div>
+```
+
+In above snippet, `and (value)` will only show those values that are not `None`.
+
 - **Error Handlers**
   - `@app.errorhandler` is decorator that lets return a view from template for error responses like 404 and 500.
 

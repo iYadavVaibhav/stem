@@ -153,9 +153,51 @@ graph LR
   B ---->|No| E[Yay!];
 ```
 
-- Links
-  - [Mermaid JS - Flowchart 101](https://mermaid.js.org/syntax/flowchart.html)
-  - [MKDocs Diagrams](https://squidfunk.github.io/mkdocs-material/reference/diagrams/)
+**Adding title to Diagram**
+
+Use markdown latext `text` to give a center aligned title.
+
+`$$\text{Fig: Sticky Note Color}$$`, which come up like:
+
+$$\text{Fig: Sticky Note Color}$$
+
+**Adding Style to Diagram**
+
+Use SVG styling CSS to style nodes, links etc.
+
+```mermaid
+flowchart
+s1[Event\nOf interest to the\nBusiness]
+style s1 fill:#ffa930,stroke-width:0,color:#fff,width:150px,height:150px
+
+s2[Action\n What do we want\nto have happen]
+style s2 fill:#a9edf1,stroke-width:0,width:150px,height:150px
+
+s3[Question?\nThings we have to\ndo]
+style s3 fill:#ff32b2,stroke-width:0,color:#fff,width:150px,height:150px
+```
+
+```js
+mermaid
+
+flowchart TD
+
+s1[Event\nOf interest to the\nBusiness]
+style s1 fill:#ffa930,stroke-width:0,color:#fff,width:150px,height:150px
+
+s2[Action\n What do we want\nto have happen]
+style s2 fill:#a9edf1,stroke-width:0,width:150px,height:150px
+
+s3[Question?\nThings we have to\ndo]
+style s3 fill:#ff32b2,stroke-width:0,color:#fff,width:150px,height:150px
+```
+
+More on [mermaid styling](https://mermaid.js.org/syntax/flowchart.html#styling-a-node).
+
+**Links**
+
+- [Mermaid JS - Flowchart 101](https://mermaid.js.org/syntax/flowchart.html)
+- [MKDocs Diagrams](https://squidfunk.github.io/mkdocs-material/reference/diagrams/)
 
 ### MathJax
 

@@ -116,6 +116,13 @@ Undo `conda deactivate && conda remove --name prj1env --all` and remove files if
 
 **Conda Environments**
 
+Environment let you use multiple versions of python
+
+```sh
+# list all env
+conda env list
+```
+
 - `conda create --name py35 python=3.5` created new env called 'py35' and installs py 3.5
 - `conda activate py35` activates
 - `conda list` lists all packages installed in active env.
@@ -656,6 +663,56 @@ def test_sum():
 - Link
   - [Tstdriven.io - Concurrency  Parallelism AsyncIO](https://testdriven.io/blog/concurrency-parallelism-asyncio/)
 
+## Cryptography - Encode Encrypt Decrypt Decode
+
+**Encode/Decode or Transcode or Endec** is a method of representing data in a different **format** to efficiently transfer information through a network or the web and make it consumable by different systems. Eg, same data can be in string format or bytes format. Encoded data has the same meaning as original.
+
+**Encrypt** - Encryption is a process that transforms information to scrambled and meaningless data, and can only be deciphered by using a **key** (kept safely).It maintains data confidentiality.
+
+**Hashing** is for validating the integrity of content by detecting all modification thereof via obvious changes to the hash output.
+
+**Obfuscation** is used to prevent people from understanding the meaning of something, and is often used with computer code to help prevent successful reverse engineering and/or theft of a product’s functionality.
+
+```py
+# Obscuring
+from zlib import compress
+from base64 import urlsafe_b64encode as b64e
+
+def obscure(data: bytes) -> bytes:
+    return b64e(compress(data, 9))
+txt = 'random'
+
+obscured = obscure(txt.encode())  # bytes
+
+# write
+obs_loc = r"./obs_random.txt"
+file = open(obs_loc,'w')
+file.write(obscured.decode())
+file.close()
+
+
+# Unobscuring
+from zlib import decompress
+from base64 import urlsafe_b64decode as b64d
+
+obs_loc = r"C:\code\repos\obs_random.txt"
+f = open(obs_loc, 'r')
+
+# One liner
+txt2 = decompress(b64d(f.readline().encode())).decode()
+
+# OR, multi use
+def unobscure(obscured: bytes) -> bytes:
+    return decompress(b64d(obscured))
+
+obscured = f.readline().encode()    # bytes
+unobscured = unobscure(obscured)    # bytes
+txt2 = unobscured.decode()          # str
+```
+
+Links:
+
+- [StackOverflow Ways of security and Py code](https://stackoverflow.com/a/55147077/1055028https://stackoverflow.com/a/55147077/1055028)
 
 ## Snippets & Ways Python
 
