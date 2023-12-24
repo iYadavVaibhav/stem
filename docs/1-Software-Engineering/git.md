@@ -332,10 +332,10 @@ Now on repo2, ensure you are on master branch and all changes are commited. Crea
 
 ```sh
 git checkout -b master_patched
-touch diff.path
+touch diff.patch
 ```
 
-Copy and paste contents to `diff.path`
+Copy and paste contents to `diff.patch`
 
 ```sh
 git apply --reject --whitespace=fix diff.patch
