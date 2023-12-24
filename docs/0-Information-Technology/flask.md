@@ -146,7 +146,7 @@ _flask basics, request-response handling, contexts_
         {% endfor %}
         ```
 
-## Templates in Flask
+## Jinja Templates in Flask
 
 Templates can be used to build responses.
 
@@ -217,10 +217,115 @@ Templates can be used to build responses.
 
   - {{ super() }}, includes code from parent block, if overriding a block.
 
+### Macro and Includes
+
+When you have one code to include at few place use `include`, eg, sidebar, nav, footer.
+
+When you have a code to use at many places use `macro`, eg, form elements, nav items, alerts.
+
+"When you have a chunk of code that you think should be present in a different template just for better organization and it won't need to take any parameters, for example the header, footer, complex navigation menu, etc. then include is good for this case. But when you have something that will be repeated multiple times and might need some dynamic parameters, for e.g. form fields, then you should use macro for it."
+
+`+-` in `{%` are only for HTML whitespace, they do not have logical meaning.
+
+**Define Macro**
+
+A `some.html` file can have multiple macro blocks. Eg, in `macros/items.html`:
+
+```html
+{% macro role_icon_for(user) -%}
+  {% if user.role == 'admin' %}
+    <i class="fa fa-3x fa-fw fa-shield" title="Admin"></i>
+  {% else %}
+    <i class="fa fa-3x fa-fw fa-user text-muted" title="Member"></i>
+  {% endif %}
+{% endmacro %}
+
+{# Render a checkbox field. #}
+{%- macro checkbox_field(f) -%}
+  {{ f(type='checkbox', **kwargs) }} {{ f.label }}
+{%- endmacro -%}
+```
+
+**Using Macro**
+
+```html
+{% import 'macros/items.html' as items %}
+...
+{{ items.role_icon_for(user) }}
+...
+```
+
+**Call Macro from another Macro**
+
+It is like blocks in jinja. A caller-macro can call another macro. They both can include each other code.
+
+```html
+{# being called #}
+{%- macro form_tag(endpoint, fid='', css_class='', method='post') -%}
+  <form action="{{ url_for(endpoint, **kwargs) }}" method="{{ method }}"
+        id="{{ fid }}" class="{{ css_class }}" role="form">
+    {{ form.hidden_tag() }}
+    {{ caller () }}         {# code of caller will be in here #}
+  </form>
+{%- endmacro -%}
+
+
+{# the caller #}
+{%- macro search_form(endpoint) -%}
+  {% call form_tag(endpoint, method='get') %}
+    <label for="q"></label>
+    <div class="input-group">
+      <input type="text" id="q" name="q">
+    </div>
+  {% endcall %}
+{%- endmacro -%}
+```
+
+Here, Caller-macro can also push code to called-macro which shows using `{{ caller () }}`.
+
+**Include**
+
+```html
+{% include 'admin/_menu.html' %}
+```
+
+Link: [SO - macro vs includes](https://stackoverflow.com/a/22287698/1055028)
 
 ### Snippets
 
-**Show All Table Columns with skipping a few**
+**Show All ORM data as Table**
+
+```html
+  {% if (flows is defined) and flows %}
+  <table id="flows_table" class="table table-striped">
+
+    <thead>
+      {% set flow_h = flows[0] %}
+
+      {% for attr, value in flow_h.__dict__.items() %}
+        {% if attr not in ('_sa_instance_state') %}
+          <th>{{attr | replace("_"," ") | title }}</th>
+        {% endif%}
+      {% endfor %}
+    </thead>
+
+    <tbody>
+      {% for flow in flows %}
+        <tr>
+          {% for attr, value in flow.__dict__.items() %}
+            {% if attr not in ('_sa_instance_state') %}
+              <td>{{ value }}</td>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+  {% endif %}
+```
+
+**Show All ORM Data in Card as Key: Value pair with skipping a few**
 
 ```html
 <h4>{{user.user_name | title}}</h4>
@@ -228,6 +333,8 @@ Templates can be used to build responses.
 <h5>User Posts</h5>
 
 <div class="row row-cols-2 g-2">
+
+{% if (posts is defined) and posts %}
 
   {% for post in user.posts %}
 
@@ -259,23 +366,126 @@ Templates can be used to build responses.
 
   {% endfor %}
 
+{% else %}
+<p class="lead">No records found!</p>
+{% endif %}
+
+
 </div>
 ```
 
 In above snippet, `and (value)` will only show those values that are not `None`.
 
-- **Error Handlers**
-  - `@app.errorhandler` is decorator that lets return a view from template for error responses like 404 and 500.
+**Pandas to HTML using JSON**
 
-    ```python
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('404.html'), 404
+You can convert a df to json, more on [doc](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_json.html), eg:
 
-    @app.errorhandler(500)
-    def internal_server_error(e):
-        return render_template('500.html'), 500
-    ```
+```sh
+>>> result = df.to_json(orient="records")
+>>> parsed = loads(result)
+>>> dumps(parsed, indent=4)
+[
+    {
+        "col 1": "a",
+        "col 2": "b"
+    },
+    {
+        "col 1": "c",
+        "col 2": "d"
+    }
+]
+```
+
+In `view.py` file
+
+```py
+from json import loads
+
+df = # your code
+df_json = df.to_json(orient="records", index=False)
+df_1 = loads(df_json)
+
+return render_template("show.html", df_1=df_1)
+```
+
+In `show.html` template, generate table with this, then you may copy and hardcode column and modify values with actions, etc.
+
+```html
+<table>
+
+  <thead>
+    <tr>
+      {% for col in df_1[1].keys() %}
+        <th>{{col}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for row in df_1 %}
+    <tr>
+      {% for k,v in row.items() %}
+        <td>{{v}}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+```
+
+### Generators
+
+```py
+# required json format
+df_json = df.to_json(orient="records", index=False)
+
+# Generates jinja code to show json df as table
+def generate_jijna_json2table(parsed, var_name="df"):
+    ths = "" # table heads
+    tds = "" # table rows
+
+    for k,v in parsed[0].items():
+        ths += f"\n<th>{k}</th>"
+        tds += "\n<td>{{row.get('"+k+"')}}</td>"
+
+    html = """
+    <table class="table table-hover mb-4" id="a_datatable">
+
+    <thead>
+        <tr>
+            """+ths+"""
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in """+var_name+""" %}
+        <tr>
+        """+tds+"""
+        </tr>
+        {% endfor %}
+    </tbody>
+
+    </table>
+    """
+    return(html)
+```
+
+You can print what is returned from above function and paste it in jinja for further modification.
+
+### Error Handlers
+
+`@app.errorhandler` is decorator that lets return a view from template for error responses like 404 and 500.
+
+```python
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+```
 
 
 ## Flask Extensions
@@ -835,7 +1045,7 @@ Each model has `query` object is available. It has to be chained with _filter-op
 
 **Filter-Options** - They are added to choose records. Eg, `filter()`, `filter_by()`, `limit()`, `offset()`, `order_by()`, `group_by()`
 
-**Executors** - they are at end of chained methods and finally execute the query to get result set. Eg, `all()`, `first()`, `first_or_404()`, `get()`, `get_or_404()`, `count()`, `paginate()`.
+**Executors** - they are at end of chained methods and finally execute the query to get result set. Eg, `all()`, `first()`, `first_or_404()`, `get()`, `get_or_404()`, `count()`, `paginate()`, `fetch()`, `fetchall()`, `scalar()`.
 
 **Imp**, when refering column of a Models, `.c` is not required. When refering a col from table, like many2many join table, helper table, then use `.c` collection of columns, eg, `Post.query.join(followers, (followers.c.followed_id == Post.user_id))`.
 
@@ -845,6 +1055,21 @@ Links:
 - [select ORM, join where](https://docs.sqlalchemy.org/en/20/orm/queryguide/select.html#selecting-orm-entities-and-attributes)
 - [models - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/queries/#)
 - [pagination - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/pagination/)
+
+**scalars** vs **all**
+
+- use scalar when you have whole and only one ORM object to select. That is only User and whole User (all fields of User). This will give list of User object, hence easy to use. `items[0].name` is name of first user.
+- use all when you have multiple ORM model to select or partial columns to select from orm model. It will return list of tuple having objects or columns. You have to unpack the tuple. `items[0].User.name` is name of first user.
+
+```py
+items = db.session.execute(db.select(Book, Author).join(Author, Author.author_id == Book.author_id)).all() # correct
+# [(<Book 1>, <Author: [<Book 1>]>), ... , (<Book 10>, <Author: [<Book 9>, <Book 10>]>)]
+
+items = db.session.execute(db.select(Book, Author).join(Author, Author.author_id == Book.author_id)).scalars().all()
+# [<Book 1>, <Book 2>, ... , <Book 10>]
+```
+
+More on [SO - scalars or all](https://stackoverflow.com/a/72791280/1055028)
 
 Examples:
 
@@ -865,6 +1090,28 @@ db.session.scalars(
     )
 ).all()
 
+# Build Query as Modular in Part
+
+selected = db.select(Response)
+
+clauses = Response.flow_type.ilike(sql_q)
+
+# add an or clause
+clauses = clauses | Response.error_reason.ilike(sql_q)
+
+flow_id = request.args.get('flow_id', None)
+if (flow_id):
+    # add an and clause
+    clauses = (clauses) &  (Response.flow_id == int(flow_id) )
+
+filtered = selected.where(clauses)
+ordered = filtered.order_by(Response.responded_at.desc())
+# db.session.execute(filtered).scalars().all()
+
+# paginate the results
+paginated_responses = db.paginate(
+    ordered,
+    page=page, per_page=10, error_out=True)
 
 # Get ScalarResult, not scriptable, but works with for
 user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
@@ -1663,9 +1910,26 @@ client = app.test_client()
 
 import app.db_conn as db_conn
 import app.sql_snippets as sql_snippets
+
+
+book = db.session.get(Book, 5)
+for attr, value in book.__dict__.items():
+    print(f"{attr}: {value}")
 ```
 
 The code above builds basic app working with the configs and imports. It makes `client` available which can be used to interact with the flask routes. It also makes modules available which can be used for functionalities. More on how to use it below.
+
+For **non factory** app, use below code to do database operations:
+
+```py
+from app import app
+app_context = app.app_context()
+app_context.push()
+
+from app import db
+from app.models import Book, Author
+db.session.execute(db.select(Book, Author))
+```
 
 ### Writing Tests
 

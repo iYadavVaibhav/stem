@@ -74,63 +74,133 @@ Removing a package from Sublime Text:
 
 VS Code is general purpose light weight highly customizable text editor. Suports remote environment editing.
 
-- **Setting**
-  - it can be get at three levels - Global / User / Workspace, either via GUI or via modifying JSON.
-  - press `ctrl shift p` then type `preferences` to open GUI or JSON settings.
-  - **Workspace** is specifically to a folder or project level and overrides all other settings. `.\.vscode\settings.json` in project folder can have all the modifications.
-  - **User Settings** apply to all the projects of a user.
-
-- **Snippets**
-  - what - they are code template with place holders
-  - run - there can be invoked with `ctrl+space` or binded to key
-  - create - it can language specific or global. It can be defined in `Code/User/snippets/markdown.json` to be language specific. Each snippet has a name (key), under which (nested key:value) we define prefix, body and description. prefix triggers and body is inserted. Body can have variables and placeholders: $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the same ids are connected. Eg:
-
-    ```json
-    "Print to console": {
-        "prefix": "log",
-        "body": [
-            "console.log('$1');",
-            "$2"
-        ],
-        "description": "Log output to console"
-    }
-    ```
-
-  - more here [Code Visualstudio - User defined snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets)
-
-- **Key Bindings**
-  - it can be updated in JSON. `ctrl shifp p > shortcuts json`. In a list you can add your mappings. Eg:
 
 
-    ```json
-    [
-        {
-            "key": "ctrl+alt+s",
-            "command": "macros.url2mkd", // ext.command
-        },
-        {
-            "key": "ctrl+alt+d",
-            "command": "editor.action.insertSnippet",
-            "when": "editorTextFocus && editorLangId == 'markdown'",
-            "args": {
-                "snippet": "\n\n```${1:python}\n$0\n```\n", // or name of snippet
-            }
-        },
-    ]
-    ```
+### Settings
+
+You can customize settings either via GUI or via modifying JSON `ctrl shift p` and type `preferences`. It has three levels:
+
+- **Workspace** is specifically to a folder or project level and overrides all other settings. File is located at `.\.vscode\settings.json` in project folder can have all the modifications. It can be part of your git to keep others in sync.
+- **User** apply to all the projects of a user. Path is `~/.config/Code/User/settings.json`
+- **Global** applies to all users on a system.
 
 
-
-
-
-
-- **Sync Settings** - VS Code can be logged in using GitHub to start sync settings.
+**Sync Settings** - VS Code can be logged in using GitHub to start sync settings.
 
 - Extensions can be disabled when not in use.
 - open `~/.config/Code/User/settings.json` to add extension configurations
 - add below codes within the curly braces
 
-### Macro in VS Code
+**Proxy Settings**
+
+You may be behind a proxy server and need proxy settings to allow http requests to happen. To add proxy to vs code add following key-value in `settings.json`:
+
+```json
+"http.proxy": "http://<username>:<password>@<url>:<port>",
+```
+
+### Extensions
+
+They are developed to enhance the functionality of VS Code. Each extension has settings that can be added to VS Code JSON settings at all level workspace, user ot global.
+
+### Snippets
+
+- what - they are code template with place holders
+- run - there can be invoked with `ctrl+space` or binded to key
+- create - it can language specific or global. It can be defined in `Code/User/snippets/markdown.json` to be language specific. Each snippet has a name (key), under which (nested key:value) we define prefix, body and description. prefix triggers and body is inserted. Body can have variables and placeholders: $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the same ids are connected. Eg:
+
+  ```json
+  "Print to console": {
+      "prefix": "log",
+      "body": [
+          "console.log('$1');",
+          "$2"
+      ],
+      "description": "Log output to console"
+  }
+  ```
+
+- more here [Code Visualstudio - User defined snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets)
+
+### Key Bindings
+
+- it can be updated in JSON. `ctrl shifp p > shortcuts json`. In a list you can add your mappings. Eg:
+
+
+  ```json
+  [
+      {
+          "key": "ctrl+alt+s",
+          "command": "macros.url2mkd", // ext.command
+      },
+      {
+          "key": "ctrl+alt+d",
+          "command": "editor.action.insertSnippet",
+          "when": "editorTextFocus && editorLangId == 'markdown'",
+          "args": {
+              "snippet": "\n\n```${1:python}\n$0\n```\n", // or name of snippet
+          }
+      },
+  ]
+  ```
+
+
+
+### Ext: Flake8 in VS Code
+
+It is one of the best linter for Python. A linter is a tool to help you improve your code. It advises you about code quality by displaying warnings and errors.
+
+**Install** - `pip install flake8`
+
+**Configure** - In VS Code settings
+
+```json
+// Flake8 - ignore rules
+"python.linting.flake8Args": [
+    "--max-line-length=120",
+    "--ignore=E402,E501,W293,E302,E303,W391",
+],
+// E402 - Module level import not at top of file
+// E501 - Line lengths are recommended to be no greater than 79 characters
+// W293 - Blank line contains whitespace
+// E302 - 2 blank lines
+// E303 - too many blank lines
+// W391 - blank line at end of file
+```
+
+### Ext: Better Jinja
+
+Better code formatting, highlighting and intellisense for Jinja Templates. From select-language-mode `ctrl+k m` select `jinja-html`.
+
+Congigure the settings with following for better and auto association of files:
+
+```json
+// Jinja Settings
+"files.associations": {
+    "*.html": "jinja-html"
+},
+"emmet.includeLanguages": {
+    "jinja2": "html",
+    "jinja-html": "html",
+},
+"[jinja]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+},
+"[jinja-html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+},
+
+```
+
+Link: [StackOverflow - jinja highlighting](https://stackoverflow.com/a/72761998/1055028)
+
+### Ext: Macro in VS Code
 
 You can use Macro in VS Code using extention [macro-commander](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.macro-commander)
 
@@ -158,7 +228,7 @@ await window.showInformationMessage(`OUT: ${d}`);
 await vscode.env.clipboard.writeText(`[${d}](${a})`)
 ```
 
-### Markdown in VS Code
+### Ext: Markdown in VS Code
 
 Markdownlint disable rules:
 

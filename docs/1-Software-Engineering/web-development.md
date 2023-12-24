@@ -222,6 +222,34 @@ In `tasks` `all()` method, which shows all resources, you need to implement filt
   - done - where done=true
   - page - use limit or offset
 
-Links:
+
+
+**Flask HTMX** or AJAX Routes Methods and Template naming
+
+HTML verbs - new, edit, delete, one, all
+
+AJAX verbs - add, create, modify, update, remove, item, all
+
+HTML Components:
+
+- `_item.html` : Row Details with Edit and Delete buttons
+- `_modify_form.html` : Row Details in form with Save and Cancel buttons
+- `_add_form.html`: Blank form with Create and Cancel buttons
+
+| HTTP Method | URI | Method | Template | Action | Return
+| --- | --- | --- | --- | --- | --- |
+| GET | tasks/ | all() | all.html | View all tasks | table with `_item.html` looped
+| GET | tasks/[task_id] | item() | _item.html |  **Read** One task HTML | `_item.html` html component
+| GET | tasks/add | add_form() | _add_form.html |  HTML Form to add task | `_add_form.html` html component
+| `POST` |  tasks/ | create() |  |  **Create** / Insert a add task | `_item.html`
+| GET | tasks/[task_id]/modify_form | modify_form() | _modify_form.html |  HTML form to edit a task | html form `_modify_form.html`
+| `PUT` | tasks/[task_id] | update() |  |  **Update** an existing task | `_item.html` with updated details
+| `DELETE` |  tasks/[task_id] | remove() |  |  **Delete** a task | `NULL`, to be added
+
+Issues is that not always new item is same, it may have different hx attributes depending on when it is added to DOM.
+
+
+**Links**
 
 - <https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa>
+- [Codecapsules - Tutorial Building A Full Stack Application With Flask And Htmx](https://codecapsules.io/tutorial/building-a-full-stack-application-with-flask-and-htmx/)

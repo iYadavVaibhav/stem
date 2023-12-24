@@ -185,7 +185,7 @@ Is a request made by developer (coder) to other developers (reviewers) so that r
 To approve a Pull Request you need to create the same on your local machine. So on terminal do:
 
 ```sh
-$ git checkout JIRA-123
+$ git checkout -b JIRA-123
 Switched to a new branch 'JIRA-123'
 branch 'JIRA-123' set up to track 'origin/JIRA-123'.
 
@@ -194,6 +194,12 @@ remote: Enumerating objects: 22, done.
 remote: Counting objects: 100% (22/22), done.
 ...
 Already up to date.
+```
+
+If you accidently pull a wrong remote branch to local,eg in local-develop you pulled remote-JIRA-123 , you can reset using
+
+```sh
+git reset --hard origin/develop
 ```
 
 **Create a Pull Request**

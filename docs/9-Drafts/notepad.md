@@ -173,64 +173,6 @@ select - table - set - id to row selected
 
 ```
 
-
-
-## Plotly D3 Vizs
-
-- poltly built on top of D3
-- python api uses plotly.js
-
-
-Plotly Library:
-
-- data - result of go.chartType(x=, y=, others=....)
-- layout - title, axis, annotations
-  - has param `updatemenus`
-  - There are four possible update methods:
-    - "restyle": modify data or data attributes
-    - "relayout": modify layout attributes
-    - "update": modify data and layout attributes
-    - "animate": start or pause an animation
-- frames: used for animations
-  - we can add different frames to a chart
-  - this can be used to produce the animations
-  - Example can be found [here](https://plotly.com/python/animations/#frames).
-- figure - final object combining data and layout.
-
-Dash is putting and linking many plotly charts together.
-
-**Other plotly products**
-
-Dash:
-
-- Dash is Python framework for building *analytical web applications*.
-- It is built on Flask, Plotly.js and React.js
-- Just like flask, we define `app = dash.Dash()` and then at end `app.run_server()`
-- We can create complete site with links.
-- It has intractable story.
-
-Chart Studio
-
-- is like Tableau web edit and public.
-- Can create and host data, charts and dashboards.
-- can explore other people's work.
-- charts are interactable and linked together.
-- can be reverse engineered.
-- can host notebooks as well.
-
-ObservableHQ:
-
-- Live, web edit, d3 notebooks.
-- markdown and JS blocks
-- lots of d3 features. like counts, action buttons etc
-- can make dasboard as well.
-
-
-References:
-
-- [How and why I used Plotly (instead of D3)](https://www.freecodecamp.org/news/how-and-why-i-used-plotly-instead-of-d3-to-visualize-my-lollapalooza-data-d48345e2ca68/)
-- [4 interactive Sankey diagrams made in Python](https://medium.com/plotly/4-interactive-sankey-diagram-made-in-python-3057b9ee8616)
-
 ## D3
 
 Add D3 library. Then specific module.
@@ -241,6 +183,13 @@ Add D3 library. Then specific module.
 - selectAll() data() enter() append() - to add elements, SDEA.
 <https://observablehq.com/@d3/d3-hierarchy?collection=@d3/d3-hierarchy>
 
+
+ObservableHQ:
+
+- Live, web edit, d3 notebooks.
+- markdown and JS blocks
+- lots of d3 features. like counts, action buttons etc
+- can make dasboard as well.
 
 
 ## YouTube Channel Notes
@@ -301,3 +250,60 @@ Follow:
   - It can store attributes like `Store Key (PK)`, `Number (NK)`, `Name`, `Street Address`, `City`, `County`, `City-State`, `State`, `Zip Code`, `Manager`, `District`, `Region`. You can see there is a hierarchy here.
 
 - Promotion Dimension
+
+## Home Lab
+
+- Proxmox
+  - Proxmox is virtualization without OS. Proxmox is itself like a OS similar to Virtual Box
+  - Once installed it can be accessed from web or shell.
+  - From Web, you can create vm, upload iso for vm, define vm hardware requirements, network configs etc.
+  - VM can be accessed using shell or vnc via web browser.
+  - Proxmox provides easy container creation with pre-built templates.
+
+- QEMU and KVM
+  - This can be installed on linux, like On ubunut server (host).
+  - using cmd line we can craete new vms, provide configs.
+  - using ip:port we can open these vms on web using vnc.
+
+- Docker
+  - container starts runs commands and exits, to make it run continuously, config has to be made, like container as web server.
+  - you can start multiple container with same image, they are all isolated and can be identical. it helps scaling.
+
+- Go to r/homelab for more.
+
+## Flask LL
+
+- has `.flaskenv`
+- data passsed to templates is json.
+- templates, has includes having footer and nav. manin is layout,htmk. other extend it, and add `block content`.
+- Req and res are all JSON API format.
+
+## Home Ubuntu Server
+
+- System disk SSD, Storage disk HDD, is good.
+- Services you offer should be reliable which requires to give thoughts deeply.
+- Static IP Adress can be manual or via DHCP if you have a router.
+- SSH shell is real shell and if it gets terminated in between of task, the task is lost and may make system currupt. To come over this, use `tmux`.
+- tmux is a virtual shell that shows real shell that keeps running until a system is running or you terminate it. A shell open in tmux and be disconnected and reconnected to begin from same place as you disconnected at.
+- Never interrupt a apt upgrade process. It can damage the system.
+- It is good to set important security upgrades to run automatically.
+
+- Snap - is app package with dependencies bundles and works for any distribution. It is platform independent.
+  - easy to install, updates automatically.
+
+- User Accounts
+  - human accounts
+  - many services need account to run, they create during installation or you can create manually.
+
+- Services
+  - run in a process, they have parent process to.
+
+- Power Management
+  - UPS should be used. UPS comes with USB attachement, that lets ubnutu server know that it is running on battery and if battery if below a certain level you can configure server to gracefully shutdown.
+
+- Cockpit - systme management via web
+- Samba - File sharing locally
+- KVM/QEMU - to run VMs
+- Container - LCX or Docker - Docker preferred.
+- Media - jellyfin/plex on docker. Jellyfin config and settings can be on server, so that whenever new image is available on docker hub, we can pull it, while config and cache can be picker from the server. Build two folders in `/srv/jellyfin/{config/cache}`, map both of these as volume to docker. Add another volumen to container which will have media, thsi can be on server or any path on network. Make this docker container run on reboot automatically by option reboot always or via adding systemd.
+- File Sharing - NextCloud

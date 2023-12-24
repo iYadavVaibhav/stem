@@ -77,6 +77,48 @@ It is superset of javascript, basically used to make use of new features of JS c
 
 ## JS Snippets
 
+### Looping
+
+```js
+// array
+for (let i = 0; i < myArray.length; i++) {
+  console.log(myArray[i].age)
+}
+
+// array values, in list of dictionary
+for (let item of items) {
+    console.log(item); // Will display contents of the object inside the array
+}
+
+for (const [key, value] of items) {
+  console.log(value);
+}
+
+// fixed length
+var toAdd = document.createDocumentFragment();
+for(var i=0; i < 11; i++){
+  var newDiv = document.createElement('div');
+  newDiv.id = 'r'+i;
+  toAdd.appendChild(newDiv);
+}
+document.appendChild(toAdd);
+```
+
+- More on [Stackoverflow - Questions 16626735 How To Loop Through An Array Containing Objects And Access Their Properties](https://stackoverflow.com/a/48916461/1055028)
+
+### Add and Modify Elements
+
+```js
+var newDiv = document.createElement('div');
+newDiv.id = 'roam';
+newDiv.innerHTML = 'JavaScript DOM';
+newDiv.className = 'ansbox';
+newDiv.className = 'ansbox';
+
+// remove
+newDiv.remove();
+```
+
 ### Action on DOM Elements
 
 ```js
@@ -85,6 +127,8 @@ const items = document.querySelectorAll(".some-class");
 
 // item selection
 const item = document.querySelector('#item-id');
+
+const elem = document.getElementById("myDIV")
 
 // Function definition
 var showOverlay = function overlay() {

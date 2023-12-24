@@ -690,6 +690,10 @@ file = open(obs_loc,'w')
 file.write(obscured.decode())
 file.close()
 
+## One liner obscuring
+b64e(compress('Secret'.encode(), 9)).decode()
+
+
 
 # Unobscuring
 from zlib import decompress

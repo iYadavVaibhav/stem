@@ -82,12 +82,27 @@ df.loc[4,'emp_name'] = 'John' # updates cell at row_index 4 and column "emp_name
 
 ```
 
-## Summarize / Aggregate Data
+## Change Data Type
+
+```py
+# this will change datatype but will keep decimal, 11.0 to '11.0'
+df['emp_id'] = df['emp_id'].astype(str)
+
+# this will convert 1.04 to 1
+df.customer_identifier = df.customer_identifier.apply(lambda x : str(int(x)) )
+
+# to check
+df.dtypes
+```
+
+More on [Stackoverflow](https://stackoverflow.com/a/75505969/1055028)
+
+## Summarize / Aggregate / Group Data
 
 - `df.product.nunique()` - unique products in dataframe. [pandas.Series.nunique](https://pandas.pydata.org/docs/reference/api/pandas.Series.nunique.html)
 - `df.product.value_counts()` - unique products and count of records for each. [pandas.Series.value_counts](https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html)
 
-## Group Data
+**Group Data**
 
 - aggregation functions - mean, sum, count, size, max, min, first, last. alos, `agg`
 - sorting - `.sort_values(by='count',ascending=False).head(20)`
@@ -95,6 +110,9 @@ df.loc[4,'emp_name'] = 'John' # updates cell at row_index 4 and column "emp_name
 ```py
 # Groupby multiple columns & multiple aggregations
 result = df.groupby('Courses').aggregate({'Duration':'count','Fee':['min','max']})
+
+# Group and rename
+df_bar = df.groupby('item_type').aggregate(count = ('id','count') ).reset_index()
 
 #Create a groupby object
 df_group = df.groupby("Product_Category")
@@ -104,6 +122,8 @@ df_columns = df_group[["UnitPrice(USD)","Quantity"]]
 df_columns.mean()
 
 ```
+
+- More on [Pandas Pydata Aggregate](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.aggregate.html)
 
 ## Create New Columns or Calculated Fields
 
@@ -120,8 +140,27 @@ def build_some(x):
 
 df[ ['name', 'fname'] ] = df.apply(lambda x : build_some(x) , axis = 1, result_type='expand')
 
+# Example using function
+df['item_type'] = df.apply(lambda x : get_item_type(x), axis=1)
+def get_item_type(x):
+    y = ""
+    if x['order_type'] == "Valid" and len(x['inbound_reason']) > 1:
+        y = "Inbound"
+    elif x['order_type'] == "Need more info to respond":
+        y = "Need Info"
+    elif x['order_type'] == "Error in Data":
+        y = "Error in Reporting"
+    else:
+        y = "Awaiting Category"
+    return y
+
+# Exmple single line
+df['has_responded'] = df.apply(lambda x : 'Awaiting' if x['responded_by'] is None else 'Responded', axis=1)
+```
 
 ## ID col
+
+```py
 sql_max_id = """
 select max(id) as max_id from [dbo].[employee]
 """
@@ -149,23 +188,67 @@ df_wm['date_wm'].dt.year # year from datetime
 ## Renaming Column Names
 
 ```py
-# cleans column names and handles renaming same column name
-# replaces space and - with _, adds index to same name.
 
-col_list = []     # holds names to check duplicates
-renamer = dict()  # holds col name and its number of duplicates
-for col in df.columns:
-    new_col_name = col.lower().replace(' ','_').replace('-','_')
-    if new_col_name in col_list:
-        #rename 
-        index = int(renamer.get(new_col_name,0) )
-        renamer[new_col_name] = index + 1
-        new_col_name += '_'+ str(index + 1)
-        pass
-    else:
-        col_list.append(new_col_name)
-    print(f'col: {col}, new: {new_col_name}')
-    #df.rename(columns = {col: new_col_name}, inplace=True)
+def readable_column_names(df):
+    """Makes column name sentance readable
+
+    re.sub(pattern, repl, string)
+    find a pattern and replaces in a string
+
+    Args:
+        df (DataFrame): data frame to clean
+
+    Returns:
+        DataFrame: cleaned readable column names
+    """
+    col_list = []  # holds names to check duplicates
+    renamer = dict()  # holds col name and its number of duplicates
+
+    for col in df.columns:
+
+        new_col_name = col
+
+        # camel case to space
+        new_col_name = re.sub('([a-z0-9])([A-Z])', r'\1 \2', new_col_name).lower()
+
+        new_col_name = new_col_name.replace("_", " ").replace("-", " ").title()
+
+        if new_col_name in col_list:
+            # rename
+            index = int(renamer.get(new_col_name, 0))
+            renamer[new_col_name] = index + 1
+            new_col_name += "_" + str(index + 1)
+            pass
+        else:
+            col_list.append(new_col_name)
+        # print(f'col: {col}, new: {new_col_name}')
+        df.rename(columns={col: new_col_name}, inplace=True)
+
+    return df
+
+def system_column_names(df):
+    col_list = []     # holds names to check duplicates
+    renamer = dict()  # holds col name and its number of duplicates
+    for col in df.columns:
+
+        new_col_name = col
+
+        # Camel case to space
+        new_col_name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', new_col_name).lower()
+
+        new_col_name = new_col_name.lower().replace(' ','_').replace('-','_')
+
+        if new_col_name in col_list:
+            #rename
+            index = int(renamer.get(new_col_name,0) )
+            renamer[new_col_name] = index + 1
+            new_col_name += '_'+ str(index + 1)
+            pass
+        else:
+            col_list.append(new_col_name)
+        # print(f'col: {col}, new: {new_col_name}')
+        df.rename(columns = {col: new_col_name}, inplace=True)
+    return df
 ```
 
 ## Plot in Pandas
