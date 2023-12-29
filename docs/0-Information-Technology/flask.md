@@ -1075,7 +1075,9 @@ Examples:
 
 ```py
 # Get list of objects
+
 db.session.scalars(db.select(User).order_by(User.id)).all()
+
 
 # Complex Where with Join
 
@@ -1090,30 +1092,35 @@ db.session.scalars(
     )
 ).all()
 
+
 # Build Query as Modular in Part
 
 selected = db.select(Response)
-
 clauses = Response.flow_type.ilike(sql_q)
-
 # add an or clause
 clauses = clauses | Response.error_reason.ilike(sql_q)
-
 flow_id = request.args.get('flow_id', None)
 if (flow_id):
     # add an and clause
     clauses = (clauses) &  (Response.flow_id == int(flow_id) )
-
 filtered = selected.where(clauses)
 ordered = filtered.order_by(Response.responded_at.desc())
-# db.session.execute(filtered).scalars().all()
+db.session.execute(filtered).scalars().all()
 
-# paginate the results
+
+
+# Pagination
+
 paginated_responses = db.paginate(
-    ordered,
+    ordered.limit(50),
     page=page, per_page=10, error_out=True)
+# above will give 5 pages, with 10 on each due to limit.
+
+users = db.paginate(db.select(User).order_by(User.join_date))
+
 
 # Get ScalarResult, not scriptable, but works with for
+
 user = db.session.execute(db.select(User).filter_by(username=username)).scalar_one()
 
 users = db.session.execute(db.select(User).order_by(User.username)).scalars()
@@ -1126,23 +1133,25 @@ u = db.session.execute(db.select(User).filter_by(name="sandy")).scalar_one()
 
 u = session.execute(db.select(User.fullname).where(User.id == 2)).scalar_one()
 
+
 # view queries
+
 user = db.get_or_404(User, id)
 
 user = db.one_or_404(db.select(User).filter_by(username=username))
 
+
 # 404 with message for abort
+
 user = db.one_or_404(
     db.select(User).filter_by(username=username),
     description=f"No user named '{username}'."
 )
 
-# Pagination
-users = db.paginate(db.select(User).order_by(User.join_date))
-return render_template("user/list.html", users=users)
 
 # ORM Queries
 db.select(user_table).where(user_table.c.name == "spongebob")
+
 
 # JOINs
 db.select(user_table.c.name, address_table.c.email_address).join(address_table)
@@ -1151,9 +1160,11 @@ db.select(address_table.c.email_address)
   .select_from(user_table)
   .join(address_table, user_table.c.id == address_table.c.user_id)
 
+
 # outer join
 print(select(user_table).join(address_table, isouter=True))
 print(select(user_table).join(address_table, full=True))
+
 
 # order group having
 db.select(User.name, func.count(Address.id).label("count"))
@@ -1161,7 +1172,7 @@ db.select(User.name, func.count(Address.id).label("count"))
         .group_by(User.name)
         .having(func.count(Address.id) > 1)
 
-select(Address.user_id, func.count(Address.id).label("num_addresses"))
+db.select(Address.user_id, func.count(Address.id).label("num_addresses"))
     .group_by("user_id")
     .order_by("user_id", desc("num_addresses")
 ```
@@ -1218,7 +1229,10 @@ followed = Post.query.join(
 
 For pagination, during a request, this will take page and per_page arguments from the query string request.args. Pass max_per_page to prevent users from requesting too many results on a single page. If not given, the default values will be page 1 with 20 items per page.
 
-Link: [Quickstart - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/)
+Link:
+
+- [Quickstart - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/)
+- [Date Filters](https://stackoverflow.com/questions/51451768/sqlalchemy-querying-with-datetime-columns-to-filter-by-month-day-year)
 
 ### Update
 

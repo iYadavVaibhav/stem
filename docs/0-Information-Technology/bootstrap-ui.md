@@ -48,6 +48,12 @@ Show divs of different width on different devices
 </div>
 ```
 
+### Flex
+
+- More on [Bootstrap Docs Flex](https://getbootstrap.com/docs/5.2/utilities/flex/)
+- And on <https://css-tricks.com/snippets/css/a-guide-to-flexbox/>
+- and <https://css-tricks.com/almanac/properties/a/align-items/>
+
 ## CSS Variables
 
 BS uses CSS variables that are defined once and used in whole CSS document. Eg,

@@ -184,8 +184,8 @@ Step by Step - Think of user journey for immediate goal, future goal. Good to ha
 
 They are endpoints and should have a pattern, like:
 
-  - TIA - `x.com/<Type>/<Identifier?>/<Action?>`, eg, `x.com/posts/1/edit`
-  - Nested TIA - `/<Type>/<Identifier?>/<Type>/<Identifier?>/<Action?>`. Eg, `/posts/1/comments/create`
+- TIA - `x.com/<Type>/<Identifier?>/<Action?>`, eg, `x.com/posts/1/edit`
+- Nested TIA - `/<Type>/<Identifier?>/<Type>/<Identifier?>/<Action?>`. Eg, `/posts/1/comments/create`
 
 **API URLs** should have versioning and api prefix like `http://hostname/todo/api/v1.0/tasks`
 
@@ -253,3 +253,78 @@ Issues is that not always new item is same, it may have different hx attributes 
 
 - <https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa>
 - [Codecapsules - Tutorial Building A Full Stack Application With Flask And Htmx](https://codecapsules.io/tutorial/building-a-full-stack-application-with-flask-and-htmx/)
+
+## Architecture & Design
+
+Handling data at different levels in your application involves a mix of responsibilities. Here's a breakdown of where you can handle specific logic related to data in a Flask application:
+
+**1 Database**
+
+- Responsibility: Defining the **structure** of your data, **relationships** between tables, and ensuring data **integrity**.
+- Tasks:
+  - Define tables and relationships using a database schema.
+  - Ensure proper indexing and constraints for performance and data integrity.
+
+**2 SQLAlchemy Models**
+
+- Responsibility: Representing the database entities in your application, defining how data is retrieved and manipulated.
+- Tasks:
+  - Define SQLAlchemy models corresponding to your database tables.
+  - Implement methods in models for **data retrieval, manipulation**, and **business logic**.
+  - Handle complex queries or **data transformations** in the model layer.
+
+**3 Flask Routes**
+
+- Responsibility: Handling HTTP requests, interacting with the database through models, and **preparing data for presentation**.
+- Tasks:
+  - Retrieve data from the database using SQLAlchemy models.
+  - Perform any necessary **data manipulation** or **business logic**.
+  - Pass the processed data to the template for rendering.
+
+**4 Jinja Templates**
+
+- Responsibility: Rendering HTML and presenting data to the user.
+- Tasks:
+  - Display data received from Flask routes.
+  - Implement **conditional logic** in templates for **role-based rendering**.
+  - Keep templates focused on presentation, **avoiding complex business logic**.
+
+### Recommendations
+
+**Separation of Concerns:**
+
+- Keep business logic and data manipulation in the SQLAlchemy models and Flask routes.
+- Ensure that templates are responsible for presentation and rendering, not for complex data processing.
+
+**Template Context**
+
+- Pass only the necessary data to templates. Flask routes should prepare the data and send it to - templates in a ready-to-use format.
+
+**Avoid Complex Logic in Templates**
+
+- Minimize the use of complex logic in templates. If you find yourself needing significant logic in - templates, consider moving that logic to the Flask routes or models.
+
+**Reusability**
+
+- Encapsulate reusable logic (e.g., role-based rendering) in functions or macros within your templates.
+- By following these recommendations, you can maintain a clean and maintainable separation of concerns in your Flask application, making it easier to understand, extend, and maintain over time.
+
+### Business Logic Recommendations
+
+**Lean Toward Models for Data-Related Logic**: Business logic directly related to the structure and integrity of your data is often better placed in models.
+
+**Lean Toward Routes for Presentation Logic**: Logic that specifically deals with handling requests, preparing data for presentation, or coordinating different parts of your application might be more suitable for routes.
+
+**Keep Routes Thin**: Aim for thin routes that primarily handle HTTP concerns, delegate to models for data manipulation, and delegate to templates for presentation.
+
+**Consider a Service Layer**: For more complex applications, you might introduce a service layer between routes and models to encapsulate business logic, providing a clean and modular design.
+
+Links
+
+- [Stack - business logic](https://softwareengineering.stackexchange.com/questions/234251/what-really-is-the-business-logic)
+
+### Three-Tier Architecture
+
+The three-tier architecture consists of a single presentation tier, logic tier, and data tier. It is similar to MVC. Logic layer, business layer or application layer are all similar.
+
+- [ ] learn architecture patterns and design patterns, like DDD, OOD, EDD.
