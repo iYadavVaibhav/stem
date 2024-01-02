@@ -624,10 +624,17 @@ First commit and then add a tag, `git tag -a v1.4 -m "my version 1.4"` to add ne
 
 Remote tag example: `git push -d origin v0.6``
 
-
 **Links** - Git Tags
 
 - [https://git-scm.com/book/en/v2/Git-Basics-Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+
+## Fix: Fix error of git currupt
+
+Following works on ubuntu
+
+```sh
+git repair
+```
 
 ## Todo
 

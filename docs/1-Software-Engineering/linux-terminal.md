@@ -388,6 +388,38 @@ You need to secure Ubunut server as well to prevent misuse, see "Securing Ubuntu
 
 Now this machine can accept SSH connections.
 
+### SCP - File Transfer via SSH
+
+To copy a **file**:
+
+```sh
+# Syntax
+scp <source> <destination>
+
+# To copy a file from B to A while logged into B:
+scp /path/to/file username@a:/path/to/destination
+
+# To copy a file from B to A while logged into A:
+scp username@b:/path/to/file /path/to/destination
+```
+
+If you want to copy a **directory** from machine a to b while logged into a:
+
+```sh
+scp -r /path/to/directory user@machine_b_ipaddress:/path/to/destination
+```
+
+If you want to copy a **directory** from machine a to b while logged into b:
+
+```sh
+scp -r user@machine_a_ipaddress:/path/to/directory /path/to/destination
+```
+
+Example:
+
+```sh
+scp -r .\abc\ john@192.168.10.10:/tmp/abc
+```
 
 ## Linux Ways
 

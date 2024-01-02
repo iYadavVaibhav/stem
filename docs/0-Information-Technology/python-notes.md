@@ -301,9 +301,43 @@ file.close()
 os.makedirs(pdf_dir, exist_ok=True)
 ```
 
-- non recursive replace`[os.rename(f, f.replace('_', '-')) for f in os.listdir('.') if not f.startswith('.')]`
+### Snippets
 
-```python title="Replace '_' with '-' in filenames recursively"
+**Find all files of a type in a dir recursively**
+
+```py
+def find_images(dir_path):
+    """finds all jpg,png in given path
+
+    Args:
+        dir_path (str): path to search in
+
+    Returns:
+        list: files list
+    """
+    
+    files = []
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            if file.lower().endswith('.jpg') or file.lower().endswith('.png'):
+                files.append(os.path.join(root, file))
+                
+    print(f"{len(files)} images found.")
+    
+    return files
+
+files = find_images("/home/user/project")
+```
+
+**Non-recursive replace `_` with `-` in file names**
+
+```py
+[os.rename(f, f.replace('_', '-')) for f in os.listdir('.') if not f.startswith('.')]
+```
+
+**Replace `_` with `-` in filenames recursively**
+
+```python title=""
 directory = '.'
 for subdir, dirs, files in os.walk(directory):
   for filename in files: # !! use dirs instead of files to rename dirs first
@@ -487,7 +521,7 @@ datetime.time     # time specific methods
 
 Mostly can handle date and time. [eg geek4geek](https://www.geeksforgeeks.org/working-with-datetime-objects-and-timezones-in-python/)
   
-  - DateTime as String - `time.strftime('%Y-%m-%d %H:%M:%S')`
+- DateTime as String - `time.strftime('%Y-%m-%d %H:%M:%S')`
 
 ```python
 from datetime import datetime as dt
