@@ -62,7 +62,81 @@
 - Links
   - [Binary Search, Linked Lists and Complexity | Data Structures and Algorithms in Python](https://www.youtube.com/watch?v=clTW4lydwOU&list=PLyMom0n-MBrpakdIZvnhd6PFUCKNAyKo1&index=1) - direct code, no plain algo dry run
 
+## CS 61A: Structure and Interpretation of Computer Programs
+
+_prof John DeNero_
+
+CS61A - Fall 2023 - 37 Lectures have playlist on Youtube. Text on [site](https://cs61a.org/).
+
+## CS 61B Data Structures, Fall 2023
+
+- [Prof Josh Hug
+](https://www.youtube.com/@joshhug1212/playlists) has lecutre playlist. Other playlists can be found on [course page](https://fa23.datastructur.es/)
+
+## University of California, Berkeley
+
+- **UC Berkeley** (UCB) is "University of California" located in Berkeley, California, USA. It has CS lectures that have open syllabus, course material with lecture slides/videos, assignments, available for free online in an organized manner.
+  - Courses have a page and professor. Either videos are on course page, or go to prof youtube channel to find lectures.
+
+- **EECS UCB** is [Electrical Engineering and Computer Science](https://www2.eecs.berkeley.edu/) department.
+- [EECS Courses](https://www2.eecs.berkeley.edu/Courses/CS/) cover all CS fundamental and advance cources. Each course has a page where you can see **prerequisites** which will be another course.
+  - CS61A/B/C (alternatives CS47ABC)
+    - 61A: Teaches you how to think like a programmer
+    - 61B: The go-to class that turns a lot of people into great programmers/interested in software.
+    - 61C: Everything left in CS that isn't taught in 61A/B: Low-level things. Clocks, CPUs, Assembly, C, etc.
+    - skip/skim 61A all together and just watch/do 61B, then 61C stuff
+    - Those who have taken these courses claim that after completing this series they feel like they can achieve or learn almost anything if they wanted because they are already well versed on the lingo and tools of CS that is programming, problem solving and low level stuff.
+    - DA DSA
+    - [CS 61A: Structure and Interpretation of Computer Programs](https://cs61a.org/)
+      - Prof [JohnDeNero](https://denero.org/)
+        - mostly teaches in Python
+        - [youTube](https://www.youtube.com/@JohnDeNero) channel has all lecture assignment videos.
+          - go to playlist to see all lectures
+    - DataStructur.es
+      - info about all CS61 courses
+      - [Resources](https://sp23.datastructur.es/resources.html) Algo Visual
+  - C9A/B/C/D/E/F/G/H
+    - Basic programming courses
+    - CS 9C. C for Programmers
+    - CS 9D. Scheme and Functional Programming for Programmers
+    - CS 9E. Productive Use of the UNIX Environment
+  - [CS 186. Introduction to Database Systems](https://www2.eecs.berkeley.edu/Courses/CS186)
+    - <https://cs186berkeley.net/>
+  - CS 261. Security in Computer Systems
+  - [CS 162: Operating Systems and System Programming](https://cs162.org/)
+
+
+- [Programming Systems (PS)](https://www2.eecs.berkeley.edu/Research/Areas/PS/) - Area in UCB where many discovries were done. It includes following courses
+  - CS 61A. The Structure and Interpretation of Computer Programs
+  - CS 61B. Data Structures
+  - CS 164. Programming Languages and Compilers
+  - CS 169. Software Engineering
+  - CS 263. Design of Programming Languages
+  - CS 264. Implementation of Programming Languages
+  - CS 265. Compiler Optimization and Code Generation
+  - CS C267. Applications of Parallel Computers
+
+- **Seasons** of the United States
+  - Spring - March to May. Q2
+  - Summer - June to August. Q3
+  - Fall/Autumn - September to November. Q4
+  - Winter - December to February. Q1
+
+- **Books** Recommended
+  - [A Philosophy of Software Design](https://www.amazon.co.uk/Philosophy-Software-Design-John-Ousterhout/dp/1732102201) by John Ousterhout - recommended by student on reddit
+
+- **Links**
+  - [Ask HN: CS61 series from Berkeley, the best set of foundational CS courses?](https://news.ycombinator.com/item?id=34965653)
+
+## Explore Study Material
+
+UCB has best and open material based on reddit and your search.
+
+It will take 2-3 months to complete all lectures. So be patient and just do it without 2nd thought of result. It will benefit you.
 
 ## Links
 
 - [DSA Guide - Quora](https://www.quora.com/How-do-I-start-learning-or-strengthen-my-knowledge-of-data-structures-and-algorithms/answer/Robin-Thomas-16)
+- DSA <https://www.udacity.com/course/data-structures-and-algorithms-nanodegree--nd256>
+- DSA Python <https://www.udemy.com/course/data-structures-and-algorithms-bootcamp-in-python/>
+- Coding FAANG <https://www.udemy.com/course/master-the-coding-interview-big-tech-faang-interviews/>
