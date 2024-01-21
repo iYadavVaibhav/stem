@@ -687,63 +687,55 @@ in_at = DateTimeField('In Date-Time',
                      )
 ```
 
---------------------------------------------------
+### Get Save Form Data
 
-- **Flask-WTF** integration of Flask and WTForms
-  - Includes CSRF, file upload, and reCAPTCHA. You mostly have to use formats of WTForms but write less as few things are done automatically that are related to Flask patter.
-  - Form fields are Class variables with different field type
-  - validator functions can help validate, like `Email()`.
-  - Link to [Flask-WTF](http://pythonhosted.org/Flask-WTF/)
-  
-  - **Validation** controller
+Once a user submits a form it is automatically validated, and then the data in form can be used in flask to create edit delete or do other stuff.
 
-    ```python
-    from flask import Flask, render_template, session, redirect, url_for
+```py
+# ADD
+@app.route('task/new', methods=['GET', 'POST'])
+def new():
+    form = TaskForm()
 
-    @app.route('/', methods=['GET', 'POST'])
-    def index():
-      form = NameForm() # defined as OOP model
+    if form.validate_on_submit():
+      task = Task()
+      form.populate_obj(task)         # one line fill object, OR
+
+      Task.in_at = form.in_at.data
+      Task.note = form.note.data
+      ...                             # one line and one-by-one can be combined
+
+      task.user_id = current_user.id
+      task.added_via = 'form'
       
-      if form.validate_on_submit(): # cheks POST and validates
-        session['name'] = form.name.data
-        return redirect(url_for('index')) # POST -> back to this function as GET
+      db.session.add(task)
+      db.session.commit()
       
-      return render_template('index.html', form=form, name=session.get('name')) # When GET
-    ```
+      flash('Task added successfully!', 'success')
+      return redirect(url_for('task.all'))
 
-    - Route - define new route, import form class and use. On submit, create object of model class to save/query data.
-
-**Editing Resource**
-
-You can use same form to edit or add a resource. To populate the form with what is saved in database is one-line:
-
-```py
-task = Task.query.get(id)
-form = taskForm(obj=task)   # one line form fill
-```
-
-On getting edited response back from client, again one-line to update the resource object:
-
-```py
-if form.validate_on_submit():
-    form.populate_obj(task)      # one-line object update
-    db.session.commit()
-```
-
-When combined, it looks like:
-
-```py
+# EDIT
 @app.route('task/<int:id>/edit', methods=['GET', 'POST'])
 def edit(id):
     task = Task.query.get(id)
-    form = TaskForm(obj=task)
+    form = TaskForm(obj=task)     # one line form fill
 
     if form.validate_on_submit():
-        form.populate_obj(task)
+        form.populate_obj(task)   # one line obj  fill
         db.session.commit()
         return redirect(url_for('task.all'))
 
     return render_template('task/form.html', form=form)
+
+# DELETE
+@checkin.route('task/<int:id>/delete', methods=['POST'])
+def delete(id):
+    task = db.session.get_or_404(Task, id)
+
+    db.session.delete(task)
+    db.session.commit()
+
+    return redirect(url_for('task.all'))
 ```
 
 **Rendering View**
@@ -767,21 +759,7 @@ Or, use `flask-bootstrap` with `flask-wtf` to magically display form with one-li
 {{ wtf.quick_form(form) }} <!-- one line -->
 ```
 
-**Deleting Resource**
-
-Delete can be done via POST request, this needs form to be built.
-
-Add delete route
-
-```py
-@task.route('/<int:id>', methods=['DELETE', 'POST'])
-def delete(id):
-    task = Task.query.get(id)
-    task.active = False
-    db.session.commit()
-    flash('Task deactivated!', 'danger')
-    return redirect(url_for('task.all'))
-```
+**Form POST Button**
 
 Add delete button where you list resource, the code below will only add a button with a confirm check:
 
@@ -808,21 +786,49 @@ csrf = CSRFProtect()
 csrf.init_app(app)
 ```
 
+--------------------------------------------------
+
+- **Flask-WTF** integration of Flask and WTForms
+  - Includes CSRF, file upload, and reCAPTCHA. You mostly have to use formats of WTForms but write less as few things are done automatically that are related to Flask patter.
+  - Form fields are Class variables with different field type
+  - validator functions can help validate, like `Email()`.
+  - Link to [Flask-WTF](http://pythonhosted.org/Flask-WTF/)
+  
+  - **Validation** controller
+
+    ```python
+    from flask import Flask, render_template, session, redirect, url_for
+
+    @app.route('/', methods=['GET', 'POST'])
+    def index():
+      form = NameForm() # defined as OOP model
+      
+      if form.validate_on_submit(): # cheks POST and validates
+        session['name'] = form.name.data
+        return redirect(url_for('index')) # POST -> back to this function as GET
+      
+      return render_template('index.html', form=form, name=session.get('name')) # When GET
+    ```
+
+    - Route - define new route, import form class and use. On submit, create object of model class to save/query data.
+
+
 ## Databases in Flask
 
 DB_package or ORM - Python has packages for most database engines like MySQL, Postgres, SQLite, MongoDb etc. If not, you can use ORM that lets you use Python objects to do SQL operations, SQLAlchemy or MongoEngine are such packages.
 
 [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/) is wrapper on [SQLAlchemy](http://www.sqlalchemy.org/). You have to use SQLAlchemy pattern but it helps by making things tied to Flask way like session of SQLAlchemy is tied to web-request of flask.
-  - It is designed for Flask and adds support for SQLAlchemy to your application. So basically you use all knowledge and concept of SQLAlchemy but tied up with flask. Remember, SQL Alchemy can be used withour flask from command line or any other python program.
-  - You can define table as a class, called model, with member variables as column names.
-  SQLAlchemy documentation is to be reffered, just add `db` before commands. so 
 
-    ```py
-    session.add(user)       # SQLAlchemy
-    db.session.add(user)    # Flask-SQLAlchemy
-    ```
+- It is designed for Flask and adds support for SQLAlchemy to your application. So basically you use all knowledge and concept of SQLAlchemy but tied up with flask. Remember, SQL Alchemy can be used withour flask from command line or any other python program.
+- You can define table as a class, called model, with member variables as column names.
+SQLAlchemy documentation is to be reffered, just add `db` before commands. so
 
-**Installation** 
+  ```py
+  session.add(user)       # SQLAlchemy
+  db.session.add(user)    # Flask-SQLAlchemy
+  ```
+
+**Installation**
 
 ```sh
 python -m pip install flask-sqlalchemy
@@ -851,7 +857,7 @@ Conventions:
 
 Tables can be defined in OOP pattern as a class called "model". Model is a Class which represents application entities, like, User, Task, Author, Book etc. You can define, table, its columns, data types, keys and relationships. The class has attributes that represent column name, eg `name = db.Column(db.String(64)`.
 
-In `model.py` 
+In `model.py`
 
 ```py
 from datetime import datetime
@@ -1055,6 +1061,8 @@ Links:
 - [select ORM, join where](https://docs.sqlalchemy.org/en/20/orm/queryguide/select.html#selecting-orm-entities-and-attributes)
 - [models - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/queries/#)
 - [pagination - flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/pagination/)
+- [func calculations](https://docs.sqlalchemy.org/en/20/core/functions.html#sqlalchemy.sql.functions.count)
+- [extact function](https://docs.sqlalchemy.org/en/20/core/sqlelement.html#sqlalchemy.sql.expression.extract)
 
 **scalars** vs **all**
 
@@ -1076,7 +1084,32 @@ Examples:
 ```py
 # Get list of objects
 
+from sqlalchemy import func
+
 db.session.scalars(db.select(User).order_by(User.id)).all()
+
+
+# Select columns with calculations including Date Operations
+
+date_in = dt.strptime('2023-10-22', "%Y-%m-%d")
+
+q = db.select(
+    func.date(Checkin.in_at).label('date_in'),
+    func.count(Checkin.id).label('total'),
+    Checkin.membership_id
+).where(
+        Checkin.deleted_on.is_(None),
+        Checkin.membership_id == 10
+        (func.date(Checkin.created_at) == func.date(date_in)),
+        (func.date(Checkin.in_at) == func.date(form.in_at.data)),
+    
+).group_by(
+    func.date(Checkin.in_at),
+    Checkin.membership_id
+)
+
+str(q)
+db.session.execute(q).all()
 
 
 # Complex Where with Join
@@ -1271,6 +1304,7 @@ CRUD from Flask Shell
 **Extras - Database Schema**
 
 For MS-SQL you may need to use schema name along with table and database name. It can be defined in configuration and then used in models. **db.metadatas** - You can add schema of table in model using:
+
 ```py
 class User:
     __table_args__ = {'schema': db.metadatas['SCHEMA']}
@@ -1917,11 +1951,14 @@ from flask import current_app
 from app import create_app, db
 
 app = create_app('default')  # testing
-app.config['WTF_CSRF_ENABLED'] = False  # no CSRF during tests
 app_context = app.app_context()
 app_context.push()
+
+# optional
+app.config['WTF_CSRF_ENABLED'] = False  # no CSRF during tests
 client = app.test_client()
 
+# now you can do your work
 import app.db_conn as db_conn
 import app.sql_snippets as sql_snippets
 
