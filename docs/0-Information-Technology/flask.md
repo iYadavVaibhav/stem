@@ -1112,7 +1112,23 @@ str(q)
 db.session.execute(q).all()
 
 
-# Complex Where with Join
+# Date Comparisions --------------------------
+
+begin_at = dt.strptime('2024-01-23 17:30', "%Y-%m-%d %H:%M")
+end_at = dt.strptime('2024-01-23 18:40', "%Y-%m-%d %H:%M")
+
+q = db.select(Task.id).where(
+    (Task.user_id == 11) &
+    (Task.deleted_on.is_(None)) &
+    ((Task.begin_at <= begin_at) & (begin_at <= Task.end_at)) |
+    ((Task.begin_at <= end_at) & (end_at <= Task.end_at)) |
+    ((begin_at <= Task.begin_at) & (Task.end_at <= end_at))
+)
+str(q)
+db.session.scalars(q).all()     # list of id or blank id
+
+
+# Complex Where with Join   --------------------------
 
 db.session.scalars(
     db.select(Gym)
@@ -1126,7 +1142,7 @@ db.session.scalars(
 ).all()
 
 
-# Build Query as Modular in Part
+# Build Query as Modular in Part  ---------------------
 
 selected = db.select(Response)
 clauses = Response.flow_type.ilike(sql_q)
@@ -1210,6 +1226,15 @@ db.select(Address.user_id, func.count(Address.id).label("num_addresses"))
     .order_by("user_id", desc("num_addresses")
 ```
 
+**DEBUG**
+
+```py
+
+# print query
+print(q.compile(compile_kwargs={"literal_binds": True}))
+```
+
+More on <https://stackoverflow.com/a/45551136/1055028>
 
 Examples, **OLD and Legacy**, uses `Model.query`, Prefer using `db.session.execute(db.select(...))` instead.:
 
