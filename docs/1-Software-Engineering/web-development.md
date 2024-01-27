@@ -222,6 +222,11 @@ In `tasks` `all()` method, which shows all resources, you need to implement filt
   - done - where done=true
   - page - use limit or offset
 
+To show all resource, there are few options:
+
+1. As Table: List all items as table. If you have to show under 500 records, you can use client side data-tables, this deals with search, sort and pagination. Template, `all_table.html` on view opens `one.html` which uses `_task.html` which shows detailed view.
+
+2. As List of Card: List all items as card snippet. A summary view of item is shown as small card with most relevant details. You need to implement pagination, search and sort. This gives more freedom and control but requires more work. URL params are usually used to control the content on page. Template is `all.html` and uses `_task_snippet.html`, on view it opens `one.html` which uses `_task.html` which shows detailed view.
 
 
 **Flask HTMX** or AJAX Routes Methods and Template naming
