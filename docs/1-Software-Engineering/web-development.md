@@ -334,3 +334,13 @@ Links
 The three-tier architecture consists of a single presentation tier, logic tier, and data tier. It is similar to MVC. Logic layer, business layer or application layer are all similar.
 
 - [ ] learn architecture patterns and design patterns, like DDD, OOD, EDD.
+
+
+## OAuth
+
+Oauth is used to provide login via third party providers like google, facebook etc.
+
+To setup google Oauth:
+
+- Crate a google app in <https://console.cloud.google.com/apis/credentials>
+

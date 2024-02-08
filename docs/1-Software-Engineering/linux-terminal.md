@@ -9,6 +9,14 @@ date: 2018-07-26
 
 ## Mac Specific
 
+### Macbook Air
+
+- Text input source `British PC` aligns correctly to british keyboards with
+  - left to 1 as backtick and negation
+  - left to Z as backslash and pipe `\\ |`
+  - left to enter as hash and tilde, `~ #`
+  - " above 2, and @ above ?.
+
 
 ### Homebrew
 
