@@ -7,23 +7,6 @@ date: 2020-07-15
 
 _virtual box, vagrant, setting and networking_
 
-## ORBStack
-
-_a tool to manage docker and virtual machine on Mac_
-
-After installation, run local docker container with all documentation using below command
-
-```sh
-docker run -it -p 80:80 docker/getting-started
-```
-
-§
-
-Links:
-
-- [docs](https://docs.orbstack.dev/)
-- [discussion](https://news.ycombinator.com/item?id=36668964)
-
 ## Enable SSH access to VM from remote
 
 _guide to let you use vm via SSH_

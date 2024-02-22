@@ -6,6 +6,59 @@ date: 2023-05-20
 
 _all about docker, docker-compose, images and containers_
 
+## Physical World to Docker
+
+An app, needs files (eg, html) to run with other OS files (eg Ubuntu). Docker lets do this virtually. Docker is virtual engine that lets do all this using things like image, container etc explained below. App may be working on multiple server through network, eg, web-server connects to database-server. This can be done using multiple containers in docker.
+
+### Overview
+
+**Docker Image** is the files required for an app, including system files and binaries.
+
+**Container** is running instance of the image, that is, when the files run.
+
+Now when a service runs it may produce soem other files, these land into area called _scratch space_.
+
+**Scratch Space** is non-persistent, not shared in between containers. Each container has its own space and is destroyed when container ends.
+
+**Named Volume** is volume having name. Volume is a file-system. Volume can be created using docker. Imagine you have created your own hard-disk. Now you can attach it to docker container. Attaching happens by mounting it to a path on container. Volume content can be opened on host machine (orbstack volumes can be found under orb mount).
+
+Above is good to store some data from container. However, you may need to sync data between container and host (specially source code when developing). For this use _bind mounts_.
+
+**Bind Mounts** is volume having _exact mount-point_ on host. When mounting, you may skip copy commant in Dockerfile. This is how _Dev-Mode_ container or _Dev-Container_ is built.
+
+**Container Attributes**
+
+- container name
+- container id
+- image-tag (name:version) and image-id
+- ports: port of container -> port on host
+- Volumes: name-on-host -> path mounted on container
+- Networks
+
+### Multi-Container Apps
+
+You may run database and web-server in same container but doing one thing in a container and doing it well matters, it lets scale easily. Since container are isolated they cannot talk to other container, there has to be a network setup. To keep things simple _If two containers are on the same network, they can talk to each other. If they aren't, they can't._
+
+Links: [Docker - Get Started Guide](https://docs.docker.com/get-started/)
+
+## ORBStack
+
+_a tool to manage docker and virtual machine on Mac_
+
+After installation, run local docker container with all documentation using below command
+
+```sh
+docker run -it -p 80:80 docker/getting-started
+```
+
+§
+
+Links:
+
+- [docs](https://docs.orbstack.dev/)
+- [discussion](https://news.ycombinator.com/item?id=36668964)
+
+
 
 ## Docker
 
@@ -174,6 +227,9 @@ $ docker container ls -a
 
 $ docker container logs <container-name>
 # see logs
+
+$ docker logs -f <container-id>
+# watch logs
 ```
 
 **Networks**
@@ -262,6 +318,32 @@ You can move / copy files between host and container machines using:
 sudo docker cp <container id>:/path/to/package/in/container/package.egg-info /path/to/mounted/package/on/host/package.egg-info
 ```
 
+## Docker Volumes
+
+Add volume to the docker container, for _persistence_ using **named volumes**
+
+```sh
+docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
+```
+
+Add **bind** mount to sync code to docker container from host
+
+```sh
+docker run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash
+```
+
+## Docker Network
+
+Every container runs in default bridge network and has an IP. This default Bridge network is shared by all the containers so two different containers can talk to each other If we provide the IP address that is assigned by the default bridge network, but this may not be secure. To make this secure we can create our own Bridge network, which is different from default Bridge network. Our Bridge network can have a name and containers can use that new Bridge network for networking.
+
+```sh
+# view networks
+docker network ls
+
+# create network
+docker network create todo-app
+```
+
 ## Docker Hub
 
 This is docker repo like GitHub where you will find pre-build images that you can use directly in your dockerfile or, build on top of pre built images.
@@ -278,7 +360,11 @@ The **Development Workflow** to make use of docker compose is that while you can
 
 Note: You can do docker up to run the container but also add `--build` whenever there is change is packages of flask so that image is rebuilt.
 
+You define services and within service a name of Service, that name of the Service is name of network alias for that machine.
 
+In docker compose, under service, if you map folders in volume it is bind mount (to sync code changes), if you give volume name and define that under volumes section it is named-volume mount (to persist the data).
+
+You define named volumes in `volumes:` section, this named volume can be mapped in any service. The named volume does not get removed when you tear-down or do `docker compose down`.
 
 ### Installing docker-compose
 
@@ -401,6 +487,29 @@ sudo docker container  ls -a
 ```
 
 This lets do basic development work.
+
+## Multi Stage Build
+
+Multistage build lets build the image in different stages using `AS` and `FROM`. There can be build stage which need env and other tools, and a prod stage which has just the final built part or the compiled code. This reduces image size and lowers build time. 
+
+## Dev Containers
+
+"Dev Containers" is term used to let developers do development inside a container. The container can run in docker installed locally or on remote (like github). Dev Containers provide isolated, production ready infra to work on.
+
+Links:
+
+- <https://containers.dev/>
+
+## Issues
+
+Fix ARM and AMD issue because of Mac
+
+`WARNING: The requested image's platform (linux/arm64/v8) does not match the detected host platform (linux/amd64/v3) and no specific platform was requested`
+
+ARM - is for Mac
+AMD - is for Linux
+
+You need to build image for a specified platform it you need to run the image on it. So build image for AMD platform if you want to run it on a linux box. More on (stackoverflow - The requested image's platform (linux/arm64/v8) does not match the detected host platform (linux/amd64))[https://stackoverflow.com/questions/71000707/docker-get-started-warning-the-requested-images-platform-linux-arm64-v8-doe]
 
 ## Links - Dockerize
 
