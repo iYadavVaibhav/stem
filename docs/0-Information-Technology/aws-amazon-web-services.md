@@ -395,6 +395,13 @@ Amazon EC2 Auto Scaling
 
 `Amazon SNS` – Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.
 
+### AWS Athena
+
+Amazon Athena is an interactive **query** service that makes it simple to analyze data directly in Amazon **S3** using standard SQL. It is **serverless**.
+
+## Boto3
+
+Boto3 is the Amazon Web Services (AWS) **Software Development Kit** (SDK) for **Python**, which allows Python developers to write software that makes use of services like Amazon S3 and Amazon EC2.
 
 ## DEMO - Handson Implementation - Build Employee Directory App
 

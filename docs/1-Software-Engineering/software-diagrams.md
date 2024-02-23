@@ -25,6 +25,37 @@ Diagrams are often used for plannig and sharing ideas and understanding in a gro
 - Draw.io
 - Visio
 - LucidChart
+- [Excalidraw](https://excalidraw.com/) - [Article](https://dev.to/dm8ry/excalidraw-the-tool-for-creating-diagrams-and-sketches-1o12)
+
+## Entity Relationship Diagrams
+
+ER Diagrams show relationship between entities. Entities are usually table / view in database.
+
+It is often good to show, at minimum:
+
+- table name
+- primary keys
+- foreign keys
+
+Type of relationships
+
+- 1-1
+- 1-m
+- m-m
+
+In addition to relationships, it can alos be _mandatory_ or _optional_ (that relates to null and not null). These are shown with different notations on the line, as shown below:
+
+- 1 - perpendicular
+- mandatory - perpendicular
+- many - crow foot
+- optional - o
+- 0 - nothing
+
+So two perpendiculars on a line means 1 mandatory. More on notations on [Vertabelo - Blog Crow S Foot Notation](https://vertabelo.com/blog/crow-s-foot-notation/).
+
+Examples can be found at [Vertabelo - Blog How To Use Er Diagram](https://vertabelo.com/blog/how-to-use-er-diagram/)
+
+[Drawsql - Beautiful database diagrams](https://drawsql.app/)
 
 ## Links
 

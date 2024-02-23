@@ -61,6 +61,13 @@ someString.replace(/h1/,'h2')
     - `.*` - then has anything after that
     - `$\n` - then matches next line as well.
 
+**Remove trailing whitespace** from only thoose lines that **have text**
+
+- Find: `(\S+)(\s+)$`
+- Replace: `$1`
+- It finds trailing text as first group `(\S+)`, then trailing whitespace just after text as second group `(\s+)` and at end of line `$`.
+- Then replaces both groups by just the first group `$1`.
+
 ## Links
 
 - Check and Validate on [Regex101](https://regex101.com/)

@@ -152,6 +152,20 @@ It is one of the best linter for Python. A linter is a tool to help you improve 
 
 **Install** - `pip install flake8`
 
+**Select Linter**
+
+Press `ctrl shift p` then type `linter`, then select `Python: Select Linter`, and then select `flake8`, or paste following in settings at `.vscode\settings.json`:
+
+```json
+{
+    ...
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    ...
+}
+```
+
 **Configure** - In VS Code settings
 
 ```json

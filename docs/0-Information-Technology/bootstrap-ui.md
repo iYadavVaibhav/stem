@@ -103,3 +103,40 @@ Hide only on Small Devices `.d-none .d-sm-block`, [more](https://getbootstrap.co
 ## Links
 
 - [CM - BS5 Starter Template](https://github.com/CodeoMascot/frontends/blob/main/bs5-1.html)
+
+## Branding
+
+Color of brand defines it and grabs attention of user. It is important to have a color palette for your brand.
+
+Brand can have:
+
+- One color - Nike
+- 2 color pallete - primary and secondary - PayTm FedEx Tesco
+- Multi color - like google
+
+### Two Color Palette
+
+This has a primary which is mostly shown in branding, secondary is usually used less than primary. They can be adjacent or complementary on color wheel.
+
+Color and emotions
+
+- blue is corporate tech finance
+- gym goes with maroon, army green, yellow
+- 4E6E58 green, 544B3D brown
+- FE9500 orange, #f58c1d
+- #6a3599 purple
+
+Examples
+
+- Fed Ex - #fe5900 orange. #2b007c purple - [view](https://coolors.co/visualizer/fe5900-2b007c)
+- Paytm - Dark Blue #012A72, Light Blue #00B8F5 - [view](https://coolors.co/visualizer/012a72-00b8f5)
+
+Tried Pallets
+
+- bright orange #ff532f #ec3e02 - button, second #89190d
+- from https://coolors.co/visualizer/993b00-ff5833
+- #FF5833, #993B00
+- https://mycolor.space/?hex=%23FF5833&sub=1
+- https://coolors.co/visualizer/ff5833-3a001e - Orange Brown
+- https://coolors.co/visualizer/23025f-ff5833 - Orange Purple
+- dark second, #660a00
