@@ -1,0 +1,3103 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/0-Information-Technology/aws-amazon-web-services/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../bokeh/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>Amazon Web Services - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#amazon-web-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Amazon Web Services
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aws-overview-infra-and-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Overview, Infra, and Access
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-compute" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS COMPUTE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS NETWORKING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS STORAGE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS DATABASES
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-monitoring-optimization-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS MONITORING, OPTIMIZATION, SCALING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-elastic-beanstalk" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Elastic Beanstalk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-other-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Other Services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Other Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-athena" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Athena
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boto3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-handson-implementation-build-employee-directory-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      DEMO - Handson Implementation - Build Employee Directory App
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DEMO - Handson Implementation - Build Employee Directory App">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#demo-build-a-serverless-web-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      DEMO - Build a Serverless Web Application
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerizing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures & Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools & Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases & SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics & IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aws-overview-infra-and-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Overview, Infra, and Access
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-compute" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS COMPUTE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS NETWORKING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS STORAGE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS DATABASES
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-monitoring-optimization-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS MONITORING, OPTIMIZATION, SCALING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-elastic-beanstalk" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Elastic Beanstalk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-other-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Other Services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Other Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-athena" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Athena
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boto3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-handson-implementation-build-employee-directory-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      DEMO - Handson Implementation - Build Employee Directory App
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DEMO - Handson Implementation - Build Employee Directory App">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#demo-build-a-serverless-web-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      DEMO - Build a Serverless Web Application
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/0-Information-Technology/aws-amazon-web-services.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/0-Information-Technology/aws-amazon-web-services.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="amazon-web-services">Amazon Web Services</h1>
+<p>A Web application system design <strong>architecture</strong> can vary based on various requirements. Some of the ways are</p>
+<ul>
+<li>Static Sites - optional backend in serverless lambda - Jekyll site.</li>
+<li>Containers - using docker images, or Heroku.</li>
+<li>VMs - fully available OS.</li>
+<li>3-tier web app, monolithic app, modular app, or a group of webserivces.</li>
+</ul>
+<h2 id="aws-overview-infra-and-access">AWS Overview, Infra, and Access</h2>
+<p><strong>AWS Global Infrastructure</strong> - AWS provides various services on the cloud which can be used to build these systems. It is PaaS. AWS Global Infrastructure has multiple <code>servers</code>, which are in multiple <code>data centers</code>, which are in multiple <code>availability zones</code>, and they are in multiple <code>regions</code>. This is how AWS makes data available and disaster-proof. Regions are geo bound. Pick a region based on</p>
+<ul>
+<li>Compliance - the app might be restricted to region or global</li>
+<li>Latency - server should be close to the end-user or business</li>
+<li>Pricing - due to tax price varying in different regions.</li>
+<li>Availability - not all services are in all regions.</li>
+</ul>
+<p><img alt="AWS Global Infra" src="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661436000/8wO7QUlpnj0--chB_E8Evg/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/P5Q7lnLBa5D8kQS__mlutDPn7u3ksQ4cs.png" /></p>
+<p><strong>Interacting with AWS</strong> - as it is Virtual, on the cloud, hence you need API to manage services. API is available as:</p>
+<ul>
+<li>AWS Console - a GUI, web-based to login and manage the services. Click based. Region-based. Interactive forms to use services.</li>
+<li>AWS CLI - a Command Line Interface that is scriptable.</li>
+<li>AWS SDKs - Software Development Kits, eg Python, Java, etc. Useful if you want to stay in dev language env. Eg, if your app is using Python and Flask, then you can use Python to interact with AWS services and host the app.</li>
+</ul>
+<p><strong>Security and the AWS Shared Responsibility Model</strong> - AWS secures the cloud, and you secure things in the cloud. You secure your data, firewalls, access by users, encryption, etc. Each AWS service has its own security model. It has the following credentials types:</p>
+<ul>
+<li>One is username and password, which can be used on the web</li>
+<li>The second set of credentials is called access <code>keys</code>, which allow you to make programmatic requests from the AWS Command Line Interface (AWS CLI) or AWS API. Access keys consist of two parts:<ul>
+<li>Access key ID, for example, A2lAl5EXAMPLE</li>
+<li>Secret access key, for example, wJalrFE/KbEKxE</li>
+</ul>
+</li>
+</ul>
+<p>As a best practice, do not use the root user (AWS email ID) for the day-to-day task. Protect the AWS Root User as it has unrestricted access to everything in the account. Also add <code>Multi-Factor Authentication</code> MFA, which enables added security like RSA.</p>
+<p>Use <code>IMA Account</code> to do actions as it has restricted access.</p>
+<p><strong>AWS Identity and Access Management</strong></p>
+<ul>
+<li>EC2 needs access and permission to talk to S3, so all services need authentication and signed API calls in each request.</li>
+<li>Each developer can have an <code>IAM account</code>, this <code>authenticates</code> (access). Then each user needs <code>authorization</code> (permission) to different services.</li>
+<li><code>IAM policies</code> can be used to grant or deny permissions to users to take actions. Actions are API calls, everything in AWS is API calls.</li>
+<li>Policies are JSON documents. JSON defines which service has, what level of access with some conditions. You can control every single thing by creating this policy. The policy is a rule. The policy must have an effect, action, and resource.</li>
+<li><code>Policy</code> can then be attached to IAM identities, <code>User</code> or <code>Group</code> to inherit.</li>
+<li>Policy JSON Example:<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
+</code></pre></div>
+</li>
+</ul>
+<p>Role-Based Access in AWS</p>
+<ul>
+<li>IAM Roles are like IAM users that have an association with IAM Policies and have auth tokes.</li>
+<li>Roles are used by services to talk to each other. Eg, you can give a role to the EC2 machine to read and write to the S3 bucket and RDS and DynamoDB.</li>
+<li>Role can be associated with the policy.</li>
+<li>For Corps, you have SSO and Identity.</li>
+</ul>
+<h2 id="aws-compute">AWS COMPUTE</h2>
+<p>Compute as a Service</p>
+<ul>
+<li>web server, batch job, ML; all need compute. Compute maintenance needs time.</li>
+<li>AWS offers compute as:<ul>
+<li>Virtual Machines</li>
+<li>Containers</li>
+<li>Serverless</li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon Elastic Compute Cloud - EC2</strong></p>
+<ul>
+<li>EC2 provides various types of instances which are for different purposes, like web servers, and graphics servers.</li>
+<li>Amazon Machine Image - AMIs can be installed on EC2 machines.</li>
+<li>EC2 machines can be scaled up in no time.</li>
+</ul>
+<p>Amazon EC2 Instance Lifecycle</p>
+<ul>
+<li>EC2 is charged when running or rebooting. Once terminated, they are deleted forever.</li>
+<li>To update the VM, duplicate the VMv1.0, make updates to clone, the switch the app to VMv2.0, terminate v1.0</li>
+</ul>
+<p><strong>Container Services</strong></p>
+<ul>
+<li>containers provide efficiency and portability<ul>
+<li><code>ECS Elastic Container Service</code></li>
+<li><code>EKS Elastic Kubernetes Service</code></li>
+</ul>
+</li>
+<li>They both run on top of EC2, henc use EC2 as a service.</li>
+<li>Container orchestration tool helps us manage 100s of containers easily</li>
+</ul>
+<p>Serverless</p>
+<ul>
+<li>You will not manage the updates and patches to the server os. Instead, the server is completely <strong>abstracted from you</strong>. You need not care about scalability, updates, or other server management.</li>
+<li><code>AWS Fargate</code> is used for this. No need to worry about underlying OS or Env.</li>
+<li>EC2 gives more control while Fargate gives more convenience but less control.</li>
+</ul>
+<p><strong>AWS Lambda</strong></p>
+<ul>
+<li>Serverless compute. Package and upload code as a lambda function</li>
+<li>Not running all time. runs when triggered.</li>
+<li>List of triggers exit, like HTTP, upload of a file, events from other AWS services, or inbuilt activity.</li>
+<li>Runs on managed service, it is scalable.</li>
+<li>You can choose, env, os, size memory, etc.</li>
+<li>all lambda runs in their own env.</li>
+<li>Not for WordPress sites, but for smaller web services or tasks, eg, resizing photos to thumbnails. Lambda is billed only when the function runs, up to 100ms intervals. So you don't need the image-resize service to always run, but only when a photo is uploaded.</li>
+<li>Create a lambda function, and add a role to it, if it needs to access other AWS services.</li>
+<li>Add a trigger to invoke the lambda function.</li>
+<li>Upload code to the lambda function.</li>
+<li>See it invoked in CloudWatch</li>
+<li><a href="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661436000/8wO7QUlpnj0--chB_E8Evg/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/2Y0EEVpXidSfgdKp_WFR-TreKi3bqKSvu.jpg">AWS Lambda</a></li>
+</ul>
+<p>Choose the <strong>Correct Compute Service</strong></p>
+<ul>
+<li>Prototype on permise app - EC2</li>
+<li>One a quarter or month file data wrangling - Lambda</li>
+<li>Microservices that need regular updates - ECS or EKS</li>
+</ul>
+<p>For compute in AWS, the three most commonly used services are as follows:</p>
+<ul>
+<li>Compute on instances - EC2</li>
+<li>Container services</li>
+<li>Serverless services</li>
+</ul>
+<p><code>Amazon EC2</code> are virtual server instances in the cloud. Amazon EC2 gives you complete <strong>control</strong> over the instance, down to the <strong>root level</strong>. You can manage the instance as you would manage a <strong>physical server</strong>. You can use instances for long-running applications, especially those with state information and long-running computation cycles.</p>
+<p><code>Amazon ECS, Amazon EKS</code> Container management services that can run containers on either customer-managed Amazon EC2 instances OR as an AWS-managed serverless offering running containers on AWS Fargate. Before software is released, it must be tested, packaged, and installed. Containers provide a standard way to package your application's code, configurations, and dependencies into a single object. Containers run on top of the host OS and share the host's kernel. Each container running on a host runs its own isolated root file system in a separate namespace that may include its own OS. They are designed to help ensure quick, reliable, and consistent deployments, regardless of the environment. Containers are useful when taking a large traditional application and breaking it down into small parts, or microservices, to make the application more scalable and resilient. When not to use containers? When applications need persistent data storage.</p>
+<p><code>AWS Lambda</code> is a Serverless compute for running stateless code in response to triggers. Using AWS Lambda, you can run code without provisioning or managing servers. You pay only for the compute time you consume. There is no charge when your code is not running. With Lambda, you can run code for virtually any type of application or backend service without provisioning or managing servers. Upload your code, and Lambda takes care of everything required to run and scale your code with high availability. You can set up your code to be automatically invoked from other AWS services or call it directly from any web or mobile app. Lambda is a suitable choice for any short-lived application that can finish running in under 15 minutes.</p>
+<p>What AWS Compute service to choose?</p>
+<ul>
+<li>something that can <strong>build fast</strong> and let you <strong>hit the market</strong> so you can analyze and see if it works</li>
+<li>put the time into - business logic and data processing logic.</li>
+<li>do not waste time on infra concerns like load balancing, scaling, networking; or plumbing code like logging, authentication, caching exceptions so on.</li>
+<li>use serverless architecture using lambda, s3, CloudFront, step functions, Cognito, AppSync, and DynamoDB. They are all scaled, available, and charged per-request basis.</li>
+<li>just define logic as a lambda function, and invoke it via a response to an API call or an event.</li>
+</ul>
+<h2 id="aws-networking">AWS NETWORKING</h2>
+<p>Networking</p>
+<ul>
+<li>Amazon <code>VPC - Virtual Private Cloud</code> is a network configuration, the same as a modem and router in the physical world. In EC2, instead of the default config, we can use a custom VPC configuration<ul>
+<li>to add <code>more security</code>, like only allowing HTTP on a certain port. Hence, no SSH on 22.</li>
+<li>to give different <code>access control</code> to different resources, like public/intranet/private.</li>
+<li>to achieve <code>high availability</code> and fault tolerance by associating different AZs. Compute is replicated. we will have more than one EC2 hence more than one VM.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon VPC</strong></p>
+<ul>
+<li>CIDR notation is used to provide the variable IP address or range of IP addresses. Eg, <code>192.168.1.0/24</code>. /16 is more, /24 is less.</li>
+<li><code>VPC</code> gives you a range of IPs. <code>10.1.0.0/16</code>. You need to create VPC in the AWS management console - GUI.</li>
+<li>Then you can use these IPs to create <code>subnets</code>, which use some IPs of VPC-IPs to make a private or public network. Subnets are associated with AZs - Availability Zones. Say in Zone-A<ul>
+<li>Public resources, or internet-facing resources, are added to the <code>public subnet</code> with a sub-range of the VPC IP range, eg, <code>10.1.1.0/24</code>. like web-app</li>
+<li>Private resources are kept in a <code>private subnet</code> with a sub-range of the VPC IP range, eg <code>10.1.3.0/24</code>. like database.</li>
+</ul>
+</li>
+<li>To expose the public subnet to the internet, we need <code>IGW - Internet GateWay</code>, this is just like a modem. Create an internet gateway and attach it to your VPC.</li>
+<li>To only expose the subnet to the corporate intranet or VPN, create <code>VGW - Virtual Private GateWay</code>. This will expose AWS to an on-premise data center.</li>
+<li>to make it always available, duplicate the subnets and add to another AZ.<ul>
+<li><img alt="VPC on AWS" src="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661360400/IoAR-JfBleLFS717fAPYjA/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/wPxuV_0JWkhj9dQV_InIjhnQ0x-d4xLbK.png" /></li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon VPC Routing</strong></p>
+<ul>
+<li>When a user reached Internet Gateway, it needs to be routed to the correct subnet. For this, we need a routing table.</li>
+<li>AWS creates default <code>main route table</code>. This provides local traffic only.</li>
+<li>GUI - each VPC has routes.</li>
+<li>We have called subnet public/private, however, that is implemented by routes, which controls the exposure of the subnets.</li>
+<li>Edit route table, add a new route, and add destination <code>0.0.0.0/0</code> that takes and servers all IPs. then add an internet gateway to it. finally, associate it with public subnets.</li>
+<li>Later add a firewall for extra security.</li>
+<li><img alt="AWS Route Tables" src="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661360400/IoAR-JfBleLFS717fAPYjA/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/TOFyTY8NnEvCzqi3_NrsH76kCPC3B5ySy.jpg" /></li>
+</ul>
+<p>Amazon VPC Security</p>
+<ul>
+<li>Subnets can be made more secure, like only allowing HTTPs to inbound and outbound traffic on port 443.</li>
+<li>To do this create rules in <code>Network ACLs - access control lists</code>. Like firewalls.</li>
+<li>Secondly, <code>security groups</code> can provide more security to EC2 instances.</li>
+<li><img alt="AWS VPC Security Groups" src="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661360400/IoAR-JfBleLFS717fAPYjA/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/FgEhatXf6qnJQ1X1_scxJIDNUzFAqjZbL.jpg" /></li>
+</ul>
+<p>Creating EC2 with VPC configuration</p>
+<ul>
+<li>to implement this we need to do following<ul>
+<li>create an <code>elastic IP</code> address for NAT Gateway, NAT gives connectivity to private resources not exposed to the internet.</li>
+<li>create a <code>VPC</code></li>
+<li>then make <code>subnets</code> public/private, and associate them with different AZs.</li>
+<li>add <code>NAT gateway</code> for connectivity to private resources.</li>
+<li>add Internet Gateway to expose public subnet to the internet.</li>
+<li>create a <code>route-table</code> to route IP traffic to specified gateway NAT/IGW. To associate public/private with NAT/Internet-GateWay. Create two route-tables. then add NAT/Internet gateway. then associate with subnets.</li>
+<li><code>associate subnets</code> to route tables.</li>
+<li>create a <code>security group</code> to allow/block certain protocols (HTTP/SSH) and ports(22/8080).</li>
+</ul>
+</li>
+</ul>
+<h2 id="aws-storage">AWS STORAGE</h2>
+<p>Storage Types</p>
+<ul>
+<li>we need to store<ul>
+<li>OS - application files, ubuntu</li>
+<li>Static Data - files - employee photo - write once, read many WORM</li>
+<li>Structured Data - database tables</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Block Storage - splitted into chunks - one char change in 1 GB file is simple - System File, Log File.</li>
+<li>Object Storage - single unit - one char change in 1GB file, whole file is rewritten - WORM, Video</li>
+</ul>
+<p>Amazon EC2 Instance Storage and Amazon Elastic Block Store EBS</p>
+<ul>
+<li>EC2 has <code>instance</code> storage like internal HDD. This is block-level storage. attached physically, hence fast but tied to the lifecycle of EC2.</li>
+<li>EBS is like an external HDD</li>
+<li>EBS can be linked to one EC2 or multiple EC2s can read-write.</li>
+<li>EBS can be HHD or SSD</li>
+<li>EBS can be snapshotted to keep backup.</li>
+</ul>
+<p>Object Storage with Amazon Simple Storage Service S3</p>
+<ul>
+<li>EBS is not fit for all as<ul>
+<li>they are mostly 1-1 with EC2</li>
+<li>have a size limit.</li>
+</ul>
+</li>
+<li>S3 is scalable, standalone, not tied to EC2, not mounted</li>
+<li>access by URL</li>
+<li>max 5TB file</li>
+<li>is object storage</li>
+<li>has a flat structure</li>
+<li>unique bucket name</li>
+<li>it is region constrained</li>
+<li>is durable and available as it is auto-distributed in a region</li>
+<li>objects are: buckets/folders/files</li>
+<li>Demo<ul>
+<li>Search s3 - create bucket - region specific - bucket has a URL</li>
+<li>upload objects - files</li>
+<li>files have URL</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>bucket/folder/files are private and not public to the world.</li>
+<li>can be made public using actions, but only in a public bucket</li>
+<li>for access control use<ul>
+<li>IAM, and</li>
+<li><code>S3 bucket policies</code>, has the same JSON format and are attached to buckets</li>
+</ul>
+</li>
+<li>actions allowed or denied. can be read-only, another acct write.</li>
+<li>Uses: static websites, data lakes, media, backup, and storage.</li>
+<li><a href="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661436000/8wO7QUlpnj0--chB_E8Evg/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/tdqWRVkjrqaKcAF3_0M9ExB6uo3T8oZq0.png">AWS S3 permissions</a></li>
+</ul>
+<p>Choose the Right Storage Service</p>
+<ul>
+<li>EC2 Instance store is generally well-suited for the temporary storage of information that is constantly changing, such as buffers, caches, and scratch data</li>
+<li>Amazon EBS, block storage, is meant for data that changes frequently and needs to persist through instance stops, terminations, or hardware failures.</li>
+<li>If your data doesn’t change that often, Amazon S3 might be a cost-effective and scalable storage solution for you. Amazon S3 is ideal for storing static web content and media, backups and archiving, and data for analytics. It can also host entire static websites with custom domain names.</li>
+</ul>
+<h2 id="aws-databases">AWS DATABASES</h2>
+<p>Databases on AWS</p>
+<ul>
+<li>RDS for data.</li>
+<li>The app can connect to DB on your on-premise server. you manage everything. Or</li>
+<li>DB on ec2, then have to install DB s/w, manage updates, and backups and replicate it on instances for high availability. Or</li>
+<li>Managed AWS database service, you only code. AWS manages everything else.</li>
+</ul>
+<p>Amazon Relational Database Service RDS</p>
+<ul>
+<li>RDS &gt; create database &gt; easy create<ul>
+<li>select engine &gt; MySQL/MS-SQL-server/Postgres</li>
+<li>BD instance size &gt; free</li>
+<li>identifier name</li>
+<li>username</li>
+<li>password</li>
+<li>create a database.</li>
+</ul>
+</li>
+<li>RDS is in one private subnet. to make it high-availability, create a secondary RDS in another AZ subnet, using <code>RDS Multi-AZ deployment</code>. RDS will manage replication.</li>
+<li>one is primary another secondary. failovers handled by RDS.</li>
+</ul>
+<p>Purpose-Built Databases</p>
+<ul>
+<li>Relational databases are good to manage complex schemas, which have joins and complex queries and stored procs. However, this adds overhead to the engine.</li>
+<li>There are other DBs that work best to query single records.</li>
+<li>Also RDS is charged per hour, whether you query or not. weekend</li>
+<li>dynamo, key-value, docs, non-relating, ms latency, usage charge, and amount.</li>
+<li>amazon docDB - content</li>
+<li>social n/w - graph database - az neptune, recommendation, fraud detection ??? todo</li>
+<li>finance, ledger, amazon qldb, immutable, audit, compliance</li>
+<li>these are purpose-built.</li>
+</ul>
+<p>Amazon DynamoDB</p>
+<ul>
+<li>fully managed NoSQL database, serverless</li>
+<li>no relations</li>
+<li>scalable, performant, under ms time</li>
+<li>tables, items, and attributes are the core component.  A table is a collection of items, and each item is a collection of attributes.</li>
+<li>access via dynamo database API</li>
+<li>search dynamo</li>
+<li>create table</li>
+<li>unique identifier</li>
+<li>table name, primary kry</li>
+<li>items to view items</li>
+</ul>
+<p>Choose the Correct Database Service</p>
+<table>
+<thead>
+<tr>
+<th>Database Type</th>
+<th>Use Cases</th>
+<th>AWS Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Relational</td>
+<td>Traditional applications, ERP, CRM, e-commerce</td>
+<td>Amazon RDS, Amazon Aurora, Amazon Redshift</td>
+</tr>
+<tr>
+<td>Key-value</td>
+<td>High-traffic web apps, e-commerce systems, gaming applications</td>
+<td>Amazon DynamoDB</td>
+</tr>
+<tr>
+<td>In-memory</td>
+<td>Caching, session management, gaming leaderboards, geospatial applications</td>
+<td>Amazon ElastiCache for Memcached, Amazon ElastiCache for Redis</td>
+</tr>
+<tr>
+<td>Document</td>
+<td>Content management, catalogs, user profiles</td>
+<td>Amazon DocumentDB (with MongoDB compatibility)</td>
+</tr>
+<tr>
+<td>Wide column</td>
+<td>High-scale industrial apps for equipment maintenance, fleet management, and route optimization</td>
+<td>Amazon Keyspaces (for Apache Cassandra)</td>
+</tr>
+<tr>
+<td>Graph</td>
+<td>Fraud detection, social networking, recommendation engines</td>
+<td>Amazon Neptune</td>
+</tr>
+<tr>
+<td>Time series</td>
+<td>IoT applications, DevOps, industrial telemetry</td>
+<td>Amazon Timestream</td>
+</tr>
+<tr>
+<td>Ledger</td>
+<td>Systems of record, supply chain, registrations, banking transactions</td>
+<td>Amazon QLDB</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aws-monitoring-optimization-scaling">AWS MONITORING, OPTIMIZATION, SCALING</h2>
+<p>Application Management</p>
+<ul>
+<li>how is the app performing, how is it utilizing resources</li>
+<li>scalability - demand not constant, add and reduce sources</li>
+<li>balance traffic</li>
+</ul>
+<p>Monitoring</p>
+<ul>
+<li>important to see how services are being used</li>
+<li>Monday morning latency, not good to take tickets</li>
+<li>proactive before end-user notify</li>
+<li>and where is the problem? recent code change, database or ec2?</li>
+<li>metrics, logs, traffic, database connections, CPU usage; need to be monitored</li>
+<li>monitoring tool helps in this by analyzing, metrics over time, called statistics. Based on stats there can be triggers.</li>
+<li>all info needs to be on the centrol console, hence CloudWatch</li>
+<li>all in one place</li>
+</ul>
+<p>Amazon CloudWatch</p>
+<ul>
+<li>users can create a <code>dashboard</code> from various granular metrics available</li>
+<li>can create <code>alarms</code> to be raised on crossing a base value over a time<ul>
+<li>this can trigger <code>SNS</code>, Simple Notification Service, which creates a topic. Anyone subscribed to the <code>topic</code> will get notified.</li>
+<li>can trigger an EC2 boot action,</li>
+<li>can scale up resources</li>
+</ul>
+</li>
+<li>Users can also send custom app metrics, like 'page load time' which is not AWS metric but app-specific, but can be seen on CloudWatch and can trigger alarms.</li>
+</ul>
+<p>Solution Optimization</p>
+<ul>
+<li>we need to optimize infra<ul>
+<li>capacity - storage - s3 - mostly autoscaled</li>
+<li>performance - ec2 and  database, database mostly auto-scales, but ec2 has capacity</li>
+<li>availability - manage traffic and make all services available.</li>
+</ul>
+</li>
+<li>prevent or respond to avoid bottlenecks.</li>
+<li>to increase availability increase redundancy or replication of services</li>
+<li><code>AutoScaling</code> lets you automatically add and remove instances.</li>
+<li>in horizontal scaling, the problem is that each EC2 has its public IP address and the traffic needs to be sent to one available. To solve this issue, we use a <code>load balancer</code>. It removes the need for public IP addresses for each EC2.</li>
+</ul>
+<p>Traffic Routing with Amazon Elastic Load Balancing</p>
+<ul>
+<li>now we have multiple ec2 in public subnets.</li>
+<li>request from browser - goes to load balancer - sends to ec2.</li>
+<li>ELB, <code>Elastic Load Balancer</code> does the traffic management. Highly available in each zone.</li>
+<li>ALB - <code>application load balancer</code>, handles Http or Https.</li>
+<li>ALB needs, <code>listener</code>, port, and protocol<ul>
+<li><code>target</code> group - which backend resource to send to, ec2 s3 dynamo<ul>
+<li>it sends the traffic based on the health of the backend</li>
+</ul>
+</li>
+<li><code>rules</code> - how to divert traffic. it is default as well as we can define rules for pages, apps, etc.</li>
+</ul>
+</li>
+<li>Another is <code>Network Load Balancer</code> supports TCP, UDP, and TLS protocols.</li>
+<li><img alt="ELB Load Balancer AWS" src="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1662030000/t25JDfL13ox0tFPZBJWcwQ/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/bm6CZb422WTOZvIM_sy34Df66d1mbugqD.jpg" /></li>
+</ul>
+<p>Amazon EC2 Auto Scaling</p>
+<ul>
+<li>we have 2 instances, but demand may inc.</li>
+<li>instead of adding instances manually, use EC2 autoscaling, more capacity based on a threshold in CloudWatch.</li>
+<li>ec2 CPU goes up, CloudWatch triggers the alarm, and autoscale is asked to give more ec2 instances. each is added to ALB with health checks and thus high horizontal scalability. hence CPU down across the fleet.</li>
+<li>Three main components of EC2 Auto Scaling are as follows:<ul>
+<li>Launch template or configuration: What resource should be automatically scaled?</li>
+<li>EC2 Auto Scaling Group: Where should the resources be deployed?</li>
+<li>'Scaling policies: When should the resources be added or removed?</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><img alt="AWS EC2 Autoscaling Templates" src="https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1662030000/t25JDfL13ox0tFPZBJWcwQ/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/Y9U8MWYOjosNS6Ta_0tIEHgm6nFcjy6rI.jpg" /></li>
+</ul>
+<h2 id="aws-elastic-beanstalk">AWS Elastic Beanstalk</h2>
+<p>Deploy and scale web applications. It is PaaS same as Heroku, Google App Engine.</p>
+<p>Upload and deploy web applications in a simplified, fast way.</p>
+<p>Use docker image on docker.io to create web app. You need to use following json to tell AWS EB what your app is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;AWSEBDockerrunVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;Image&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dockerusername/catnip&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">&quot;Update&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">&quot;Ports&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nt">&quot;ContainerPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="nt">&quot;HostPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8000</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="nt">&quot;Logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/log/nginx&quot;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="aws-other-services">AWS Other Services</h2>
+<p><code>AWS Lightsail</code>  - easy VPS Virtual Private Server <strong>hosting</strong>. Quickly launch and manage OS with configured Dev Stack (like Ubuntu with LAMP). Add load balance, firewall, and DNS. Once requirements increase, easily move to EC2 or Lambda. Lightsail provides low-cost, pre-configured cloud resources for simple workloads just starting on AWS. Amazon EC2 is a compute web service that provides secure, resizable compute in the cloud. It has far greater scale and optimization capabilities than Lightsail.</p>
+<p><code>AWS Batch</code> lets you do batch jobs, by giving the right CPU GPU, and memory.</p>
+<p><code>AWS CodeStar</code> is a development tool to develop, build and deploy the app on AWS.</p>
+<p><code>AWS Amplify Console</code> provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.</p>
+<p><code>AWS Glue</code> – AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.</p>
+<p><code>Amazon SNS</code> – Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.</p>
+<h3 id="aws-athena">AWS Athena</h3>
+<p>Amazon Athena is an interactive <strong>query</strong> service that makes it simple to analyze data directly in Amazon <strong>S3</strong> using standard SQL. It is <strong>serverless</strong>.</p>
+<h2 id="boto3">Boto3</h2>
+<p>Boto3 is the Amazon Web Services (AWS) <strong>Software Development Kit</strong> (SDK) for <strong>Python</strong>, which allows Python developers to write software that makes use of services like Amazon S3 and Amazon EC2.</p>
+<h2 id="demo-handson-implementation-build-employee-directory-app">DEMO - Handson Implementation - Build Employee Directory App</h2>
+<p>We will create a basic CRUD app, an employee directory app on AWS.</p>
+<p>Architecture:</p>
+<ul>
+<li>App is hosted on Private Network using, <code>VPC - Virtual Private Cloud</code>.</li>
+<li>Backend on <code>EC2 - Elastic Compute</code>, which is VM on AWS. The app code is here without the data or files. hence this can be replicated to achieve high availability.</li>
+<li>Data is stored in the database in the same NW, either <code>RDS - relational data service</code> or <code>DynamoDB - key value</code>.</li>
+<li>Images in <code>S3 - simple storage service</code>.</li>
+<li>Monitoring using <code>CloudWatch</code> for health monitoring.</li>
+<li>Scalability using <code>ELB - Elastic Load Balancer</code>. This will distribute the load on the available servers (instances). Also <code>EC2 AutoScaling</code> will help scale out or in based on demand.</li>
+<li><code>IAM - Identity and Access Management</code> for security and access management.</li>
+<li><code>AWS Management Console</code> - to build all this.</li>
+</ul>
+<p>Demonstration: Implement security with AWS Identity and Access Management (IAM)</p>
+<ul>
+<li>Create Groups, then add Policies to them.</li>
+<li>Add Users to the Groups.</li>
+<li>For Eg, create a group to read-only ec2 state, or read-only s3.</li>
+</ul>
+<p>Employee Directory Application Hosting</p>
+<ul>
+<li>Create an EC2 machine<ul>
+<li>Use default VPC, this is network. each ec2 has to be in a network</li>
+<li>Choose a Role for this machine, eg, EC2 to have full access to S3 and Dynamo DB.</li>
+<li>User Data: Add script to run when this machine boots. This is Linux 'profile/env' info, like exporting variables and setting paths. Additionally, it can have, download code, unzip, install requirements, set the flask app path, and run the app.</li>
+<li>Configure Security Group - this is to allow HTTP requests to your machine, by adding security groups.</li>
+<li>Finally, launch. Once launched, you will get a public IP address, which will let you access the app.</li>
+</ul>
+</li>
+</ul>
+<p>EC2</p>
+<ul>
+<li>Use <code>Amazon Linux 2 AMI</code>, select <code>t2.micro</code> free tier instance.</li>
+<li>Add script, that will:<ul>
+<li>update all</li>
+<li>install node</li>
+<li>create app dir</li>
+<li>download and unzip the app code</li>
+<li>install dependencies</li>
+<li>run the app, <code>npm start</code></li>
+</ul>
+</li>
+<li>add storage, 8 GB is enough.</li>
+<li>security group, acts as a virtual firewall that controls access. we need web traffic for the app and ssh for management. HTTP allows inbound traffic on port 80.</li>
+<li>Connect to instance, select the instance and click connect, and then again connect. you can connect to the EC2 machine from the browser shell ssh.</li>
+</ul>
+<p>Networking</p>
+<ul>
+<li>Doing this on the AWS Console<ul>
+<li>Login to Console &gt; EC2 &gt; <code>Elastic IPs</code><ul>
+<li>Allocate Elastic IP for EC2.</li>
+</ul>
+</li>
+<li>Search VPC &gt; Wizard &gt; Public &amp; Private <code>subnets</code><ul>
+<li>Add VPC Name &gt; Then add AZs to subnets. Here one zone, AZ-a is selected.</li>
+</ul>
+</li>
+<li>VPC &gt; Subnets - you can add <code>more subnets</code> by<ul>
+<li>Create Subnet</li>
+<li>Select VPC ID &gt; Subnet Name &gt; AZ-b &gt; CIDR in range &gt; create.</li>
+<li>Similarly, create private too.</li>
+</ul>
+</li>
+<li>Now <code>Routing-Tables</code><ul>
+<li>Click Route table</li>
+<li>select route-table for VPC ID</li>
+<li>click routes - see that internet traffic is going to NAT Gateway.<ul>
+<li>click <code>subnet-associations</code> tab</li>
+</ul>
+</li>
+<li>Similarly, do for the public.</li>
+</ul>
+</li>
+<li>Create a <code>Security Group</code> for more security<ul>
+<li>add name</li>
+<li>add to vpc</li>
+<li>inbound: HTTP, source: anywhere. Outbound added auto.</li>
+</ul>
+</li>
+<li>Create <code>EC2</code> &gt; configuration<ul>
+<li>Network: Lab VPC</li>
+<li>Subnet: public 1</li>
+<li>auto-assign public IP: enable</li>
+<li>Config security group, pick the one created</li>
+</ul>
+</li>
+<li>Create a second EC2 similarly and add a second public subnet.</li>
+</ul>
+</li>
+<li>Now the app should work with added security, high availability, and resource restriction.</li>
+</ul>
+<p>Storage Demonstration: Create an Amazon S3 Bucket</p>
+<ul>
+<li>S3 bucket is created in the region, not tied to the subnet</li>
+<li>Open Console &gt; search S3 &gt; Create <code>Bucket</code></li>
+<li>Bucket Name: emp-photo-bucket-012</li>
+<li>Region: place in the same region as ec2</li>
+<li>create bucket</li>
+<li>Open Bucket</li>
+<li>Click the <code>Permission</code> tab</li>
+<li>Bucket Policy &gt; edit &gt; enter new Policy JOSN, <code>IAM</code> role to allow the app access to the bucket.</li>
+<li>Add files as objects - click <code>upload</code></li>
+<li>Bucket should be accessible via the app.</li>
+</ul>
+<p>Scaling</p>
+<ul>
+<li>demo<ul>
+<li>make a <code>launch template</code>, what to launch when scaling</li>
+<li>console - ec2 - sidebar launch template - create - give a name and desc - check autoscaling</li>
+<li>AMI - create a mirror image of the web server, and select AMI AND t2 MICRO.</li>
+<li>SELECT SAME KEY-PAIR, same security group, expand advance</li>
+<li>IAM same role</li>
+<li>pass user data.</li>
+<li>This completes 'what to launch'</li>
+<li>Now, 'when to launch'<ul>
+<li>sidebar - 'autoscaling group' - create - select template - same vpc, select public subnets</li>
+<li>attach to the load balancer.</li>
+<li>define group size.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>demo: ec2 - sidebar - load balancers - create - ALB - give a name<ul>
+<li>scheme<ul>
+<li>Internet-facing - to manage client req</li>
+<li>internal load balancer (private IP to private IP) - for 3-tier apps</li>
+</ul>
+</li>
+<li>listeners - default + HTTPs</li>
+<li>availability zones - choose vpc, check both availability zone and public subnets</li>
+<li>security group - all port 80 from anywhere</li>
+<li>routing - give name - next - choose instances - next - create.</li>
+<li>find the DNS name in detail, and open it.</li>
+<li>this is the app being served from two availability zones and the traffic is managed by the load balancer.</li>
+</ul>
+</li>
+</ul>
+<p>Demonstration: Configure High Availability for Your Application</p>
+<ul>
+<li>Database Dynamo and file server S3 are both highly available and scalable within a region. Only EC2 will limit. So we make it available by using a load balancer and scalable using autoscaling, which adds and removes instances based on load.</li>
+</ul>
+<p>Employee Directory Application Redesign</p>
+<ul>
+<li>The Architecture<ul>
+<li>the app is hosted across ec2 instances inside VPC, in private subnets.</li>
+<li>ec2 part of autoscaling, traffic is managed by the app load balancer</li>
+<li>database on dynamo</li>
+<li>file in s3</li>
+</ul>
+</li>
+<li>to ensure this all works, analyze that the auto-scaling policy is working as expected. may need some tweaking to work over time. Also, install security patches and updates for EC2 as they come out.</li>
+<li>Now, we can redesign the app to make it completely serverless using Cloud Native services like AWS Lambda. and explore other architectures possible.</li>
+<li>As of now, the app is a 3-tier app<ul>
+<li>presentation Layer - UI - HTML, CSS, JS, or Mobile</li>
+<li>application Layer - Business/Application Logic</li>
+<li>data layer - database</li>
+</ul>
+</li>
+<li>EC2 is being used for both, the presentation layer and application. To improve this we can separate, these layers.</li>
+<li>Presentation on S3, as static website. Not all sites are static, but JS can help with this, React sites are static and make the content dynamic by using JS to make HTTP requests.</li>
+<li>Application Layer to be hosted as Lambda, each of CRUD as separate Lambda function.</li>
+<li>Amazon API Gateway, can be used to make the front end talk to lambda functions serving different events in the backend.<ul>
+<li>API on API Gateway acts as a front door to trigger the backend code on lambda. We can have one lambda function for all events or separate for each.</li>
+</ul>
+</li>
+<li>Dynamo for database, s3 for files.</li>
+<li>All the accesses are handled by RBAC via IAM.</li>
+<li>This way we can make the app modular. this can help make changes quickly without making whole infra to change and test. untouched DB, but can update code.</li>
+<li>Further, Amazon RT53 can be used to manage domains name calls</li>
+<li>CloudFront can be used to catch static content and make it available close to end users using the global infra of AWS</li>
+<li>With this serverless architecture, compared to the EC2 solution, we have made the app scalable, and available and thus can reduce cost. VPC and networking are managed.</li>
+<li>Another option is using container services. All service in AWS is API based, thus we can use any of them</li>
+</ul>
+<h3 id="demo-build-a-serverless-web-application">DEMO - Build a Serverless Web Application</h3>
+<p>with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito</p>
+<p>Amplify Console provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser. JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway. Amazon Cognito provides user management and authentication functions to secure the backend API. Finally, DynamoDB provides a persistence layer where data can be stored by the API's Lambda function.</p>
+<p><img alt="AWS Build a Serverless Web Application" src="https://d1.awsstatic.com/diagrams/Serverless_Architecture.5434f715486a0bdd5786cd1c084cd96efa82438f.png" /></p>
+<p>Static Web Hosting - AWS Amplify hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.</p>
+<p>User Management - Amazon Cognito provides user management and authentication functions to secure the backend API.</p>
+<p>Serverless Backend - Amazon DynamoDB provides a persistence layer where data can be stored by the API's Lambda function.</p>
+<p>RESTful API - JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.</p>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://explore.skillbuilder.aws/learn/course/1851/play/45289/aws-technical-essentials-104">https://explore.skillbuilder.aws/learn/course/1851/play/45289/aws-technical-essentials-104</a></li>
+<li>More about compute, how to select between ec2, lambda and container - 40 mins - <a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/199/aws-compute-services-overview?dt=tile&amp;tile=fdt">https://explore.skillbuilder.aws/learn/course/internal/view/elearning/199/aws-compute-services-overview?dt=tile&amp;tile=fdt</a></li>
+<li>Data Analytics, volume, variety, velocity, veracity ETL, value VIZ - 4hr - <a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/44/data-analytics-fundamentals?dt=tile&amp;tile=fdt">https://explore.skillbuilder.aws/learn/course/internal/view/elearning/44/data-analytics-fundamentals?dt=tile&amp;tile=fdt</a></li>
+<li><code>Heroku</code> is an alternative PaaS for deploying container-based apps on the cloud.</li>
+<li>Build a Serverless Web Application
+with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito. Links:</li>
+<li><a href="https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/">https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/</a></li>
+<li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-dynamo-db.html">https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-dynamo-db.html</a></li>
+<li><a href="https://medium.com/rahasak/build-serverless-application-with-aws-amplify-aws-api-gateway-aws-lambda-and-cognito-auth-a8606b9cb025">https://medium.com/rahasak/build-serverless-application-with-aws-amplify-aws-api-gateway-aws-lambda-and-cognito-auth-a8606b9cb025</a></li>
+<li><a href="https://trackit.io/aws-api-gateway-create-api-python-cognito-serverless/">https://trackit.io/aws-api-gateway-create-api-python-cognito-serverless/</a></li>
+</ul>
+<p>You don't necessarily need a static server to run a Create React App project in production.
+The static web app allows you to host static pages written on frameworks such as Angular, react, vue-js, etc.</p>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-02-24T21:30:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-02-24</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span> 
+            <span> February 24, 2024 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2023 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
