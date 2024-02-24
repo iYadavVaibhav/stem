@@ -375,8 +375,30 @@ Amazon EC2 Auto Scaling
 
 - ![AWS EC2 Autoscaling Templates](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1662030000/t25JDfL13ox0tFPZBJWcwQ/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/Y9U8MWYOjosNS6Ta_0tIEHgm6nFcjy6rI.jpg)
 
+## AWS Elastic Beanstalk
 
+Deploy and scale web applications. It is PaaS same as Heroku, Google App Engine.
 
+Upload and deploy web applications in a simplified, fast way.
+
+Use docker image on docker.io to create web app. You need to use following json to tell AWS EB what your app is:
+
+```json
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "dockerusername/catnip",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 5000,
+      "HostPort": 8000
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}
+```
 
 
 ## AWS Other Services
@@ -384,8 +406,6 @@ Amazon EC2 Auto Scaling
 `AWS Lightsail`  - easy VPS Virtual Private Server **hosting**. Quickly launch and manage OS with configured Dev Stack (like Ubuntu with LAMP). Add load balance, firewall, and DNS. Once requirements increase, easily move to EC2 or Lambda. Lightsail provides low-cost, pre-configured cloud resources for simple workloads just starting on AWS. Amazon EC2 is a compute web service that provides secure, resizable compute in the cloud. It has far greater scale and optimization capabilities than Lightsail.
 
 `AWS Batch` lets you do batch jobs, by giving the right CPU GPU, and memory.
-
-`AWS Elastic Beanstalk` - easy DevOps for 3-tier app easy DevOps. gives URL for the app. free, only pay for AWS services. API, web app, etc.
 
 `AWS CodeStar` is a development tool to develop, build and deploy the app on AWS.
 

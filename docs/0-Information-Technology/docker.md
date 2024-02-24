@@ -8,9 +8,9 @@ _all about docker, docker-compose, images and containers_
 
 ## Physical World to Docker
 
-An app, needs files (eg, html) to run with other OS files (eg Ubuntu). Docker lets do this virtually. Docker is virtual engine that lets do all this using things like image, container etc explained below. App may be working on multiple server through network, eg, web-server connects to database-server. This can be done using multiple containers in docker.
+An app, needs files (eg, html) to run with other OS files (eg Ubuntu). Docker lets do this **virtually**. Docker is virtual engine that lets do all this using things like image, container etc explained below. App may be working on multiple server through network, eg, web-server connects to database-server. This can be done using **multiple containers** in docker.
 
-### Overview
+## Overview
 
 **Docker Image** is the files required for an app, including system files and binaries.
 
@@ -35,34 +35,16 @@ Above is good to store some data from container. However, you may need to sync d
 - Volumes: name-on-host -> path mounted on container
 - Networks
 
-### Multi-Container Apps
+**Multi-Container Apps**
 
 You may run database and web-server in same container but doing one thing in a container and doing it well matters, it lets scale easily. Since container are isolated they cannot talk to other container, there has to be a network setup. To keep things simple _If two containers are on the same network, they can talk to each other. If they aren't, they can't._
 
 Links: [Docker - Get Started Guide](https://docs.docker.com/get-started/)
 
-## ORBStack
 
-_a tool to manage docker and virtual machine on Mac_
+## Docker Architecture
 
-After installation, run local docker container with all documentation using below command
-
-```sh
-docker run -it -p 80:80 docker/getting-started
-```
-
-§
-
-Links:
-
-- [docs](https://docs.orbstack.dev/)
-- [discussion](https://news.ycombinator.com/item?id=36668964)
-
-
-
-## Docker
-
-_using docker for development_
+_docker inner working_
 
 **What is Docker**
 
@@ -84,16 +66,14 @@ _using docker for development_
 
 - **Docker Container** is runtime instance of Docker Image. Created using `docker run` command. It runs on Docker Engine. You can create, start, stop, move, or delete a container using the Docker API or CLI. Container can connect to network, storage and can be saved as new image in its current state. Containers are mostly isolate from each other but you can control isolation of network/storage/subsystem on host machine. Eg, to run a container with image name _ubuntu_ and then run command _/bin/bash_ use: `$ docker run -i -t ubuntu /bin/bash`. It pulls image from if not available locally, crates container, allocates storage resources, adds network interface, starts container and executes the command _/bin/bash_. `-i` is interactively and `-t` attached to terminal, this lets you interact and see output of container in your terminal.
 
-
-
 - **Docker Engine** is the software that hosts (runs) the containers. it is container runtime.
 
-- **Docker daemon** it is background process, `dockerd` that listens to Docker-API requests and manages Docker Objects (image, container, network, volume).
+- **Docker Daemon** it is background process, `dockerd` that listens to Docker-API requests and manages Docker Objects (image, container, network, volume).
 
-- **Docker client** a process, `docker` that lets users interactions. It sends users commands to daemon. So `docker run` is send from client to daemon `dockerd` which does the job.
+- **Docker Client** a process, `docker` that lets users interactions. It sends users commands to daemon. So `docker run` is send from client to daemon `dockerd` which does the job.
 - > Docker Desktop is GUI that is easy and has client and daemon, and other helpers.
 
-- **Docker registries** a registry that stores docker-images. It can be yours or a public register _Docker Hub_ that anyonce can use (like GitHub). Commands like `docker pull` or `docker run` read, and `docker push` write docker-image to configured registry.
+- **Docker Registries** a registry that stores docker-images. It can be yours or a public register _Docker Hub_ that anyonce can use (like GitHub). Commands like `docker pull` or `docker run` read, and `docker push` write docker-image to configured registry.
 
 ```mermaid
 graph LR;
@@ -112,31 +92,33 @@ Daemon <--run--> Image-1
 ```
 
 
-### Docker Installation
+## Docker Installation
 
-Install using `https://docs.docker.com/engine/install/ubuntu/`
+Install using <https://docs.docker.com/engine/install/ubuntu/>
 
-### Build a Dockerfile
+## Dockerfile
 
 A docker file tells how to make an image, which base image to use, what files to copy to that image and what commands to run on it and finally what to execute on it. Here is example of docker-file located at, `./Dockerfile`
 
 ```Dockerfile
-FROM python:3.7-slim
+FROM python:3.8
 
 # set a directory for the app
-ENV INSTALL_PATH /home/snakeeyes
-RUN mkdir -p $INSTALL_PATH
-WORKDIR $INSTALL_PATH
+WORKDIR /usr/src/app
 
 # copy all the files to the container
-COPY the_project .
+COPY . .
 
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --editable .
 
-CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "snakeeyes.app:create_app()"
+# define the port number the container should expose
+EXPOSE 5000
+
+# run the command
+CMD ["python", "./app.py"]
 ```
+
 
 Here, `FROM` instruction specifies the Parent Image from which you are building. `ENV` defines variable with value. `RUN` to execute container build commands. `WORKDIR` instruction sets the current working directory for subsequent instructions in the Dockerfile. `CMD` runs command on container _after_ build. There can be only one CMD per docker file.
 
@@ -144,17 +126,25 @@ Here, `FROM` instruction specifies the Parent Image from which you are building.
 
 **RUN vs CMD**: `RUN` is an image build step, the state of the container after a `RUN` command will be committed to the container image. A Dockerfile can have many `RUN` steps that layer on top of one another to build the image. `CMD` is the command the container executes by default when you launch the built image.
 
-### Dockerignore
 
-`.dockerignore` file lets you define what you want docker to ignore when copying, eg, you do not want `.git` folder to be copied.
-
-### Running Container from Image
-
-You can run a container usin 'pre build image' from repo or from a image that is built using your dockerfile.
-
-To run a container from images, `docker run <image_name>`. Example:
+## Build Image
 
 ```sh
+# builds image from a Dockerfile
+docker build -t snakeeyes:latest .
+docker build -t <img-name>:<tag> <path-dockerfile>
+```
+
+Here, `.` is location of Dockerfile, an optional tag name with `-t`
+
+
+## Run Container from Image
+
+You can run a container using 'pre build image' from repo or from a image that is built using your dockerfile. Examples:
+
+```sh
+docker run <image_name>
+
 # runs a container on image named busybox
 docker run busybox
 
@@ -164,16 +154,17 @@ docker run busybox echo "hello from busybox"
 # get container shell in "interactive mode"
 docker run -it busybox sh
 
-# run in "detached mode"
-docker run -d --rm --name mysite_container -p 5000:8000 mysite_img:latest
+# detached mode
+docker run -d --rm \
+  --name mysite_container \
+  -p 5000:8000 \
+  mysite_img:latest
 
-# other commands
-docker run -it --rm yourusername/mysite_img bash
 ```
 
 Here, `-it` swithc to run gives interactive shell in which we can pass as many commands as we want. `--rm` removes container once it exists. `-d` will detach our terminal, runs in background as daemon. `-P` will publish all exposed ports to random ports. `-p` 8888:80 assign custom ports, 80 on inside container, and exposed externally to 8888. `--name` corresponds to a name we want to give.
 
-### View Images and Containers
+## View Images
 
 To view `images` on your machine
 
@@ -185,88 +176,50 @@ mysite_img      latest    852440f469ff   34 minutes ago   162MB
 hello-world     latest    9c7a54a9a43c   3 months ago     13.3kB
 ```
 
+## View Containers
+
 To view `containers` on your machine
 
 ```sh
+# view all containers
 $ docker ps -a
 
 CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                       NAMES
 9ea9727388df   mysite_img      "gunicorn -b 0.0.0.0…"   5 seconds ago   Up 4 seconds   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   mysite_container
+
+# view currently running containers
+$ docker ps
+$ docker container ls
 ```
 
-### Stop Containers
+## Stop Containers
 
 To stop a container
 
 ```sh
 docker stop mysite_container
+docker stop <container-id>
 ```
 
-### Read Commands
-
-You can use following commands to read details on
-
-**Images**
+## Logs of Container
 
 ```sh
-$ docker images -a
-# see all images
-```
-
-**Containers**
-
-```sh
-$ docker ps
-# see all containers that are currently running
-
-$ docker ps -a
-# see all containers
-
-$ docker container ls -a
-# same as ps -a
-
+# view logs
 $ docker container logs <container-name>
-# see logs
 
-$ docker logs -f <container-id>
 # watch logs
+$ docker logs -f <container-id>
 ```
 
-**Networks**
+
+## Remove Containers
 
 ```sh
-$ docker network ls
-# see network
-
-$ docker port  <container-name>
-# to see ports exposed
-
-$ docker network inspect bridge
+docker rm 305297d7a235 ff0a5c3750b9
+# deletes containers
 ```
 
-**Volumes**
-
-```sh
-$ docker volume ls
-# see volumes
-```
-
-Here, `inspect bridge` shows details of a network. Bridge network is used by multiple container and lets one container talk to another one. But you can create another newtwork that isolates everything.
-
-### Write Commands
-
-You can use following commands to do write operations on
-
-**Image Build**
-
-```sh
-docker build -t snakeeyes:latest .
-# builds image from a Dockerfile
-```
-
-Here, `.` is location of Dockerfile, an optional tag name with `-t`
-
-**Image Delete**
+## Remove Image
 
 ```sh
 docker image rm 39b5025d8e15
@@ -275,42 +228,15 @@ docker rmi
 
 Here, `.` is location of Dockerfile, an optional tag name with `-t`
 
-**Containers**
+
+## System Prune
 
 ```sh
-docker rm 305297d7a235 ff0a5c3750b9
-# deletes containers
-
 docker system prune
 # delete all unused / stopped containers & unlined images
 ```
 
-**Networks**
-
-```sh
-docker network create foodtrucks-net
-# creates network
-
-docker run -d --name es --net foodtrucks-net -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:6.3.2
-# add newtwork to container
-
-docker run -it --rm --net foodtrucks-net yourusername/foodtrucks-web
-
-docker network rm foodtrucks-net
-# delete network
-```
-
-
-**Volumes**
-
-```sh
-docker volume rm <volume_id>
-# delete volume
-```
-
-More easy and auto managed way of adding network in between containers is to use  docker-compose. It will auto create a network for containers in compose script.
-
-### Copying Files from container to host
+## Copying Files from container to host
 
 You can move / copy files between host and container machines using:
 
@@ -320,15 +246,24 @@ sudo docker cp <container id>:/path/to/package/in/container/package.egg-info /pa
 
 ## Docker Volumes
 
-Add volume to the docker container, for _persistence_ using **named volumes**
+```sh
+# delete volume
+docker volume rm <volume_id>
+```
+
+**Named Volumes** - Add volume to the docker container, for **persistence**. This keeps data after container stops or is removed.
 
 ```sh
 docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
+
+docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=<vol-name>,target=<path in container> <img>
 ```
 
-Add **bind** mount to sync code to docker container from host
+**Bind Volumes** - Add bind mount to **sync** code to docker container from host.
 
 ```sh
+docker run -it --mount type=bind,src=<host path>,target=<path in container> <img> <cmd>
+
 docker run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash
 ```
 
@@ -342,17 +277,50 @@ docker network ls
 
 # create network
 docker network create todo-app
+docker network create <nw-name>
+
+# to see ports exposed
+$ docker port  <container-name>
+
+# inspect a network by name
+$ docker network inspect bridge
+$ docker network inspect <nw-name>
 ```
+
+Here, `inspect bridge` shows details of a network. Bridge network is used by multiple container and lets one container talk to another one. But you can create another newtwork that isolates everything.
+
+## Dockerignore
+
+`.dockerignore` file lets you define what you want docker to ignore when copying, eg, you do not want `.git` folder to be copied.
 
 ## Docker Hub
 
 This is docker repo like GitHub where you will find pre-build images that you can use directly in your dockerfile or, build on top of pre built images.
 
-[Docker Hub](https://hub.docker.com/)
+View more at: [Docker Hub](https://hub.docker.com/)
+
+To push an image to docker hub do following:
+
+```sh
+# build image on local
+docker build -t yourusername/catnip .
+
+docker login
+
+docker push yourusername/catnip
+```
+
+If you build image name with `/` then it will create it with docker.io prefix as `docker.io/yourusername/catnip`
+
+**Note:** This makes all your files in docker image public, so if you copied code of project it will be available to public.
+
+Alternative registry host is [AWS ECR](https://aws.amazon.com/ecr/) - Elastic Container Register.
 
 ## Docker-Compose
 
-It is a utility for _multi-container_ docker environments management. It is built in _Python_. It is a tool that was developed to help define and share _multi-container_ applications. With Compose, we can create a _YAML_ file to define the services and with a single command, can spin everything up or tear it all down. While this can be done separately by running containers separately and linking with network but this is a better way to build a _cluster of containers_.
+All what you do in terminal for images, container, volume, network, like build, pull, run, and their dependecies on each other, and adding env var, commands etc. can all be written in a yaml file so that it is not in terminal but in file as a code. This makes it version controlled and sharable.
+
+It is a utility for **multi-container** docker environments management. It is built in **Python**. It is a tool that was developed to help define and share **multi-container** applications. With Compose, we can create a **YAML** file to define the services and with a single command, can spin everything up or tear it all down. While this can be done separately by running containers separately and linking with network but this is a better way to build a **cluster of containers**.
 
 ### Why and How to use Docker Compose
 
@@ -384,12 +352,13 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ### Building docker-compose YAML file
 
-The docker compose file is a list of instructions in yaml that define multi containers as service. Here is an exmple of such file. `.project/docker-compose.yaml`
+The docker compose file is a list of instructions in yaml that define multi containers as service. Here is an exmple of such file. `./docker-compose.yaml`
 
 ```yaml
 version: '2'
 
 services:
+  
   website:
     build: .
     command: >
@@ -416,23 +385,23 @@ Here you define version, services and volumes. `version:` is version of compose.
 Some common commands to build, start, pause and stop containers
 
 ```sh
-$ docker-compose up --build
 # builds image and runs
+$ docker-compose up --build
 
-$ docker-compose up -d
 # to run in background
+$ docker-compose up -d
 
-$ docker-compose pause
 # pause the environment execution without changing the current state of your containers
+$ docker-compose pause
 
-$ docker-compose unpause
 # resume the execution
+$ docker-compose unpause
 
-$ docker-compose stop
 # terminate the container execution, but it won’t destroy any data associated with your containers
+$ docker-compose stop
 
-$ docker-compose down
 # remove the containers, networks, and volumes associated with this containerized environment
+$ docker-compose down
 ```
 
 ### Execute commands inside Container machine
@@ -447,7 +416,7 @@ Below are some examples
 # execute pytest
 sudo docker-compose exec website py.test sakeeeyes/tests
 
-# execute pytest wtih coverage
+# execute pytest with coverage
 sudo docker-compose exec website py.test --cov-report term-missing --cov snakeeyes
 
 # excute flake8 linter
@@ -473,6 +442,9 @@ sudo docker-compose exec <service> <cmd>
 # rebuild images and run containers
 sudo docker-compose up --build
 
+
+# --------- Docker only cmds ----------- #
+
 # Once a week, to clean up
 sudo docker system prune
 
@@ -490,15 +462,31 @@ This lets do basic development work.
 
 ## Multi Stage Build
 
-Multistage build lets build the image in different stages using `AS` and `FROM`. There can be build stage which need env and other tools, and a prod stage which has just the final built part or the compiled code. This reduces image size and lowers build time. 
+Multi **stage** build lets build the image in different stages using `AS` and `FROM`. There can be build stage which need env and other tools, and a prod stage which has just the final built part or the compiled code. This reduces image size and lowers build time.
 
 ## Dev Containers
 
-"Dev Containers" is term used to let developers do development inside a container. The container can run in docker installed locally or on remote (like github). Dev Containers provide isolated, production ready infra to work on.
+"Dev Containers" is term used to let developers do **development** inside a container. The container can run in docker installed locally or on remote (like github). Dev Containers provide isolated, production ready infra to work on.
 
 Links:
 
 - <https://containers.dev/>
+
+## ORBStack
+
+_a tool to manage docker and virtual machine on Mac_
+
+After installation, run local docker container with all documentation using below command
+
+```sh
+docker run -it -p 80:80 docker/getting-started
+```
+
+Links:
+
+- [docs](https://docs.orbstack.dev/)
+- [discussion](https://news.ycombinator.com/item?id=36668964)
+
 
 ## Issues
 
@@ -510,6 +498,51 @@ ARM - is for Mac
 AMD - is for Linux
 
 You need to build image for a specified platform it you need to run the image on it. So build image for AMD platform if you want to run it on a linux box. More on (stackoverflow - The requested image's platform (linux/arm64/v8) does not match the detected host platform (linux/amd64))[https://stackoverflow.com/questions/71000707/docker-get-started-warning-the-requested-images-platform-linux-arm64-v8-doe]
+
+
+## Eg - Food Truck
+
+```sh
+# creates network
+docker network create foodtrucks-net
+
+# run container with network
+docker run -d \
+  --name es \
+  --net foodtrucks-net \
+  -p 9200:9200 -p 9300:9300 \
+  -e "discovery.type=single-node" \
+  docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+
+# run web_container with network
+docker run -it --rm --net foodtrucks-net yourusername/foodtrucks-web
+
+# delete network
+docker network rm foodtrucks-net
+```
+
+More easy and auto managed way of adding network in between containers is to use  docker-compose. It will auto create a network for containers in compose script.
+
+## Eg - Snake Eyes
+
+
+```Dockerfile
+FROM python:3.7-slim
+
+# set a directory for the app
+ENV INSTALL_PATH /home/snakeeyes
+RUN mkdir -p $INSTALL_PATH
+WORKDIR $INSTALL_PATH
+
+# copy all the files to the container
+COPY the_project .
+
+# install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --editable .
+
+CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "snakeeyes.app:create_app()"
+```
 
 ## Links - Dockerize
 
