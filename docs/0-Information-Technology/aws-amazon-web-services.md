@@ -401,21 +401,48 @@ Use docker image on docker.io to create web app. You need to use following json 
 ```
 
 
-## AWS Other Services
+## AWS Other Services -----
 
-`AWS Lightsail`  - easy VPS Virtual Private Server **hosting**. Quickly launch and manage OS with configured Dev Stack (like Ubuntu with LAMP). Add load balance, firewall, and DNS. Once requirements increase, easily move to EC2 or Lambda. Lightsail provides low-cost, pre-configured cloud resources for simple workloads just starting on AWS. Amazon EC2 is a compute web service that provides secure, resizable compute in the cloud. It has far greater scale and optimization capabilities than Lightsail.
+## AWS CLI
 
-`AWS Batch` lets you do batch jobs, by giving the right CPU GPU, and memory.
+To install, follow [AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-`AWS CodeStar` is a development tool to develop, build and deploy the app on AWS.
+```sh
+# check
+which aws
 
-`AWS Amplify Console` provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.
+aws --version
+```
 
-`AWS Glue` – AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.
+## AWS IAM Identity Center
 
-`Amazon SNS` – Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.
+IAM Identity Center manages users. It is recommended to create IAM User other than root (default) with less permission. To login as IAM-User you need to get a URL. Login as root > IAM Identity Center > Users > Reset Password. Save that URL, it has account ID in it.
 
-### AWS Athena
+## AWS Lightsail
+
+Easy VPS Virtual Private Server **hosting**. Quickly launch and manage OS with configured Dev Stack (like Ubuntu with LAMP). Add load balance, firewall, and DNS. Once requirements increase, easily move to EC2 or Lambda. Lightsail provides low-cost, pre-configured cloud resources for simple workloads just starting on AWS. Amazon EC2 is a compute web service that provides secure, resizable compute in the cloud. It has far greater scale and optimization capabilities than Lightsail.
+
+## AWS Batch
+
+Lets you do batch jobs, by giving the right CPU GPU, and memory.
+
+## AWS CodeStar
+
+It is a development tool to develop, build and deploy the app on AWS.
+
+## AWS Amplify
+
+It provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.
+
+## AWS Glue
+
+AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.
+
+## AWS SNS
+
+Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.
+
+## AWS Athena
 
 Amazon Athena is an interactive **query** service that makes it simple to analyze data directly in Amazon **S3** using standard SQL. It is **serverless**.
 
@@ -570,7 +597,7 @@ Employee Directory Application Redesign
 - With this serverless architecture, compared to the EC2 solution, we have made the app scalable, and available and thus can reduce cost. VPC and networking are managed.
 - Another option is using container services. All service in AWS is API based, thus we can use any of them
 
-### DEMO - Build a Serverless Web Application
+## DEMO - Build a Serverless Web Application
 
 with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito
 

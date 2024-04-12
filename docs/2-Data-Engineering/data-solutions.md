@@ -116,22 +116,30 @@ Flat data, denormalized is best to query for visualization.
   - actionable insight - (optional) let user do actions right from report. (write-back)
   - usage analytics - (optional) but really useful in determining ROI
 
+
+
+
 ## Data Engineering Roadmap
 
 _how big data engineering projects work_
 
-- Terraform to build infra on AWS and tear it down.
+- 'Terraform' to build infra on AWS and tear it down.
 - Github Actions for CI CD to build, test and deploy changes.
-- ECR to host docker images
+- ECR to host docker images.
 - Lambda to host code.
 - EventBridge to trigger something on event.
 - S3 to store data dumps.
 - Docker to run in container, infra independent.
 - IAM roles to give permission to resources to talk to each other.
+- DBT is used to do ETL.
 - [ ] how to read from api using lambda, load to s3?
-- [ ] what is `Makefile`?
+- [ ] what is `Makefile`? is shell command file, it is used to put all infra build and docker compose commands in a file.
 
-Links
+**Links**
+
+- Read all blogs to get overview: <https://www.startdataengineering.com/>
+- DE Projects on Youtube and medium article <https://medium.com/@yusuf.ganiyu/7-end-to-end-data-engineering-projects-that-sets-you-apart-from-the-rest-bd809fe5aa95>
+
 
 - [Project 1 - The Ultimate Data Engineering Project To Land Your Dream Job In 2024 62815432c682](https://medium.datadriveninvestor.com/the-ultimate-data-engineering-project-to-land-your-dream-job-in-2024-62815432c682)
 - [Project 2 - Data Engineering Ops Project With Ci Cd And Iac Af3ec23548d4](https://medium.datadriveninvestor.com/data-engineering-ops-project-with-ci-cd-and-iac-af3ec23548d4)
@@ -140,7 +148,6 @@ Links
 - [All DE Projects from Community](https://dataengineering.wiki/Community/Projects)
 - [Best Books - Awesome Data Engineering](https://awesomedataengineering.com/data_engineering_best_books)
 
-**Links**
 
 - [Dataengineering - Community Projects](https://dataengineering.wiki/Community/Projects)
 - [Startdataengineering - Post Data Engineering Project To Impress Hiring Managers](https://www.startdataengineering.com/post/data-engineering-project-to-impress-hiring-managers/)
