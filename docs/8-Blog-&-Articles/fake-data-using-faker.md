@@ -97,7 +97,7 @@ Below are ways to generate random things
 my_categories = ['dog', 'cat', ... , 'ant']
 
 animal_category = random.choice(my_categories)
-metric = random.choice(['NNA', 'NNIA', 'NNC'])      # inline
+metric = random.choice(['abc', 'pqr', 'xyz'])      # inline
 relationship_name = fake.name() + random.choice([' Relationship', ' Family', ''])
 
 
@@ -123,7 +123,7 @@ load_datetime = fake.date_time()
 
 user_name = fake.name()
 user_all_ids = user_uid+'|'+user_name.replace(' ','.').lower()
-team_owner_id = user_name.replace(' ','.').lower()+"@barclays.com"
+team_owner_id = user_name.replace(' ','.').lower()+"@example.com"
 team_name = "Team " + fake.name()
 
 

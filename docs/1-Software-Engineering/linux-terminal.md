@@ -17,6 +17,12 @@ date: 2018-07-26
   - left to enter as hash and tilde, `~ #`
   - " above 2, and @ above ?.
 
+### Mac Tools
+
+```sh
+# SQL Client for MySQL, Postgre
+brew install --cask sequel-ace
+```
 
 ### Homebrew
 
@@ -465,6 +471,67 @@ Other
   - Examples
     - `ls -lt | head -n 5` shows only 5 files from prev command.
     - `head -5 notes.txt` - shows top 5 lines from file.
+
+## Shell Configuration
+
+.zprofile is same as .bash_profile is for bash shell. Also same as .zshenv, this file is to set path and env.
+
+.zshrc is to set look and feel.
+
+To make zsh use auto-suggestiona and syntax highlight
+
+```sh
+brew install zsh-syntax-highlighting zsh-autosuggestions
+```
+
+Then, add to `~/.zshrc`:
+
+```sh
+# >>> Syntax Highlight Begins >>>
+autoload -Uz colors
+autoload -Uz compinit
+autoload -Uz down-line-or-beginning-search
+autoload -Uz up-line-or-beginning-search
+autoload -Uz vcs_info
+ 
+colors
+compinit
+ 
+zle -N down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+ 
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+bindkey "${terminfo[kcbt]}" reverse-menu-complete
+bindkey "${terminfo[kdch1]}" delete-char
+ 
+precmd_functions+=(vcs_info)
+vcs_info_format="%{$fg_bold[cyan]%}(%{$fg_bold[red]%}%b%{$fg_bold[cyan]%}) "
+ 
+zstyle ':completion:*' menu select
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' formats "$vcs_info_format"
+zstyle ':vcs_info:*' actionformats "$vcs_info_format"
+ 
+export PROMPT='%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})➜ %{$fg_bold[cyan]%}%c %{$vcs_info_msg_0_%}%{$reset_color%}'
+setopt PROMPT_SUBST
+ 
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=1000000
+setopt SHARE_HISTORY
+setopt HIST_FIND_NO_DUPS
+ 
+setopt AUTOCD
+ 
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# <<< Syntax Highlight Ends <<<
+```
+
 
 ## youtube-dl
 

@@ -466,7 +466,9 @@ Multi **stage** build lets build the image in different stages using `AS` and `F
 
 ## Dev Containers
 
-"Dev Containers" is term used to let developers do **development** inside a container. The container can run in docker installed locally or on remote (like github). Dev Containers provide isolated, production ready infra to work on.
+"Dev Containers" is term used to let developers do **development** inside a container. The container can run in docker installed locally or on remote (like github, calls it codespace). Dev Containers provide isolated, production ready infra to work on.
+
+Dev Containers are made available in VS Code. It basically runs a docker container in docker enginer. Then VS Code connects to it using remote connection. Anything you run on the container, is exposed via a port. This can then be accessed via host, if you add `"remote.localPortHost": "allInterfaces",` to vs code settings, you can access this host and port on you lan via any other device.
 
 Links:
 
