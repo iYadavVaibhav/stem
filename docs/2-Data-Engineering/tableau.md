@@ -89,7 +89,7 @@ SUM(IIF ([Yearly] == 'Last Year',[Closed Customers],0))
 - YOY Donw `IF [Closed Customers YOY] <= 0 THEN "▼" END`
 - YTD `SUM(IIF([Yearly] == 'Current Year',[Closed Customers],0))`
 
-**KPI Format**
+**KPI Format Percentages**
 
 - small arrows `0%  ⯅; -0% ⯆; 0%⠀⠀;` ⯇ ⯈ ⯅ ⯆
 - ⮜ ⮞ ⮝ ⮟ `0%  ⮝; -0% ⮟; 0%⠀⠀;`  \(U+2800\)
@@ -97,6 +97,22 @@ SUM(IIF ([Yearly] == 'Last Year',[Closed Customers],0))
 - more arrows - <http://xahlee.info/comp/unicode_arrows.html>
 
 TUG Austia - <https://github.com/tableau/community-tableau-server-insights> - readymade events
+
+**KPI Format Numbers**
+
+`#,##0  ▲; #,##0 ▼; #,##0` add above to custom format
+
+`+0; -0; 0` numbers with auto-sign
+
+**Text Symbols for Legend and Info**
+
+```yaml
+⬛ - big box for legend
+ⓘ - info
+
+```
+
+More on [Alt Codes](https://www.alt-codes.net/), [compart](compart.com/en/unicode)
 
 **Number Tweaks**
 

@@ -613,6 +613,21 @@ Serverless Backend - Amazon DynamoDB provides a persistence layer where data can
 
 RESTful API - JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
 
+## DEMO - AWS RDS DB Standalone
+
+You can create a  standalone RDS DB Instance that can be accessed from any other machine, it can be public machine or another service on AWS withing VPC (like EC2 or Lambda).
+
+The database you create, needs following additional configurations:
+
+- Network it will be on - This will be only network (not security), that is, the VPC it will be part of. Also we tell subnets and Availability Zones. For this you need `VPC security groups`.
+- Security in Network - Now that DB is on network, you need `Security Group` so that you can define `Rules` that will control inbound and outbound traffic, that is, you can allow certain, or specific IP to access DB.
+- Roles and Permission - This is next layer, where from the allowed machines, only specific user can do certain things, like, user1 can only read data but cannot write.
+
+Once done, you can use Endpoint (also called host), port, username and password to connect from any client/app.
+
+Password can be managed using `AWS Secret Manager`, it has a secret associated with instance, that secret is obscured and can be revieled on console or using code.
+
+
 
 
 

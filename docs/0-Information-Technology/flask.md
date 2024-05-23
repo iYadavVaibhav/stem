@@ -571,29 +571,47 @@ from flask_wtf import FlaskForm
 
 from wtforms import StringField, SubmitField, SelectField, DateField, BooleanField
 
-from wtforms.validators import DataRequired, Length, Optional
+from wtforms.validators import DataRequired, Length, Optional, Regexp
 
 from wtforms.widgets import DateTimeLocalInput
 
 class RegistrationForm(FlaskForm):
-    username = StringField(
-                    'Username', 
-                    validators=[DataRequired(), Length(min=4, max=25)]
-                )
-        username = StringField('Username', [validators.Length(max=40)])
+    username = StringField('Username',
+                           validators=[DataRequired(), Length(min=4, max=25)])
+
+    username = StringField('Username', [validators.Length(max=40)])
+
     level    = IntegerField('User Level', [validators.NumberRange(min=0, max=10)])
-        birthday  = DateTimeField('Your Birthday', format='%m/%d/%y')
+
+    birthday  = DateTimeField('Your Birthday', format='%m/%d/%y')
+
     signature = TextAreaField('Forum Signature')
+
     accept_rules = BooleanField('I accept the site rules', [validators.InputRequired()])
+
+    registered_number = StringField(
+        "Registered Number",
+        validators=[
+            Optional(),
+            Length(min=1, max=16),
+            Regexp(
+                regex=r"^[\d]{1,16}$", message="Registered Number must contain numbers only"
+            )
+        ],
+        render_kw={"placeholder": "Registered Number"}
+    )
 
     # Select
     period = SelectField('Period', [DataRequired()],
                         choices=[('a','Apple'), ('b','Ball')],
                         prepend_blank=False))
 
+
     # Select from Database
     gym_choices = [(gym.id, gym.name) for gym in Gym.get_gyms()]
+
     gym_id = SelectField('Select Gym', choices=gym_choices)
+
 
     # Date
     start_date = DateField('Start Date', format='%Y-%m-%d')
@@ -612,8 +630,8 @@ class RegistrationForm(FlaskForm):
 
     def validate_in_at(form, field):
     """max 10 minutes from now can be in time"""
-    if field.data > datetime.now() + timedelta(minutes=10):
-        raise ValidationError('Your in time cannot be in future!')
+      if field.data > datetime.now() + timedelta(minutes=10):
+          raise ValidationError('Your in time cannot be in future!')
 ```
 
 **Data Types Fields** in `wtforms` that can be used to build form fields. [more on wtforms fields](https://wtforms.readthedocs.io/en/3.0.x/fields/#basic-fields)
@@ -690,6 +708,8 @@ in_at = DateTimeField('In Date-Time',
 ### Get Save Form Data
 
 Once a user submits a form it is automatically validated, and then the data in form can be used in flask to create edit delete or do other stuff.
+
+Validation happens when `validate_on_submit()` is called, and it is called on `POST` method only. You can **explicitly** call `form.validate()` which returns boolean and then handle processing.
 
 ```py
 # ADD
@@ -2545,13 +2565,13 @@ What is RESTful API:
   - Query String arguments as portion of URL.
 
 
-| HTTP Method | URI | Action |
-| ---|---|--- |
-| GET | <http://hostname/todo/api/v1.0/tasks> | Retrieve list of tasks |
-| GET | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Retrieve a task |
-| POST |  <http://hostname/todo/api/v1.0/tasks> | Create a new task |
-| PUT | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Update an existing task |
-| DELETE |  <http://hostname/todo/api/v1.0/tasks/[task_id]> | Delete a task |
+HTTP Method | URI | Action
+---|---|---
+GET | <http://hostname/todo/api/v1.0/tasks> | Retrieve list of tasks
+GET | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Retrieve a task
+POST |  <http://hostname/todo/api/v1.0/tasks> | Create a new task
+PUT | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Update an existing task
+DELETE |  <http://hostname/todo/api/v1.0/tasks/[task_id]> | Delete a task
 
 Data of a task can be, JSON blob, as:
 

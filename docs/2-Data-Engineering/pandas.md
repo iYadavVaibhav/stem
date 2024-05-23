@@ -78,8 +78,43 @@ df.drop( df[df['value']==0].index, inplace=True)
 ```py
 df.loc[4,'emp_name'] = 'John' # updates cell at row_index 4 and column "emp_name" with value 'John'
 
+```
 
+To **Insert** new row in dataframe, you can
 
+- `concat` the new row as dataframe to the existing dataframe
+- `df.loc[-1]` can be used to insert at start.
+
+**Insert DataFrame using Concat**
+
+```py
+# df is existing dataframe
+
+targets = [
+    {
+        "year": 2023,
+        "brand": "Target",
+        "score": 52
+    },
+    {
+        "year": 2024,
+        "brand": "Target",
+        "score": 68
+    }
+]
+df_targets = pd.DataFrame(targets)
+
+df = pd.concat([df, df_targets ]).reset_index(drop=True)
+```
+
+Here, new dataframe can have one or more dict as list. More on [insert to pd -stackOverFlow](https://stackoverflow.com/questions/24284342/insert-a-row-to-pandas-dataframe)
+
+**Insert List at Index of Row**, like start, end, middle etc
+
+```py
+ df.loc[-1] = [2, 3, 4]  # adding a row
+ df.index = df.index + 1  # shifting index
+ df = df.sort_index()  # sorting by index
 ```
 
 ## Change Data Type
@@ -109,10 +144,25 @@ More on [Stackoverflow](https://stackoverflow.com/a/75505969/1055028)
 
 ```py
 # Groupby multiple columns & multiple aggregations
-result = df.groupby('Courses').aggregate({'Duration':'count','Fee':['min','max']})
+result = df.groupby('Courses').aggregate(
+    {
+        'Duration':'count',
+        'Fee':['min','max'],
+        'user_id': 'nunique'        # count distinct
+    }
+)
 
-# Group and rename
-df_bar = df.groupby('item_type').aggregate(count = ('id','count') ).reset_index()
+# Aggregate and rename, x y z are new col names
+df.agg(x=('A', 'max'), y=('B', 'min'), z=('C', 'mean'))
+
+# agg and aggregate are same.
+
+# Example
+df_array2.groupby(['region']).aggregate(
+    p25 = ('score',lambda x: x.quantile(0.25) ),
+    min_salary = ('salary', 'min'),
+    p75 = ('score',lambda x: x.quantile(0.75) )
+)
 
 #Create a groupby object
 df_group = df.groupby("Product_Category")

@@ -114,7 +114,7 @@ _data processing tools, libraries and frameworks_
     while True:
       msg=c.poll(1.0)
       ...
-    
+
     c.close()
 
     ```
@@ -172,6 +172,3 @@ distributed _stream-processing_. Extension of core framework.
 ## Links
 
 - [Medium - Stream Processing Framworks and differences](https://medium.com/@chandanbaranwal/spark-streaming-vs-flink-vs-storm-vs-kafka-streams-vs-samza-choose-your-stream-processing-91ea3f04675b)
-
-
-

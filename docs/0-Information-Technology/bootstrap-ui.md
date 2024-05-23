@@ -32,7 +32,7 @@ Use, `{-sm|-md|-lg|-xl}`.
 
 ## Navbar
 
-Responsive behaviour - `navbar-expand-lg` will make the navbar expanded on devices 992 and beyond. On devices <991 the navbar comes as hambureger icon. 
+Responsive behaviour - `navbar-expand-lg` will make the navbar expanded on devices 992 and beyond. On devices <991 the navbar comes as hambureger icon.
 
 ## Table
 
@@ -82,7 +82,7 @@ Hide only on Small Devices `.d-none .d-sm-block`, [more](https://getbootstrap.co
 
 ```html
 <div>
-    <a data-toggle="collapse" href="#emp_details" role="button" 
+    <a data-toggle="collapse" href="#emp_details" role="button"
     aria-expanded="false" aria-controls="emp_details" title="click to toggle">Extra Details ></a>
 </div>
 

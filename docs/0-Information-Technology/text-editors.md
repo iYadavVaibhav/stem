@@ -103,6 +103,15 @@ You may be behind a proxy server and need proxy settings to allow http requests 
 
 They are developed to enhance the functionality of VS Code. Each extension has settings that can be added to VS Code JSON settings at all level workspace, user ot global.
 
+Ext | Desc
+-- | --
+`ms-python.autopep8` | Python formatter
+`aaron-bond.better-comments` | Comment formatter with todo, question and alert
+`njpwerner.autodocstring` | Helps write doc-string
+`usernamehw.errorlens` | Shows error on the line
+`ms-python.flake8` | Linter for python
+`esbenp.prettier-vscode` | -
+
 ### Snippets
 
 - what - they are code template with place holders

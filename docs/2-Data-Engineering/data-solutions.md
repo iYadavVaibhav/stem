@@ -256,6 +256,12 @@ make down
 
 It is AWS service for IaC, Infra as code.
 
+## LL - Architecting Big Data Applications: Batch Mode Application Engineering
+
+filter map and transform can be on a record, hence on different node
+but aggregation needs all records, hence would need to be done on multiple nodes, so should be done after above operations.
+These should be individual jobs, like job 1 does filter, job 2 enrich, job 3 aggregate. So each job can be tweaked to run on single vs multiple nodes and hence can be provided different compute power.
+
 ## Links
 
 - [Oracle - Data Warehousing Concepts](https://docs.oracle.com/en/database/oracle/oracle-database/21/dwhsg/introduction-data-warehouse-concepts.html#GUID-452FBA23-6976-4590-AA41-1369647AD14D)

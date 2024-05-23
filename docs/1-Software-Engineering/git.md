@@ -528,6 +528,26 @@ git pull origin main
 git push --set-upstream origin main
 ```
 
+## Fix Github Commit author for multiple commits
+
+First, update the git config with correct username and email.
+
+Find commit number which is older than the commits you want to update author, eg, `91d5062`
+
+```sh
+
+git rebase -r 91d5062 \
+    --exec 'git commit --amend --no-edit --reset-author'
+```
+
+Link: [Stackoverflow - How do I change the author and committer name/email for multiple commits?](https://stackoverflow.com/a/1320317/1055028)
+
+For only **last commit** message update"
+
+```sh
+git commit --amend -m "New commit message"
+```
+
 ## SSH Authentication to push to remote
 
 You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It lets connect using keys and thus avoiding to provide username and password/token on each request.

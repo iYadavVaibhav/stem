@@ -190,27 +190,27 @@ They are endpoints and should have a pattern, like:
 **API URLs** should have versioning and api prefix like `http://hostname/todo/api/v1.0/tasks`
 
 
-| HTTP Method | URI | Action |
-| ---|---|--- |
-| GET | <http://hostname/todo/api/v1.0/tasks> | Retrieve list of tasks |
-| GET | <http://hostname/todo/api/v1.0/tasks/new> | HTML Form to add new resource |
-| GET | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Retrieve a task |
-| GET | <http://hostname/todo/api/v1.0/tasks/[task_id]/edit> | HTML form to edit resource |
-| POST |  <http://hostname/todo/api/v1.0/tasks> | Create a new task |
-| PUT | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Update an existing task |
-| DELETE |  <http://hostname/todo/api/v1.0/tasks/[task_id]> | Delete a task |
+HTTP Method | URI | Action
+---|---|---
+GET | <http://hostname/todo/api/v1.0/tasks> | Retrieve list of tasks
+GET | <http://hostname/todo/api/v1.0/tasks/new> | HTML Form to add new resource
+GET | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Retrieve a task
+GET | <http://hostname/todo/api/v1.0/tasks/[task_id]/edit> | HTML form to edit resource
+POST |  <http://hostname/todo/api/v1.0/tasks> | Create a new task
+PUT | <http://hostname/todo/api/v1.0/tasks/[task_id]> | Update an existing task
+DELETE |  <http://hostname/todo/api/v1.0/tasks/[task_id]> | Delete a task
 
 **Flask Web** Routes Methods and Template naming
 
-| HTTP Method | URI | Method | Template |Action |
-| --- | --- | --- | --- | --- |
-| GET | tasks/ | all() | all.html | View all tasks |
-| GET | tasks/new | new() | new.html or form.html |  HTML Form to add new task |
-| `POST` |  tasks/ | new() |  |  **Create** / Insert a new task |
-| GET | tasks/[task_id] | one() | one.html |  **Read** View one task |
-| GET | tasks/[task_id]/edit | edit() | edit.html or form.html |  HTML form to edit a task |
-| `POST` | tasks/[task_id]/edit | edit() |  |  **Update** an existing task |
-| `POST` |  tasks/[task_id]/delete | delete() |  |  **Delete** a task |
+HTTP Method | URI | Method | Template |Action
+--- | --- | --- | --- | ---
+GET | tasks/ | all() | all.html | View all tasks
+GET | tasks/new | new() | new.html or form.html |  HTML Form to add new task
+`POST` |  tasks/ | new() |  |  **Create** / Insert a new task
+GET | tasks/[task_id] | one() | one.html |  **Read** View one task
+GET | tasks/[task_id]/edit | edit() | edit.html or form.html |  HTML form to edit a task
+`POST` | tasks/[task_id]/edit | edit() |  |  **Update** an existing task
+`POST` |  tasks/[task_id]/delete | delete() |  |  **Delete** a task
 
 In above, `new.html` and `edit.html` can be combined together to be `form.html` as fields are same. Also, same form, `TaskForm` can be used for add and edit. The names are kept generic so that it is easy to replicate across resources (or you can name one:task and all:tasks).
 
@@ -241,15 +241,15 @@ HTML Components:
 - `_modify_form.html` : Row Details in form with Save and Cancel buttons
 - `_add_form.html`: Blank form with Create and Cancel buttons
 
-| HTTP Method | URI | Method | Template | Action | Return
-| --- | --- | --- | --- | --- | --- |
-| GET | tasks/ | all() | all.html | View all tasks | table with `_item.html` looped
-| GET | tasks/[task_id] | item() | _item.html |  **Read** One task HTML | `_item.html` html component
-| GET | tasks/add | add_form() | _add_form.html |  HTML Form to add task | `_add_form.html` html component
-| `POST` |  tasks/ | create() |  |  **Create** / Insert a add task | `_item.html`
-| GET | tasks/[task_id]/modify_form | modify_form() | _modify_form.html |  HTML form to edit a task | html form `_modify_form.html`
-| `PUT` | tasks/[task_id] | update() |  |  **Update** an existing task | `_item.html` with updated details
-| `DELETE` |  tasks/[task_id] | remove() |  |  **Delete** a task | `NULL`, to be added
+HTTP Method | URI | Method | Template | Action | Retu
+--- | --- | --- | --- | --- | ---
+GET | tasks/ | all() | all.html | View all tasks | table with `_item.html` loop
+GET | tasks/[task_id] | item() | _item.html |  **Read** One task HTML | `_item.html` htmcomponent
+GET | tasks/add | add_form() | _add_form.html |  HTML Form to add task | `_add_form.html` htmcomponent
+`POST` |  tasks/ | create() |  |  **Create** / Insert a add task | `_item.htm
+GET | tasks/[task_id]/modify_form | modify_form() | _modify_form.html |  HTML form to edit task | html form `_modify_form.html`
+`PUT` | tasks/[task_id] | update() |  |  **Update** an existing task | `_item.html` with updatedetails
+`DELETE` |  tasks/[task_id] | remove() |  |  **Delete** a task | `NULL`, to be add
 
 Issues is that not always new item is same, it may have different hx attributes depending on when it is added to DOM.
 
@@ -259,7 +259,7 @@ Issues is that not always new item is same, it may have different hx attributes 
 - <https://medium.com/@goldhand/routing-design-patterns-fed766ad35fa>
 - [Codecapsules - Tutorial Building A Full Stack Application With Flask And Htmx](https://codecapsules.io/tutorial/building-a-full-stack-application-with-flask-and-htmx/)
 
-## Architecture & Design
+## Architecture & Design of Flask Webapp
 
 Handling data at different levels in your application involves a mix of responsibilities. Here's a breakdown of where you can handle specific logic related to data in a Flask application:
 
@@ -329,12 +329,27 @@ Links
 - [Stack - business logic](https://softwareengineering.stackexchange.com/questions/234251/what-really-is-the-business-logic)
 - [Large prod flask app](https://levelup.gitconnected.com/structuring-a-large-production-flask-application-7a0066a65447)
 
-### Three-Tier Architecture
+## Three-Tier Architecture
 
 The three-tier architecture consists of a single presentation tier, logic tier, and data tier. It is similar to MVC. Logic layer, business layer or application layer are all similar.
 
 - [ ] learn architecture patterns and design patterns, like DDD, OOD, EDD.
 
+## Backend Three-Layer Architecture
+
+At backend, when the things get complex, then it is better to have 3 layer architecture
+
+- API Layer - validates, formats, exposes end points
+- Service Layer - processing logic, business logic, data compute
+- Data Layer - data access and persistance
+
+This helps in having separation of concern but increases complexity and overhead to maintain.
+
+Link
+
+- [From Request to Database: Understanding the Three-Layer Architecture in API Development](https://konstantinmb.medium.com/from-request-to-database-understanding-the-three-layer-architecture-in-api-development-1c44c973c7af)
+- [Full stack flask app](https://amlanscloud.com/apparchitecture/)
+- [TDD - Python](https://www.cosmicpython.com/book/preface.html)
 
 ## OAuth
 
@@ -344,3 +359,160 @@ To setup google Oauth:
 
 - Crate a google app in <https://console.cloud.google.com/apis/credentials>
 
+
+
+## AWS Stack for API Development
+
+AWS offers API Gateway and other serverless techniques to build API
+
+**Amazon API Gateway**
+
+It lets build the API by providing front-end to:
+
+- create a resource, like `order`
+- create methods on resource, like `GET`
+- define integration (how to do get), like, Lambda, HTTP, AWS Service etc.
+
+So, in it basically you define everything in "AWS API Gateway front end", including each resource and it's method. You can handle all request method like GET PUT POST.. in one lambda function or have multiple defined, one to handle each request.
+
+Finally, you need to **deploy** the API.
+
+Next steps, would be to implement **security measures** like API Key.
+
+To **summarize** AWS services are:
+
+- **API Gateway** — **web server / deploy** This service is responsible for deploying and serving HTTP RESTful endpoints. Thus you can trigger actions, when HTTP calls arrives to the generated endpoints. It enables you to create, publish, maintain, monitor, and secure your own REST and Websocket APIs at any scale. It acts as **router** from HTTP request to lambda function.
+- **Lambda** — **business logic / compute** This let you run code without provisioning or managing servers.
+- **DynamoDB** — **storage** The NoSQL amazon database, where you can insert the information of your application on tables (Collections).
+
+**Using Flask in Lambda** You can add flask app to lambda function and create routes to handle all CRUD requests. More on [Flask on Lambda with CORS and WSGI](https://www.pluralsight.com/resources/blog/cloud/create-a-serverless-python-api-with-aws-amplify-and-flask)
+
+**Links**
+
+- [Building a REST API with AWS Gateway and Python - moesif](https://www.moesif.com/blog/technical/api-development/Building-Rest-API-With-AWS-Gateway-And-Python/)
+- [Serverless API with AWS and Python Tutorial](https://medium.com/accenture-the-dock/serverless-api-with-aws-and-python-tutorial-3dff032628a7)
+- [Deploying Python Flask microservices to AWS using open source tools](https://aws.amazon.com/blogs/opensource/deploying-python-flask-microservices-to-aws-using-open-source-tools/)
+
+## Designing RESTful APIs -  Build & Architecture
+
+API is base for modern web development. Building a good API requires lot of thought process and methodologies to make it usable, upgradable and reliable.
+
+Some of the things to consider are:
+
+- API can be built by REST framework using HTTP methods.
+- Write down the model. If it is not written, it doesn't count.
+- Tools don't matter, everthing should be in one place, be it conf, notepad, or notebook.
+- Keep team involved.
+
+Successful API is Easy to use and Solves the purpose.
+
+### API Modeling Process - 5 Step Design Model
+
+Following steps can be followed to model and API
+
+- Step 1: Identify Participants
+- Step 2: Identify Activities
+- Step 3: Break into Steps
+- Step 4: Create API Definitions
+- Step 5: Validate API
+
+Let's dive deeper into them
+
+**Step 1: Identify Participants**
+
+Participants are end users, humans or IoTs (entity). Know them, what they do, this defines the system that need to be built.
+
+**Step 2: Identify Activities**
+
+Outline the business
+
+- what are the events. Eg: search, add to cart, add / remove items, payment, fulfil, ship, review.
+- who is doint what
+- who passes event to whom
+- flow of events and queue
+- start and end of process with all events in it
+- boundaries, what is included and what is not.
+
+**Step 3: Break into Steps**
+
+Make a flowchart of events and business logic to complete a business process.
+
+**Step 4: Create API Definitions**
+
+API Resources - anything user interacts with, they are nouns. Items, you update or add them. Cart - you add or remove item from it. Order - you create and fulful it. Map these actions on resources to HTTP verbs, GET POST PUT DELETE. That defines your API endpoints.
+
+you do following, which is CRUD as:
+
+- View items
+- Edit items
+- Create items
+- List items
+- Search items
+- Create Cart
+- Update Cart
+- Checkout -> Create Order
+
+**Step 5: Validate API**
+
+
+Now that you have _API Definitions_, **do not code** it. Instead validate in real scenarios. Document as if it already exists. Running on white board is okay too.
+
+### HTTP Protocol wrt API
+
+Headers come with request, Payload goes with response. Example:
+
+```sh
+curl -I https://api.github.com      # shows headers
+
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+Server: GitHub.com
+Date: Wed, 15 May 2024 13:49:00 GMT
+Content-Type: application/json; charset=utf-8
+# and much more
+```
+
+**HTTP Status Codes**: 2xx 3xx 4xx all have different meaning, and based on this code, rest of the actions are taken. Like show data or error/info etc.
+
+**Content-Type** another important information, this tells what the payload is, for normal webpage it is `text/html` but for APIs, it is `application/json`.
+
+### API Constraints
+
+- should be designed for client-server architecture
+- stateless - every request should execute on its own and self-contained.
+- cachable
+- layered system - no not directly hook to db, have cahce in between, have auth, have logging, have audit trail, DNS lookup, load balancers in between.
+
+**Code on demand** - API can return code, so that browser can execute it. This lets you change the api and send changed code. ???
+
+**Uniform interface** - Each end point is unique and exists only once. You can have named api endpoints too.
+
+```sh
+curl https://api.github.com
+# get list of endoints
+```
+
+### API Authentication and Authorization
+
+- by API Keys
+  - pros - add to header, language agnostic
+  - cons - can be shared, not secret
+- OAuth
+  - authorization protocol, map url with user
+- OAuth 2.0
+  - standard, common solutions, not easy to use.
+
+### API Versioning
+
+Versioning in url or header.
+
+URL is better.
+
+### API Media-Type
+
+Json and its structire, `_linka` and `items` are common structure.
+
+Links:
+
+- [Designing RESTful APIs - Linkedin Learning](linkedin.com/learning/designing-restful-apis/next-steps-toward-designing-a-restful-api)
