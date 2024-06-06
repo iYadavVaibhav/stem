@@ -11,6 +11,8 @@ _all about databases, SQL only_
 
 ## ----- DDL -----
 
+Data Definition Commands, they let define the data table structure and things around them.
+
 ## CASCADE
 
 can be used when defining tables, it helps do action on the child table based on a action on parent table.
@@ -20,6 +22,18 @@ can be used when defining tables, it helps do action on the child table based on
 Triggers let do action on another table based on activity on one table.
 
 ## ----- DML -----
+
+Data Manipulation Language, this lets manipulate the data.
+
+## Date Operations
+
+```sql
+
+-- get month from timestamp
+extract(month from activity_date)
+```
+
+Link <https://www.postgresql.org/docs/8.1/functions-datetime.html>
 
 ## Distinct
 
@@ -79,6 +93,18 @@ END);
 
 same as case
 
+**Use AVG to find Percentage**
+
+Percentage is `flag/total`, say flag is active uses as 1 and total is total users.
+
+AVG age is (sum of age) / (number of students), that is, if age is 1 and 0, like flag, then avg(flag) is percentage. Because avg will be sum(flag)/total row. So use:
+
+```sql
+select
+avg(case when is_active_flg = 1 then 1.0 else 0 end) as pct_low_fat_and_recyclable
+from products p
+```
+
 ## GROUP ROLLUP CUBE
 
 Use `GROUP BY` to group data. the columns in select should be same as in group by clause, or you can have aggregated columns.
@@ -116,6 +142,18 @@ WHERE cost > (        --sub query
     FROM items
 );
 ```
+
+## JOINS
+
+A `CROSS JOIN` produces a cartesian product between the two tables, returning **all possible combinations of all rows**. It has **no ON clause** because you're just joining everything to everything.
+
+A `FULL JOIN` / `OUTER JOIN` / `JOIN` are same and have `ON` clause that has matching condition in between tables.
+
+## UNION
+
+In Union the order is not guranteed to be preserved. As a result, you can add `row_number()` or `rank()` and table_number hardcoded as table1 and table2 to reselect from union.
+
+`UNION` only returns a **unique** record, while `UNION ALL` returns all the records (**including duplicates**)
 
 ## CTE - Common Table Expression
 
@@ -200,12 +238,12 @@ You can partition the data over a column, and then apply some function over the 
 - `RANK()` gives rank based on value, if two item get same rank, next one would be same as row number, that is, 1,2,2,4 and so on, where 2, 3 have same rank 2, hence 4th item has rank 4, 3 is skipped.
 - `DENSE_RANK()` gives rank, but it doesn't skip rank, 1,2,2,3 and so on.
 - `ROW_NUMBER()` give row number like 1,2,3,4 and so no
-- `SUM()` - like sum (cost) over months, this will give **running total** by months
+- `SUM(col_a)` - like sum (cost) over months, this will give **running total** by months
 - `NTILE(n)` - over a partition, it gives a number to each data item by dividing into n quarters, eg, 4 will break into 4 quartiles based on value of data item in window.
 - `LEAD(sales)` will show 2nd row in 1st row and so on..
 - `LAG(sales)` will show 1st row in 2nd row and so on..; `LAG(sales,2)` will show 1st row in 3rd row and so on.. you can specify the offset, by default it is 1.
 
-Syntax: `RANK(col_a) OVER (PARTITION BY col_b ORDER BY col_c)`
+Syntax: `RANK() OVER (PARTITION BY col_b ORDER BY col_a)`
 
 - **Imp** In PARTITION BY... , the **ORDER BY** .... makes huge difference as order changes the way function is applied, eg:
 
@@ -263,6 +301,70 @@ Links:
 - [All Cars DB SQLite](https://raw.githubusercontent.com/LinkedInLearning/level-up-advanced-sql-4311094/main/CarsForAll.db), [LL Course Adv SQL](https://www.linkedin.com/learning/level-up-advanced-sql/)
 
 
+## Pivot
+
+Lets say you have table as below
+
+Name | Occupation
+-- | --
+Ashley | Professor
+Samantha | Actor
+Julia | Doctor
+Britney | Professor
+Maria | Professor
+Meera | Professor
+
+You can pivot by harcoding the colum names and using case statement.
+
+Lets first try to give row numbers over occupations
+
+Name | Occupation | row_id
+-- | -- | --
+Actor | Eve | 1
+Actor | Jennifer | 2
+Actor | Ketty | 3
+Actor | Samantha | 4
+Doctor | Aamina | 1
+Doctor | Julia | 2
+Doctor | Priya | 3
+Professor | Ashley | 1
+Professor | Belvet | 2
+Professor | Britney | 3
+
+Then select from this table and hardcode the column names
+
+```sql
+-- sql server
+select 
+    t1.row_id
+    , max(case when o='Doctor' then name else NULL END) as 'Doctors'
+    , max(case when o='Professor' then name else NULL END) as 'Professors'
+    , max(case when o='Singer' then name else NULL END) as 'Singers'
+    , max(case when o='Actor' then name else NULL END) as 'Actors'
+FROM
+
+(select Occupation as o
+    , Name
+    , Row_number() over (partition by occupation order by name) as row_id
+from occupations) as t1
+
+GROUP BY t1.row_id
+ORDER by t1.row_id
+```
+
+Output:
+
+row_id | Doctors | Professors | Singers | Actors
+-- | -- | -- | -- | --
+1 | Aamina | Ashley | Christeen | Eve
+2 | Julia | Belvet | Jane | Jennifer
+3 | Priya | Britney | Jenny | Ketty
+4 | NULL | Maria | Kristeen | Samantha
+5 | NULL | Meera | NULL | NULL
+6 | NULL | Naomi | NULL | NULL
+7 | NULL | Priyanka | NULL | NULL
+
+That's how you can pivot tables.
 
 ## ----- DBMS -----
 
