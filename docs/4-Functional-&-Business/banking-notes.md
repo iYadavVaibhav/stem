@@ -11,7 +11,7 @@ date: 2020-06-29
 
 Banks makes money by following methods:
 
-1. **Investment Banking**: Most of the income Barclays make is by being an advisor to big corporations, government and individuals.
+1. **Investment Banking**: Most of the income The BarBank make is by being an advisor to big corporations, government and individuals.
 2. **Corporate Banking**: It provides services for multinationals and large domestic corporate. It charges fee, interests for loans from these companies.
 3. By charging **interest** from borrowers.
 4. By charging various **fees** on services like,
@@ -19,7 +19,7 @@ Banks makes money by following methods:
   b.  ATM fees: This is charged for ATM usage outside limit and when using other bank’s ATM for services.
   c.  Penalty charges: This can be for late credit card payment or missing a loan EMI.
   d.  Commissions: They provide asset management for which brokers ask for commission.
-5. **Merchant Service Charges**: Barclays help merchants accept payments. For this bank charges fee for services. It also helps merchant by data analysis for this as well it charges other fees for value added services.
+5. **Merchant Service Charges**: The BarBank help merchants accept payments. For this bank charges fee for services. It also helps merchant by data analysis for this as well it charges other fees for value added services.
 
 
 ## Net Interest Margin (NIM)

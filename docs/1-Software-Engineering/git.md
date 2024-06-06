@@ -371,7 +371,20 @@ git branch -D dev
 
 Now delete all files and folders except `.git`. Then download zip, extract.
 
-Then
+```sh
+mv .git ../tmp.git/
+rm -rf *.*
+rm -rf *
+rm -rf .*
+mv ../tmp.git ./.git
+curl -L http://github.com/iYadavVaibhav/stem/archive/master.zip > master.zip
+unzip master.zip
+mv ./stem-master/* .
+rm master.zip
+rm -rf stem-master
+```
+
+Then, commit and create dev branch
 
 ```sh
 git add .
@@ -380,82 +393,6 @@ git checkout -b dev
 ```
 
 Now your repo1 is updated with all changes merged and is ready to work.
-
-
-**Old TBD**
-
-- Idea is to use following branches on local:
-  - `master` - this will have files from remote and updated to last merged activity. Download and extract here.
-  - `ofc` - branch moves ahead with updates in local environment
-  - `ofc_masked` branch having only files that can go remote
-  - `zip` - download and extract zip from remote when you have to merge
-
-```sh
-# ON Secure   ---------------------------
-git checkout dev
-git add .
-git commit -m "ready_to_diff"
-
-git checkout -b zip
-# delete all except `.git`, download zip, extract
-git add .
-git commit -m "downloaded_for_diff"
-
-git diff dev zip > diff.patch
-
-
-# ON Public   ----------------------------------
-
-git checkout master
-git add .
-git commit -m "ready_to_merge"
-
-# create new branch in remote and apply patch
-git checkout -b master_patched
-
-# download diff.patch, and save
-
-"C:\Program Files\Git\usr\bin\patch.exe" -p1 < diff.patch
-# do Y for reverse patch
-
-# check manually for `*.orig` files and verify changes
-
-git add .
-git commit -m "patched"
-
-# merge to master
-git checkout master
-git merge master_patched
-git add .
-git commit -m "patched_merged"
-git push
-
-# ON Secure   ---------------------------
-
-git checkout master
-git branch -D zip
-git branch -D dev
-# delete all except `.git`, download zip, extract
-git add .
-git commit -m "downloaded"
-git checkout -b dev
-# Done! Ready to work
-
-# git diff --no-prefix ofc_masked zip > diff.patch # for this
-# "C:\Program Files\Git\usr\bin\patch.exe" -p0 < diff.patch # use this
-```
-  
-- Init or after merge, on local - **auto**
-  - checkout master, delete all, download and extract remote
-  - checkout ofc, `git rebase master`
-  - do manual merge conflicts, `git add .`
-  - `git rebase --continue`
-
-- Init or after merge, on local - **manual**
-  - download and unzip to master
-  - backup internal folder from `ofc`
-  - create `ofc` branch from master and add internal folder
-  - delete all from `zip` and `ofc_masked`
 
 
 **Link** - <https://gist.github.com/nepsilon/22bc62a23f785716705c>

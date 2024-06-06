@@ -1664,7 +1664,7 @@ eg:
 - medicine/tereatmment classification
 - resumne for Job ID - retrival, based on JD or query we provide resume.
 - where to sell new prods, like jio all in one media
-- like barclays new product
+- like Banks new product
 - MRI cancer? classification, class has interprtation and prediction. curent data vs future
 - Stock regression
 - credit limit, regression, cz of number
