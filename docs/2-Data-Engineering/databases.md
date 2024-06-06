@@ -9,6 +9,47 @@ date: 2019-05-06
 
 **Database** lets store data ususally in tabular format.
 
+## SQL Queries
+
+**Subqueries**
+
+- A subquery is a **query within a query**.
+- We can **use** it in multiple ways:
+  - in `from` as another table
+  - in `where` as a set to filter in main query
+  - as a `column`
+- example
+
+```sql
+SELECT name, cost
+FROM items
+WHERE cost > (        --sub query
+    SELECT AVG(cost)
+    FROM items
+);
+```
+
+
+**CBT - Common Table Expression**
+
+- It is a query that we write before the main query.
+- use `WITH` to implement create CBT and use it in main query
+- Example
+
+```sql
+WITH names_cte AS (
+  SELECT name
+  FROM students
+)
+SELECT * FROM names_cte;
+```
+
+- CTEs can be **recursive**
+- CTEs are **reusable**
+- CTE are more **readable** and help manage long and complex queries
+- CTE are similar to Subqueries, however, **CTE can't be used in WHERE clause**
+
+
 ## Type of Databases
 
 - **Relational Databases**
