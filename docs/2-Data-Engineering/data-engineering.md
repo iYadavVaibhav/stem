@@ -144,3 +144,46 @@ It is AWS service for IaC, Infra as code.
 filter map and transform can be on a record, hence on different node
 but aggregation needs all records, hence would need to be done on multiple nodes, so should be done after above operations.
 These should be individual jobs, like job 1 does filter, job 2 enrich, job 3 aggregate. So each job can be tweaked to run on single vs multiple nodes and hence can be provided different compute power.
+
+Batch Processing
+
+- Job should be scheduled such that there is gap if job overruns. There is no peak on one job, jobs should divide data in a good way. Job have balance between latency and resource usage.
+- Minimize the data at source. Do not use same data for multi pipelines, minimize the data. Use, where clause, select less, use partition in parquet file.
+
+
+## Data Strategy Modelling Warehousing Mart Analysis Example
+
+Define operational database, this can be used for data collection.
+
+Then load all this data into staging area in a DWH, from all operational/source data.
+
+Then define transformation to clean, modify and quality checks.
+
+Finally load it into dim, facts table, which would be denormalized. This supports analytics queries.
+
+data marts are data tailored to specific business areas or user groups.
+
+
+### Position of Data Marts in the Data Warehouse Architecture
+
+1. **Data Sources**:
+   - Operational databases (e.g., CRM, ERP, marketing tools) provide raw data.
+   - Data from these sources is extracted and loaded into the staging area.
+
+2. **Staging Area**:
+   - Temporary storage where raw data is cleaned and transformed.
+   - Staging tables mirror the source tables.
+
+3. **Data Warehouse**:
+   - Centralized repository storing integrated, cleansed, and transformed data.
+   - Contains dimension tables and fact tables designed for analytical querying.
+
+4. **Data Marts**:
+   - Subsets of the data warehouse optimized for specific business needs.
+   - Provide focused, departmental access to data for faster and easier querying.
+
+Next questions:
+
+- ask gpt to build loader app in flask.
+- define ODS data structure.
+

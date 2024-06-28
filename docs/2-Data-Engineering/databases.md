@@ -125,6 +125,19 @@ HAVING is used to specify a condition for a group or an aggregate function.
 
 WHERE filters before grouping, then HAVING filters after grouping.
 
+## EXISTS
+
+The EXISTS operator tests for the existence of rows in the results set of the subquery. If a subquery row value is found the condition is flagged TRUE and the search does not continue in the inner query, and if it is not found then the condition is flagged FALSE and the search continues in the inner query.
+
+```sql
+SELECT employee_id, last_name, job_id, department_id
+FROM employees outer
+WHERE EXISTS ( SELECT ’X’
+FROM employees
+WHERE manager_id =
+outer.employee_id);
+```
+
 ## Sub Queries
 
 - A subquery is a **query within a query**.
@@ -143,11 +156,50 @@ WHERE cost > (        --sub query
 );
 ```
 
+**Correlated Sub-Queries**
+
+The **Correlated Subqueries are dependent on the outer query** and are **executed for each row** of the main query.
+
+Wheras, **regular subqueries** (non-correlated) are **independent of the outer query** and are evaluated **only once** before the main query runs.
+
+Correlated subqueries are useful when you need to filter the result of the outer query based on some condition that requires referencing values from the outer query itself. They are commonly used in scenarios where the condition relies on data from related tables.
+
+```sql
+SELECT last_name, salary, department_id
+ FROM employees outer
+ WHERE salary >
+                (SELECT AVG(salary)
+                 FROM employees
+                 WHERE department_id =
+                        outer.department_id group by department_id);
+```
+
+
 ## JOINS
 
 A `CROSS JOIN` produces a cartesian product between the two tables, returning **all possible combinations of all rows**. It has **no ON clause** because you're just joining everything to everything.
 
 A `FULL JOIN` / `OUTER JOIN` / `JOIN` are same and have `ON` clause that has matching condition in between tables.
+
+**Problem: Rank with Self Join**
+
+You can self join a table:
+
+- left side is your table
+- right side is again your table but only rows that have sales more than the current row, so
+  - sales 5 in left, will have sales 6, 7, 8 joined to it
+  - sales 10 will have only 11 joined to it.
+- then you can count the rows that got joined from right table. It will give you the rank.
+
+```sql
+SELECT a1.Name, a1.Sales, COUNT(a2.sales) Sales_Rank
+FROM Total_Sales a1, Total_Sales a2
+WHERE a1.Sales <= a2.Sales or (a1.Sales=a2.Sales and a1.Name = a2.Name)
+GROUP BY a1.Name, a1.Sales
+ORDER BY a1.Sales DESC, a1.Name DESC;
+```
+
+Link: <https://www.experts-exchange.com/questions/24783940/RANK-Using-a-SELF-JOIN-or-other.html>
 
 ## UNION
 

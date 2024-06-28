@@ -446,6 +446,56 @@ Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, 
 
 Amazon Athena is an interactive **query** service that makes it simple to analyze data directly in Amazon **S3** using standard SQL. It is **serverless**.
 
+## Amazon DataZone
+
+Build catalog and make data discoverable. Read more?
+
+## AWS OpenSearch Managed Service
+
+It is open source apace.
+
+Image, doc, audio is converted to vector embeddings. Done using ML models. vector embedding is series of numbers and dots.
+
+Neural Search, the search term gets embedded using ML model in AWS Bedrock, then matched with data using KNN.
+
+**Neural Search with OpenSearch Service**
+
+- Embedding model can be in sagemaker/bedrock.
+- Hybrid search
+  - it will have lexical and vector combined
+  - normalize score apply arithmetic mean, gm, hm. then do knn.
+- Vector Search
+  - let understand semantic meaning of query
+
+- lexical search is exact text match for query in doc. token matching
+- [Demo](https://ml-search-opensearch.site/Semantic_Search)
+
+RAG Application Retrieval Augmented Generation
+
+## AWS Gen AI
+
+use pre train llm, foundation model FM
+
+gen ai needs data quality
+
+Value
+
+- enhanced personlaization
+
+[social media demo app](https://aws.amazon.com/blogs/big-data/uncover-social-media-insights-in-real-time-using-amazon-managed-service-for-apache-flink-and-amazon-bedrock/)
+
+Use case: use social media data and build gen ai app to understand that data. Social media data is pulled in real time using managed, kinesis, flink, kafka. Convert to vector using bedrock, query using opensearch. Q for app.
+
+## Gen BI
+
+help marketing team by giving generative BI capability to build genereated doc, dashboards. Help them automatically generate dashboards.
+
+Add synonyms to data fileds so that amazon q helps anwer the questions. like region/platform are same.
+
+You can build quicksite dashboard, but customize it using amazon-q. like convert datetime to weekly, add color by dim1. All this can be said in natural language.
+
+Build calculations using amazon-q natural lang questions.
+
 ## Boto3
 
 Boto3 is the Amazon Web Services (AWS) **Software Development Kit** (SDK) for **Python**, which allows Python developers to write software that makes use of services like Amazon S3 and Amazon EC2.
@@ -648,6 +698,8 @@ with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Co
 - <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-dynamo-db.html>
 - <https://medium.com/rahasak/build-serverless-application-with-aws-amplify-aws-api-gateway-aws-lambda-and-cognito-auth-a8606b9cb025>
 - <https://trackit.io/aws-api-gateway-create-api-python-cognito-serverless/>
+- [AWS Big Data Blog](https://aws.amazon.com/blogs/big-data/)
+- [Kinesis dta generator](https://awslabs.github.io/amazon-kinesis-data-generator/web/producer.html)
 
 You don't necessarily need a static server to run a Create React App project in production.
 The static web app allows you to host static pages written on frameworks such as Angular, react, vue-js, etc.
