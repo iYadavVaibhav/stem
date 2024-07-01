@@ -851,7 +851,7 @@ def test_sum():
   - it can be done using `multiprocessing` or `concurrent.futures` library.
   - it lets distribute compute over multiple processors.
 
-- CRUX
+- **CRUX**
   - Threading enable concurrency, execute tasks independently without wait
   - Multiprocessing enables parallelism, execute with more compute power
   - Asyncio enables asynchronous execution, let long running task be handled in a nice way.
