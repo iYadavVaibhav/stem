@@ -301,7 +301,7 @@ file.close()
 os.makedirs(pdf_dir, exist_ok=True)
 ```
 
-### Snippets
+### Snippets File Handling
 
 **Find all files of a type in a dir recursively**
 
@@ -563,11 +563,179 @@ dt.now().strftime('%Y-%m-%d %H:%M:%S')
 ```py
 dt.now()
 # obj: datetime.datetime(2023, 10, 27, 17, 33, 58, 183305)
+# This is GMT + 01:00 hrs
+
 dt.utcnow()
 # obj: datetime.datetime(2023, 10, 27, 16, 34, 7, 908839)
+# This is GMT
 ```
 
-**timedelta**
+GMT (Greenwich Mean Time) or UTC (Universal Time Coordinated) is same. This is time at 00:00 timezone or at 0° latitude (basically -7.5° to 7.5°). Now depending where your server is or your client is, there their time will be different depending on the timezone set in the system. This makes difficult to store the time in database in one timezone, show in another and then include daylight difference, and show timezone save by one time zone to another timezone and things like person moving in timezones, welcome to timezone hell.
+
+Best way to save datetime in database, is to save time at UTC in format, this makes datetime on server, location independent and all time are in one timezone UTC.
+
+To show on browser, send UTC from server and covert on browser using JS or lib like moment.js
+
+To store datetime of event from browser, pick UTC time from server.
+
+To store datetime enterd by user, also get Timezone of browser and then convert it to UTC on server and store it.
+
+
+### Timezone Hell to Heaven
+
+Firstly, know the international standards. **IANA time zone names** are international standard timezone names that are same in Javascript and Python. Eg, `"Asia/Kolkata"`
+
+IST, BST is not standard as not standard, IST is Indian/Israel/Irish Standard time. BST is British or Bangladesh? It is not defined.
+
+**All IANA Timezones**
+
+```py
+# to show all timezones
+import pytz
+pytz.all_timezones
+```
+
+**Get Client Timezone**
+
+```js
+const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log(tz);
+// 'Europe/London'
+```
+
+### Python timezones
+
+In Python, datetime object can be aware or naive. aware has timezone info, naive does not.
+
+Timezone info is stared in class `class datetime.tzinfo`, this is None for naive object.
+
+**Naive Datetime Object**
+
+```py
+# Naive object, not timezone aware
+
+dt_str = '15 April 2024 | 10:45:02'
+dt_obj = dt.strptime(dt_str, "%d %B %Y | %H:%M:%S")
+
+dt_obj
+# datetime.datetime(2024, 4, 15, 10, 45, 2)
+
+print(dt_obj)
+# 2024-04-15 10:45:02
+
+dt_obj.tzinfo      # this is, None
+#
+```
+
+Now lets add timezone info to this. Eg, this is gym entry time of a client. You can get client tz using JS, lets say it is `"Asia/Kolkata"` which is 'UTC +05:30'.
+
+To **add tzinfo** and make it **tz-aware**, you can use `pytz` module.
+
+**Add Timezone Info**
+
+```py
+
+import pytz
+
+# Add time zone to naive object
+client_tz = pytz.timezone("Asia/Kolkata")
+client_db_obj = dt_obj.replace(tzinfo=client_tz)
+print(client_db_obj)
+# 2024-04-15 10:45:02+05:53
+```
+
+Now the client_db_obj is tz aware, you can convert it to any timezone.
+
+**Convert to Timezones**
+
+```py
+
+print(client_db_obj.astimezone())  # local system timezone time, I am in London BST +1hr UTC
+# 2024-04-15 05:52:02+01:00
+
+print(client_db_obj.astimezone(pytz.utc))   # to store in db, UTC 00
+# 2024-04-15 04:52:02+00:00
+
+print(client_db_obj.astimezone(pytz.timezone("US/Pacific")))
+# 2024-04-14 21:52:02-07:00
+```
+
+**Create TZ Aware Object**
+
+```py
+
+dt_str = '15 April 2024 | 10:45:02 +0530'
+dt_obj = dt.strptime(dt_str, "%d %B %Y | %H:%M:%S %z")
+
+print(dt_obj)
+# 2024-04-15 10:45:02+05:30
+
+print(dt_obj.astimezone())    # my localtime, London BST +1hr UTC
+# 2024-04-15 06:15:02+01:00
+
+print(dt_obj.astimezone(pytz.utc))
+# 2024-04-15 05:15:02+00:00
+
+print(dt_obj.astimezone(pytz.timezone("US/Pacific")))
+# 2024-04-14 22:15:02-07:00
+
+print(dt_obj.astimezone(pytz.timezone("Asia/Kolkata")))
+# 2024-04-15 10:45:02+05:30
+
+```
+
+**ISO Formats**
+
+```py
+
+dt_str = '2024-04-15T08:12:48Z'
+dt.strptime(dt_str, "%Y-%m-%dT%H:%M:%S%z")
+# datetime.datetime(2024, 4, 15, 8, 12, 48, tzinfo=datetime.timezone.utc)
+
+dt_str = '2024-04-15T08:12:48+0530'
+dt.strptime(dt_str, "%Y-%m-%dT%H:%M:%S%z")
+# datetime.datetime(2024, 4, 15, 8, 12, 48, tzinfo=datetime.timezone(datetime.timedelta(seconds=19800)))
+
+dt_str = '2024-04-15T08:12:48+0530'
+dt.strptime(dt_str, "%Y-%m-%dT%H:%M:%S%z").isoformat()
+# '2024-04-15T08:12:48+05:30'
+
+```
+
+This is ISO 8601 standard. Here, `Z` in string is parsed at UTC. and `±hhmm` at end is where timezone offset is parsed, if specified as in the second example.
+
+Links: [wiki ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+
+**Date Parser**
+
+When unsure of format, but confident that it would be common format and correct  you may use
+
+```py
+from dateutil import parser
+parser.parse(dt_str)
+```
+
+**Exceptions**
+
+```py
+dt_str = '15 April 2024 | 10:45 UTC'
+
+dt_obj = dt.strptime(dt_str, "%d %B %Y | %H:%M %Z")
+print(dt_obj)
+# '%Z' only takes local timezone, GMT or UTC. Noting else.
+# for someone in India it will only accept, IST/GMT/UTC
+```
+
+
+Link:
+
+- [Timezone Hell](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xii-dates-and-times#:~:text=%2C%20Diff.-,Timezone%20Hell,-Using%20Python%20on)
+- [SO - JS timezone](https://stackoverflow.com/a/37512371/1055028)
+- [Wiki - Abbr are duplicates](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations)
+- [SO - py tz play](https://stackoverflow.com/a/31977588/1055028)
+- [Py Docs - datetime](https://docs.python.org/3/library/datetime.html)
+
+### Timedelta
 
 ```py
 from datetime import datetime as dt
@@ -578,7 +746,7 @@ dt.now() + timedelta(minutes=10)
 # obj: datetime.datetime(2023, 10, 27, 17, 41, 50, 848715)
 ```
 
-### Snippets
+### Snippets Datetime
 
 ```py
 # 1. Get last week start and end

@@ -61,6 +61,11 @@ someString.replace(/h1/,'h2')
     - `.*` - then has anything after that
     - `$\n` - then matches next line as well.
 
+**Remove Trailing whitespace**
+
+- Find: `\s+$`
+- Replace: ``
+
 **Remove trailing whitespace** from only thoose lines that **have text**
 
 - Find: `(\S+)(\s+)$`

@@ -446,6 +446,14 @@ Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, 
 
 Amazon Athena is an interactive **query** service that makes it simple to analyze data directly in Amazon **S3** using standard SQL. It is **serverless**.
 
+## AWS API Gateway
+
+**Usage Plan and Message Throttling**
+
+Usage plan defines how many call can you do in a time period, eg, 5000 req per month
+
+Message Throttling is limiting the rate at which you can hit the api, eg, max 100 req per second
+
 ## Amazon DataZone
 
 Build catalog and make data discoverable. Read more?

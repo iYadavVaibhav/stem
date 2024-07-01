@@ -99,6 +99,14 @@ You may be behind a proxy server and need proxy settings to allow http requests 
 "http.proxy": "http://<username>:<password>@<url>:<port>",
 ```
 
+**Env Vars**
+
+VS Code will autoload the `.env` file in root of workspace when the folder is opened. You can see this in OUTPUT tab, provided, the following default settings:
+
+```js
+{"applyAtShellIntegration":true,"applyAtProcessCreation":true}
+```
+
 ### Extensions
 
 They are developed to enhance the functionality of VS Code. Each extension has settings that can be added to VS Code JSON settings at all level workspace, user ot global.
@@ -153,43 +161,67 @@ Ext | Desc
   ]
   ```
 
+### Testing
+
+VS Code, pulls all test cases and can show test results, passed/failed and let debug the test cases. It helps to run individual case, class or all test cases. Configure by clicking on beaker icon.
+
+Click "Configure" to specify test framework and test cases filename pattern. Once done, vs code will find and list all test cases.
+
+### Debugging
+
+You need to add `.vscode/launch.json` with settings to let you debug the python app. This tell vs-code to configure the app based on framework and let debug.
 
 
 ### Ext: Flake8 in VS Code
 
-It is one of the best linter for Python. A linter is a tool to help you improve your code. It advises you about code quality by displaying warnings and errors.
+A linter is a tool to help you improve your **code style quality** control by displaying warnings and errors. It helps keep the code style and formatting consistent. `Pylint` and `Flake8` are popular linters.
 
-**Install** - `pip install flake8`
+Linters can be run on code to check formatting error, vs-code ext runs the linter as soon as you open/save the file and it displays error if any. Without ext, you will have to manually run flake8 on code. You can see `OUTPUT` log that flake8 is run and can see output. The error from this log is shown in `PROBLEMS` tab. So `flake8` is installed in the venv
 
-**Select Linter**
+Formatting and liting are complementary and have a little overlap. `autopep8` is good formatter for python.
 
-Press `ctrl shift p` then type `linter`, then select `Python: Select Linter`, and then select `flake8`, or paste following in settings at `.vscode\settings.json`:
 
-```json
-{
-    ...
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true,
-    ...
-}
-```
+Selecting, enabling and disabling linter is now automatic, install ext to enable linter, open/save file to run linter, uninstall ext to disable linting. No need for explicit settings.
 
 **Configure** - In VS Code settings
 
-```json
-// Flake8 - ignore rules
-"python.linting.flake8Args": [
-    "--max-line-length=120",
-    "--ignore=E402,E501,W293,E302,E303,W391",
-],
-// E402 - Module level import not at top of file
-// E501 - Line lengths are recommended to be no greater than 79 characters
-// W293 - Blank line contains whitespace
-// E302 - 2 blank lines
-// E303 - too many blank lines
-// W391 - blank line at end of file
+```js
+    "flake8.args": [
+        "--max-line-length=120",
+        "--ignore=E402,E501,W293,E302,E303,W391",
+    ],
+    // E402 - Module level import not at top of file
+    // E501 - Line lengths are recommended to be no greater than 79 characters
+    // W293 - Blank line contains whitespace
+    // E302 - 2 blank lines
+    // E303 - too many blank lines
+    // W391 - blank line at end of file
 ```
+
+Similarly, `autopep8` if installed as formatter, can be enabled as:
+
+```js
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+```
+
+**Manual Linting**
+
+```sh
+# install
+python -m pip install flake8
+
+# run
+flake8 path/to/code/to/check.py
+# or
+flake8 path/to/code/
+```
+
+**Links**
+
+- [vs code linting](https://code.visualstudio.com/docs/python/linting)
+- [manual linting command line](https://flake8.pycqa.org/en/latest/)
 
 ### Ext: Better Jinja
 
