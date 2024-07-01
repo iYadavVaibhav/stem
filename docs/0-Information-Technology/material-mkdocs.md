@@ -77,7 +77,7 @@ Reference page [MkDocs - linking-to-pages](https://www.mkdocs.org/user-guide/wri
 
 ## Jupyter Notebook Rendering
 
-You can add support to render `*.ipynb` files in your site. Please follow docs on []().
+You can add support to render `*.ipynb` files in your site. Please follow docs on [Use Jupyter Notebooks in mkdocs](https://github.com/danielfrg/mkdocs-jupyter/tree/main?tab=readme-ov-file#mkdocs-jupyter-use-jupyter-notebooks-in-mkdocs).
 
 Few things to note:
 
