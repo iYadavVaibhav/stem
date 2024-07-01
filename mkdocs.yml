@@ -6,13 +6,12 @@ site_author: Vaibhav Yadav - Data Engineer, Scientist and Analyst
 repo_url: https://github.com/iYadavVaibhav/stem
 repo_name: iyadavvaibhav/stem
 
-
 theme:
   name: material
   custom_dir: src/overrides
   favicon: assets/images/apple-touch-icon.png
   logo: assets/images/apple-touch-icon.png
-  
+
   features:
     # - navigation.sections
     # - navigation.expand
@@ -24,7 +23,7 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
-  
+
   icon:
     edit: material/file-edit-outline
     view: material/file-eye-outline
@@ -42,8 +41,7 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
-copyright:
-  Copyright &copy; 2016 - 2023 Vaibhav Yadav
+copyright: Copyright &copy; 2016 - 2024 Vaibhav Yadav
 
 extra:
   social:
@@ -51,13 +49,12 @@ extra:
       link: https://in.linkedin.com/in/iyadavvaibhav
     - icon: fontawesome/brands/github
       link: https://github.com/iYadavVaibhav/
-    - icon: fontawesome/brands/twitter 
+    - icon: fontawesome/brands/twitter
       link: https://twitter.com/iYadavVaibhav/
     - icon: fontawesome/brands/kaggle
       link: https://www.kaggle.com/iyadavvaibhav/kernels
     - icon: simple/tableau
       link: https://public.tableau.com/profile/iyadavvaibhav
-
 
 plugins:
   - search
@@ -66,7 +63,8 @@ plugins:
       fallback_to_build_date: true
       type: timeago
       enabled: !ENV [CI, false]
-
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]
 
 markdown_extensions:
   - admonition
@@ -84,12 +82,12 @@ markdown_extensions:
   - pymdownx.snippets
 
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
 
   - pymdownx.tasklist:
       clickable_checkbox: true
 
   - pymdownx.arithmatex:
       generic: true
-      
+
   - mdx_truly_sane_lists

@@ -75,6 +75,14 @@ Reference page [MkDocs - linking-to-pages](https://www.mkdocs.org/user-guide/wri
   - Keep `title: Two-Three words`
   - Can have H1-H5 as proper english sentences, keep small to a few words.
 
+## Jupyter Notebook Rendering
+
+You can add support to render `*.ipynb` files in your site. Please follow docs on []().
+
+Few things to note:
+
+- Update requirement file so that github actions pick it.
+- The include/ignore paths are within `./docs/` folder.
 
 ## MarkDown Extensions
 
