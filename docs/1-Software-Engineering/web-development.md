@@ -516,3 +516,14 @@ Json and its structire, `_linka` and `items` are common structure.
 Links:
 
 - [Designing RESTful APIs - Linkedin Learning](linkedin.com/learning/designing-restful-apis/next-steps-toward-designing-a-restful-api)
+
+
+## Email Server
+
+You can use Google or SendGrid as email sever for you app.
+
+**Send Grid**
+
+- Create an account.
+- Click 'Integrate using our Web API or SMTP Relay'. Use, `MAIL_SERVER=smtp.sendgrid.net` for server.
+- Add 'API Name' and get the Key. This will be `MAIL_USERNAME` in env file.

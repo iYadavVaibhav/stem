@@ -470,6 +470,90 @@ Multi **stage** build lets build the image in different stages using `AS` and `F
 
 Dev Containers are made available in VS Code. It basically runs a docker container in docker enginer. Then VS Code connects to it using remote connection. Anything you run on the container, is exposed via a port. This can then be accessed via host, if you add `"remote.localPortHost": "allInterfaces",` to vs code settings, you can access this host and port on you lan via any other device.
 
+**Caution...!** Anything that is saved outside `workspaces` folder will be deleted if the container is removed. This is because only `workspaces` folder persists as volume.
+
+- 'Epic Swartz' was a ubuntu container, that has mounted volumne.
+  - Ubnutu (epic swartz) is name and alias, its same thing.
+  - `/workspaces/ubuntu` has repos. This is volume on host.
+  - `/home/vscode/code/repo` has different repos. This is on host at `/Users/vab/OrbStack/docker/containers/epic_swartz/home/vscode/code/repo/microblog-api/microblog-api`. This got deleted on removing container.
+
+**Ways to use dev container**
+
+- New dev container - opens new container based on config selected. Maps a new volume.
+- Open a folder in container - opens new container for first use. Binds folder to volume. Useful for continued development.
+- Attach to running Container - open the home dir of container user, `/home/vscode`
+
+### New Dev Container
+
+Opening a repo in its own vscode window
+
+- on the termial, cd to the repo and do code .
+
+Useful when you have to test something new once. Anything you do will get deleted if container is removed, only workspaces folder is left as volume
+
+### Open Folder in Container
+
+Opens a host folder in container. Container has only this folder under `/workspaces/`
+
+For first time, it asks container config and takes a while. For next runs, its starts in seconds.
+
+Steps
+
+- Click remote explorer
+- Open Folder in Container...
+- Select folder on host. `/path-to/folder-in-cntnr-1`
+- Add user config file.
+- Select tools/frameworks.
+- Done
+
+What happends in background by VS Code:
+
+- Downloads the image based on tools you selectd
+- Build the image
+- Attaches volume, bind mount with folder on host. Attaches volume mount `vscode` fro vscode-server stuff.
+- Starts the container
+- Connects VS code to container
+- Opens host folder in container
+- Click 'Remote Explorer' extension to see all these details in vscode.
+
+User Owner and Permissions in Container
+
+- On terminal, user is `vscode`.
+- Folder is located in `/workspaces/folder-in-cntnr-1`
+
+Git Configs
+
+- By default showed config set in ORB Stack.
+
+Extensions
+
+- can be configured in `.devcontainer/devcontainer.json`
+
+Ports
+
+- can be configured in `.devcontainer/devcontainer.json`
+
+Files location
+
+- File saved on container is saved on host as well.
+- File saved on host is reflected on container.
+
+Opening other folders
+
+- Opening other folder with same framework selected was fast. That is repeated the same thing for another folder on host, selected python as framework for container, then it opened in seconds.
+
+Closing Tear Dow
+
+- Closing the vscode window, stops the running container. Does not delete it.
+
+### Opening Source Tree in Container
+
+Same as opening a folder in container. Instead of one project repo, you can open a parent folder that has all your repos. This will have all repos in container. Now you can simply open any folder under parent folder (which will be a repo) in a new vscode window. You can also see this on the remote expolorer extension sidebar.
+
+More on this can be found on [Configure separate containers](https://code.visualstudio.com/remote/advancedcontainers/configure-separate-containers)
+
+Binded volume can be slow compared to mounted volume. You can do the same thing above (open source tree) by mounting a volume to container, and Clone your entire source tree inside of a named volume rather than locally (on host). More on [Use a named volume for your entire source tree](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-named-volume-for-your-entire-source-tree)
+
 Links:
 
 - <https://containers.dev/>
