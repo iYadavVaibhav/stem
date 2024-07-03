@@ -57,10 +57,7 @@ Git is version control software to track changes in source code. GitHub is cloud
   - `git config --global credential.helper store` - stores the username and password in store utility
   - `git config --global --unset http.proxy` to unset a variable
 
-## Operations
-
-
-### Read Local Repo
+## Read Local Repo
 
 - `git status` - current local branch and changes
 - `git branch` - local branches
@@ -79,7 +76,7 @@ Git is version control software to track changes in source code. GitHub is cloud
 
   - first two are local and then remotes, see `HEAD` points to one of the remote branch, this is checkout and acts as default.
 
-### Write Local Repo
+## Write Local Repo
 
 - create repo
   - `git clone https://...git` - **clone remote** repository
@@ -89,9 +86,21 @@ Git is version control software to track changes in source code. GitHub is cloud
   - `git add --all`
   - `git commit -m "Initial Commit"`
 
-- remotes add/set
-  - `git remote add origin https://...git` **add a remote** to existing local repo
-  - `git remote set-url origin https://...git` **update remote**, change to new
+**Remotes**
+
+```sh
+# add remote to existing local repo
+git remote add origin https://repo.git
+
+# update remote
+git remote set-url origin https://repo.git
+
+# View remotes added to local repo
+git remote -v
+
+# View URL of a remote
+git remote get-url --all <remote-name>
+```
 
 - branch/pull
   - `git checkout -b <new-branch>` - **creates** new-local-branch and **checksout**. It has **no upstream** to track.
@@ -137,7 +146,7 @@ git rm --cached -r the_project/dev_dir
 git rm --cached the_project/secrets.py
 ```
 
-### Read Remote Repo
+## Read Remote Repo
 
 - `git remote show origin` all the information about a remote called origin. Output:
   - fetch and push URL
@@ -164,7 +173,7 @@ git rm --cached the_project/secrets.py
 
 - `git fetch` - reads from remote if changes are available to pull, **does not pull**
 
-### Write Remote Repo
+## Write Remote Repo
 
 - `--set-upstream` or `-u` to set upstream
 - `git push` writes current-local-branch to remote
@@ -176,7 +185,7 @@ git rm --cached the_project/secrets.py
 - `git push origin` pushes **all** branches to remote
 
 
-### Pull Requests - PR
+## Pull Requests - PR
 
 Is a request made by developer (coder) to other developers (reviewers) so that reviewers can review the _feature-branch_ and up on satisfaction they can approve it. On required approvals coder can `merge` the _feature_ branch to _main_ branch. This will pull the feature branch to main branch, hence named _pull request_.
 
@@ -248,7 +257,7 @@ So that...
 
 _all about syncing in network restrictions_
 
-**Git Patch** 
+**Git Patch**
 
 It is changes in text-format. It lets collaborate using text files instead of remote servers.
 
@@ -283,7 +292,7 @@ Here, branch2 should be new to list latest changes in patch, else the patch will
 `git apply` is command that lets apply patch to a branch. You can also use `patch` which is separate command for updates and not git specific.
 
 ```sh
-$ git apply diff.patch
+git apply diff.patch
 ```
 
 **Git Bundle**
@@ -291,9 +300,9 @@ $ git apply diff.patch
 `git bundle` is a command that builds one file having whole repository with all commits. It allows easy file sharing without need of central server. Note: this file is binary not text.
 
 ```sh
-$ git bundle create <bundle_file> <refs>
+git bundle create <bundle_file> <refs>
 
-$ git bundle create my_prj.repo HEAD
+git bundle create my_prj.repo HEAD
 ```
 
 `<refs>` can be HEAD or branch name or tags.
@@ -302,6 +311,209 @@ $ git bundle create my_prj.repo HEAD
 
 - [Initialcommit - git-format-patch](https://initialcommit.com/blog/git-format-patch)
 - [Git bundle on Lindedin](https://www.linkedin.com/pulse/what-git-bundle-stephen-paynter/)
+
+## Rename git branch
+
+- `git branch --move main master` - moves main to master, `-m` is same as `--move`
+- `git push -u origin master` - pushed master to remote as master (new on remote if not exists)
+- `git branch -a` - to view all branches
+- finally make `master` as default on remote and delete `main`.
+- or simply rename on github.com.
+
+## SSH Authentication for Git
+
+You can **pull** using HTTP/SSH. **HTTP** lets you pull without authentication and is **recommended** for **public** repos.
+
+For **push** you always need **authenticated** n/w, and **recommended** method is **SSH**. Also, to pull private repo you need auth.
+
+```sh
+cd ~/.ssh/
+ls -la
+
+# If no id_rsa.pub key, generate
+ssh-keygen
+
+# copy public key
+cat ~/.ssh/id_rsa.pub
+```
+
+Now you would have id_rsa.pub and id_rsa files.
+
+The file `id_rsa.pub` has your public key. This is secret, but can be givent to server/bitbucket/github, so that they have your public key and can authenticate you without your username password.
+
+**Add key to Github**
+
+Copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button. Enter any title and key that you copied.
+
+**Checking SSH Auth**
+
+- Check using `ssh -T git@github.com`
+- Output should say `Hi <user_name>! You've successfully authenticated, but GitHub does not provide shell access.`
+
+**Fixing SSH issue**
+
+- error - `ssh: connect to host github.com port 22: Connection refused`
+- change ssh config to use new url and port, Override SSH settings `gedit ~/.ssh/config` and add
+
+```sh
+# Add section below to it
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+```
+
+- save and try again.
+- Change your git remote to use SSH URL instead of HTTPS `git remote set-url origin git@github.com:YOUR-USERNAME/REPO-NAME.git`
+
+**Links** - <https://docs.github.com/en/authentication/connecting-to-github-with-ssh>
+
+## Multiple Remote Repo Username Setup
+
+You may want to push code to different Remote Repo, eg, tom@github and ram@github. One rsa key does not work on multiple accounts. You need to have different rsa keys. Git Config needs to know which rsa key to use. Also git config need to know name and email.
+
+```sh
+# Generate SSH Key for new user
+ssh-keygen -t rsa -C "tom@gmail.com"
+# name: id_rsa_tom
+
+```
+
+Here, -t defines type of key to generate. -C defines comment to the key, this helps see the comment in the key.
+
+Now copy content of `id_rsa_tom.pub` and use it on server to let you authenticate.
+
+On local, you need to set git config to use correct user details:
+
+```sh
+# Change SSH Key to be used in Git Repo
+git config --global core.sshcommand 'ssh -i /home/tom/.ssh/id_rsa_tom -F /dev/null'
+
+git config --global user.name "Tom Guy"
+git config --global user.email "tom@gmail.com"
+```
+
+You can modify above based on which user you want to use for remote push/pull. You can use `--local` if you are in git dir.
+
+In case you have commited by wrong user, you can edit the commit before push.
+
+## Fix Commit Author for Last Commit
+
+Ensure you have correct git config, user.name and user.email. Then amend the comment
+
+```sh
+# Configre new username
+git config user.name username
+git config user.email user.name@gmail.com
+
+# Amend last commit if done wrong
+git commit --amend --author="User Name <user.name@gmail.com>"
+
+# Check if last commit is updated
+git log
+
+# Change SSH Key to be used in Git Repo
+git config --local core.sshcommand 'ssh -i /home/username1/.ssh/id_rsa_username -F /dev/null'
+
+# Pull GitHub content to rebase
+git config pull.rebase true 
+
+# Pull to avoid conflict
+git pull origin main
+
+# Push to GitHub with new username
+git push --set-upstream origin main
+```
+
+## Fix Commit author for multiple commits
+
+First, update the git config with correct username and email.
+
+Find commit number which is older than the commits you want to update author, eg, `91d5062`
+
+```sh
+
+git rebase -r 91d5062 \
+    --exec 'git commit --amend --no-edit --reset-author'
+```
+
+Link: [Stackoverflow - How do I change the author and committer name/email for multiple commits?](https://stackoverflow.com/a/1320317/1055028)
+
+For only **last commit** message update"
+
+```sh
+git commit --amend -m "New commit message"
+```## Fix Github Commit author for multiple commits
+
+First, update the git config with correct username and email.
+
+Find commit number which is older than the commits you want to update author, eg, `91d5062`
+
+```sh
+
+git rebase -r 91d5062 \
+    --exec 'git commit --amend --no-edit --reset-author'
+```
+
+Link: [Stackoverflow - How do I change the author and committer name/email for multiple commits?](https://stackoverflow.com/a/1320317/1055028)
+
+For only **last commit** message update"
+
+```sh
+git commit --amend -m "New commit message"
+```
+
+## Handling Conflicts
+
+If you push to git from two different repositories then there may be conflict. eg, you push from mac repo and a cloud repo or ubuntu repo. To handle conflict:
+
+- Open conflicted file in editor and look for `<<<<<<<<` .
+- You'll see the changes from the HEAD or base branch (github usually) after the line `<<<<<<< HEAD`
+- `========`, it divides your changes from the other branch as `>>>>>>>>YOUR_BRANCH_NAME`
+- You can decide if you want keep your branch changes or not. If you want to keep the changes what you did, delete the conflict marker they are, `<<<<<<<, =======, >>>>>>>` and then do a merge.
+- Once done, `add commit push` :)
+
+
+## Version controlling in GIT
+
+You can see previous versions of file in your git repository.
+
+- to see the checkins done
+
+```sh
+> git reflog
+044cf0e (HEAD -> master) HEAD@{0}: commit: updates
+aae1995 HEAD@{1}: commit (initial): first commit
+```
+
+- `git show HEAD@{1}:path/to/file.ext` show file on terminal
+- press down arrow to navigate and `q` to quit
+
+or
+
+- `git show -1 filename` - shows difference with last revision
+- use -1 or -2 or -3 and so on for going into history.
+
+## Git Tags
+
+First commit and then add a tag, `git tag -a v1.4 -m "my version 1.4"` to add new annotated tag.
+
+`git push origin --tags` to push tags to remote.
+
+`git tag -d v0.6` to delete tag
+
+Remote tag example: `git push -d origin v0.6``
+
+**Links** - Git Tags
+
+- [https://git-scm.com/book/en/v2/Git-Basics-Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+
+## Fix Corrupt Git
+
+Following works on ubuntu
+
+```sh
+git repair
+```
 
 ## Guide - Disconnected Sync when Network is Restricted
 
@@ -394,12 +606,11 @@ git checkout -b dev
 
 Now your repo1 is updated with all changes merged and is ready to work.
 
-
 **Link** - <https://gist.github.com/nepsilon/22bc62a23f785716705c>
 
 ## Guide - Git Local to Remote Basics
 
-### Setup Git
+**Setup Git**
 
 - On any folder, do this **once**
 - eg, `mkdir myProject` then `cd myProject`
@@ -407,192 +618,29 @@ Now your repo1 is updated with all changes merged and is ready to work.
 
 Now once you have written your code, you can add and commit new code to local git:
 
-### Add and Commit code
+**Add and Commit code**
 
 - `git add .` adds all files to git. To add one file, pass filename.
 - `git diff` shows changes made to files.
 - `git commit -m "Message"` commits to git with message.
 - optional, `cat .gitignore` add files that you want git to ignore
 
-### Add Remote
+**Add Remote**
 
 - Create a new repository on GitHub.com
-- on your local folder, `git remote add  [name] [url]` will add remote. Here, `name` can be origin and `url` is https/ssh url of git repo created online on GitHub.com. Use SSH if you have SSH authentication setup.
+- on your local folder, `git remote add  [name] [url]` will add remote. Here, `name` can be origin and `url` is https/ssh url of git repo created online on GitHub.com. Use SSH only if you have [SSH authentication](#ssh-authentication-for-git) setup.
 - Once remote is added to your local git then you can push or pull the files based on the commands below.
 
-### Syncing local and remote
+**Syncing local and remote**
 
 - `git pull` pulls updates from remote to local
 - `git push` pushes the committed changes from local to remote. We can also specify remote name and branch here. eg:
   - `git push -u origin master`.
 
-## Rename git branch
-
-- `git branch --move main master` - moves main to master, `-m` is same as `--move`
-- `git push -u origin master` - pushed master to remote as master (new on remote if not exists)
-- `git branch -a` - to view all branches
-- finally make `master` as default on remote and delete `main`.
-- or simply rename on github.com.
-
-## Different username push to GitHub
-
-- you can get error if you have tow different github user account or you want to push to someone else's account. In that case you can do following to push to GitHub as a different user.
-
-```sh
-# Configre new username
-git config user.name username
-git config user.email user.name@gmail.com
-
-# Amend last commit if done wrong
-git commit --amend --author="User Name <user.name@gmail.com>"
-
-# Check if last commit is updated
-git log
-
-# Generate SSH Key for new user
-ssh-keygen -t rsa -C "user.name@gmail.com"
-
-# Change SSH Key to be used in Git Repo
-git config --local core.sshcommand 'ssh -i /home/username1/.ssh/id_rsa_username -F /dev/null'
-
-# Pull GitHub content to rebase
-git config pull.rebase true 
-
-# Pull to avoid conflict
-git pull origin main
-
-# Push to GitHub with new username
-git push --set-upstream origin main
-```
-
-## Fix Github Commit author for multiple commits
-
-First, update the git config with correct username and email.
-
-Find commit number which is older than the commits you want to update author, eg, `91d5062`
-
-```sh
-
-git rebase -r 91d5062 \
-    --exec 'git commit --amend --no-edit --reset-author'
-```
-
-Link: [Stackoverflow - How do I change the author and committer name/email for multiple commits?](https://stackoverflow.com/a/1320317/1055028)
-
-For only **last commit** message update"
-
-```sh
-git commit --amend -m "New commit message"
-```
-
-## SSH Authentication to push to remote
-
-You can connect to GitHub using the Secure Shell Protocol (SSH), which provides a secure channel over an unsecured network. It lets connect using keys and thus avoiding to provide username and password/token on each request.
-
-- **SSH Basics**
-  - `~/.ssh` is a folder that has your keys.
-  - `ssh-keygen` is command to generate keys. It has switched -t -b -C [ ]
-  - file `id_rsa.pub` has your public key. This is secret, but can be givent to bitbucket, so that they have your public key and can authenticate you without your username password.
-  
-- **Add SSH** to another service
-  - if `~/.ssh/id_rsa.pub` exists do `cat ~/.ssh/id_rsa.pub` else generate SSH Key `ssh-keygen`, passphrase is optional.
-  - copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button.
-  - enter any title and key that you copied.
-
-- **Links** - <https://docs.github.com/en/authentication/connecting-to-github-with-ssh>
-
-Checking
-
-- Check using `ssh -T git@github.com`
-- Output should say `Hi <user_name>! You've successfully authenticated, but GitHub does not provide shell access.`
-
-Fixing SSH issue
-
-- error - `ssh: connect to host github.com port 22: Connection refused`
-- change ssh config to use new url and port, Override SSH settings `gedit ~/.ssh/config` and add
-
-```sh
-# Add section below to it
-Host github.com
-  Hostname ssh.github.com
-  Port 443
-```
-
-- save and try again.
-- Change your git remote to use SSH URL instead of HTTPS `git remote set-url origin git@github.com:YOUR-USERNAME/REPO-NAME.git`
-
-## Get and Set Remotes
-
-- `git remote -v` do on a folder to check remotes added.
-- `git remote get-url --all REMOTE-NAME` to see URL of remote.
-- `git remote set-url origin https://github.com/YOUR-USERNAME/YOUR-REPO.git` to update remote on a folder.
-
-## Handling Conflicts
-
-If you push to git from two different repositories then there may be conflict. eg, you push from mac repo and a cloud repo or ubuntu repo. To handle conflict:
-
-- Open conflicted file in editor and look for `<<<<<<<<` .
-- You'll see the changes from the HEAD or base branch (github usually) after the line `<<<<<<< HEAD`
-- `========`, it divides your changes from the other branch as `>>>>>>>>YOUR_BRANCH_NAME`
-- You can decide if you want keep your branch changes or not. If you want to keep the changes what you did, delete the conflict marker they are, `<<<<<<<, =======, >>>>>>>` and then do a merge.
-- Once done, `add commit push` :)
-
-## Modifying Commits
-
-- `git log`
-
-## Version controlling in GIT
-
-You can see previous versions of file in your git repository.
-
-- to see the checkins done
-
-```sh
-> git reflog
-044cf0e (HEAD -> master) HEAD@{0}: commit: updates
-aae1995 HEAD@{1}: commit (initial): first commit
-```
-
-- `git show HEAD@{1}:path/to/file.ext` show file on terminal
-- press down arrow to navigate and `q` to quit
-
-or
-
-- `git show -1 filename` - shows difference with last revision
-- use -1 or -2 or -3 and so on for going into history.
-
-## Adding RSA for password free sync on Mac
-
-GitHub is excellent for code repositories online to share work, collaborate or keep a backup.
-
-I have followed an excellent [post](https://kbroman.org/github_tutorial/) by Karl Broman on the same. To summaries the flow:
-
-- Install git on local drive.
-- Setup RSA for SSL: RSA is used for making safe authentications via SSL.
-- Setup GitHub Account: You will get an online space to upload your code with version controlling.
-
-## Git Tags
-
-First commit and then add a tag, `git tag -a v1.4 -m "my version 1.4"` to add new annotated tag.
-
-`git push origin --tags` to push tags to remote.
-
-`git tag -d v0.6` to delete tag
-
-Remote tag example: `git push -d origin v0.6``
-
-**Links** - Git Tags
-
-- [https://git-scm.com/book/en/v2/Git-Basics-Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
-
-## Fix: Fix error of git currupt
-
-Following works on ubuntu
-
-```sh
-git repair
-```
-
 ## Todo
 
 - [ ] - Merge guide to operations
+
+## Links
+
+- [Github RSA by Karl Broman](https://kbroman.org/github_tutorial/)

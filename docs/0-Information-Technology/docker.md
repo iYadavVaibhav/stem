@@ -523,7 +523,8 @@ User Owner and Permissions in Container
 
 Git Configs
 
-- By default showed config set in ORB Stack.
+- By default config from host are copied to container.
+- You will need to [setup the SSH configurations](../1-Software-Engineering/git.md#ssh-authentication-to-push-to-remote) if you want to push from inside container. Else you can do from host.
 
 Extensions
 
