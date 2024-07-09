@@ -42,3 +42,15 @@ Banks makes money by following methods:
 ## Credit Risk Management
 
 Credit risk management is the practice of mitigating losses by understanding the adequacy of a bank's capital and loan loss reserves at any given time – a process that has long been a challenge for financial institutions.
+
+## Tick Data (Trade Data)
+
+**Tick-by-tick** data, often referred to as "trade data" or "tick data" or "market data", is a type of financial market data that records every individual transaction (trade) that occurs for a particular financial instrument, such as a stock, commodity, or currency pair. It is the most granular level of market data and provides detailed information about each trade, including the price at which the trade occurred, the quantity of assets bought or sold, and the exact timestamp of the trade.
+
+Tick Data is trade data, often know as "tick-by-tick" or "market data". It records each transaction that occurs for a financial instrument (stocks/commodity/currency etc). It is most granular market data. It has detailed information about each trade like price, quantity bought or sold, timestamp etc.
+
+It can be millions in milliseconds. There are special databases and frameworks to deal with this velocity and volume of data, some of them are arcticdb.
+
+## Book Building
+
+Book Building is the process by which an underwriter determines the price at which the shares must be sold in an Initial Public Offer (IPO)
