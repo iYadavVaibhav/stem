@@ -1,5 +1,5 @@
 ---
-date: 09-07-2024
+date: 2024-07-09
 ---
 
 # Apache Spark
@@ -22,7 +22,6 @@ date: 09-07-2024
 Link: [Apache Spark Essential Training: Big Data Engineering](linkedin.com/learning/apache-spark-essential-training-big-data-engineering-14259237)
 
 Spark jobs are java classes with function doing specific work.
-
 
 Spark splits data into RDDs based on key, they do single operation in one executor, multirecord-operation by swapping the data in between executors.
 
