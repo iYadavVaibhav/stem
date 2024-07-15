@@ -4,6 +4,8 @@ date: 2024-03-09
 
 # Apache Kafka
 
+No processing, only storing
+
 
 ## Event Driven Architecture
 

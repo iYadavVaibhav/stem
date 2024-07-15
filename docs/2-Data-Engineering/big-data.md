@@ -64,7 +64,7 @@ As the load increases, we simply **add more nodes** to the cluster to **scale ho
   - batch is repeatable, based on time or key.
   - processing logic should not double count the records
 
-### Use Case: Audit Trail Data
+## Use Case: Audit Trail Data
 
 Consider a use case, where you an ecom website generates user activity log data, which is about 3GB per day. It is stored in Oracle DB. In 15 days the size reaches about 30GB. Oracle DB only keeps last 15 days audit data to keep size about 30GB.
 
@@ -92,7 +92,7 @@ Evaludate ETL technologies like, Apache Pig / Apache Spark. Both can let read fr
 
 The scaling also depends on how often Orcale DB (source), allows to read. Also, how much load can you put on DB to read, as it would be used by other applications. Oracle does allow concurrent reading with multiple connections and hence spark can make use of spark tasks.
 
-### Use Case: Advertising Analytics
+## Use Case: Advertising Analytics
 
 Consider an ecom website using email and ads for marketing. They want to know the effectiveness of both the channels. They send 1 million email each day using an enterprise tool. Ads generate revenue of 0.75 million per day.
 
@@ -156,7 +156,7 @@ b1 --> b2 --> b3 --> b4 --> c
 - Summarization, use apache spark.
 - Analytics DB, need cocurrent writes, good SQL analytics capability, here MySQL wins over Mongo and HDFS+Impala.
 
-### Use Case: Product Recommendations
+## Use Case: Product Recommendations
 
 Consider e-com company XYZ with 20m users and 200k txns a day. XYZ wants to scale by recommending products based on user behaviour.
 
