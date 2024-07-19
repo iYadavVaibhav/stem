@@ -3,6 +3,9 @@
 _all about ETL pipeplines scheduling_
 
 
+## Data Flow Design Patterns
+
+
 ## Parallel Data Processing
 
 - Python multiprocessing Pool - low level native python code, expilictly implement prallel processing
