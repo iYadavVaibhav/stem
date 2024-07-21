@@ -2,13 +2,13 @@
 
 _how to architect, where to architect, stages of storage, storage solutions_
 
-Aim of architecturing database is to collect and store data in a way that it is optimised for reading to enable analytics and BI.
+Aim to architect database is to collect and store data in a way that it is optimised for reading to enable analytics and BI.
 
 ## Overview / Concepts
 
-- **Database Modeling**
-  - _Logical Model_ is modeling on paper/ppt
-  - _Physical Model_ is modeling on database with the data.
+- **Database Modelling**
+  - _Logical Model_ is modelling on paper/ppt
+  - _Physical Model_ is modelling on database with the data.
 
 - **Data Storage Stages** can follow this journey
   - Staging area where it is dump from feeds, can be OLTP dumps
@@ -17,44 +17,44 @@ Aim of architecturing database is to collect and store data in a way that it is 
 
 - **Database Schema** is collection of _database objects_ (tables, views and indexes).
 
-- **3NF Schema** minimizes redundancy by splitting data in multiple tables and linking them with relationships. Adding new entity is easy without effecting current applicaiton. But, this makes reading data slow as the query joins multiple tables.
+- **3NF Schema** minimizes redundancy by splitting data in multiple tables and linking them with relationships. Adding new entity is easy without effecting current application. But, this makes reading data slow as the query joins multiple tables.
 
-- Data Warehousing, data mart build, database modeling, dimentional modeling, data modeling,  - they all have a common goal to **improve data retrieval** (select query optimized).
+- Data Warehousing, data mart build, database modelling, dimensional modelling, data modelling,  - they all have a common goal to **improve data retrieval** (select query optimized).
 
 
 ## Data Storage Solutions
 
 - **Data Lake** - is dumped data with no purpose
-- **Staging Area** is a dump from feeds. It simplfies cleaning and consolidation.
+- **Staging Area** is a dump from feeds. It simplifies cleaning and consolidation.
 - **Data Warehouse** - data from different sources into central store to provide **single source of truth** on which BI and Analysts can rely.
   - **OLAP vs OLTP** - Compared to OLTP (transaction processing), warehousing is read oriented, for analytics workload OLAP.
     - read oriented, vs insert/update/delete
     - denormalized for reads, fully normalized for consistency
     - ETL batch updates, always up to date.
   - Big data warehousing handling petabytes in an distributed environment. Handle 3Vs, real time, no sql, petabytes? It is ETL but at industry level,
-- **Data Mart** - usually build for single purpose, for particualr LOBs, can be physically designed or implemented logically by creating views, materialized view or summary data in warehouse (they have an overlap). It mainly focuses on a subset of data instead of complete enterprise data. They can exist as
+- **Data Mart** - usually build for single purpose, for particular LOBs, can be physically designed or implemented logically by creating views, materialized view or summary data in warehouse (they have an overlap). It mainly focuses on a subset of data instead of complete enterprise data. They can exist as
   - Island is right from source, can be inconsistent.
   - Dependent is fed from warehouse, mostly consistent.
 - **Operation Data Store** - ODS gives data warehouses a place to get access to the most current data, which has not yet been loaded into the data warehouse. Usually current day data.
 - Usually - Data Lake > Data Warehouse > Data Mart
-- Data Warehousing, data mart build, database modeling, dimentional modeling, data modeling,  - they all have a common goal to **improve data retrieval** (select query optimized).
+- Data Warehousing, data mart build, database modelling, dimensional modelling, data modelling,  - they all have a common goal to **improve data retrieval** (select query optimized).
 
 
 ## Data Warehousing Concepts
 
 - **What is Data Warehouse**
   - simply it is a database.
-  - designed in a way to facilitate easy reads and accomodates change in model like adding a new dimension.
+  - designed in a way to facilitate easy reads and accommodates change in model like adding a new dimension.
   - lets slice and dice data from different dimensions and by time.
   - lets view highly-aggregated data and same time lets drill-down to lowest granularity.
-  - the data is non-volatile (does not change) and lets analyze what occured over time.
-  - it includes **ETL process**, multi-dimensional modeling, backups, availability
+  - the data is non-volatile (does not change) and lets analyze what occurred over time.
+  - it includes **ETL process**, multi-dimensional modelling, backups, availability
   - Big data warehousing handling petabytes in an distributed environment. Handle 3Vs, real time, no sql, petabytes? It is ETL but at industry level.
 
 - **Why is Data Warehouse required**
-  - to combine data from different sources intoe **single source of truth** on which BI and Analysts can rely.
-  - to enhance organization's performance by analyzing data.
-  - to maintian historical records to look over years.  
+  - to combine data from different sources into **single source of truth** on which BI and Analysts can rely.
+  - to enhance organization's performance by analysing data.
+  - to maintain historical records to look over years.  
 
 - **How Data Warehouse works**
   - _Read Optimized_ - they are designed to query and analyze rather than transaction processing.
@@ -67,7 +67,7 @@ Aim of architecturing database is to collect and store data in a way that it is 
   - OLAP is denormalized for reads, OLTP is fully normalized for consistency
   - OLAP is populated with ETL batch updates, OLTP is always up to date with transactional writes.
 
-- **Data Mart** - similar to warehouse but is usually build for single purpose, for particualr LOBs.
+- **Data Mart** - similar to warehouse but is usually build for single purpose, for particular LOBs.
   - It can be physically designed or implemented logically by creating views, materialized view or summary data in warehouse (they have an overlap).
   - It mainly focuses on a subset of data instead of complete enterprise data.
   
@@ -80,7 +80,7 @@ Aim of architecturing database is to collect and store data in a way that it is 
 - **Data Warehouse Architectures**
   - Basic - Source-data to warehouse to users, no data-marts, no staging-area.
   - Staging and warehouse - from source data is landed to staging area then to warehouse.
-  - Staging, warehouse and datamarts - data lands from source to staging area, then to warehouse, then individual LOBs can have data-marts for more refined usecases. Also called EDW (Enterprise Data Warehousing)
+  - Staging, warehouse and data marts - data lands from source to staging area, then to warehouse, then individual LOBs can have data-marts for more refined use cases. Also called EDW (Enterprise Data Warehousing)
 
 > Figure: **Architecture** of a Data Model (with optional "Staging Area" and "Data Marts")
   
@@ -104,16 +104,31 @@ Aim of architecturing database is to collect and store data in a way that it is 
   dm3 --> u3
   ```
 
+As of 2022, this is traditional data warehousing. It works fine for most of the needs specially internal work. However, with the big data shift, some things have changed and this may not be an ideal solution.
+
+Changes in modern big data landscape:
+
+- Sources - variety of data sources has increased, eg, APIs, File
+- Triggers - Batch / Event / Realtime - along with batch, now we have event based data pipeline triggers and realtime data pipeline.
+- Process - ETL to ELT - Now that we have more compute and more data, it makes sense to first load the data as it is huge, and then do transformations as we have more compute.
+- Structure - Now we have JSON, Blog, Images, GeoSpacial, IoT data and more, this is a shift from structured datasets.
+
+To cater these changes you may have to include:
+
+- Real time data pipeline using Kafka and Kinesis
+- Event based pipeline using AWS Lambda
+- ETL to Generic ETL where same ETL job can be used to connect to multiple data sources with some param modifications.
+- Orchestration tools to better manage 100s of ETL scripts.
 
 ## Logical Design in Data Warehousing
 
-- **What is Logical Modeling**
+- **What is Logical Modelling**
   - Logical Model is conceptual (pen & paper), focus on business needs and build subject-oriented `schema`. It more to understand use case, end user and the information you need.
 
 - **How to build Logical Model**
   - Identify the things of importance, _entity_ (data item, like user, book) and its properties _attributes_ (columns; like name, dob).
   - Determine data _granularity_, week, day, month.
-  - Determine how entities are related to each other, _relationships_. Also called _entity relationship modeling_.
+  - Determine how entities are related to each other, _relationships_. Also called _entity relationship modelling_.
   - Determine the _unique identifier_ for each entity record, which is `primary_key` in physical model. It applies to OLAP, OLTP, 3NF EDW, star and snowflake.
   - Next, divide data into _facts_ and _dimensions_. Write down all dimension and facts required. Several distinct dimensions, combined with facts, enable you to answer business questions.
   - _Identify the source data_ that will feed the data mart model, that is, populate the facts and dimensions.
@@ -121,14 +136,14 @@ Aim of architecturing database is to collect and store data in a way that it is 
   - Lastly you need a _routine/pipeline_ to _move data_ from sources to mart as facts and dimensions. Determine the _frequency_ at which the data is refreshed.
   
 - **Facts**
-  - It is numeric, transactional data, fast changing. Mostly tall table with numeric data, datetime and contains forign keys  of dimaension table which combined make composite key as its primary key.
+  - It is numeric, transactional data, fast changing. Mostly tall table with numeric data, datetime and contains foreign keys  of dimension table which combined make composite key as its primary key.
   - Fact table with aggregated facts is called _summary table_.
   - A fact table has a _composite key_ made up of the primary keys of the dimension tables of the schema.
   
   - **Adding rows to fact table**, there are three ways
     - Transaction-based: row shows a lowest grain transaction for a combination of dimension.
     - Periodic Snapshot: each row is related to a period, like daily or weekly.
-    - Accumulating Snapshot: each row shows occurance of process, that is, multiple rows for one process but each row tracks a movement.
+    - Accumulating Snapshot: each row shows occurrence of process, that is, multiple rows for one process but each row tracks a movement.
 
 - **Dimensions**
   - It is descriptive, slow changing, known as lookup tables or reference tables. Mostly wide. It may contain hierarchies. Eg, product, customer, time.
@@ -146,10 +161,10 @@ Aim of architecturing database is to collect and store data in a way that it is 
 ## Physical Design in Data Warehousing
 
 *This defines process to turn architecture to system deliverable. From - Oracle® Database - Data Warehousing Guide 21c*
-It implemets logical model, with variations based on system parameters like memory, disk, network and software type.
+It implements logical model, with variations based on system parameters like memory, disk, network and software type.
 
 
-## Multi Dimentional Modeling
+## Multi Dimensional Modelling
 
 BI developers create cubes to support fast response times, and to provide a single data source for business reporting.
 

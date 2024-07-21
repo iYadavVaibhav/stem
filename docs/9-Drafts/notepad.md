@@ -364,4 +364,4 @@ There are common patterns in many business, identify them. It will help you when
 
 Never eat alone. You eat 3 meals, 52 weeks, 5 days a week that gives, 780 opportunities to learn new things!
 
-To overcome shyness, be prepared with list of questions, you are not there to impress them or make them feel happy, treat it as an interview. Be prepared for rejection/ NOs, not good replies. But 50% will be Yes/Good and that will make an impact. 
+To overcome shyness, be prepared with list of questions, you are not there to impress them or make them feel happy, treat it as an interview. Be prepared for rejection/ NOs, not good replies. But 50% will be Yes/Good and that will make an impact.

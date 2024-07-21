@@ -173,7 +173,7 @@ t1 >> [t2, t3]
 [t2, t3] << t1
 ```
 
-Dependecy **cannot be cyclic**.
+Dependency **cannot be cyclic**.
 
 ## Running the Script / Testing
 
@@ -274,6 +274,81 @@ tutorial_taskflow_api()
 
 You can see, using decorators, how simply we have defined the dag and tasks. It separates the code.
 
-In behind, it still uses XCom and dependecy is automatically created when calling functions.
 
 The decorated tasks and dag can be reused in another functions, or can imported from another file and reused.
+
+
+## Automation Scheduling Orchestrate
+
+- DAG - Directed Acyclic Graph is used to represent collection of tasks in organized way to show dependencies and relationships. It has _no cyclic link_.
+
+  ```mermaid
+  graph LR;
+  A-->B;
+  B-->D;
+  B-->C;
+  C-->E;
+  ```
+
+- Cron - Linux in build to schedule a job. Can't manage dependencies.
+
+
+- **Apache Airflow**
+  - Create DAGs in Python
+  - Define tasks of DAGs using Operators. Operators can operate various things like bash code, python code, StartCluster or SparkJob.
+  - Set up dependency of tasks - using `set_downstream()`. This will create relationships in jobs.
+
+  - configuration
+    - make `mkdir airflow` dir
+    - export its location to variable `AIRFLOW_HOME`
+  - installation - `pip install airflow`
+  - initiation
+    - `airflow db init` to generate airflow db, config and web-server files.
+    - make an admin user, code from docs.
+  - implementation
+    - define ETL tasks functions in `./airflow/dags/etl_tasks.py`
+
+    - define `./airflow/dags/dags.py`, here
+      - it will have airflow module implementation to schedule and execute tasks via DAG.
+      - import ETL tasks file as module.
+      - define execution function to run ETL tasks
+      - define DAG using DAG class.
+      - add config, like when to run, retries to try, gap in retries, email to send on failures, and many other configurations as dictionary object and pas that to `default_args` param of `DAG` class.
+      - define ETL Task using `operator`. this executes the execution function.
+
+  - schedule - `airflow scheduler` to add dag to server
+  - monitor
+    - `airflow webserver` this starts flask web-server where you can look the jobs.
+    - view DAGs, start/stop/pause jobs
+
+### Code Example Airflow DAG
+
+Following code shows snippet of basic DAG implementation
+
+```python title='dags.py'
+# ``
+import airflow
+from airflow.models import DAG # DAG class
+from airflow.operators.python_operator import PythonOperator # as we use Py
+from etl_tasks import *
+
+def etl():
+df_table1 = extract_table1_to_df()
+df_score = transform_avg_score(df_table1)
+load_df_to_db(df_score)
+
+# define DAG with configs
+dag = DAG(dag_id="etl_ipeline", 
+        default_args=default_args, 
+        schedule_interval="0 0 * * *")
+
+# define ETL Task
+etl_tasks = PythonOperator(task_id="etl_task", python_callable=etl, dag=dag)
+
+etl()
+
+```
+
+## Links
+
+- [LinkedIn Learning - Data Engineering Foundations](https://www.linkedin.com/learning/data-engineering-foundations/)

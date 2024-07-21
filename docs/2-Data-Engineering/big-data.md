@@ -17,6 +17,15 @@ As of 2022, it has better alternatives, like Apache Spark and Flink. MR is slow 
 
 ## Big Data Applications Architecture
 
+**Parallel Data Processing**
+
+- Python multiprocessing Pool - low level native python code, explicitly implement parallel processing
+- Python dask - library having multiprocessing out of box
+- Hive - framework that lets extract data using SQL. Behind it converts to MapReduce job.
+- Spark - Apache Spark is InMemory to avoid disk writes slowness  of map-reduce
+- Map Reduce - technique/algorithm
+- Hadoop - framework
+
 **Single vs Multi Record Operations for Parallelism**
 
 Records involved | Operation | Method to allocate in cluster
@@ -66,21 +75,21 @@ As the load increases, we simply **add more nodes** to the cluster to **scale ho
 
 ## Use Case: Audit Trail Data
 
-Consider a use case, where you an ecom website generates user activity log data, which is about 3GB per day. It is stored in Oracle DB. In 15 days the size reaches about 30GB. Oracle DB only keeps last 15 days audit data to keep size about 30GB.
+Consider a use case, where you an eCommerce website generates user activity log data, which is about 3GB per day. It is stored in Oracle DB. In 15 days the size reaches about 30GB. Oracle DB only keeps last 15 days audit data to keep size about 30GB.
 
-The analytics team, need at leasy 3 years of audit trail data, so that they can find patterns and take decisions. This will need 10 terabyte scalability.
+The analytics team, need at least 3 years of audit trail data, so that they can find patterns and take decisions. This will need 10 terabyte scalability.
 
-Evaluate the functional / non-functinoal requirements.
+Evaluate the functional / non-functional requirements.
 
 You need to create an ETL job that can read new data from Oracle DB in hourly batches, do the transformation to remove customer name and load it.
 
-The hourly batch ETL job should be designed so that it can concurrently read, transform parallely and concurrently and load it parallely, so that the ETL is fast.
+The hourly batch ETL job should be designed so that it can concurrently read, transform parallelly and concurrently and load it parallelly, so that the ETL is fast.
 
 The load db technology should be such that is can scale, is cheap, is mature, can be queries by SQL.
 
-Evaluate load technologies like, MySQL / MongoDB / HDFS+Impala. MySQL might get difficuly to scale, MongoDB is preferred for documents. HDFS+Impala seems ideal choice for this.
+Evaluate load technologies like, MySQL / MongoDB / HDFS+Impala. MySQL might get difficulty to scale, MongoDB is preferred for documents. HDFS+Impala seems ideal choice for this.
 
-Evaludate ETL technologies like, Apache Pig / Apache Spark. Both can let read from RDBMS using ODBC, Both can let write to HDFS, both allow concurrent processing. However, in performance Pig is slow as it uses map-reduce on disk, while spark is fast as it uses in-memory processing. Hence, we can pick spark for ETL job.
+Evaluate ETL technologies like, Apache Pig / Apache Spark. Both can let read from RDBMS using ODBC, Both can let write to HDFS, both allow concurrent processing. However, in performance Pig is slow as it uses map-reduce on disk, while spark is fast as it uses in-memory processing. Hence, we can pick spark for ETL job.
 
 **Considerations**
 
@@ -94,15 +103,15 @@ The scaling also depends on how often Orcale DB (source), allows to read. Also, 
 
 ## Use Case: Advertising Analytics
 
-Consider an ecom website using email and ads for marketing. They want to know the effectiveness of both the channels. They send 1 million email each day using an enterprise tool. Ads generate revenue of 0.75 million per day.
+Consider an eCommerce website using email and ads for marketing. They want to know the effectiveness of both the channels. They send 1 million email each day using an enterprise tool. Ads generate revenue of 0.75 million per day.
 
 The data for both these channels is not at one place. The analytics team need both data sets for last 3 years for proper analysis.
 
-The data channel offer API based access, whcih has limitation like can call api in 15 mins, API only gives JSON dumps or CSV downloads.
+The data channel offer API based access, which has limitation like can call api in 15 mins, API only gives JSON dumps or CSV downloads.
 
 **Functional Requirements**
 
-- aquire data daily, build temp-cache
+- acquire data daily, build temp-cache
 - aggregate data and compute summaries
 - store summary to analytical db
 - provide sql access to db
@@ -154,11 +163,11 @@ b1 --> b2 --> b3 --> b4 --> c
 - For API extraction you can use SDK by API provider but this may not scale. You can build API call, by making con-current threads or process using Java/Python.
 - For Cache, since it will be granular, it will be huge, use HDFS for scaling.
 - Summarization, use apache spark.
-- Analytics DB, need cocurrent writes, good SQL analytics capability, here MySQL wins over Mongo and HDFS+Impala.
+- Analytics DB, need concurrent writes, good SQL analytics capability, here MySQL wins over Mongo and HDFS+Impala.
 
 ## Use Case: Product Recommendations
 
-Consider e-com company XYZ with 20m users and 200k txns a day. XYZ wants to scale by recommending products based on user behaviour.
+Consider e-com company XYZ with 20m users and 200k transactions a day. XYZ wants to scale by recommending products based on user behaviour.
 
 - create a pipeline that recommends products based on user transactions. Pipeline has a ML model that can give recommendation via API.
 
@@ -173,7 +182,7 @@ Consider e-com company XYZ with 20m users and 200k txns a day. XYZ wants to scal
   - Transactions via Kafka Topic
 
 - Output
-  - recommended items avilable in db, with ranking by customer id.
+  - recommended items available in db, with ranking by customer id.
   - real time query
   - scale beyond 10m user base.
 

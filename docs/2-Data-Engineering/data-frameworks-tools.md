@@ -46,7 +46,7 @@ It is _workflow management platform_ for data engineering pipelines. It lets you
 ## Apache NiFi
 
 - a framework for building data pipelines, used DAGs.
-- looks like informatica on the web.
+- looks like Informatica on the web.
 - NiFi allows you to build data pipelines using prebuilt `processors` that you can configure.
 
 - processors are -
@@ -76,7 +76,10 @@ _stream-processing_ and batch-processing framework
 
 distributed _stream-processing_
 
+## DBT - Data Build Tool
+
+It helps manage 100s of scripts and procedures. It is applicable after staging area, when you are working within a warehouse and have hundreds of transformation script to be managed, tested and deployed.
 
 ## Links
 
-- [Medium - Stream Processing Framworks and differences](https://medium.com/@chandanbaranwal/spark-streaming-vs-flink-vs-storm-vs-kafka-streams-vs-samza-choose-your-stream-processing-91ea3f04675b)
+- [Medium - Stream Processing Frameworks and differences](https://medium.com/@chandanbaranwal/spark-streaming-vs-flink-vs-storm-vs-kafka-streams-vs-samza-choose-your-stream-processing-91ea3f04675b)
