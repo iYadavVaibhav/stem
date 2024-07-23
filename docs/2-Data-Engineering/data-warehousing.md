@@ -2,6 +2,8 @@
 
 _how to architect, where to architect, stages of storage, storage solutions_
 
+- [ ] add GPT notes
+
 Aim to architect database is to collect and store data in a way that it is optimised for reading to enable analytics and BI.
 
 ## Overview / Concepts

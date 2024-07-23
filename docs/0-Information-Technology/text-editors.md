@@ -72,8 +72,7 @@ Removing a package from Sublime Text:
 
 ## VS Code
 
-VS Code is general purpose light weight highly customizable text editor. Suports remote environment editing.
-
+VS Code is general purpose light weight highly customizable text editor. Supports remote environment editing.
 
 
 ### Settings
@@ -99,7 +98,7 @@ You may be behind a proxy server and need proxy settings to allow http requests 
 "http.proxy": "http://<username>:<password>@<url>:<port>",
 ```
 
-**Env Vars**
+**Env Variables**
 
 VS Code will autoload the `.env` file in root of workspace when the folder is opened. You can see this in OUTPUT tab, provided, the following default settings:
 
@@ -123,7 +122,7 @@ Ext | Desc
 ### Snippets
 
 - what - they are code template with place holders
-- run - there can be invoked with `ctrl+space` or binded to key
+- run - there can be invoked with `ctrl+space` or bound to key
 - create - it can language specific or global. It can be defined in `Code/User/snippets/markdown.json` to be language specific. Each snippet has a name (key), under which (nested key:value) we define prefix, body and description. prefix triggers and body is inserted. Body can have variables and placeholders: $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the same ids are connected. Eg:
 
   ```json
@@ -178,7 +177,7 @@ A linter is a tool to help you improve your **code style quality** control by di
 
 Linters can be run on code to check formatting error, vs-code ext runs the linter as soon as you open/save the file and it displays error if any. Without ext, you will have to manually run flake8 on code. You can see `OUTPUT` log that flake8 is run and can see output. The error from this log is shown in `PROBLEMS` tab. So `flake8` is installed in the venv
 
-Formatting and liting are complementary and have a little overlap. `autopep8` is good formatter for python.
+Formatting and linting are complementary and have a little overlap. `autopep8` is good formatter for python.
 
 
 Selecting, enabling and disabling linter is now automatic, install ext to enable linter, open/save file to run linter, uninstall ext to disable linting. No need for explicit settings.
@@ -312,6 +311,18 @@ cSpell disable code check in Markdown code blocks:
 
 - Links
   - [Code Visualstudio - Editing Tips-and-tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks#_editing-hacks)
+
+### Multi-Root Workspace
+
+_open more than one repo, multi-repo_
+
+Just do, `File` -> `Add Folder to Workspace...` then `Save Workspace As...`.
+
+This will make a file, `somename.code-workspace`. This is a JSON file which contains what folders to include and also serves as **workspace** `settings.json`. Here, you can configure setting you want to apply for all folders. Note, this is not in git and is not version controlled.
+
+The folders settings.json are now deprioritised as **active folder settings**, depending on which folder you are working on. Common settings from folder is not considered and is greyed out, eg, zoom level.
+
+Link: [Vscode Doc on Multi Repo](https://code.visualstudio.com/docs/editor/multi-root-workspaces)
 
 ## PyCharm
 

@@ -7,6 +7,8 @@ date: 2019-05-06
 
 _all about databases, SQL only_
 
+- [ ] add query examples for each.
+
 **Database** lets store data usually in tabular format.
 
 ## ----- DDL -----

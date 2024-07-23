@@ -44,6 +44,15 @@ Web development may need:
 - mysql / PostgreSQL - sql
 - neo4j - graph
 
+**Web App Architectures**
+
+A Web application system design **architecture** can vary based on various requirements. Some of the ways are
+
+- Static Sites - optional backend in serverless lambda - Jekyll site.
+- Containers - using docker images, or Heroku.
+- VMs - fully available OS.
+- 3-tier web app, monolithic app, modular app, or a group of web services.
+
 ## Backend
 
 It is the server side part of the app. It provides services which clients can request or consume.

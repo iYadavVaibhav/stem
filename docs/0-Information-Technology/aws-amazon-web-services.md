@@ -1,48 +1,44 @@
 # Amazon Web Services
 
-A Web application system design **architecture** can vary based on various requirements. Some of the ways are
-
-- Static Sites - optional backend in serverless lambda - Jekyll site.
-- Containers - using docker images, or Heroku.
-- VMs - fully available OS.
-- 3-tier web app, monolithic app, modular app, or a group of webserivces.
-
 ## AWS Overview, Infra, and Access
 
-**AWS Global Infrastructure** - AWS provides various services on the cloud which can be used to build these systems. It is PaaS. AWS Global Infrastructure has multiple `servers`, which are in multiple `data centers`, which are in multiple `availability zones`, and they are in multiple `regions`. This is how AWS makes data available and disaster-proof. Regions are geo bound. Pick a region based on
+**AWS Global Infrastructure** - AWS provides various services on the cloud which can be used to build these systems. It is PaaS. AWS Global Infrastructure has multiple **servers**, which are in multiple **data centers**, which are in multiple **availability zones**, and they are in multiple **regions**. This is how AWS makes data available and disaster-proof. Regions are geo bound. Pick a region based on
 
 - Compliance - the app might be restricted to region or global
 - Latency - server should be close to the end-user or business
 - Pricing - due to tax price varying in different regions.
 - Availability - not all services are in all regions.
 
-![AWS Global Infra](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661436000/8wO7QUlpnj0--chB_E8Evg/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/P5Q7lnLBa5D8kQS__mlutDPn7u3ksQ4cs.png)
+![AWS Global Infra](https://docs.aws.amazon.com/images/whitepapers/latest/get-started-documentdb/images/regions-and-zones.png)
 
 
 **Interacting with AWS** - as it is Virtual, on the cloud, hence you need API to manage services. API is available as:
 
-- AWS Console - a GUI, web-based to login and manage the services. Click based. Region-based. Interactive forms to use services.
-- AWS CLI - a Command Line Interface that is scriptable.
-- AWS SDKs - Software Development Kits, eg Python, Java, etc. Useful if you want to stay in dev language env. Eg, if your app is using Python and Flask, then you can use Python to interact with AWS services and host the app.
+- **AWS Console**
+  - a GUI, web-based to login and manage the services. Click based. Region-based. Interactive forms to use services.
+- **AWS CLI**
+  - a Command Line Interface that is scriptable.
+- **AWS SDKs**
+  - Software Development Kits, eg Python, Java, etc. Useful if you want to stay in dev language env. Eg, if your app is using Python and Flask, then you can use Python to interact with AWS services and host the app.
 
 **Security and the AWS Shared Responsibility Model** - AWS secures the cloud, and you secure things in the cloud. You secure your data, firewalls, access by users, encryption, etc. Each AWS service has its own security model. It has the following credentials types:
 
 - One is username and password, which can be used on the web
 - The second set of credentials is called access `keys`, which allow you to make programmatic requests from the AWS Command Line Interface (AWS CLI) or AWS API. Access keys consist of two parts:
-  - Access key ID, for example, A2lAl5EXAMPLE
-  - Secret access key, for example, wJalrFE/KbEKxE
+  - Access key ID, for example, `A2lAl5EXAMPLE`
+  - Secret access key, for example, `wJalrFE/KbEKxE`
 
-As a best practice, do not use the root user (AWS email ID) for the day-to-day task. Protect the AWS Root User as it has unrestricted access to everything in the account. Also add `Multi-Factor Authentication` MFA, which enables added security like RSA.
+As a best practice, do not use the root user (AWS email ID) for the day-to-day task. Protect the AWS Root User as it has unrestricted access to everything in the account. Also add **Multi-Factor Authentication** MFA, which enables added security like RSA.
 
-Use `IMA Account` to do actions as it has restricted access.
+Use **IMA Account** to do actions as it has restricted access.
 
-**AWS Identity and Access Management**
+**Identity and Access Management - IAM**
 
-- EC2 needs access and permission to talk to S3, so all services need authentication and signed API calls in each request.
-- Each developer can have an `IAM account`, this `authenticates` (access). Then each user needs `authorization` (permission) to different services.
-- `IAM policies` can be used to grant or deny permissions to users to take actions. Actions are API calls, everything in AWS is API calls.
-- Policies are JSON documents. JSON defines which service has, what level of access with some conditions. You can control every single thing by creating this policy. The policy is a rule. The policy must have an effect, action, and resource.
-- `Policy` can then be attached to IAM identities, `User` or `Group` to inherit.
+- EC2 needs access and permission to talk to S3, similarly all services need authentication and signed API calls in each request.
+- Each developer can have an **IAM account**, this **authenticates** (access). Then each user needs **authorization** (permission) to different services.
+- **IAM policies** can be used to grant or deny permissions to users to take actions. Actions are API calls, everything in AWS is API calls.
+- Policies are JSON documents. JSON defines which service has, what level of access with some conditions. You can control every single thing by creating this policy. The policy is a rule. The policy must have an `effect`, `action`, and `resource`.
+- **Policy** can then be attached to IAM identities, **User** or **Group** to inherit.
 - Policy JSON Example:
 
     ```json
@@ -56,12 +52,12 @@ Use `IMA Account` to do actions as it has restricted access.
     }
     ```
 
-Role-Based Access in AWS
+**Role-Based Access in AWS**
 
-- IAM Roles are like IAM users that have an association with IAM Policies and have auth tokes.
+- IAM Roles are like IAM users that have an association with IAM Policies and have auth tokens.
 - Roles are used by services to talk to each other. Eg, you can give a role to the EC2 machine to read and write to the S3 bucket and RDS and DynamoDB.
 - Role can be associated with the policy.
-- For Corps, you have SSO and Identity.
+- For Corporations, you have SSO and Identity.
 
 ## AWS COMPUTE
 
@@ -89,7 +85,7 @@ Amazon EC2 Instance Lifecycle
 - containers provide efficiency and portability
   - `ECS Elastic Container Service`
   - `EKS Elastic Kubernetes Service`
-- They both run on top of EC2, henc use EC2 as a service.
+- They both run on top of EC2, hence use EC2 as a service.
 - Container orchestration tool helps us manage 100s of containers easily
 
 Serverless
@@ -102,7 +98,7 @@ Serverless
 
 - Serverless compute. Package and upload code as a lambda function
 - Not running all time. runs when triggered.
-- List of triggers exit, like HTTP, upload of a file, events from other AWS services, or inbuilt activity.
+- Lots of triggers exist, like HTTP, upload of a file, events from other AWS services, or inbuilt activity.
 - Runs on managed service, it is scalable.
 - You can choose, env, os, size memory, etc.
 - all lambda runs in their own env.
@@ -111,11 +107,11 @@ Serverless
 - Add a trigger to invoke the lambda function.
 - Upload code to the lambda function.
 - See it invoked in CloudWatch
-- [AWS Lambda](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661436000/8wO7QUlpnj0--chB_E8Evg/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/2Y0EEVpXidSfgdKp_WFR-TreKi3bqKSvu.jpg)
+
 
 Choose the **Correct Compute Service**
 
-- Prototype on permise app - EC2
+- Prototype on premise app - EC2
 - One a quarter or month file data wrangling - Lambda
 - Microservices that need regular updates - ECS or EKS
 
@@ -203,7 +199,7 @@ Storage Types
   - Static Data - files - employee photo - write once, read many WORM
   - Structured Data - database tables
 
-- Block Storage - splitted into chunks - one char change in 1 GB file is simple - System File, Log File.
+- Block Storage - data is split into chunks - one char change in 1 GB file is simple - System File, Log File.
 - Object Storage - single unit - one char change in 1GB file, whole file is rewritten - WORM, Video
 
 Amazon EC2 Instance Storage and Amazon Elastic Block Store EBS
@@ -212,7 +208,7 @@ Amazon EC2 Instance Storage and Amazon Elastic Block Store EBS
 - EBS is like an external HDD
 - EBS can be linked to one EC2 or multiple EC2s can read-write.
 - EBS can be HHD or SSD
-- EBS can be snapshotted to keep backup.
+- EBS can be snap shotted to keep backup.
 
 Object Storage with Amazon Simple Storage Service S3
 
@@ -272,7 +268,7 @@ Amazon Relational Database Service RDS
 
 Purpose-Built Databases
 
-- Relational databases are good to manage complex schemas, which have joins and complex queries and stored procs. However, this adds overhead to the engine.
+- Relational databases are good to manage complex schemas, which have joins and complex queries and stored procedures. However, this adds overhead to the engine.
 - There are other DBs that work best to query single records.
 - Also RDS is charged per hour, whether you query or not. weekend
 - dynamo, key-value, docs, non-relating, ms latency, usage charge, and amount.
@@ -296,16 +292,16 @@ Amazon DynamoDB
 
 Choose the Correct Database Service
 
-|Database Type  |Use Cases  |AWS Service
+Database Type  |Use Cases  |AWS Service
 -|-|-
 Relational      |Traditional applications, ERP, CRM, e-commerce|Amazon RDS, Amazon Aurora, Amazon Redshift
 Key-value       |High-traffic web apps, e-commerce systems, gaming applications|Amazon DynamoDB
-In-memory       |Caching, session management, gaming leaderboards, geospatial applications|Amazon ElastiCache for Memcached, Amazon ElastiCache for Redis
+In-memory       |Caching, session management, gaming leader boards, geospatial applications|Amazon ElastiCache for Memcached, Amazon ElastiCache for Redis
 Document        |Content management, catalogs, user profiles|Amazon DocumentDB (with MongoDB compatibility)
 Wide column     |High-scale industrial apps for equipment maintenance, fleet management, and route optimization|Amazon Keyspaces (for Apache Cassandra)
 Graph           |Fraud detection, social networking, recommendation engines|Amazon Neptune
-Time series     |IoT applications, DevOps, industrial telemetry|Amazon Timestream
-Ledger          |Systems of record, supply chain, registrations, banking transactions|Amazon QLDB|
+Time series     |IoT applications, DevOps, industrial telemetry|`Amazon Timestream`
+Ledger          |Systems of record, supply chain, registrations, banking transactions|Amazon QLDB
 
 
 ## AWS MONITORING, OPTIMIZATION, SCALING
@@ -323,8 +319,8 @@ Monitoring
 - proactive before end-user notify
 - and where is the problem? recent code change, database or ec2?
 - metrics, logs, traffic, database connections, CPU usage; need to be monitored
-- monitoring tool helps in this by analyzing, metrics over time, called statistics. Based on stats there can be triggers.
-- all info needs to be on the centrol console, hence CloudWatch
+- monitoring tool helps in this by analysing, metrics over time, called statistics. Based on stats there can be triggers.
+- all info needs to be on the central console, hence CloudWatch
 - all in one place
 
 Amazon CloudWatch
@@ -339,7 +335,7 @@ Amazon CloudWatch
 Solution Optimization
 
 - we need to optimize infra
-  - capacity - storage - s3 - mostly autoscaled
+  - capacity - storage - s3 - mostly auto-scaled
   - performance - ec2 and  database, database mostly auto-scales, but ec2 has capacity
   - availability - manage traffic and make all services available.
 - prevent or respond to avoid bottlenecks.
@@ -367,7 +363,7 @@ Amazon EC2 Auto Scaling
 
 - we have 2 instances, but demand may inc.
 - instead of adding instances manually, use EC2 autoscaling, more capacity based on a threshold in CloudWatch.
-- ec2 CPU goes up, CloudWatch triggers the alarm, and autoscale is asked to give more ec2 instances. each is added to ALB with health checks and thus high horizontal scalability. hence CPU down across the fleet.
+- ec2 CPU goes up, CloudWatch triggers the alarm, and auto scale is asked to give more ec2 instances. each is added to ALB with health checks and thus high horizontal scalability. hence CPU down across the fleet.
 - Three main components of EC2 Auto Scaling are as follows:
   - Launch template or configuration: What resource should be automatically scaled?
   - EC2 Auto Scaling Group: Where should the resources be deployed?
@@ -375,7 +371,11 @@ Amazon EC2 Auto Scaling
 
 - ![AWS EC2 Autoscaling Templates](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1662030000/t25JDfL13ox0tFPZBJWcwQ/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/Y9U8MWYOjosNS6Ta_0tIEHgm6nFcjy6rI.jpg)
 
-## AWS Elastic Beanstalk
+
+## Services -----
+
+
+## Elastic Beanstalk
 
 Deploy and scale web applications. It is PaaS same as Heroku, Google App Engine.
 
@@ -401,9 +401,8 @@ Use docker image on docker.io to create web app. You need to use following json 
 ```
 
 
-## AWS Other Services -----
 
-## AWS CLI
+## CLI
 
 To install, follow [AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
@@ -414,39 +413,39 @@ which aws
 aws --version
 ```
 
-## AWS IAM Identity Center
+## IAM Identity Center
 
 IAM Identity Center manages users. It is recommended to create IAM User other than root (default) with less permission. To login as IAM-User you need to get a URL. Login as root > IAM Identity Center > Users > Reset Password. Save that URL, it has account ID in it.
 
-## AWS Lightsail
+## Lightsail
 
 Easy VPS Virtual Private Server **hosting**. Quickly launch and manage OS with configured Dev Stack (like Ubuntu with LAMP). Add load balance, firewall, and DNS. Once requirements increase, easily move to EC2 or Lambda. Lightsail provides low-cost, pre-configured cloud resources for simple workloads just starting on AWS. Amazon EC2 is a compute web service that provides secure, resizable compute in the cloud. It has far greater scale and optimization capabilities than Lightsail.
 
-## AWS Batch
+## Batch
 
 Lets you do batch jobs, by giving the right CPU GPU, and memory.
 
-## AWS CodeStar
+## CodeStar
 
 It is a development tool to develop, build and deploy the app on AWS.
 
-## AWS Amplify
+## Amplify
 
 It provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.
 
-## AWS Glue
+## Glue
 
 AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.
 
-## AWS SNS
+## SNS
 
 Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.
 
-## AWS Athena
+## Athena
 
 Amazon Athena is an interactive **query** service that makes it simple to analyze data directly in Amazon **S3** using standard SQL. It is **serverless**.
 
-## AWS API Gateway
+## API Gateway
 
 **Usage Plan and Message Throttling**
 
@@ -458,9 +457,9 @@ Message Throttling is limiting the rate at which you can hit the api, eg, max 10
 
 Build catalog and make data discoverable. Read more?
 
-## AWS OpenSearch Managed Service
+## OpenSearch Managed Service
 
-It is open source apace.
+It is open source space.
 
 Image, doc, audio is converted to vector embeddings. Done using ML models. vector embedding is series of numbers and dots.
 
@@ -480,7 +479,7 @@ Neural Search, the search term gets embedded using ML model in AWS Bedrock, then
 
 RAG Application Retrieval Augmented Generation
 
-## AWS Gen AI
+## Gen AI
 
 use pre train llm, foundation model FM
 
@@ -488,17 +487,17 @@ gen ai needs data quality
 
 Value
 
-- enhanced personlaization
+- enhanced personalisation
 
 [social media demo app](https://aws.amazon.com/blogs/big-data/uncover-social-media-insights-in-real-time-using-amazon-managed-service-for-apache-flink-and-amazon-bedrock/)
 
-Use case: use social media data and build gen ai app to understand that data. Social media data is pulled in real time using managed, kinesis, flink, kafka. Convert to vector using bedrock, query using opensearch. Q for app.
+Use case: use social media data and build gen ai app to understand that data. Social media data is pulled in real time using managed, kinesis, flink, kafka. Convert to vector using bedrock, query using `opensearch`. Q for app.
 
 ## Gen BI
 
-help marketing team by giving generative BI capability to build genereated doc, dashboards. Help them automatically generate dashboards.
+help marketing team by giving generative BI capability to build generated doc, dashboards. Help them automatically generate dashboards.
 
-Add synonyms to data fileds so that amazon q helps anwer the questions. like region/platform are same.
+Add synonyms to data fields so that amazon q helps answer the questions. like region/platform are same.
 
 You can build quicksite dashboard, but customize it using amazon-q. like convert datetime to weekly, add color by dim1. All this can be said in natural language.
 
@@ -508,7 +507,7 @@ Build calculations using amazon-q natural lang questions.
 
 Boto3 is the Amazon Web Services (AWS) **Software Development Kit** (SDK) for **Python**, which allows Python developers to write software that makes use of services like Amazon S3 and Amazon EC2.
 
-## DEMO - Handson Implementation - Build Employee Directory App
+## DEMO - Hands on Implementation - Build Employee Directory App
 
 We will create a basic CRUD app, an employee directory app on AWS.
 
@@ -593,7 +592,7 @@ Storage Demonstration: Create an Amazon S3 Bucket
 - create bucket
 - Open Bucket
 - Click the `Permission` tab
-- Bucket Policy > edit > enter new Policy JOSN, `IAM` role to allow the app access to the bucket.
+- Bucket Policy > edit > enter new Policy JSON, `IAM` role to allow the app access to the bucket.
 - Add files as objects - click `upload`
 - Bucket should be accessible via the app.
 
@@ -673,7 +672,7 @@ RESTful API - JavaScript executed in the browser sends and receives data from a 
 
 ## DEMO - AWS RDS DB Standalone
 
-You can create a  standalone RDS DB Instance that can be accessed from any other machine, it can be public machine or another service on AWS withing VPC (like EC2 or Lambda).
+You can create a  standalone RDS DB Instance that can be accessed from any other machine, it can be public machine or another service on AWS within VPC (like EC2 or Lambda).
 
 The database you create, needs following additional configurations:
 
@@ -683,7 +682,7 @@ The database you create, needs following additional configurations:
 
 Once done, you can use Endpoint (also called host), port, username and password to connect from any client/app.
 
-Password can be managed using `AWS Secret Manager`, it has a secret associated with instance, that secret is obscured and can be revieled on console or using code.
+Password can be managed using `AWS Secret Manager`, it has a secret associated with instance, that secret is obscured and can be reviled on console or using code.
 
 
 

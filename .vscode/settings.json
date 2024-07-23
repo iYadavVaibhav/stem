@@ -1,3 +1,10 @@
 {
-    "workbench.colorTheme": "Solarized Light"
+    "workbench.colorTheme": "Solarized Light",
+    "cSpell.words": [
+        "deprioritised",
+        "EECS",
+        "Ousterhout",
+        "Shachar",
+        "Structur"
+    ]
 }

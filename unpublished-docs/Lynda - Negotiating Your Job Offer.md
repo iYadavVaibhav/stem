@@ -27,7 +27,7 @@ Receiving an offer:
 - Are you ready for TnC?
 - Say positively that I am excited.
 - When is it comfortable to review and discuss for offer?
-- Tell them that I am being interviewed with another company and have an offer of 7.5 lakhs
+- Tell them that I am being interviewed with another company and have an offer of xx lakhs
 - response time should not be more than a week.
 
 All what you can get:

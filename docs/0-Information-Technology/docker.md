@@ -2,7 +2,7 @@
 date: 2023-05-20
 ---
 
-# Dockerizing
+# Dockerize
 
 _all about docker, docker-compose, images and containers_
 
@@ -16,7 +16,7 @@ An app, needs files (eg, html) to run with other OS files (eg Ubuntu). Docker le
 
 **Container** is running instance of the image, that is, when the files run.
 
-Now when a service runs it may produce soem other files, these land into area called _scratch space_.
+Now when a service runs it may produce some other files, these land into area called _scratch space_.
 
 **Scratch Space** is non-persistent, not shared in between containers. Each container has its own space and is destroyed when container ends.
 
