@@ -10,7 +10,7 @@ No storing, only processing
   - allows distributed parallel execution.
   - external data -> loaded to -> data frame -> which is -> RDD -> runs on -> different nodes within the cluster.
   - large-scale data processing as pandas.
-  - InMemory to avoid diskwrites slowness  of mapreduce
+  - InMemory to avoid disk-writes slowness  of map reduce
   - Data Structure is RDDs
   - Interactive analytics are faster, just like we do in Jupyter where next step is based on prev.
   - Transformations - `filter()` map groupByKey union - give RDD
@@ -27,10 +27,13 @@ No storing, only processing
 - Drive Node collects back results.
 
 ```mermaid
-flowchart LR
+flowchart TB
 
 subgraph Driver-Node
   Data-1
+end
+
+subgraph Driver-Node-
   Data-2
 end
 
@@ -61,8 +64,8 @@ Data-2 --> a2[(Destination DB)]
   - JDBC - it lets read partitioned column values simultaneously
   - Kafka - each spark executor reads from subset of Kafka partitions
 - Processing
-  - Spark can do transformation, parallely on different executors.
-  - Spark alo implements **predicate pushdown** which understands any filter during execution plan, and filter that data at the read itself, that is, it does not even read the data that is to be filtered out.
+  - Spark can do transformation, parallelly on different executors.
+  - Spark alo implements **predicate push down** which understands any filter during execution plan, and filter that data at the read itself, that is, it does not even read the data that is to be filtered out.
 - Writes
   - Writing data to sinks is parallel out-of-the-box, each Spark executor can write to JDBC sinks in parallel. Similarly, Spark executors can write to Kafka topics in parallel too.
 
@@ -83,21 +86,21 @@ Data-2 --> a2[(Destination DB)]
 
 Enables scalable and fault-tolerant stream processing of live data streams. Data can be ingested from many sources like Kafka, Flume, and HDFS, and can be processed using complex algorithms.
 
-In stream processing it is important to maintain the current state. It can help to resume a halted pipeline or restart on faliure.
+In stream processing it is important to maintain the current state. It can help to resume a halted pipeline or restart on failure.
 
 - Checkpoints
   - Saves the job-state to persisted location (HDFS/S3)
-  - recover job state on faliure and restart
+  - recover job state on failure and restart
   - save metadata and RDDs, like Kafka Offsets, state tracking by Keys, RDDs requiring transformation across multiple batches.
 
-- Watermarking - It lets manage late data arrival in even-time window operations. Spark waits for data to arrive, keeps trak of events and ordering
+- Watermarking - It lets manage late data arrival in even-time window operations. Spark waits for data to arrive, keeps track of events and ordering
 
 - Keys Tracking - Keys can let track current state, key is modified if state changes.
 
 
 ## Spark SQL - Spark Analytics with Spark SQL
 
-- Spark SQL is part of Spark whcih lets use SQL interface to interact with data.
+- Spark SQL is part of Spark which lets use SQL interface to interact with data.
 - It supports batch and streaming.
 - It lets analyse data in same pipeline.
 
@@ -141,7 +144,7 @@ In stream processing it is important to maintain the current state. It can help 
 
 - Local Mode
   - local on single machine. without a cluster, is on a single thread.
-  - eg, just install py package pyspark and you can build a sparksession and play with it. eg <https://gist.github.com/iYadavVaibhav/2f282e8fc34488ba150542033c9f2c82>
+  - eg, just install py package pyspark and you can build a `SparkSession` and play with it. eg <https://gist.github.com/iYadavVaibhav/2f282e8fc34488ba150542033c9f2c82>
 
 
 ## Databricks
@@ -213,40 +216,52 @@ Link: [Apache Spark Essential Training: Big Data Engineering](https://linkedin.c
 ```mermaid
 flowchart LR
 
-subgraph db1[Warehouse: UK]
-  db11[(warehouse_stock \n RDBMS)]
+db1[(UK RDBMS \n\n warehouse_stock\n.london )]
+db2[(US RDBMS \n\n warehouse_stock\n.bostob )]
+db3[(India RDBMS \n\n warehouse_stock\n.delhi )]
+
+subgraph sub1[Spark Batch Processing \n Stock Uploader Job]
+  sp1[Read MariaDB \n
+  SparkSession
+  .. .read
+  .option: dbtable
+  .. .load => DF
+
+
+  DF.write
+  .. .parquet
+  
+  Write to Parquet
+  ]
 end
 
-subgraph db2[Warehouse: US]
-  db21[(warehouse_stock \n RDBMS)]
-end
+db1 --> sp1
+db2 --> sp1
+db3 --> sp1
 
-subgraph db3[Warehouse: India]
-  db31[(warehouse_stock \n RDBMS)]
-end
-
-sp1[Stock Uploader Job \n Spark]
-
-db11 --> sp1
-db21 --> sp1
-db31 --> sp1
-
-
-subgraph dfs1[Distributed File System]
-  dfs11[(raw_data \n Parquet Files)]
-end
+dfs1[(Distributed \n File System \n\n raw_data \n Parquet Files)]
 
 sp1 --> dfs1
 
-sp2[Stock Aggregator Job \n Spark]
+subgraph sub2[Spark Batch Aggregator Job]
+  sp2[
+    Read Parquet
+    SparkSession.
+    .read.parquet: dir
+    => df
+
+    DF => .sql
+    .write: MariaDB JDBC.
+    .. .save
+    Write to MariaDB
+  ]
+end
 
 dfs1 --> sp2
 
-subgraph db4[Warehouse: Global]
-  db41[(gloabal_stock \n RDBMS)]
-end
+db4[(gloabal_stock \n RDBMS)]
 
-sp2 --> db41
+sp2 --> db4
 
 ```
 
