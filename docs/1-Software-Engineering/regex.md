@@ -14,9 +14,9 @@ Regex are in simple terms "a sequence of characters that define a search pattern
   - `?` - 0 or 1 - ab? - zero or just one b
   - `{n}` - n exactly - ab{2} - the letter a followed by exactly two b's
   - `{n,}` - n or more - ab{2,} - the letter a followed by at least two b's
-  - `{n,y}` - n to y occurance - ab{1,3} - the letter a followed by between one and three b's
+  - `{n,y}` - n to y occurrence - ab{1,3} - the letter a followed by between one and three b's
 
-- `Class` of characeters - list or range, and are case-sensitive
+- `Class` of characters - list or range, and are case-sensitive
   - Range - `[a-z]` or `[A-Z]` or `[0-9]`
   - List - `[a,d,p,w]` or `[adpwKRM]` - match any single character
   - Mix - `[A-Z2-4pw]` - matches range A-Z, 2-4 and literally p, and literally w
@@ -51,8 +51,8 @@ someString.replace(/h1/,'h2')
 
 ## Snippets
 
-- mulitline with one line `\s\n+` `\n`
-- remove end whitespaces `\s+\n` `\n`
+- multiline with one line `\s\n+` `\n`
+- remove end whitespace `\s+\n` `\n`
 
 - Remove single line comments // from code:
 
@@ -66,12 +66,18 @@ someString.replace(/h1/,'h2')
 - Find: `\s+$`
 - Replace: ``
 
-**Remove trailing whitespace** from only thoose lines that **have text**
+**Remove trailing whitespace** from only those lines that **have text**
 
 - Find: `(\S+)(\s+)$`
 - Replace: `$1`
 - It finds trailing text as first group `(\S+)`, then trailing whitespace just after text as second group `(\s+)` and at end of line `$`.
 - Then replaces both groups by just the first group `$1`.
+
+**Whatsapp from Markdown**
+
+- This snippet lets you convert markdown to be formatted in most correct way for whatsapp chat.
+- Find `**` Replace `*`. Finds bold, makes them bold for Whatsapp.
+- Find `#+ (.+)\n` Replace `*$1*\n`. Finds headings, replaces them with bold line.
 
 ## Links
 

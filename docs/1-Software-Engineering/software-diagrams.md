@@ -27,6 +27,37 @@ Diagrams are often used for plannig and sharing ideas and understanding in a gro
 - LucidChart
 - [Excalidraw](https://excalidraw.com/) - [Article](https://dev.to/dm8ry/excalidraw-the-tool-for-creating-diagrams-and-sketches-1o12)
 
+## Excalidraw
+
+You can draw sketches, it is web based PWA.
+
+VS Code extension can be used to build png svg that are editable.
+
+- [Animate](https://github.com/dai-shi/excalidraw-animate)
+- [Slide show and GIF](https://github.com/dai-shi/excalidraw-claymate)
+
+## Draw io
+
+On the web <https://draw.io/>.
+
+VS Code extension can be used to build png svg that are editable.
+
+**Animations**
+
+- can be enabled on web app, on extension you can change property.
+- to make all arrows animate
+  - go to `Extras > Edit Diagram...`
+  - Find, `entryX`, Replace with `flowAnimation=1;entryX`
+
+**Mermaid**
+
+- diagram can me imported using `Arrange > Insert > Advanced > Mermaid...`.
+- However, in extension, mermaid is imported as image.
+
+**Examples**
+
+![animation example](./images/animation-diagram.drawio.svg)
+
 ## Entity Relationship Diagrams
 
 ER Diagrams show relationship between entities. Entities are usually table / view in database.
