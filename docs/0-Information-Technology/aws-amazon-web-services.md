@@ -413,9 +413,74 @@ which aws
 aws --version
 ```
 
-## IAM Identity Center
+## AWS Identity and Access Management - IAM
 
-IAM Identity Center manages users. It is recommended to create IAM User other than root (default) with less permission. To login as IAM-User you need to get a URL. Login as root > IAM Identity Center > Users > Reset Password. Save that URL, it has account ID in it.
+On sign up to AWS account a _root user_ is created. It is recommended to create IAM User other than root (default) with less permission. Billing is disable by default for IAM Users.
+
+[ ] To login as IAM-User you need to get a URL. Login as root > IAM Identity Center > Users > Reset Password. Save that URL, it has account ID in it.
+
+**AWS Resources** are different services in AWS like S3, EC2.
+
+**IAM Identities** are _Users_, _Roles_. Users can be grouped to form _Group_ to share common permission.
+
+Use IAM to give _identities_ access to _resources_.
+
+Access is given by _permissions_. Permissions can be grouped.
+
+Permission is defined by _Policy_.
+
+**IAM Users**
+
+- It is identity with specific permission for a single person or application
+- They have "Sign-in URL for IAM users in this account", which can be found on dashboard. Eg <https://123456789876.signin.aws.amazon.com/console>
+- **Permission** can be given to them using _Roles_
+- the example, `EmergencyAccess` IAM user you create is specifically for use only when your user in IAM Identity Center credentials are unavailable. [more](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-iam-user.html)
+
+**IAM Roles**
+
+- It is similar to an IAM user, but is not associated with a specific person. It is identity with specific permission.
+- Instead of being uniquely associated with one person, a role is **intended to be assumable** by anyone who needs it.
+- It doesn't have long-term credentials, instead it provides you with **temporary security credentials**.
+- IAM Identity Center and other AWS services **automatically create roles** for their services.
+- For assuming a role, others need role info. It can be shared by:
+  - Role link: Send users a link that takes them to the Switch Role page with all the details already filled in.
+  - Account ID or alias: Provide each user with the role name along with the account ID number or account alias. The user then goes to the Switch Role page and adds the details manually.
+  - Saving the role link information along with the EmergencyAccess user credentials.
+- [more](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-roles.html)
+
+**IAM Policy**
+
+- It **grants permissions** to an IAM entity (IAM user or IAM role).
+- It is a **document** that lists the **actions** that the **entity** can perform and the **resources** those actions can **affect**.
+- Any actions or resources that are not explicitly allowed are **denied by default**.
+- Policies can be created and attached to IAM users, IAM groups of users, IAM roles, and resources.
+- You can attach a policy to a role to provide users who assume that role the permissions associated with this policy.
+- The `PowerUserAccess` policy is commonly used to _provide access to developers_.
+- [more](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-iam-policy.html)
+
+**AWS IAM Identity Center**
+
+- Portal to create human users (just like employees in company). It also lets users do SSO and map corporate workforce to AWS.
+- user can sign in using **AWS access portal** which is URL unique to each AWS Account and can be found by Going to Identity Center > Dashboard > Settings Summary Sidebar > AWS access portal URL. Eg <https://d-12345abcd1.awsapps.com/start>
+- **Permission** can be given by creating _permission set_
+- [Adding users, Admin](https://aws.amazon.com/getting-started/guides/setup-environment/module-two/)
+- You can add users, these are human users with real email and passwords
+- You can create user groups.
+- You can create permission sets, attach policy to them
+- Then add user/group to this permission set.
+
+**Best Practice**
+
+- Access AWS using temporary credentials of human users, instead of using IAM users with long-term credentials. [ ] difference in IAM user and Human User?
+- provide access to your resources through identity federation ([ ]roles?) instead of creating IAM users.
+- provide access to your resources with AWS IAM Identity Center, not IAM User.
+- Using _least-privilege permissions_. The concept of least-privilege permissions is to grant users the permissions required to perform a task and no additional permissions.
+
+## Billing and Cost Management - Budgets
+
+You can create budgets to email you if you cross the limits in budget. It can be crated from template.
+
+**Zero spend budget**: A budget that notifies you after your spending exceeds AWS Free Tier limits.
 
 ## Lightsail
 
@@ -436,6 +501,58 @@ It provides continuous deployment and hosting of static web resources including 
 ## Glue
 
 AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.
+
+## AWS Step Functions
+
+Step Functions is based on **state machines** and **tasks**. In Step Functions, state machines are called `workflows`, which are a series of event-driven **steps**. Each step in a workflow is called a `state`. For example, a Task state represents a unit of work that another AWS service performs, such as calling another AWS service or API. Instances of running workflows performing tasks are called `executions` in Step Functions.
+
+```mermaid
+graph LR
+
+Workflow1 --step--> t1[Task1 \n has a state]
+Workflow1 --step--> t2[Task2 \n has a state]
+Workflow1 --step--> t3[Task3 \n has a state]
+Workflow1 --step--> t4[Task4 \n has a state]
+```
+
+You can create a step function and define the state machine in design or code.
+
+State machine can have `state` as
+
+- Action on other AWS service, or
+- Flows which are logics.
+
+**Pass** is a _flow_ and can be used to pass the JSON data.
+
+**Map** is a _flow_ and can be used to map a function to set of input, eg Map a lambda function to list of numbers. It can map in batches. So for 10 inputs in batch of 5, it will do 2 executions. It takes in list as input and returns list batches, and each batch having list of mapped result. This output needs to be reduced. Eg
+
+```json
+#input
+{
+  "MyMultiplicationFactor": 7,
+  "MyItems":[1,2,3,4,5,6,7,8,9,10]
+}
+
+# output
+[
+  {'multiplied': [7,14,21,28,35]},
+  {'multiplied': [42,49,56,63,70]},
+]
+```
+
+To combine the output, in **Output** of **Map** you can use, "Transform result with `ResultSelector`" and define following JSON to combine multiplied keys into an array.
+
+```json
+{
+  "multiplied.$": "$..multiplied[*]"
+}
+```
+
+New Result
+```json
+# output
+{'multiplied': [7,14,21,28,35,42,49,56,63,70]}
+```
 
 ## SNS
 
