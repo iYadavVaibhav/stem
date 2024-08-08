@@ -170,6 +170,40 @@ Click "Configure" to specify test framework and test cases filename pattern. Onc
 
 You need to add `.vscode/launch.json` with settings to let you debug the python app. This tell vs-code to configure the app based on framework and let debug.
 
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+
+    {
+      "name": "Python Debugger: Flask",                 # Flask
+      "type": "debugpy",
+      "request": "launch",
+      "module": "flask",
+      "env": {
+        "FLASK_APP": "app/__init__.py",
+        "FLASK_DEBUG": "1"
+      },
+      "args": ["run", "--no-debugger", "--no-reload"],
+      "jinja": true,
+      "autoStartBrowser": false,
+      "cwd": "${workspaceFolder}/src/frontend"          # optional, you can set a current working dir
+
+    },
+
+    {
+      "name": "Python Debugger: UnitTest",              # Unit Test
+      "type": "debugpy",
+      "request": "launch",
+      "module": "unittest",
+      "args": ["tests.test_hello"]               # Replace with test case file or remove to debug all
+    }
+  ]
+
+}
+
+```
+
 
 ### Ext: Flake8 in VS Code
 

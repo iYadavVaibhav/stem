@@ -411,6 +411,8 @@ for subdir, dirs, files in os.walk(directory):
 
 - **Advanced**
   - loggers, handlers, filters, and formatters are components that can be used to have control on the functionality.
+    - loggers- these have name, like SqlAlchemy logger, `werkzeug` logger, app.logger etc. Each of these can be formatted and added to handler.
+    - handles - these are places to log to, eg, file, stream (stdout), email etc.
   - more here on [PythonDocs - Advanced Logging](https://docs.python.org/3.11/howto/logging.html#advanced-logging-tutorial)
   - Configuring Logging - configs can be in code, in file or in dictionary.
 
@@ -1094,9 +1096,9 @@ df = pd.DataFrame(columns=['id','date_','region','strength','source','title'], d
 
 - Links
   - [Real Python](https://realpython.com/modern-web-automation-with-python-and-selenium/)
-  - [Kiwidamien Github - Webscraping Beyond Beautifulsoup And Selenium](https://kiwidamien.github.io/webscraping-beyond-beautifulsoup-and-selenium.html)
+  - [Kiwidamien Github - WebScraping Beyond Beautiful-soup And Selenium](https://kiwidamien.github.io/webscraping-beyond-beautifulsoup-and-selenium.html)
   - [Beautiful Soup 4 Readthedocs - En Latest Index](https://beautiful-soup-4.readthedocs.io/en/latest/index.html)
-  - [Stackoverflow - PDF printing from Selenium with chromedriver](https://stackoverflow.com/q/59893671/1055028)
+  - [StackOverFlow - PDF printing from Selenium with chrome-driver](https://stackoverflow.com/q/59893671/1055028)
   - [XPATH - Guide](https://www.lambdatest.com/blog/complete-guide-for-using-xpath-in-selenium-with-examples/)
   - [XPATH - text contains](https://stackoverflow.com/questions/12323403/how-do-i-find-an-element-that-contains-specific-text-in-selenium-webdriver-pyth)
 
@@ -1145,7 +1147,7 @@ VPython GlowScript
 - <https://www.glowscript.org/docs/VPythonDocs/videos.html>
 
 
-Manim
+`Manim`
 
 - can animate equations and plots
 - <https://github.com/3b1b/manim>
@@ -1156,21 +1158,107 @@ Sage
 - Allows equation animations and plotting
 - <https://www.sagemath.org/download-mac.html>
 
-Povray
+`Povray`
 
-- The Persistence of Vision Raytracer is a high-quality, Free Software tool for creating stunning three-dimensional graphics. The source code is available for those wanting to do their own ports.
+- The Persistence of Vision RayTracer is a high-quality, Free Software tool for creating stunning three-dimensional graphics. The source code is available for those wanting to do their own ports.
 - <http://www.povray.org/>
 
 ImageMagick
 
 - Create, edit, compose, or convert digital images.
-- It can resize, flip, mirror, rotate, distort, shear and transform images, adjust image colors, apply various special effects, or draw text, lines, polygons, ellipses and Bézier curves.
+- It can resize, flip, mirror, rotate, distort, shear and transform images, adjust image colors, apply various special effects, or draw text, lines, polygons, ellipses and `Bézier` curves.
 
 EdX
 
 - <https://learning.edx.org/course/course-v1:CornellX+ENGR2000X+1T2017/home>
 
+## Packaging - Installable Packages
 
+You can make the package installable in an environment so that it can used in any program by simply importing like other packages.
+
+Folder Structure
+
+Inside a root folder like `vy_lib_package` you can have following structure
+
+```sh
+.
+├── README.md
+├── pyproject.toml
+├── src
+│   └── vylib
+│       ├── __init__.py
+│       ├── example.py
+│       └── utils
+│           └── df_util.py
+└── tests
+```
+
+Here, `example` and `df_util` are modules in `vylib` package.
+
+This will let you import in following way
+
+```py
+from vylib import example
+from vylib.utils import df_util
+
+# then use any function in module
+df_util.some_function(abc)
+```
+
+In `pyproject.toml`
+
+```sh
+[project]
+name = "vylib"
+version = "1.0.0"
+description = "Common Utilites by Vaibhav"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+```
+
+Package name should be same as folder name, `vylib`. This is a convention.
+
+You can also have your dependencies here.
+
+Install the package in venv or other env using:
+
+```sh
+pip install -e ./vy_lib_package/.
+```
+
+Baiscally, you need to give path where your `toml` file is. This will install in editable mode.
+
+Links
+
+- [Packaging Python Projects - Python Docs](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+- [Example- miguelgrinberg/Flask-Moment](https://github.com/miguelgrinberg/Flask-Moment)
+
+## Makefile
+
+Make file lets run multiple shell commands easily with one command. It is useful and standard for testing, building resources and tearing down.
+
+Eg
+
+```Makefile
+test:
+  # source .env_test
+  python -m unittest tests.test_namecheckapi
+
+lint:
+  python -m flake8 --max-line-length=120 --ignore=E402,E501,W293,E302,E303,W391 ./app
+```
+
+Here you have `test` as phase which has one command. You can run this using
+
+```sh
+make test
+```
+
+Links:
+
+- <https://github.com/josephmachado/beginner_de_project/blob/master/Makefile>
 
 ## Links
 

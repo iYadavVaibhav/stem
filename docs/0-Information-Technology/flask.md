@@ -1339,6 +1339,10 @@ Give your SQL statements
 - `db.session.execute(SQL)` returns cursor
 - `db.session.execute(SQL).all()` - returns List result set
 
+**Engine object**
+
+You can get the `Engine` object from the current session connection using, property engine / engines or method `get_engine()`. more on: [engine docs](https://flask-sqlalchemy.palletsprojects.com/en/latest/api/#flask_sqlalchemy.SQLAlchemy.engine)
+
 **Shell Operations**
 
 CRUD from Flask Shell
@@ -1366,6 +1370,12 @@ You can also add more metadata here, like database name.
 **Extras - Py ORM Model from SQL**
 
 If you have a existing tables in database and want o Generate SQLAlchemy class model from database table - `sqlacodegen mssql+pyodbc://<servername>\<schema>/<database>/<table_name>?driver=SQL+Server --outfile db.py`
+
+### Multiple Database Connections
+
+You can connect to multiple database with Flask-SQLAlchemy. It connects to different databases and creates different engines. All you have to do is pass the `bind_key` in any call to db.
+
+More on <https://flask-sqlalchemy.palletsprojects.com/en/latest/binds/>
 
 ## Migrations in Database
 
@@ -1939,6 +1949,7 @@ _needs improvements after hands-on_
     - Pytest uses non OOPs params, to make Unittest OOPs model work with PyTest add `pip install parameterized`.
     - then use its decorator and pass params as list of tuples to argument.
     - list is input scenarios
+    - **Note** it runs `setUp` and `tearDown` for each param.
     - tuple is variables in each scenario. One value tuple is `('name1',)`
     - Eg, `[('name1',32), ('name2',24)]`, `@parameterized.expand([(n,) for n in range(9)])`, `@parameterized.expand(itertools.product([True, False], range(9)))`
 
@@ -2045,6 +2056,20 @@ db.session.execute(db.select(Book, Author))
 │       └── test_models.py
 └── venv
 ```
+
+**Test Case Execution Sequence**
+
+Test cases are executed in alphabetical order. But they can be lying as function in different files (modules) and in different folders (packages). So the unittest module does a scan of the repo to find all functions based on search specification.
+
+Following are the steps of execution:
+
+1. find all files having `test_*`
+2. Execute `base_test_case.py`
+3. Find all function signatures having `test_somefunc():`
+4. Start with the the function signature that is alphabetically first in alphabetically first Test Class. Executes `setUp` then `test_func` then `tearDown`
+5. Repeat for all functions.
+
+**Note:** Any code in any module before `Class` or in Class outside function is executed before any test case.
 
 **Philosophy** - Use _GIVEN.. WHEN.. THEN.._ ideology when writing test cases. So your function for test can start as, in `tests/unit/test_models.py`:
 
@@ -2390,6 +2415,7 @@ The second command above, runs the checks on the whole app and lists the issues 
   ```
 
 - also add `MAINFEST.in` to tell what other files to include in package. Eg, `some.sql` `static` or any other.
+- [VY Stem - Packaging](./python-notes.md#packaging---installable-packages)
 - more [here](https://flask.palletsprojects.com/en/2.2.x/tutorial/install/#describe-the-project)
 - [RealPython Flask App part III](https://realpython.com/python-web-applications-with-flask-part-iii/#logging)
 

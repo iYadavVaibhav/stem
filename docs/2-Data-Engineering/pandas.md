@@ -238,6 +238,7 @@ df_wm['date_wm'].dt.year # year from datetime
 ## Renaming Column Names
 
 ```py
+import re
 
 def readable_column_names(df):
     """Makes column name sentance readable
@@ -286,7 +287,7 @@ def system_column_names(df):
         # Camel case to space
         new_col_name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', new_col_name).lower()
 
-        new_col_name = new_col_name.lower().replace(' ','_').replace('-','_')
+        new_col_name = new_col_name.lower().replace(' ', '_').replace('-', '_').replace('[', '_').replace(']', '_')
 
         if new_col_name in col_list:
             #rename

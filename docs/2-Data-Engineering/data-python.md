@@ -11,12 +11,13 @@
 
 Works with most databases but **not** well with MSSQL+Pandas. For MSSQL+Pandas use sqlalchemy MSSQL engine.
 
+It **requires ODBC driver** to be installed on system on which the app is running. In the connection string, you need either **driver** or **DSN**.
+
 ```python
 
 import pyodbc
 
 # MS SQL Server
-connection_url = "driver={SQL Server};server=000Server.somedomain.com/abcinc;database=SAMPLE_DB;Trusted_Connection=yes"
 connection_url = "driver={SQL Server};server=000Server.somedomain.com/abcinc;database=SAMPLE_DB;Trusted_Connection=yes"
 
 # MYSQL 
@@ -29,6 +30,7 @@ connection_url = "dsn=" + "Your DSN Name"
 connection_url = "DRIVER={DRIVERNAME};DBCNAME={hostname};;UID={uid};PWD={pwd}"
 
 connection = pyodbc.connect(connection_url)
+
 sql = "select top 10 * from [db].[schema].[table]"
 
 cursor = connection.cursor().execute(sql)
@@ -42,32 +44,52 @@ for row in cursor.fetchall():
 
 connection.close()
 
+# Using connection in pandas
 fx_df = pd.read_sql(query, connection)
 
 ```
 
 ### SQLAlchemy Connection
 
-Works as connection engine as well as ORM
+Works as connection engine as well as ORM.
+
+For DB-API, it needs on of below:
+
+- "ODBC driver and pyodbc", or
+- python-driver package like psycopg2 for postgres, pymssql for MsSql.
+
+**Connection Strings**
 
 ```python
 
 import sqlalchemy
 
-## Microsoft SQL with Server Name
+## Microsoft SQL Server, using ODBC Driver and Server Name
 connection_url = "mssql+pyodbc://server_name\schema_name/database_name?driver=SQL+Server"
 
 ## Microsoft SQL with ODBC and Server Name
 connection_url = "mssql+pyodbc:///?odbc_connect="+urllib.parse.quote('driver={%s};server=%s;database=%s;Trusted_Connection=yes')
 
-## Postgres with Server Name
-connection_url = "postgresql://user:pass@server:port/database"
+## Postgres with Server Name, psycopg2 should be installed
+connection_url = "postgresql+psycopg2://user:pass@server:port/database"
+connection_url = "postgresql+psycopg2://scott:tiger@localhost/mydatabase"
+```
 
-# Connection
+Most connection strings can be found here: <https://docs.sqlalchemy.org/en/20/core/engines.html>
+
+**Create Engine and Connection**
+
+```py
 engine = sqlalchemy.create_engine(connection_url, echo=False)
 connection = engine.connect()
+```
 
-# Querying and Reading
+Here, `echo=True` will log statements to default log handler. More engine configs can be found here: <https://docs.sqlalchemy.org/en/20/core/engines.html#engine-creation-api>
+
+
+**Querying and Reading**
+
+```py
 sql = "select top 10 * from [db].[schema].[table]"
 cursor = connection.execute(sql)
 res = cursor.fetchall()    # list of rows 
@@ -79,10 +101,11 @@ with engine.connect() as connection:
 
 # With Pandas
 df.to_sql('table_name', con=engine, schema='dbo', if_exists='append', index=False)
+```
 
+**Transactions in v1.45**
 
-## Transactions in v1.45
-
+```py
 engine = sqlalchemy.create_engine(con_mssql)
 connection = engine.connect()
 trans = connection.begin()
@@ -101,6 +124,7 @@ except Exception as e:
 finally:
     trans.close()
 ```
+
 
 ### Flask_sqlalchemy
 
@@ -203,7 +227,72 @@ finally:
 
 ```
 
-### mysql-connector-python
+### MS SQL Connector
+
+```sh
+brew install freetds
+python -m pip install pymssql
+```
+
+```py
+# Connections
+conn = pymssql.connect(server='', database='', user='', password='')
+
+# one line pandas
+pd.read_sql(sql=q, con=conn)
+
+# Querying
+cursor = conn.cursor(as_dict=True)
+cursor.execute("select top 10 from employee")
+for row in cursor:
+    print("ID=%d, Name=%s" % (row['id'], row['name']))
+conn.close()
+```
+
+Here, `as_dict=True` makes each row as dictionary, otherwise it is Tuple of values (you have no information of column name, but is less is size).
+
+The dictionary has proper data-types as in database. So, name as str, age as int, value as float, created as datetime etc.
+
+You can then use `json.dumps()` to convert dict to str.
+
+```sh
+<class 'tuple'>
+(1, 'John', 22, 230.54, datetime.datetime(2023, 8, 2, 16, 38, 43, 47000))
+
+<class 'dict'>
+{'id': 1, 'name': 'John', 'age': 22, 'value': 230.54, 'load_datetime': datetime.datetime(2023, 8, 2, 16, 38, 43, 47000)}
+
+>>> json.dumps(obj=row, indent=4, sort_keys=True, default=str)
+{
+    "age": 22,
+    "id": 1,
+    "load_datetime": "2023-08-02 16:38:43.047000",
+    "name": "John",
+    "value": 230.54
+}
+```
+
+With SQLAlchemy
+
+```py
+connection_url = "mssql+pymssql://host/database?charset=utf8"
+engine = sqlalchemy.create_engine(url=connection_url)
+conn = engine.connect()
+
+cursor = conn.execute(q)
+for row in cursor:
+    print("ID=%d, Name=%s" % (row['id'], row['banker_name']))
+conn.close()
+
+# or one line pandas
+pd.read_sql(sql=q, con=conn)
+```
+
+Now you can use conn in pandas, or sql-alchemy orm, or create a cursor and execute queries.
+
+Link: [Examples](https://pymssql.readthedocs.io/en/stable/pymssql_examples.html)
+
+### MySql-connector-python
 
 ```python
 import mysql.connector
@@ -213,7 +302,30 @@ cursor.execute(query)
 connection.commit() # for non read tasks
 ```
 
+### TeradataSQL
+
+Teradata SQL Driver for Python. This package enables Python applications to connect to the Teradata Database. There is no need for ODBC driver to be installed on the system for this to work.
+
+```py
+conn = teradatasql.connect(
+    host='dwh.brand.com',
+    user='',
+    password=''
+)
+```
+
+You may enable logging, pass http-proxy or set other config params. More on <https://pypi.org/project/teradatasql/>.
+
+## SQLAlchemy Core
+
+This package has following uses:
+
+- Use **pythonic way** to build sql statements. You can define metadata and build INSERT, UPDATE, DELETE statements using methods. This does not use object, but uses python methods to do sql operations.
+- Lets you **change the db-engine**, without modifying the code. It will automatically build query using dialect for new engine.
+
 ## SQLAlchemy ORM
+
+This package lets you do DB operations in **Object Oriented way**. It is high level abastraction.
 
 **What?** - The ORM provided by SQLAlchemy sits between the database and Python program and transforms the data flow between the database engine and Python objects. SQLAlchemy allows you to think in terms of objects and still retain the powerful features of a database engine. It is ORM for Python, has two parts
 
@@ -228,13 +340,21 @@ connection.commit() # for non read tasks
 - The ORM translates Python classes to tables for relational databases and automatically converts Pythonic SQLAlchemy Expression Language to SQL statements
 
 **Mappings** - There are two types of mapping
-  - Declarative - new - more like oops
-  - Imperative - old - less like oops
+
+- Declarative - new - more like oops
+- Imperative - old - less like oops
+
+**Flask SQLAlchemy**
+
+It lets easy use of SQLAlchemy in Flask. For eg, to connect to db, you can just define the config param `SQLALCHEMY_DATABASE_URI` in flask-config object, and then when you instantiate the db object, `db.init_app(app)`, it makes use of this config param to establish the connection.
+
+More config details can be found on: <https://flask-sqlalchemy.palletsprojects.com/en/latest/config/>
+
+Link: [Flask Notes - SQLAlchemy](../0-Information-Technology/flask.md#databases-in-flask)
 
 **Links**
 
 - <https://realpython.com/python-sqlite-sqlalchemy/#working-with-sqlalchemy-and-python-objects>
-- [Flask SQLAlchemy](../0-Information-Technology/flask.md#databases-in-flask) in Flask Notes
 
 ## PyODBC Manual ORM
 

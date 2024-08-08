@@ -518,13 +518,13 @@ SELECT * FROM mv_myview;    -- use as normal table
 
 ## Read Replicas
 
-There is a primiary server which takes all read and write operation, you can add a read replica fo this server where asll the writes aslo go in, now you can query this.
+There is a primary server which takes all read and write operation, you can add a read replica fo this server where all the writes also go in, now you can query this.
 
 Data is up to date with write ahead log.
 
-this makes primary to focus on writes, other relica(s) can **help heavy reads**.
+this makes primary to focus on writes, other replica(s) can **help heavy reads**.
 
-there are things to consider, like consistency requriements, transaction conplition, all depends on tradeoffs.
+there are things to consider, like consistency requirements, transaction completion, all depends on trade offs.
 
 **Challenge Sensor Data - Write Heady example**
 
@@ -535,14 +535,17 @@ You have sensor data coming in from IoT device, there **should not be latency or
 - You should model the table to be same as data coming in, eg (device_id, timestamp, measure1, measure 2), **exactly** these 4.
 - then can have **materialized view** on top of these to have aggregated hourly / daily results
 - also consider **partitioning** which would ideally be on the time column.
-- consider when do you need to **purge the materized view**, old hoully data need not to be kept
+- consider when do you need to **purge the materialised view**, old hourly data need not to be kept
 - latest hour data materialized view need to be **refreshed more frequently** if required
-- all these questions should be asked from domin expert, **interrogate**.
+- all these questions should be asked from domain expert, **interrogate**.
 - if low level raw data is required, then avoid doing reads on primary server, rather create **read-replica** for this.
 
 ## Indexes
 
-This is **indexing strategy**. Indexes help reduce the data blocks. But there is cost to it. more space, more writes on each update/write. more cardianlity (more disticnt values) then indexing is more useful.
+This is **indexing strategy**. Indexes help reduce the data blocks. But there is cost to it. more space, more writes on each update/write. more cardinality (more distinct values) then indexing is more useful.
+
+
+Indexes are **ordered**, whereas tables might be unordered.
 
 **Indexing Attributes**
 
@@ -574,10 +577,12 @@ Bitmap index
 
 Hash
 
-- Function for mapping arbitrary lenght data to a fixed-size string
+- Function for mapping arbitrary length data to a fixed-size string
 - unique values output, eg `hello` is `5d41402abc4b2a76b9719d911017c592` in **MD5** hash. and is always same for a string.
-- any change in input produ es new hash.
+- any change in input produces new hash.
 - You cannot reverse a hash, simple it is way math algo have done it, as eg, consider 912 is hash, 912 = 900 + 12 or 400 + 512 and so on. You will have to try all possible outputs to match, but can't exactly know what it is.
+
+- Use case: It is useful when there are usually unique value in column, like email. Rather than fetch by email, you create hash index on it, and then you can fetch using hash index scan.
 
 GiST and SP-GiST
 
@@ -626,6 +631,8 @@ _how database engine executes the SQL statements_
 - You can look at query plan for a query
 - If that query plan is inefficient, you can run `ANALYZE` commnad to update the statistics on meta data.
 
+- SQL is **declarative** language, where you declare **what** you need. Whereas, programming is **procedural** language where you tell **how** to do things.
+
 **Explain**
 
 - Add `EXPLAIN` before any query to see the **query plan**.
@@ -634,6 +641,12 @@ _how database engine executes the SQL statements_
 - This way you can see what going on under the hood, are the indexes useful?
 
 - Explain Join - here you can see the algo used for join. If the execution plan is expensive, you can consider adding indexes on key used for join.
+
+- Eg, `Seq Scan on employee(cost=0.00..26.50 rows=323 width=65)` means it is a full table scan.
+
+**Analyze**
+
+If you add `Explain Analyze` before a query you can see the time taken by query to get completed.
 
 **Challenge**
 

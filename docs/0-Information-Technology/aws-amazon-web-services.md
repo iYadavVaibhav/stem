@@ -624,6 +624,11 @@ Build calculations using amazon-q natural lang questions.
 
 Boto3 is the Amazon Web Services (AWS) **Software Development Kit** (SDK) for **Python**, which allows Python developers to write software that makes use of services like Amazon S3 and Amazon EC2.
 
+## Amazon Redshift
+
+Amazon redshift is managed Data Warehouse. It hyper tuned Postgres for faster reads to build OLAP data warehouse.
+
+
 ## DEMO - Hands on Implementation - Build Employee Directory App
 
 We will create a basic CRUD app, an employee directory app on AWS.

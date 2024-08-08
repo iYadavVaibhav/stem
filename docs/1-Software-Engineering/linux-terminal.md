@@ -472,6 +472,13 @@ Other
     - `ls -lt | head -n 5` shows only 5 files from prev command.
     - `head -5 notes.txt` - shows top 5 lines from file.
 
+**Find and Delete**
+
+```sh
+# find and delete files
+find ./path/to/dir -name "*.db" -type f -exec rm "{}" +
+```
+
 ## Shell Configuration
 
 .zprofile is same as .bash_profile is for bash shell. Also same as .zshenv, this file is to set path and env.
