@@ -1,6 +1,6 @@
 # Tools and Frameworks
 
-_tools, framworks, libraries, systems, projects that help do IT Engg work. Landing zone for new topics you learn that have no dedicated file_
+_tools, frameworks, libraries, systems, projects that help do IT Engineering work. Landing zone for new topics you learn that have no dedicated file_
 
 - **Kubernetes** - is an open-source container orchestration system for automating software deployment, scaling, and management.
 
@@ -8,7 +8,7 @@ _tools, framworks, libraries, systems, projects that help do IT Engg work. Landi
 - IAC - **Infrastructure as a Code**
   - **Ansible** - It can provision the underlying infrastructure of your environment, virtualized hosts and hypervisors, network devices, and bare metal servers.
   - **Terraform** - It is used to automate various infrastructure tasks.
-  - **AWS CloudFormation** - lets you create and manage a collection of Amazon Web Services (AWS) resources by provisioning and updating them in a predictable way
+  - **AWS CloudFormation** - lets you create and manage a collection of Amazon Web Services (AWS) resources by provisioning and updating them in a predictable way. [more iyv](./aws-amazon-web-services.md#aws-cloudformation)
 
 
 ## Gmail Tricks

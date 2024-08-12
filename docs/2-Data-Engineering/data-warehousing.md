@@ -178,3 +178,42 @@ BI developers create cubes to support fast response times, and to provide a sing
 - Backing up and performing recoveries.
 - Monitoring performance and taking preventive actions.
 
+
+
+## Data Strategy Modelling Warehousing Mart Analysis Example
+
+Define operational database, this can be used for data collection.
+
+Then load all this data into staging area in a DWH, from all operational/source data.
+
+Then define transformation to clean, modify and quality checks.
+
+Finally load it into dim, facts table, which would be denormalized. This supports analytics queries.
+
+data marts are data tailored to specific business areas or user groups.
+
+
+### Position of Data Marts in the Data Warehouse Architecture
+
+1. **Data Sources**:
+   - Operational databases (e.g., CRM, ERP, marketing tools) provide raw data.
+   - Data from these sources is extracted and loaded into the staging area.
+
+2. **Staging Area**:
+   - Temporary storage where raw data is cleaned and transformed.
+   - Staging tables mirror the source tables.
+
+3. **Data Warehouse**:
+   - Centralized repository storing integrated, cleansed, and transformed data.
+   - Contains dimension tables and fact tables designed for analytical querying.
+
+4. **Data Marts**:
+   - Subsets of the data warehouse optimized for specific business needs.
+   - Provide focused, departmental access to data for faster and easier querying.
+
+Next questions:
+
+- ask gpt to build loader app in flask.
+- define ODS data structure.
+
+

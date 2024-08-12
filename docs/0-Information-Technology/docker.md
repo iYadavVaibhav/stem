@@ -14,17 +14,26 @@ An app, needs files (eg, html) to run with other OS files (eg Ubuntu). Docker le
 
 **Docker Image** is the files required for an app, including system files and binaries.
 
-**Container** is running instance of the image, that is, when the files run.
+**Containers** is running instance of the image, that is, when the files run.
 
 Now when a service runs it may produce some other files, these land into area called _scratch space_.
 
 **Scratch Space** is non-persistent, not shared in between containers. Each container has its own space and is destroyed when container ends.
 
-**Named Volume** is volume having name. Volume is a file-system. Volume can be created using docker. Imagine you have created your own hard-disk. Now you can attach it to docker container. Attaching happens by mounting it to a path on container. Volume content can be opened on host machine (orbstack volumes can be found under orb mount).
+**Named Volume** is volume having name. Volume is a file-system. Volume can be created using docker. Imagine you have created your own hard-disk. Now you can attach it to docker container. Attaching happens by mounting it to a path on container. Volume content can be opened on host machine (`orbstack` volumes can be found under orb mount).
 
 Above is good to store some data from container. However, you may need to sync data between container and host (specially source code when developing). For this use _bind mounts_.
 
-**Bind Mounts** is volume having _exact mount-point_ on host. When mounting, you may skip copy commant in Dockerfile. This is how _Dev-Mode_ container or _Dev-Container_ is built.
+**Bind Mounts** is volume having _exact mount-point_ on host. When mounting, you may skip copy command in Dockerfile. This is how _Dev-Mode_ container or _Dev-Container_ is built.
+
+Links: [Docker - Get Started Guide](https://docs.docker.com/get-started/)
+
+## Containers
+
+- Before software is released, it must be tested, packaged, and installed. Containers provide a standard way to package your application's code, configurations, and dependencies into a single object.
+- Containers run on top of the host OS and share the host's kernel. Each container running on a host runs its own isolated root file system in a separate namespace that may include its own OS.
+- They are designed to help ensure quick, reliable, and consistent deployments, regardless of the environment.
+- Containers are useful when taking a large traditional application and breaking it down into small parts, or microservices, to make the application more scalable and resilient.
 
 **Container Attributes**
 
@@ -39,7 +48,7 @@ Above is good to store some data from container. However, you may need to sync d
 
 You may run database and web-server in same container but doing one thing in a container and doing it well matters, it lets scale easily. Since container are isolated they cannot talk to other container, there has to be a network setup. To keep things simple _If two containers are on the same network, they can talk to each other. If they aren't, they can't._
 
-Links: [Docker - Get Started Guide](https://docs.docker.com/get-started/)
+
 
 
 ## Docker Architecture
@@ -318,7 +327,7 @@ Alternative registry host is [AWS ECR](https://aws.amazon.com/ecr/) - Elastic Co
 
 ## Docker-Compose
 
-All what you do in terminal for images, container, volume, network, like build, pull, run, and their dependecies on each other, and adding env var, commands etc. can all be written in a yaml file so that it is not in terminal but in file as a code. This makes it version controlled and sharable.
+All what you do in terminal for images, container, volume, network, like build, pull, run, and their dependencies on each other, and adding env var, commands etc. can all be written in a yaml file so that it is not in terminal but in file as a code. This makes it version controlled and shareable.
 
 It is a utility for **multi-container** docker environments management. It is built in **Python**. It is a tool that was developed to help define and share **multi-container** applications. With Compose, we can create a **YAML** file to define the services and with a single command, can spin everything up or tear it all down. While this can be done separately by running containers separately and linking with network but this is a better way to build a **cluster of containers**.
 

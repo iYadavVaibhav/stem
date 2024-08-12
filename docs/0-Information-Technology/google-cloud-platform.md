@@ -9,18 +9,18 @@ Google Cloud Platform is cloud service from Google just like AWS and Azure. It p
 
 ## GCP Services
 
-- GCP Firebase as datastoage engine.
+- GCP Firebase as data storage engine.
 - GCP App Engine is PaaS for deploying web apps on cloud:
   - App Engine also helps us deploy dockers and containers
-  - [hands on colab](https://codelabs.developers.google.com/codelabs/cloud-vision-app-engine/index.html).
+  - [hands on co-lab](https://codelabs.developers.google.com/codelabs/cloud-vision-app-engine/index.html).
 - GCP Compute Engine provides VMs, which is like IaaS.
 - GCP Cloud Machine Learning:
-  - Offers pretrained models with biggest library.
+  - Offers pre trained models with biggest library.
   - Cloud Vision API, Video Intelligence
-  - Identify ojects, landmarks, celebrities, colors, million other entities
-  - NLP API, Translations,  Text2Speech, Seech2Text API
+  - Identify objects, landmarks, celebrities, colors, million other entities
+  - NLP API, Translations,  Text2Speech, Speech2Text API
   - Auto ML trains on your data using expertise from already trained neurals
-  - Provides interface to train, evaluate and proof onjects on your own data.
+  - Provides interface to train, evaluate and proof objects on your own data.
   - SaaS with latest TensorFlow, PyTorch and SKLearn on VMs with TPU and GPU support
 
 ## GCP Compute Engine

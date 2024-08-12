@@ -1,6 +1,6 @@
 # Amazon Web Services
 
-## AWS Overview, Infra, and Access
+## AWS Infra, and Access
 
 **AWS Global Infrastructure** - AWS provides various services on the cloud which can be used to build these systems. It is PaaS. AWS Global Infrastructure has multiple **servers**, which are in multiple **data centers**, which are in multiple **availability zones**, and they are in multiple **regions**. This is how AWS makes data available and disaster-proof. Regions are geo bound. Pick a region based on
 
@@ -12,183 +12,97 @@
 ![AWS Global Infra](https://docs.aws.amazon.com/images/whitepapers/latest/get-started-documentdb/images/regions-and-zones.png)
 
 
-**Interacting with AWS** - as it is Virtual, on the cloud, hence you need API to manage services. API is available as:
+**Interacting with AWS**
+
+- as it is Virtual, on the cloud, hence you need API to manage services. API is available as:
 
 - **AWS Console**
-  - a GUI, web-based to login and manage the services. Click based. Region-based. Interactive forms to use services.
+  - a GUI, web-based to login and manage the services. Click based. Region-based. Interactive forms to use services. Login with `username`, `password` and `MFA`
+
 - **AWS CLI**
   - a Command Line Interface that is scriptable.
+
 - **AWS SDKs**
   - Software Development Kits, eg Python, Java, etc. Useful if you want to stay in dev language env. Eg, if your app is using Python and Flask, then you can use Python to interact with AWS services and host the app.
 
-**Security and the AWS Shared Responsibility Model** - AWS secures the cloud, and you secure things in the cloud. You secure your data, firewalls, access by users, encryption, etc. Each AWS service has its own security model. It has the following credentials types:
 
-- One is username and password, which can be used on the web
-- The second set of credentials is called access `keys`, which allow you to make programmatic requests from the AWS Command Line Interface (AWS CLI) or AWS API. Access keys consist of two parts:
-  - Access key ID, for example, `A2lAl5EXAMPLE`
-  - Secret access key, for example, `wJalrFE/KbEKxE`
+**Security and the AWS Shared Responsibility Model**
 
-As a best practice, do not use the root user (AWS email ID) for the day-to-day task. Protect the AWS Root User as it has unrestricted access to everything in the account. Also add **Multi-Factor Authentication** MFA, which enables added security like RSA.
+- _AWS secures the cloud, and you secure things in the cloud_. You secure your data, firewalls, access by users, encryption, etc. Each AWS service has its own security model.
 
-Use **IMA Account** to do actions as it has restricted access.
+- As a best practice
+  - do not use the root user (AWS email ID) for the day-to-day task. Protect the AWS Root User as it has unrestricted access to everything in the account. Also add **Multi-Factor Authentication** MFA, which enables added security like RSA.
 
-**Identity and Access Management - IAM**
+  - Use **IMA Account** to do actions as it has restricted access.
 
-- EC2 needs access and permission to talk to S3, similarly all services need authentication and signed API calls in each request.
-- Each developer can have an **IAM account**, this **authenticates** (access). Then each user needs **authorization** (permission) to different services.
-- **IAM policies** can be used to grant or deny permissions to users to take actions. Actions are API calls, everything in AWS is API calls.
-- Policies are JSON documents. JSON defines which service has, what level of access with some conditions. You can control every single thing by creating this policy. The policy is a rule. The policy must have an `effect`, `action`, and `resource`.
-- **Policy** can then be attached to IAM identities, **User** or **Group** to inherit.
-- Policy JSON Example:
 
-    ```json
-    {
-    "Version": "2012-10-17",
-    "Statement": [{
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
-    }]
-    }
-    ```
+## AWS Compute
 
-**Role-Based Access in AWS**
+**Compute as a Service**
 
-- IAM Roles are like IAM users that have an association with IAM Policies and have auth tokens.
-- Roles are used by services to talk to each other. Eg, you can give a role to the EC2 machine to read and write to the S3 bucket and RDS and DynamoDB.
-- Role can be associated with the policy.
-- For Corporations, you have SSO and Identity.
+- Web server, batch job, ML; all need compute. Compute maintenance needs time.
 
-## AWS COMPUTE
-
-Compute as a Service
-
-- web server, batch job, ML; all need compute. Compute maintenance needs time.
 - AWS offers compute as:
-  - Virtual Machines
-  - Containers
-  - Serverless
-
-**Amazon Elastic Compute Cloud - EC2**
-
-- EC2 provides various types of instances which are for different purposes, like web servers, and graphics servers.
-- Amazon Machine Image - AMIs can be installed on EC2 machines.
-- EC2 machines can be scaled up in no time.
-
-Amazon EC2 Instance Lifecycle
-
-- EC2 is charged when running or rebooting. Once terminated, they are deleted forever.
-- To update the VM, duplicate the VMv1.0, make updates to clone, the switch the app to VMv2.0, terminate v1.0
-
-**Container Services**
-
-- containers provide efficiency and portability
-  - `ECS Elastic Container Service`
-  - `EKS Elastic Kubernetes Service`
-- They both run on top of EC2, hence use EC2 as a service.
-- Container orchestration tool helps us manage 100s of containers easily
-
-Serverless
-
-- You will not manage the updates and patches to the server os. Instead, the server is completely **abstracted from you**. You need not care about scalability, updates, or other server management.
-- `AWS Fargate` is used for this. No need to worry about underlying OS or Env.
-- EC2 gives more control while Fargate gives more convenience but less control.
-
-**AWS Lambda**
-
-- Serverless compute. Package and upload code as a lambda function
-- Not running all time. runs when triggered.
-- Lots of triggers exist, like HTTP, upload of a file, events from other AWS services, or inbuilt activity.
-- Runs on managed service, it is scalable.
-- You can choose, env, os, size memory, etc.
-- all lambda runs in their own env.
-- Not for WordPress sites, but for smaller web services or tasks, eg, resizing photos to thumbnails. Lambda is billed only when the function runs, up to 100ms intervals. So you don't need the image-resize service to always run, but only when a photo is uploaded.
-- Create a lambda function, and add a role to it, if it needs to access other AWS services.
-- Add a trigger to invoke the lambda function.
-- Upload code to the lambda function.
-- See it invoked in CloudWatch
+  - Virtual Machines Instances - `EC2`.
+  - Containers - `ECS` Elastic Container Service, `EKS` Elastic Kubernetes Service
+  - Serverless - `AWS Fargate` is serverless compute engine for containers
+  - Function as a Service - `AWS Lambda`
 
 
-Choose the **Correct Compute Service**
+**What AWS Compute service to choose?**
 
 - Prototype on premise app - EC2
-- One a quarter or month file data wrangling - Lambda
+- Once a quarter or month file data wrangling - Lambda
 - Microservices that need regular updates - ECS or EKS
 
-For compute in AWS, the three most commonly used services are as follows:
 
-- Compute on instances - EC2
-- Container services
-- Serverless services
+## AWS Networking
 
-`Amazon EC2` are virtual server instances in the cloud. Amazon EC2 gives you complete **control** over the instance, down to the **root level**. You can manage the instance as you would manage a **physical server**. You can use instances for long-running applications, especially those with state information and long-running computation cycles.
+Networking within the cloud infra.
 
-`Amazon ECS, Amazon EKS` Container management services that can run containers on either customer-managed Amazon EC2 instances OR as an AWS-managed serverless offering running containers on AWS Fargate. Before software is released, it must be tested, packaged, and installed. Containers provide a standard way to package your application's code, configurations, and dependencies into a single object. Containers run on top of the host OS and share the host's kernel. Each container running on a host runs its own isolated root file system in a separate namespace that may include its own OS. They are designed to help ensure quick, reliable, and consistent deployments, regardless of the environment. Containers are useful when taking a large traditional application and breaking it down into small parts, or microservices, to make the application more scalable and resilient. When not to use containers? When applications need persistent data storage.
+### Amazon VPC - Virtual Private Cloud
 
-`AWS Lambda` is a Serverless compute for running stateless code in response to triggers. Using AWS Lambda, you can run code without provisioning or managing servers. You pay only for the compute time you consume. There is no charge when your code is not running. With Lambda, you can run code for virtually any type of application or backend service without provisioning or managing servers. Upload your code, and Lambda takes care of everything required to run and scale your code with high availability. You can set up your code to be automatically invoked from other AWS services or call it directly from any web or mobile app. Lambda is a suitable choice for any short-lived application that can finish running in under 15 minutes.
+- `Amazon VPC - Virtual Private Cloud` is a _network configuration_, the same as a **modem and router** in the physical world.
 
-What AWS Compute service to choose?
-
-- something that can **build fast** and let you **hit the market** so you can analyze and see if it works
-- put the time into - business logic and data processing logic.
-- do not waste time on infra concerns like load balancing, scaling, networking; or plumbing code like logging, authentication, caching exceptions so on.
-- use serverless architecture using lambda, s3, CloudFront, step functions, Cognito, AppSync, and DynamoDB. They are all scaled, available, and charged per-request basis.
-- just define logic as a lambda function, and invoke it via a response to an API call or an event.
-
-
-
-## AWS NETWORKING
-
-Networking
-
-- Amazon `VPC - Virtual Private Cloud` is a network configuration, the same as a modem and router in the physical world. In EC2, instead of the default config, we can use a custom VPC configuration
+- Example, in Amazon EC2, instead of the default config, we can use a custom VPC configuration
   - to add `more security`, like only allowing HTTP on a certain port. Hence, no SSH on 22.
   - to give different `access control` to different resources, like public/intranet/private.
-  - to achieve `high availability` and fault tolerance by associating different AZs. Compute is replicated. we will have more than one EC2 hence more than one VM.
+  - to achieve `high availability` and fault tolerance by associating different AZs. Compute is replicated. We will have more than one EC2 hence more than one VM.
 
-**Amazon VPC**
+**Amazon VPC Configuration**
 
 - CIDR notation is used to provide the variable IP address or range of IP addresses. Eg, `192.168.1.0/24`. /16 is more, /24 is less.
 - `VPC` gives you a range of IPs. `10.1.0.0/16`. You need to create VPC in the AWS management console - GUI.
 - Then you can use these IPs to create `subnets`, which use some IPs of VPC-IPs to make a private or public network. Subnets are associated with AZs - Availability Zones. Say in Zone-A
-  - Public resources, or internet-facing resources, are added to the `public subnet` with a sub-range of the VPC IP range, eg, `10.1.1.0/24`. like web-app
-  - Private resources are kept in a `private subnet` with a sub-range of the VPC IP range, eg `10.1.3.0/24`. like database.
-- To expose the public subnet to the internet, we need `IGW - Internet GateWay`, this is just like a modem. Create an internet gateway and attach it to your VPC.
-- To only expose the subnet to the corporate intranet or VPN, create `VGW - Virtual Private GateWay`. This will expose AWS to an on-premise data center.
-- to make it always available, duplicate the subnets and add to another AZ.
-  - ![VPC on AWS](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661360400/IoAR-JfBleLFS717fAPYjA/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/wPxuV_0JWkhj9dQV_InIjhnQ0x-d4xLbK.png)
+  - **Public resources**, or internet-facing resources, are added to the `public subnet` with a sub-range of the VPC IP range, eg, `10.1.1.0/24`. like web-app
+  - **Private resources** are kept in a `private subnet` with a sub-range of the VPC IP range, eg `10.1.3.0/24`. like database.
+
+- To expose the public subnet to the internet, we need `Internet Gateway`, this is just like a **modem**. Create an internet gateway and attach it to your VPC.
+
+- To only expose the subnet to the **corporate intranet** or VPN, create `VGW - Virtual Private Gateway`. This will expose AWS to an on-premise data center.
+
+- To make it always available, duplicate the subnets and add to another AZ.
+  - ![VPC on AWS](https://d1.awsstatic.com/Digital%20Marketing/House/Hero/products/ec2/VPC/Product-Page-Diagram_Amazon-VPC_HIW%402x.f33b1976a62ff4600a1a8fd65e94057b43d9d917.png)
 
 **Amazon VPC Routing**
 
-- When a user reached Internet Gateway, it needs to be routed to the correct subnet. For this, we need a routing table.
+- When a user reached Internet Gateway, it needs to be routed to the correct subnet. For this, we need a **routing table**.
 - AWS creates default `main route table`. This provides local traffic only.
 - GUI - each VPC has routes.
 - We have called subnet public/private, however, that is implemented by routes, which controls the exposure of the subnets.
-- Edit route table, add a new route, and add destination `0.0.0.0/0` that takes and servers all IPs. then add an internet gateway to it. finally, associate it with public subnets.
+- Edit route table, add a new route, and add destination `0.0.0.0/0` that takes and servers all IPs. Then add an internet gateway to it. Finally, associate it with public subnets.
 - Later add a firewall for extra security.
-- ![AWS Route Tables](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661360400/IoAR-JfBleLFS717fAPYjA/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/TOFyTY8NnEvCzqi3_NrsH76kCPC3B5ySy.jpg)
+- ![AWS Route Tables](https://docs.aws.amazon.com/images/vpc/latest/userguide/images/outpost-intra-vpc-connection.png)
 
-Amazon VPC Security
+**Amazon VPC Security**
 
 - Subnets can be made more secure, like only allowing HTTPs to inbound and outbound traffic on port 443.
 - To do this create rules in `Network ACLs - access control lists`. Like firewalls.
 - Secondly, `security groups` can provide more security to EC2 instances.
-- ![AWS VPC Security Groups](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661360400/IoAR-JfBleLFS717fAPYjA/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/FgEhatXf6qnJQ1X1_scxJIDNUzFAqjZbL.jpg)
-
-Creating EC2 with VPC configuration
-
-- to implement this we need to do following
-  - create an `elastic IP` address for NAT Gateway, NAT gives connectivity to private resources not exposed to the internet.
-  - create a `VPC`
-  - then make `subnets` public/private, and associate them with different AZs.
-  - add `NAT gateway` for connectivity to private resources.
-  - add Internet Gateway to expose public subnet to the internet.
-  - create a `route-table` to route IP traffic to specified gateway NAT/IGW. To associate public/private with NAT/Internet-GateWay. Create two route-tables. then add NAT/Internet gateway. then associate with subnets.
-  - `associate subnets` to route tables.
-  - create a `security group` to allow/block certain protocols (HTTP/SSH) and ports(22/8080).
+- ![AWS VPC Security Groups](https://docs.aws.amazon.com/images/vpc/latest/userguide/images/security-group-overview.png)
 
 
-
+_**below to be cleaned**_
 
 ## AWS STORAGE
 
@@ -372,7 +286,36 @@ Amazon EC2 Auto Scaling
 - ![AWS EC2 Autoscaling Templates](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1662030000/t25JDfL13ox0tFPZBJWcwQ/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/Y9U8MWYOjosNS6Ta_0tIEHgm6nFcjy6rI.jpg)
 
 
+## Serverless Technology
+
+Serverless builds and runs application without maintaining the underlying infra. Server is but is managed by AWS. It is scalable, cost efficient, simplify development, quick iteration.
+
+Drawbacks - not for long running, always connected.
+
+- there is server, but you pay for operations. not paying for vm. no maintenance of VM. No 24hrs or 7 dy a week payment.
+- cost saving, pay for demand only, not readiness for demand.
+- separation - executions are secure as all lambda functions are permission controlled in their own sandbox.
+- Scalability: - functions will scale on demand, each in their sandbox.
+- You will not manage the updates and patches to the server os. Instead, the server is completely **abstracted from you**. You need not care about scalability, updates, or other server management.
+
+- **Risks of Serverless**
+  - heavy workload on serverless may be more expensive than vm.
+  - debugging is possible but may be difficult. chained lambda function are even more difficult. logging may be effective.
+  - testing can be difficult.
+  - Sprawl - as you write more factions, it grows and may get unmanageable. Now it is different way of doing things. So think of proper use case.
+
+- **Use Cases**
+  - Autoscaling web apps. If request increases, serverless does. If your app becomes popular enough that it is used through out the day move to vm.
+  - event streaming - async actions are good to handle in lambda.
+  - file manipulation - async actions can be done when file is uploaded or something.
+  - connectors - your primary server may throw something to serverless.
+
+
+
+
 ## Services -----
+
+
 
 
 ## Elastic Beanstalk
@@ -402,9 +345,26 @@ Use docker image on docker.io to create web app. You need to use following json 
 
 
 
-## CLI
+## AWS CLI
+
+
+You need to install AWS CLI on client machine.
+
+**Installation**
 
 To install, follow [AWS CLI Installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+
+**Authentication**
+
+Once cli is installed, you need to add your aws credentials, these can be obtained by signing in as a non-root user and click `Command line or programmatic access` then copy `Short-term credentials` and paste into cmd. Something like:
+
+```sh
+export AWS_ACCESS_KEY_ID="..."
+export AWS_SECRET_ACCESS_KEY="..."
+export AWS_SESSION_TOKEN="...
+```
+
+Now you should be able to run commands using aws-cli.
 
 ```sh
 # check
@@ -415,7 +375,10 @@ aws --version
 
 ## AWS Identity and Access Management - IAM
 
-On sign up to AWS account a _root user_ is created. It is recommended to create IAM User other than root (default) with less permission. Billing is disable by default for IAM Users.
+
+Each developer can have an **IAM account**, this **authenticates** (access). Then each user needs **authorization** (permission) to different services.
+
+On **sign up** to AWS account a _root user_ is created. It is recommended to create IAM User other than root (default) with less permission. Billing is disable by default for IAM Users.
 
 [ ] To login as IAM-User you need to get a URL. Login as root > IAM Identity Center > Users > Reset Password. Save that URL, it has account ID in it.
 
@@ -429,6 +392,7 @@ Access is given by _permissions_. Permissions can be grouped.
 
 Permission is defined by _Policy_.
 
+
 **IAM Users**
 
 - It is identity with specific permission for a single person or application
@@ -436,9 +400,11 @@ Permission is defined by _Policy_.
 - **Permission** can be given to them using _Roles_
 - the example, `EmergencyAccess` IAM user you create is specifically for use only when your user in IAM Identity Center credentials are unavailable. [more](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-iam-user.html)
 
+
 **IAM Roles**
 
-- It is similar to an IAM user, but is not associated with a specific person. It is identity with specific permission.
+- It is _similar_ to an IAM user, but is not associated with a specific person. It is identity with specific permission.
+- Roles are used by **services to talk** to each other. Eg, you can give a role to the EC2 machine to read and write to the S3 bucket and RDS and DynamoDB. Similarly all services need authentication and _signed API calls_ in each request.
 - Instead of being uniquely associated with one person, a role is **intended to be assumable** by anyone who needs it.
 - It doesn't have long-term credentials, instead it provides you with **temporary security credentials**.
 - IAM Identity Center and other AWS services **automatically create roles** for their services.
@@ -448,15 +414,30 @@ Permission is defined by _Policy_.
   - Saving the role link information along with the EmergencyAccess user credentials.
 - [more](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-roles.html)
 
+
 **IAM Policy**
 
-- It **grants permissions** to an IAM entity (IAM user or IAM role).
-- It is a **document** that lists the **actions** that the **entity** can perform and the **resources** those actions can **affect**.
+- It can be used to **grant or deny permissions** to IAM entity (IAM user or IAM role) to take actions. Actions are API calls, everything in AWS is API calls.
+- It is a **JSON document** that lists the **actions** that the **entity** can perform and the **resources** those actions can **affect**.
 - Any actions or resources that are not explicitly allowed are **denied by default**.
-- Policies can be created and attached to IAM users, IAM groups of users, IAM roles, and resources.
+- Policies can be created and _attached_ to IAM users, IAM groups of users, IAM roles, and resources.
+- The policy is a rule. The policy must have an `effect`, `action`, and `resource`.
 - You can attach a policy to a role to provide users who assume that role the permissions associated with this policy.
 - The `PowerUserAccess` policy is commonly used to _provide access to developers_.
 - [more](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-iam-policy.html)
+- Policy JSON Example:
+
+    ```json
+    {
+    "Version": "2012-10-17",
+    "Statement": [{
+    "Effect": "Allow",
+    "Action": "*",
+    "Resource": "*"
+    }]
+    }
+    ```
+
 
 **AWS IAM Identity Center**
 
@@ -498,9 +479,98 @@ It is a development tool to develop, build and deploy the app on AWS.
 
 It provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.
 
-## Glue
+## AWS Dynamo DB
+
+**DynamoDB** — **storage** The NoSQL amazon database, where you can insert the information of your application on tables (Collections).
+
+It is non relational, managed, fast, document based, flexibility. scalability to 10 trillion requests per day. pay as you go.
+
+## AWS Glue
 
 AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.
+
+
+## Amazon EC2 - Elastic Compute Cloud
+
+- `Amazon EC2` are virtual server instances in the cloud. Amazon EC2 gives you complete **control** over the instance, down to the **root level**. You can manage the instance as you would manage a **physical server**.
+- You can use instances for **long-running applications**, especially those **with state** information and long-running computation cycles.
+
+- EC2 provides various types of instances which are for different purposes, like web servers, and graphics servers.
+- Amazon Machine Image - AMIs can be installed on EC2 machines.
+- EC2 machines can be scaled up in no time.
+
+**Amazon EC2 Instance Lifecycle**
+
+- EC2 is _charged when running or rebooting_. Once terminated, they are deleted forever.
+- To update the VM, duplicate the VMv1.0, make updates to clone, the switch the app to VMv2.0, terminate v1.0
+
+
+
+## AWS Lambda
+
+- `AWS Lambda` is a Serverless compute for **running stateless code** in response to **triggers**.
+- Using AWS Lambda, you can run code **without managing servers**.
+- You **pay only for the compute time** you consume. There is **no charge** when your code is not running.
+- With Lambda, you can run code for virtually any type of application or backend.Lambda takes care of **everything required to run** and **scale your code** with **high availability**.
+- You can set up your code to be **automatically invoked** from other AWS services or call it directly from any web or mobile app.
+- Lambda is a suitable choice for any **short-lived application** that can finish running in **within 15 minutes**.
+
+**When to use AWS Lambda**
+
+- Something that can **build fast** and let you **hit the market** so you can analyze and see if it works.
+- put the time into - business logic and data processing logic.
+- do not waste time on infra concerns like load balancing, scaling, networking; or plumbing code like logging, authentication, caching exceptions so on.
+- use serverless architecture using lambda, s3, CloudFront, step functions, Cognito, AppSync, and DynamoDB. They are all scaled, available, and charged per-request basis.
+- just define logic as a lambda function, and invoke it via a response to an API call or an event.
+
+- Package and upload code as a lambda function
+- Not running all time. runs when triggered.
+- Lots of triggers exist, like HTTP, upload of a file, events from other AWS services, or inbuilt activity.
+- Runs on managed service, it is scalable.
+- You can choose, env, os, size memory, etc.
+- all lambda runs in their own env.
+- Not for WordPress sites, but for smaller web services or tasks, eg, resizing photos to thumbnails. Lambda is billed only when the function runs, up to 100ms intervals. So you don't need the image-resize service to always run, but only when a photo is uploaded.
+- Create a lambda function, and add a role to it, if it needs to access other AWS services.
+- Add a trigger to invoke the lambda function.
+- Upload code to the lambda function.
+- See it invoked in CloudWatch
+
+
+- What is lambda?
+  - Compute technology with multiple language support.
+  - Hooks to other lambda functions.
+  - Changes is other AWS Services, like S3 or Dynamo can trigger lambda.
+  - Lambda can be triggered with requests using API Gateway, CloudFront.
+  - Data Stream, SNS, messaging service can be linked to lambda
+  - IoT events can integrate to lambda.
+  - Function can be monitored, tested (without deployment) and dashboards can be built to see this. Deployment with different ways.
+
+
+
+## AWS Fargate
+
+- It is serverless compute engine for containers. Work with both ECS and EKS.
+
+
+## Amazon ECS - Elastic Container Service
+
+- It is **Container management services**
+- It **runs containers** on either customer-managed **Amazon EC2** instances OR as an AWS-managed serverless offering running containers on **AWS Fargate**.
+
+
+## Amazon EKS - Elastic Kubernetes Service
+
+- run on top of EC2, hence use EC2 as a service.
+
+## Amazon ECR - Elastic Container Registry
+
+- Amazon Elastic Container Registry lets you to store, share, and deploy container images.
+- It is a fully managed Docker container registry like docker hub.
+
+## AWS EventBridge
+
+- Event driven applications can be build using this serverless service from AWS.
+
 
 ## AWS Step Functions
 
@@ -549,26 +619,44 @@ To combine the output, in **Output** of **Map** you can use, "Transform result w
 ```
 
 New Result
+
 ```json
 # output
 {'multiplied': [7,14,21,28,35,42,49,56,63,70]}
 ```
 
+## AWS CloudFormation
+
+**AWS CloudFormation** - lets you create and manage a collection of Amazon Web Services (AWS) resources by provisioning and updating them in a predictable way.
+
+- it is a service provided by Amazon Web Services that enables users to model and manage infrastructure resources in an automated and secure manner.
+- Using CloudFormation, developers can define and provision AWS infrastructure resources using a JSON or YAML formatted Infrastructure as Code template.
+
+
+## AWS CDK (Cloud Development Kit)
+
+It is AWS service for IaC, Infra as code. Very similar to AWS CloudFormation
+
+
 ## SNS
 
 Amazon Simple Notification Service (Amazon SNS) is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications.
 
-## Athena
+## Amazon Athena
 
 Amazon Athena is an interactive **query** service that makes it simple to analyze data directly in Amazon **S3** using standard SQL. It is **serverless**.
 
-## API Gateway
+Athena can be used to query data from AWS resources, eg from Data Catalogue in Glue and tables in S3.
+
+## AWS API Gateway
 
 **Usage Plan and Message Throttling**
 
 Usage plan defines how many call can you do in a time period, eg, 5000 req per month
 
 Message Throttling is limiting the rate at which you can hit the api, eg, max 100 req per second
+
+lets easily create, publish and maintain apis. it is traffic controller, it is gatekeeper for dynamo db. it is scalable. pay as you go.
 
 ## Amazon DataZone
 
@@ -805,6 +893,41 @@ The database you create, needs following additional configurations:
 Once done, you can use Endpoint (also called host), port, username and password to connect from any client/app.
 
 Password can be managed using `AWS Secret Manager`, it has a secret associated with instance, that secret is obscured and can be reviled on console or using code.
+
+
+
+## AWS Stack for API Development
+
+AWS offers API Gateway and other serverless techniques to build API
+
+**Amazon API Gateway**
+
+It lets build the API by providing front-end to:
+
+- create a resource, like `order`
+- create methods on resource, like `GET`
+- define integration (how to do get), like, Lambda, HTTP, AWS Service etc.
+
+So, in it basically you define everything in "AWS API Gateway front end", including each resource and it's method. You can handle all request method like GET PUT POST.. in one lambda function or have multiple defined, one to handle each request.
+
+Finally, you need to **deploy** the API.
+
+Next steps, would be to implement **security measures** like API Key.
+
+To **summarize** AWS services are:
+
+- **API Gateway** — **web server / deploy** This service is responsible for deploying and serving HTTP RESTful endpoints. Thus you can trigger actions, when HTTP calls arrives to the generated endpoints. It enables you to create, publish, maintain, monitor, and secure your own REST and Websocket APIs at any scale. It acts as **router** from HTTP request to lambda function.
+- **Lambda** — **business logic / compute** This let you run code without provisioning or managing servers.
+- **DynamoDB** — **storage** The NoSQL amazon database, where you can insert the information of your application on tables (Collections).
+
+**Using Flask in Lambda** You can add flask app to lambda function and create routes to handle all CRUD requests. More on [Flask on Lambda with CORS and WSGI](https://www.pluralsight.com/resources/blog/cloud/create-a-serverless-python-api-with-aws-amplify-and-flask)
+
+**Links**
+
+- [Building a REST API with AWS Gateway and Python - moesif](https://www.moesif.com/blog/technical/api-development/Building-Rest-API-With-AWS-Gateway-And-Python/)
+- [Serverless API with AWS and Python Tutorial](https://medium.com/accenture-the-dock/serverless-api-with-aws-and-python-tutorial-3dff032628a7)
+- [Deploying Python Flask microservices to AWS using open source tools](https://aws.amazon.com/blogs/opensource/deploying-python-flask-microservices-to-aws-using-open-source-tools/)
+
 
 
 

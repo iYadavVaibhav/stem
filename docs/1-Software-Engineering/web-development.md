@@ -8,7 +8,7 @@ date: 2021-08-24
 
 Web development may need:
 
-- **OS and Infa** - linux mostly, hosting/gcp/aws - machine connected to internet
+- **OS and Infra** - linux mostly, hosting/gcp/aws - machine connected to internet
 - **Web Server** - Apache/NginX - connects domain to DIR/Process.
 - **Web Cache** - optional - Squid
 - **Database** - to store, mysql/sqlite/mongo/postgres
@@ -21,7 +21,7 @@ Web development may need:
 **Web Servers / Proxy Servers**
 
 - Is a server application that acts as an intermediary between a client requesting a resource and the server providing that resource.
-- Can help configrue DIR in case of static site and process in case of python/perl/php and use WSGI or CGI. Uses:
+- Can help configure DIR in case of static site and process in case of python/perl/php and use `WSGI` or CGI. Uses:
   - Monitoring and filtering
   - Filtering of encrypted data
   - Bypassing filters and censorship - Geo restriction, firewall etc
@@ -35,12 +35,12 @@ Web development may need:
 - **NginX**
 
 
-- [more on webserver](https://iyadavvaibhav.github.io/web-server-notes/#:~:text=outages%20or%20restarts.-,Add%20sites%20to%20Apache%20Server,-Now%20we%20need)
+- [more on web server](https://iyadavvaibhav.github.io/web-server-notes/#:~:text=outages%20or%20restarts.-,Add%20sites%20to%20Apache%20Server,-Now%20we%20need)
 
 
 **Databases**:
 
-- mongo - nosql - JSON like document based
+- mongo - no sql - JSON like document based
 - mysql / PostgreSQL - sql
 - neo4j - graph
 
@@ -63,7 +63,7 @@ Frameworks and languages
 - Laravel - PHP
 - Elastic.js - JS
 
-Auth is required for all request, so decouple and make a service of it. The gateway can take req and the authenticate it or reject it. Once autheticated it can send it to the correct service.
+Auth is required for all request, so decouple and make a service of it. The gateway can take req and the authenticate it or reject it. Once authenticated it can send it to the correct service.
 
 **APIs** or **Headless** or **RESTful** backend can be build when we need to completely separate client from server.
 
@@ -74,7 +74,7 @@ Auth is required for all request, so decouple and make a service of it. The gate
 
 **Load Balancing** or Consistent Hashing
 
-- when requests to a server increases we need to add new servers, then redirect requests to different servers. This can be done using hashing. Hash gives a random number to a request, then that number can be used to direct a request to a particular server, eg, hash_number mod servers is the server ID, 14%4=2, so req hased as 14 goes to server 2, if we have 4 servers.
+- when requests to a server increases we need to add new servers, then redirect requests to different servers. This can be done using hashing. Hash gives a random number to a request, then that number can be used to direct a request to a particular server, eg, hash_number mod servers is the server ID, 14%4=2, so req hashed as 14 goes to server 2, if we have 4 servers.
 - now when we add new server, say 5, then the mod operation changes, every req gets mod of 5, this makes huge operational difference, as in there is a shift in all requests, so all cache that we built becomes useless, to avoid this, we use consistent hashing.
 - more - <https://www.youtube.com/watch?v=K0Ta65OqQkY>
 
@@ -368,39 +368,6 @@ To setup google Oauth:
 
 - Crate a google app in <https://console.cloud.google.com/apis/credentials>
 
-
-
-## AWS Stack for API Development
-
-AWS offers API Gateway and other serverless techniques to build API
-
-**Amazon API Gateway**
-
-It lets build the API by providing front-end to:
-
-- create a resource, like `order`
-- create methods on resource, like `GET`
-- define integration (how to do get), like, Lambda, HTTP, AWS Service etc.
-
-So, in it basically you define everything in "AWS API Gateway front end", including each resource and it's method. You can handle all request method like GET PUT POST.. in one lambda function or have multiple defined, one to handle each request.
-
-Finally, you need to **deploy** the API.
-
-Next steps, would be to implement **security measures** like API Key.
-
-To **summarize** AWS services are:
-
-- **API Gateway** — **web server / deploy** This service is responsible for deploying and serving HTTP RESTful endpoints. Thus you can trigger actions, when HTTP calls arrives to the generated endpoints. It enables you to create, publish, maintain, monitor, and secure your own REST and Websocket APIs at any scale. It acts as **router** from HTTP request to lambda function.
-- **Lambda** — **business logic / compute** This let you run code without provisioning or managing servers.
-- **DynamoDB** — **storage** The NoSQL amazon database, where you can insert the information of your application on tables (Collections).
-
-**Using Flask in Lambda** You can add flask app to lambda function and create routes to handle all CRUD requests. More on [Flask on Lambda with CORS and WSGI](https://www.pluralsight.com/resources/blog/cloud/create-a-serverless-python-api-with-aws-amplify-and-flask)
-
-**Links**
-
-- [Building a REST API with AWS Gateway and Python - moesif](https://www.moesif.com/blog/technical/api-development/Building-Rest-API-With-AWS-Gateway-And-Python/)
-- [Serverless API with AWS and Python Tutorial](https://medium.com/accenture-the-dock/serverless-api-with-aws-and-python-tutorial-3dff032628a7)
-- [Deploying Python Flask microservices to AWS using open source tools](https://aws.amazon.com/blogs/opensource/deploying-python-flask-microservices-to-aws-using-open-source-tools/)
 
 ## Designing RESTful APIs -  Build & Architecture
 

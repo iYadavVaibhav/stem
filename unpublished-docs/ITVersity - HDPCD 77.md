@@ -1455,21 +1455,6 @@ like order by count in group by query.
 
 
 
-
-
-
-
-*************** Setting up AWS *************
-
-password of amazon account.
-used ICICI credit card ending 8009, CVV not asked.
-
-
-Download KeyValue pair for ssh and save it.
-
-connect vnc on public dns and using port 5901.
-password for vm is hadoop, when asked in vnc viewer.
-
 launch terminal
 run $ ./start-all-services.sh
 this will launch ambari.
@@ -1503,17 +1488,4 @@ then start working by starting script.
 * To copy from aws vm:
 
 scp -i ~/Downloads/hwx-practise-exam.pem ubuntu@ec2-54-187-249-103.us-west-2.compute.amazonaws.com:/home/horton/solutions/a.txt ~/Downloads/datasets/sol/
-
-
-
-
-*********************** Mains ****************************
-
-Passport ID proof. Original and copy.
-1600x900 monitor
-15minutes before we can start the exam. so for 6-8 slot.
-5:45 exam start.
-5:30 everything up and running. Mobile DND on, 4G on. 
-5:00 home. 
-4.45 leave office.
 

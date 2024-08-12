@@ -96,5 +96,5 @@ _moved to docker notes in Information Technology. Link: [Docker Notes](../0-Info
 
 ## AWS CloudFormation
 
-- it is a service provided by Amazon Web Services that enables users to model and manage infrastructure resources in an automated and secure manner. Using CloudFormation, developers can define and provision AWS infrastructure resources using a JSON or YAML formatted Infrastructure as Code template.
+- manage resource with code, [AWS CloudFormation Notes](../0-Information-Technology/aws-amazon-web-services.md/#aws-cloudformation)
 
