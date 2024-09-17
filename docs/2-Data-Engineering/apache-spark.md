@@ -149,10 +149,7 @@ In stream processing it is important to maintain the current state. It can help 
 
 ## Databricks
 
-- It is managed spark service on cloud. You do not have to do cluster management, server setup, tuning and backup.
-- You can spin up a new cluster from easy UI.
-- Community edition is free with 6gb size.
-- It lets you use cluster, execute notebook, lets persist data in files/tables.
+- Lake formation tool. More on [Databricks Notes](./databricks.md)
 
 
 ## LL - Apache Spark Essential Training: Big Data Engineering

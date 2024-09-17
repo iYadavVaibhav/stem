@@ -9,7 +9,7 @@ No processing, only storing
 
 ## Event Driven Architecture
 
-Is a modern application design pattern that is based on concept of loose-coupling and message-driven interaction. It is useful in large real-time dataasets.
+Is a modern application design pattern that is based on concept of loose-coupling and message-driven interaction. It is useful in large real-time datasets.
 
 **What is an Event?**
 
@@ -30,11 +30,11 @@ Here, **loosely coupled** or decoupled means that producer just sends event to s
 
 Link: [scylladb EDA](https://www.scylladb.com/glossary/event-driven-architecture/)
 
-Streming architecture is form of EDA. It is built on technology like Apache Kafka.
+Streaming architecture is form of EDA. It is built on technology like Apache Kafka.
 
 It is based on pub-sub model. Where publisher produces events, and consumers consume events.
 
-Event straming services like kafka publish stream of events to broker.
+Event streaming services like kafka publish stream of events to broker.
 
 **Types of EDA**
 
@@ -100,7 +100,7 @@ There are two main kinds of event-driven architectures
 - **Producing and consuming with Python**
   - use library
   - import producer and consumer
-  - add servers and topics, collect recept as callback.
+  - add servers and topics, collect receipt as callback.
   - `from confluent_kafka import Producer`
 
     ```python

@@ -1,6 +1,6 @@
 # Amazon Web Services
 
-## AWS Infra, and Access
+## AWS Overview, Infra, and Access
 
 **AWS Global Infrastructure** - AWS provides various services on the cloud which can be used to build these systems. It is PaaS. AWS Global Infrastructure has multiple **servers**, which are in multiple **data centers**, which are in multiple **availability zones**, and they are in multiple **regions**. This is how AWS makes data available and disaster-proof. Regions are geo bound. Pick a region based on
 
@@ -102,109 +102,64 @@ Networking within the cloud infra.
 - ![AWS VPC Security Groups](https://docs.aws.amazon.com/images/vpc/latest/userguide/images/security-group-overview.png)
 
 
-_**below to be cleaned**_
 
 ## AWS STORAGE
 
-Storage Types
+**Storage Types**
 
 - we need to store
-  - OS - application files, ubuntu
-  - Static Data - files - employee photo - write once, read many WORM
-  - Structured Data - database tables
+  - **OS** - application files, ubuntu
+  - **Static Data**- files - employee photo - write once, read many WORM
+  - **Structured Data** - database tables
 
-- Block Storage - data is split into chunks - one char change in 1 GB file is simple - System File, Log File.
-- Object Storage - single unit - one char change in 1GB file, whole file is rewritten - WORM, Video
+- **Block Storage** - data is split into chunks - one char change in 1 GB file is simple - System File, Log File.
 
-Amazon EC2 Instance Storage and Amazon Elastic Block Store EBS
+- **Object Storage** - single unit - one char change in 1GB file, whole file is rewritten - WORM, Video
 
+**Block Storage**
+
+- It is offered with Amazon `EC2 Instance Storage` and `Amazon Elastic Block Store` EBS
 - EC2 has `instance` storage like internal HDD. This is block-level storage. attached physically, hence fast but tied to the lifecycle of EC2.
 - EBS is like an external HDD
 - EBS can be linked to one EC2 or multiple EC2s can read-write.
 - EBS can be HHD or SSD
 - EBS can be snap shotted to keep backup.
 
-Object Storage with Amazon Simple Storage Service S3
+**Object Storage** with `Amazon Simple Storage Service S3`
 
 - EBS is not fit for all as
   - they are mostly 1-1 with EC2
   - have a size limit.
 - S3 is scalable, standalone, not tied to EC2, not mounted
-- access by URL
-- max 5TB file
-- is object storage
-- has a flat structure
-- unique bucket name
-- it is region constrained
-- is durable and available as it is auto-distributed in a region
-- objects are: buckets/folders/files
-- Demo
-  - Search s3 - create bucket - region specific - bucket has a URL
-  - upload objects - files
-  - files have URL
 
-- bucket/folder/files are private and not public to the world.
-- can be made public using actions, but only in a public bucket
-- for access control use
-  - IAM, and
-  - `S3 bucket policies`, has the same JSON format and are attached to buckets
-- actions allowed or denied. can be read-only, another acct write.
-- Uses: static websites, data lakes, media, backup, and storage.
-- [AWS S3 permissions](https://explore.skillbuilder.aws/files/a/w/aws_prod1_docebosaas_com/1661436000/8wO7QUlpnj0--chB_E8Evg/tincan/d03722b85f9d2b3a05e4c74bd586ea9b1f52f81a/assets/tdqWRVkjrqaKcAF3_0M9ExB6uo3T8oZq0.png)
 
-Choose the Right Storage Service
+**Choose the Right Storage Service**
 
-- EC2 Instance store is generally well-suited for the temporary storage of information that is constantly changing, such as buffers, caches, and scratch data
-- Amazon EBS, block storage, is meant for data that changes frequently and needs to persist through instance stops, terminations, or hardware failures.
-- If your data doesn’t change that often, Amazon S3 might be a cost-effective and scalable storage solution for you. Amazon S3 is ideal for storing static web content and media, backups and archiving, and data for analytics. It can also host entire static websites with custom domain names.
+- **EC2** Instance store is generally well-suited for the **temporary storage** of information that is constantly changing, such as buffers, caches, and scratch data
+- Amazon **EBS**, block storage, is meant for data that **changes frequently** and needs to persist through instance stops, terminations, or hardware failures.
+- If your **data doesn’t change that often, Amazon S3** might be a cost-effective and scalable storage solution for you. Amazon S3 is ideal for storing static web content and media, backups and archiving, and data for analytics. It can also host entire static websites with custom domain names.
 
 
 ## AWS DATABASES
 
-Databases on AWS
+**Databases setup Options**
 
-- RDS for data.
-- The app can connect to DB on your on-premise server. you manage everything. Or
-- DB on ec2, then have to install DB s/w, manage updates, and backups and replicate it on instances for high availability. Or
-- Managed AWS database service, you only code. AWS manages everything else.
+- The app can connect to DB on your **on-premise server**. you manage everything. Or
+- **Database on EC2**, then have to install DB s/w, manage updates, and backups and replicate it on instances for high availability. Or
+- **Managed AWS database service** like **RDS**, you only code. AWS manages everything else.
 
-Amazon Relational Database Service RDS
 
-- RDS > create database > easy create
-  - select engine > MySQL/MS-SQL-server/Postgres
-  - BD instance size > free
-  - identifier name
-  - username
-  - password
-  - create a database.
-- RDS is in one private subnet. to make it high-availability, create a secondary RDS in another AZ subnet, using `RDS Multi-AZ deployment`. RDS will manage replication.
-- one is primary another secondary. failovers handled by RDS.
+**Purpose-Built Databases**
 
-Purpose-Built Databases
-
-- Relational databases are good to manage complex schemas, which have joins and complex queries and stored procedures. However, this adds overhead to the engine.
-- There are other DBs that work best to query single records.
-- Also RDS is charged per hour, whether you query or not. weekend
-- dynamo, key-value, docs, non-relating, ms latency, usage charge, and amount.
-- amazon docDB - content
-- social n/w - graph database - az neptune, recommendation, fraud detection ??? todo
-- finance, ledger, amazon qldb, immutable, audit, compliance
+- **Amazon RDS** offers **Relational databases**, which are good to manage complex schemas, which have joins and complex queries and stored procedures. However, this adds overhead to the engine. Also, RDS is charged per hour, whether you query or not. Weekends are charged too.
+- **Amazon DynamoDB**, is **key-value db**, docs, non-relating, **millisecond latency**, usage charge, and amount.
+- **Amazon DocumentDB** - fully managed **JSON Document** database. Good for content.
+- **Amazon Neptune** is **graph database**. Good for social n/w. Use cases: recommendation, fraud detection.
+- **Amazon Quantum Ledger Database** or QLDB is used in finance for **ledger management**. It is **immutable**. Good for **audit and compliance**.
 - these are purpose-built.
 
-Amazon DynamoDB
 
-- fully managed NoSQL database, serverless
-- no relations
-- scalable, performant, under ms time
-- tables, items, and attributes are the core component.  A table is a collection of items, and each item is a collection of attributes.
-- access via dynamo database API
-- search dynamo
-- create table
-- unique identifier
-- table name, primary kry
-- items to view items
-
-Choose the Correct Database Service
+**Choose the Correct Database Service**
 
 Database Type  |Use Cases  |AWS Service
 -|-|-
@@ -217,36 +172,30 @@ Graph           |Fraud detection, social networking, recommendation engines|Amaz
 Time series     |IoT applications, DevOps, industrial telemetry|`Amazon Timestream`
 Ledger          |Systems of record, supply chain, registrations, banking transactions|Amazon QLDB
 
+**Links**
+
+- [NoSQL on AWS](https://aws.amazon.com/nosql/)
+
 
 ## AWS MONITORING, OPTIMIZATION, SCALING
 
-Application Management
+**Application Management**
 
-- how is the app performing, how is it utilizing resources
-- scalability - demand not constant, add and reduce sources
-- balance traffic
+- It is required to know how is the app performing, how is it utilizing resources.
+- To measure scalability - if the demand is not constant, it should add and reduce resources.
+- It should balance traffic on all resources.
 
-Monitoring
+**Monitoring**
 
-- important to see how services are being used
-- Monday morning latency, not good to take tickets
-- proactive before end-user notify
-- and where is the problem? recent code change, database or ec2?
+- it is important to see how services are being used. Eg, Monday morning latency, it is not good to take bug tickets
+- Monitoring should be **pro-active**, it should notify before end-user raises issue.
+- Monitoring should tell **where is the problem**? recent code change, database or ec2?
 - metrics, logs, traffic, database connections, CPU usage; need to be monitored
-- monitoring tool helps in this by analysing, metrics over time, called statistics. Based on stats there can be triggers.
-- all info needs to be on the central console, hence CloudWatch
-- all in one place
+- monitoring tool helps in this by analysing, **metrics over time**, called statistics. Based on stats there can be **triggers**.
+- all info needs to be on the **central console**, hence **CloudWatch**
+- All logs, metrics **are in one place** in AWS and can be seen using CloudWatch.
 
-Amazon CloudWatch
-
-- users can create a `dashboard` from various granular metrics available
-- can create `alarms` to be raised on crossing a base value over a time
-  - this can trigger `SNS`, Simple Notification Service, which creates a topic. Anyone subscribed to the `topic` will get notified.
-  - can trigger an EC2 boot action,
-  - can scale up resources
-- Users can also send custom app metrics, like 'page load time' which is not AWS metric but app-specific, but can be seen on CloudWatch and can trigger alarms.
-
-Solution Optimization
+**Solution Optimization**
 
 - we need to optimize infra
   - capacity - storage - s3 - mostly auto-scaled
@@ -463,6 +412,18 @@ You can create budgets to email you if you cross the limits in budget. It can be
 
 **Zero spend budget**: A budget that notifies you after your spending exceeds AWS Free Tier limits.
 
+
+## Amazon CloudWatch
+
+- It is a **monitoring service** which has **central console** to see all metrics and logs.
+- users can create a `dashboard` from various granular `metrics` available
+- can create **alarms** to be raised on crossing a base value over a time
+  - this can trigger `SNS`, Simple Notification Service, which creates a topic. Anyone subscribed to the `topic` will get **notified**.
+  - can **trigger** an `EC2` boot action,
+  - can **scale up** resources
+- Users can also send **custom app metrics**, like 'page load time' which is not AWS metric but app-specific, but can be seen on CloudWatch and can trigger alarms.
+
+
 ## Lightsail
 
 Easy VPS Virtual Private Server **hosting**. Quickly launch and manage OS with configured Dev Stack (like Ubuntu with LAMP). Add load balance, firewall, and DNS. Once requirements increase, easily move to EC2 or Lambda. Lightsail provides low-cost, pre-configured cloud resources for simple workloads just starting on AWS. Amazon EC2 is a compute web service that provides secure, resizable compute in the cloud. It has far greater scale and optimization capabilities than Lightsail.
@@ -479,15 +440,33 @@ It is a development tool to develop, build and deploy the app on AWS.
 
 It provides continuous deployment and hosting of static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user's browser.
 
-## AWS Dynamo DB
+## Amazon DynamoDB
 
-**DynamoDB** — **storage** The NoSQL amazon database, where you can insert the information of your application on tables (Collections).
-
-It is non relational, managed, fast, document based, flexibility. scalability to 10 trillion requests per day. pay as you go.
+- fully managed NoSQL database, serverless
+- key-value database service that provides **single-digit-millisecond performance** with **limitless scalability**
+- no relations
+- scalable to 10 trillion requests per day
+- `tables`, `items`, and `attributes` are the **core component**.  A table is a collection of items, and each item is a collection of attributes.
+- access via dynamo database API
+- **Pay as you go** model for billing.
 
 ## AWS Glue
 
 AWS Glue is a fully managed ETL service that makes it easy for customers to prepare and load their data for analytics.
+
+## Amazon S3 - Simple Storage Service
+
+- **Object storage** built to retrieve any amount of data from anywhere
+- access by **URL**
+- **max 5TB** file
+- has a **flat structure**
+- **unique bucket** name
+- it is **region constrained**
+- it is **durable, available** as it is **auto-distributed** in a region
+- **objects** are: `buckets/folders/files`
+- bucket/folder/files are **private by default** and not accessible to the world.
+- can be made **public using actions**, but only in a public bucket
+- **Uses**: static websites, data lakes, media, backup, and storage.
 
 
 ## Amazon EC2 - Elastic Compute Cloud
@@ -712,6 +691,11 @@ Build calculations using amazon-q natural lang questions.
 
 Boto3 is the Amazon Web Services (AWS) **Software Development Kit** (SDK) for **Python**, which allows Python developers to write software that makes use of services like Amazon S3 and Amazon EC2.
 
+## Amazon RDS - Relational Database Service
+
+- RDS is in one private subnet. to make it high-availability, create a secondary RDS in another AZ subnet, using `RDS Multi-AZ deployment`. RDS will manage replication. One is primary another secondary. failovers handled by RDS.
+- RDS is charged per hour, whether you query or not. Weekends are charged too.
+
 ## Amazon Redshift
 
 Amazon redshift is managed Data Warehouse. It hyper tuned Postgres for faster reads to build OLAP data warehouse.
@@ -924,7 +908,7 @@ To **summarize** AWS services are:
 
 **Links**
 
-- [Building a REST API with AWS Gateway and Python - moesif](https://www.moesif.com/blog/technical/api-development/Building-Rest-API-With-AWS-Gateway-And-Python/)
+- [Building a REST API with AWS Gateway and Python](https://www.moesif.com/blog/technical/api-development/Building-Rest-API-With-AWS-Gateway-And-Python/)
 - [Serverless API with AWS and Python Tutorial](https://medium.com/accenture-the-dock/serverless-api-with-aws-and-python-tutorial-3dff032628a7)
 - [Deploying Python Flask microservices to AWS using open source tools](https://aws.amazon.com/blogs/opensource/deploying-python-flask-microservices-to-aws-using-open-source-tools/)
 

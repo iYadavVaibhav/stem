@@ -4,6 +4,102 @@ date: 2024-07-11
 
 # Big Data
 
+## Data Lake vs. Data Lakehouse vs. Data Warehouse
+
+**Data Lake:**
+
+- **Purpose:** Stores raw data in its original format without predefined structure.
+- **Structure:** Unstructured or semi-structured.
+- **Schema:** Schema is defined on-the-fly during query execution.
+- **Use Cases:** Big data analytics, machine learning, data exploration.
+- **Flexibility:** Highly flexible, allowing for various use cases and data types.
+- **Performance:** May have performance limitations due to the unstructured nature of the data.
+
+**Data Lakehouse:**
+
+- **Purpose:** Combines the flexibility of a data lake with the structured nature of a data warehouse.
+- **Structure:** Structured, semi-structured, or unstructured.
+- **Schema:** Supports schema evolution, allowing for changes to the data structure.
+- **Use Cases:** Data warehousing, analytics, machine learning.
+- **Flexibility:** Offers a balance of flexibility and structure.
+- **Performance:** Generally better performance than data lakes due to the structured nature of the data and optimization techniques.
+
+**Data Warehouse:**
+
+- **Purpose:** Stores structured data for reporting and analysis.
+- **Structure:** Highly structured, with predefined schemas.
+- **Schema:** Schema is defined upfront and is relatively static.
+- **Use Cases:** Business intelligence, reporting, data warehousing.
+- **Flexibility:** Less flexible than data lakes or data lakehouses, as data must conform to a predefined schema.
+- **Performance:** Optimized for querying and reporting, with good performance for structured data.
+
+**Key Differences:**
+
+| Feature     | Data Lake                            | Data Lakehouse                                | Data Warehouse                       |
+|-------------|--------------------------------------|-----------------------------------------------|--------------------------------------|
+| Structure   | Unstructured/semi-structured         | Structured/semi-structured/unstructured       | Structured                           |
+| Schema      | Defined on-the-fly                   | Supports schema evolution                     | Predefined and static                |
+| Use Cases   | Big data analytics, machine learning | Data warehousing, analytics, machine learning | Business intelligence, reporting     |
+| Flexibility | Highly flexible                      | Balanced                                      | Less flexible                        |
+| Performance | May have performance limitations     | Generally better performance                  | Optimized for querying and reporting |
+
+**Choosing the Right Approach:**
+
+The best choice depends on your specific needs and use cases. If you require high flexibility and the ability to store various data types, a data lake might be suitable. For a balance of flexibility and structure, a data lakehouse is a good option. If you primarily need a structured data repository for reporting and analysis, a data warehouse is the best choice.
+
+
+## Open Data Formats
+
+- Includes **Parquet, Avro, JSON, CSV**.
+- It defines **standardized data format** that is publicly accessible.
+- These formats are designed to **promote interoperability, data sharing, and collaboration**. So data once stored can be used by different processing engines/solutions.
+
+
+### Key Characteristics of Open-Data Formats
+
+- **Publicly Available:** The format specifications are freely accessible to anyone, without any licensing restrictions.
+- **Standardized:** The format follows a well-defined structure, ensuring consistency and compatibility.
+- **Interoperable:** Data stored in the format can be easily exchanged and processed by different software tools and platforms.
+- **Community-Driven:** Open-data formats are often developed and maintained by communities of developers and users, ensuring their continued evolution and improvement.
+
+### Popular Open-Data Formats for Data Lakes
+
+1. **Apache Parquet:** A columnar storage format that is highly efficient for analytical workloads, especially on large datasets. It supports a variety of data types and can be used with different data processing frameworks.
+2. **Apache ORC:** Another columnar storage format designed for analytical workloads. ORC offers similar performance benefits to Parquet but has a slightly different structure.
+3. **CSV (Comma-Separated Values):** A simple text-based format that is widely used for data exchange. While not as efficient as columnar formats for analytical workloads, CSV is easy to read and write.
+4. **JSON (JavaScript Object Notation):** A flexible format for representing structured data. JSON is often used for semi-structured data and can be easily parsed by various programming languages.
+5. **Avro:** A binary data serialization system that is designed for efficiency and flexibility. Avro can be used to store both structured and semi-structured data.
+
+### Benefits of Using Open-Data Formats
+
+- **Interoperability:** Data stored in open-data formats can be easily shared and processed by different tools and platforms.
+- **Flexibility:** Open-data formats can be used to store a variety of data types and structures.
+- **Community Support:** Open-data formats are often supported by large communities of developers, ensuring their continued development and maintenance.
+- **Cost-Effectiveness:** Using open-data formats can help reduce costs by avoiding vendor lock-in and promoting interoperability.
+
+By adopting open-data formats, organizations can create more accessible and interoperable data lakes, enabling better data sharing, collaboration, and analytics.
+
+
+### SequenceFile Data Format - Hive
+
+- SequenceFile is a Hadoop-specific file format designed for **storing key-value pairs**.
+- It is **efficient for storing** large amounts of data
+- It can be **less performant for analytical workloads** compared to columnar formats like Parquet or ORC.
+- It is **also open-source** but not widely adopted and used.
+- Hive can use Parquet or ORC, but what to use depends on use case
+
+
+## Open Source Table Formats (Data Lake Table Formats)
+
+- Includes **Apache Iceberg, DataBricks DeltaLake, Apache Hudi**. They are all data lake table-formats.
+- An open table format is a **standardized way** to organize and manage data files **within a data lake**.
+- They all **can use different open-data formats**, but **parquet is default**.
+- Its purpose is to **bring database-like features** to data lakes, which are crucial in enabling the _data lakehouse architecture_ (combining the best features of data lakes and data warehouses).
+- They are not limited to just table-format but also **offer warehousing features** like transactionality, schema evolution, and time travel.
+
+- Link: [Comparison of Data Lake Table Formats (Apache Iceberg, Apache Hudi and Delta Lake)
+](https://www.dremio.com/blog/comparison-of-data-lake-table-formats-apache-iceberg-apache-hudi-and-delta-lake/)
+
 ## HDFS
 
 Cheap large scale distributed data storage, that can scale horizontally. Alternatives are S3, Azure Blob. It is only storage, not a processing thing.

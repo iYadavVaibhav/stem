@@ -73,7 +73,7 @@ someString.replace(/h1/,'h2')
 - It finds trailing text as first group `(\S+)`, then trailing whitespace just after text as second group `(\s+)` and at end of line `$`.
 - Then replaces both groups by just the first group `$1`.
 
-**Whatsapp from Markdown**
+**Whatsapp Text from Markdown**
 
 - This snippet lets you convert markdown to be formatted in most correct way for whatsapp chat.
 - Find `**` Replace `*`. Finds bold, makes them bold for Whatsapp.

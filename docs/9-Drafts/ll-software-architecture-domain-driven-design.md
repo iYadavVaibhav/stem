@@ -132,11 +132,11 @@ subgraph ds[Downstream Services]
 end
 ```
 
-In **Microservice System** these function calls are replaced by Network Calls, which adds a complexity. Upstream serive needs to know downstream service. So any change in downstream affects upstream which is a problem.
+In **Microservice System** these function calls are replaced by Network Calls, which adds a complexity. Upstream service needs to know downstream service. So any change in downstream affects upstream which is a problem.
 
-Solution is **Reactive Systems** which make **Asynchronous Services**, which takes away the dependecies of communication and relying on other service, rather the service announces, eg, shopping-cart-service announces that order has been placed, now other services may listen to it and do the work. So email-servive sends email, shipping-service ships and billing-service generates invoice. All this is done by **decoupling the services**. So services need not know each other, and hence we can change them or add new downstream service. This is implemented using **publisher-subscriber model**.
+Solution is **Reactive Systems** which make **Asynchronous Services**, which takes away the dependencies of communication and relying on other service, rather the service announces, eg, shopping-cart-service announces that order has been placed, now other services may listen to it and do the work. So email-service sends email, shipping-service ships and billing-service generates invoice. All this is done by **decoupling the services**. So services need not know each other, and hence we can change them or add new downstream service. This is implemented using **publisher-subscriber model**.
 
-In **Publisher-Subscriber Model**, the publishers don't know who the subscribers are and vice-versa. More on implementation details in messegins systems like Kafka, RabbitMQ or ZeroMQ.
+In **Publisher-Subscriber Model**, the publishers don't know who the subscribers are and vice-versa. More on implementation details in messaging systems like Kafka, RabbitMQ or ZeroMQ.
 
 ## Event Storming
 
@@ -144,7 +144,7 @@ Best way to do DDD is using technique **Event Storming** by _Alberto Brandolini_
 
 It is working with Business People to come up with events that mimic the real world events. Do not do all at once, pick a story, model it and repeat.
 
-**Event** is something that happens at business level that customers care about. Eg, 'Order Submitted', 'Payment Received', 'Nightly Reconciliation Done'. Nightly Reconciliation is different as in real world it might not happen but is an automated event in modelling. Keeping in _past tense_ is good convension.
+**Event** is something that happens at business level that customers care about. Eg, 'Order Submitted', 'Payment Received', 'Nightly Reconciliation Done'. Nightly Reconciliation is different as in real world it might not happen but is an automated event in modelling. Keeping in _past tense_ is good convention.
 
 How to do Event Storming?
 

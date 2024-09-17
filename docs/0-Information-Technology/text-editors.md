@@ -140,6 +140,13 @@ Ext | Desc
 
 ### Key Bindings
 
+**Find and Select All**
+
+- Find the string using `cmd + F`
+- Then do, `Alt + Return` or `cmd + Shift + L` to select all matches/highlights.
+
+**Add New Key Bindings**
+
 - it can be updated in JSON. `ctrl shifp p > shortcuts json`. In a list you can add your mappings. Eg:
 
 

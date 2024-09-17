@@ -17,9 +17,42 @@ _tools, frameworks, libraries, systems, projects that help do IT Engineering wor
 - `is:unread -category:updates` shows unread but not updates
 - Updates category is not clear, it has updates and primary both
 
+## Chat GPT Tricks
 
+**Prompt Formula**
 
+- The better the prompt the better is response and so on.
+- Include following in your prompt
+  - **Task** `mandatory` - Write...
+  - **Context** `important` - the reader is non-technical...
+  - **Exemplar** `important` - It should include my last...
+  - **Persona** `nice to have` - you are a male data engineer
+  - **Format** `nice to have` - an email
+  - **Tone** `nice to have` - professional
 
+- Eg:
+  
+  ```py
+  You are a senior product marketing manager at Apple   # persona
+  and you have
+
+  # context
+  just unveiled the latest Apple product in collaboration with Tesla, the
+  Apple Car, and received 12,000 pre-orders, which is 200% higher than target.
+  # context
+  
+  Write               # task
+  an email            # format
+  
+  to your boss, Tim Cookie, sharing this positive news.
+  
+  # exemplar
+  The email should include a read section, project background, why this product came into existence, business results section, quantifiable business metrics, and end with a section thanking the product and engineering teams.
+  # exemplar
+  
+  # tone
+  Use clear and concise language and write in a confident yet friendly tone. # tone
+  ```
 
 
 
