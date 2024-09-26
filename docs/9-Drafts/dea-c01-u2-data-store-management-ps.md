@@ -200,80 +200,78 @@ Allows you pay by the hour or the second, depending on the type of instance.
   - Parquet is **optimized for Impala**, while Avro is **supported** by Impala.
 
 
-
-====================================================================
-
 ## 2.2 Transforming Data Formats
 
 ### ETL and Data Transformation with AWS Glue
 
-1. **Data Transformation in Glue ETL**:
-   - **Transformation** is essential in ETL processes.
-   - AWS Glue offers several ways to transform data:
-     - **Python shell jobs** for quick data manipulation.
-     - **Spark ETL jobs** for large-scale transformations.
-     - **PySpark or Scala jobs** for batch and streaming data processing.
+**AWS Glue** offers several ways to **transform** data:
 
-2. **Python Shell ETL Jobs**:
+- **Python shell jobs** for quick data manipulation.
+- **Spark ETL jobs** for large-scale transformations.
+- **PySpark or Scala jobs** for batch and streaming data processing.
+
+1. **Python Shell ETL Jobs** in Glue:
    - Suitable for **simpler ETL tasks** (e.g., small datasets).
    - Provides **pre-built libraries** for transforming data between formats, such as **CSV to Parquet**.
    - Libraries for **aggregating data** (e.g., sums, averages) and reading/writing formats.
-   - **Use case**: Reading a CSV file from an S3 bucket, converting it to Parquet using the CSV module and PyArrow.
+   - **Use case**: Reading a CSV file from an S3 bucket, converting it to Parquet using the `CSV` module and `PyArrow`.
 
-3. **Spark ETL Jobs**:
+2. **Spark ETL Jobs** in Glue:
    - Ideal for **complex transformations** and **large-scale data**.
    - Apache Spark is a **distributed computing system** that supports:
      - **Filtering data** based on specific criteria.
      - **Aggregating data** (e.g., sums, averages, counts).
      - **Joining data** from multiple datasets using common keys.
-   - **Use case**: Processing large datasets in Redshift to identify top-selling products through aggregation.
+   - **Use case**: Processing **large datasets in Redshift** to identify top-selling products through aggregation.
 
-4. **PySpark or Scala for Batch and Streaming Jobs**:
+3. **PySpark or Scala for Batch and Streaming Jobs** in Glue:
    - **Batch Processing**: Processing data in **fixed-size batches** (e.g., daily sales reports).
      - Example: A retail company collects daily sales data in CSV format. PySpark or Scala can read the CSV, transform, and aggregate the data.
    - **Streaming Processing**: Processing data in **micro-batches** at regular intervals (e.g., real-time data analysis).
      - Example: analysing real-time **clickstream data** using Amazon Kinesis and processing it with PySpark or Scala for real-time insights.
 
+[ ] - do handson for above
 
 ## 3.0 Databases ======================
 
 ## 3.1 Introduction to Amazon DynamoDB
 
-### AWS DynamoDB Study Notes
+### AWS DynamoDB
 
 **Overview of DynamoDB:**
 
 - **DynamoDB** is a fully managed, **NoSQL non-relational** database service.
 - It supports **key-value pairs** and **document data** (JSON, HTML, XML).
-- **Flexible** table adaptation, but lacks joins and analytical query capabilities.
-- **Access patterns** must be defined **before table creation**.
+- **Flexible** table adaptation, but **lacks joins** and analytical query capabilities.
+- **Access patterns** must be defined **before table creation**?
 - **Unlimited storage**, with **single-digit millisecond response times**.
 - Use **DynamoDB Accelerator (DAX)** for **microsecond latency**.
+- It is limitless, can handle Terabytes smoothly.
 
-**Key Features:**
+**Benefits of DynamoDB**
 
-1. **Global Tables**:
+1. **Global Tables** across Regions:
    - Replicate data across AWS regions for **fast, responsive access** worldwide.
-
 
 2. **DynamoDB Streams**:
    - Captures **time-ordered modifications** to database items.
+   - That is, it stores any modification to item in a table like created, updated etc.
 
 3. **Partitioning and Availability**:
-   - DynamoDB **automatically scales** by partitioning data.
+   - DynamoDB **automatically scales** by partitioning data. You need not take this step.
    - Replicates data across **three availability zones** for **fault tolerance**.
 
 **Use Cases:**
 
 - **Media and metadata storage** (photos, videos).
-- **Retail applications** (high traffic, e.g., during holidays).
+- **Retail applications** (high traffic, e.g., during holidays). It can handle millions of request per second.
 - **Gaming platforms** (large-scale data handling).
 - **Online transaction processing (OLTP)** (financial transactions, e-commerce).
 - **Hierarchical data models** (e.g., employee directories).
 - **Fluctuating workloads** (e.g., social media, flash sales).
-- **Mission-critical applications** (healthcare, online banking).
+- **Mission-critical applications** (healthcare, online banking). When downtime is not an option.
 
-**DynamoDB Anatomy:**
+**DynamoDB compared to Relational Database**
 
 1. **Tables**: Similar to SQL tables.
 2. **Items**: Equivalent to **rows/records** in SQL.
@@ -283,16 +281,22 @@ Allows you pay by the hour or the second, depending on the type of instance.
 4. **Primary Keys**:
    - Consist of one or two attributes.
    - Used to **retrieve data**. Selecting the right primary key is crucial for table design.
+   - This is why knowing the **access pattern** is important as based on that you would define the primary key and then based on that you will retrieve the data.
 
-**Key Features:**
 
-- **Time to Live (TTL)**:
-  - Adds an expiry time to items.
-  - Items are **automatically deleted** once expired, including from **indexes**.
-  - **Deletion occurs within 48 hours** of expiration.
-  - Use TTL for **deleting sensitive data**, session data, event logs, or for **debugging**.
+**Time to Live (TTL)**
 
-## 3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling
+- Adds an expiry time to items.
+- Items are **automatically deleted** once expired, including from **indexes**.
+- **Deletion occurs within 48 hours** of expiration.
+- Delete data might appear in result, you need to add filter to remove it.
+
+- **Use Case**:
+  - Use TTL for **deleting sensitive data**. Add expiry based on contract to keep PII.
+  - session data, event logs. Add expiry so that they get auto deleted after time and save on storage costs.
+  - for **debugging**. Add expiry to logs so that after debugging logs are auto deleted.
+
+## [ ] 3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling
 
 ### DynamoDB Throughput & Capacity Modes - Study Notes
 
@@ -581,72 +585,77 @@ Allows you pay by the hour or the second, depending on the type of instance.
 
 ## 3.8 Amazon RedShift Spectrum and Materialized Views
 
-### Amazon Redshift Scaling and Querying Features - Study Notes
-
 **Scaling Options:**
 
 
 1. **Concurrency Scaling:**
-   - **Purpose:** Adds temporary compute power to handle spikes in concurrent read requests.
-   - **Functionality:** Supports parallel query execution.
+   - Adds temporary compute power to handle spikes in concurrent read requests.
+   - Supports parallel query execution.
 
 2. **Cluster Resizing:**
    - **Horizontal Scaling:** Add or remove nodes from the cluster.
    - **Vertical Scaling:** Change node types to scale up or down.
 
-3. **Redshift Spectrum:**
-   - **Purpose:** Query large volumes of data stored in S3 without loading it into Redshift.
-   - **Functionality:** Direct querying of exabytes of data in S3.
-   - **Scaling:** Managed automatically behind the scenes.
-   - **Requirements:**
-     - Requires a Redshift cluster for interface.
-     - Cluster and S3 bucket must be in the same region.
-     - Multiple Redshift clusters can query the same S3 data concurrently.
-   - **Data Handling:**
-     - External read-only tables are created in Redshift to reference S3 data.
-     - Supports `SELECT` and `INSERT`; does not support `UPDATE` or `DELETE`.
-     - Uses external tables to specify data format, location, and structure.
+### Redshift Spectrum
 
-4. **Data Store Integration:**
-   - **External Tables:** Can use AWS Glue Data Catalog, Amazon Athena, or an EMR cluster with an Apache Hive meta-store.
+- **Query** large volumes of data stored in **S3** without loading it into Redshift.
+- Direct **querying of exabytes of data** in S3.
+- Managed **automatic scaling** behind the scenes.
 
-5. **Federated Query:**
-   - **Purpose:** Query data across various databases, warehouses, and data lakes.
-   - **Functionality:** Combines data from Redshift with external databases like S3, RDS (PostgreSQL, MySQL), and Aurora.
-   - **Capabilities:** Perform complex joins and quick transformations without needing an ETL pipeline.
+- **Requirements:**
+  - Requires a **Redshift cluster** for interface.
+  - Cluster and S3 bucket must be in the **same region**.
+  - **Multiple Redshift clusters can query** the same S3 data **concurrently**.
 
-**Views and Materialized Views:**
+- **Data Handling:**
+  - **External read-only tables** are created in Redshift to reference S3 data.
+  - Supports `SELECT` and `INSERT`; **does not** support `UPDATE` or `DELETE`.
+  - Uses external tables to **specify data format, location,** and **structure**.
 
+- **Data Store Integration:**
+  - To ingest data in **External Tables** you can use
+    - AWS Glue Data Catalog
+    - Amazon Athena
+    - EMR cluster with an Apache Hive meta-store
 
-1. **Regular Views:**
-   - **Definition:** Virtual tables created from saved queries that retrieve data from underlying tables.
-   - **Behaviors:** Data is fetched each time the view is queried, similar to a social media feed that updates with the latest data.
+### Federated Query
 
-2. **Materialized Views:**
-   - **Definition:** Physical snapshots of query results stored in the view itself.
-   - **Behaviors:** Queries retrieve data from the stored snapshot rather than executing the query each time.
-   - **Use Case:** Suitable for predictable and recurring queries, such as end-of-quarter reports.
-   - **Creation Example:**
+- Query **data across various databases, warehouses**, and **data lakes**.
+- Combines data from Redshift with external databases like S3, RDS (PostgreSQL, MySQL), and Aurora.
+- **Perform complex joins** and quick transformations **without needing an ETL** pipeline.
 
-     ```sql
-     CREATE MATERIALIZED VIEW view_name AS
-     SELECT columns
-     FROM employee_table
-     JOIN department_table;
-     ```
+### Views and Materialized Views
 
-   - **Refreshing Views:**
-     - **Auto Refresh:** Enabled to update the view when the source data changes.
-     - **Manual Refresh:** Use the command:
+**Regular Views:**
 
-       ```sql
-       REFRESH MATERIALIZED VIEW view_name;
-       ```
+- **Virtual tables** created from saved queries that retrieve data from underlying tables.
+- Data is fetched each time the view is queried, similar to a social media feed that updates with the latest data.
+
+**Materialized Views:**
+
+- Physical snapshots of query results stored in the view itself.
+- Queries retrieve data from the stored snapshot rather than executing the query each time.
+- **Use Case:** Suitable for predictable and recurring queries, such as end-of-quarter reports.
+- **Creation Example:**
+
+```sql
+CREATE MATERIALIZED VIEW view_name AS
+SELECT columns
+FROM employee_table
+JOIN department_table;
+```
+
+- **Refreshing Views:**
+- **Auto Refresh:** Enabled to update the view when the source data changes.
+- **Manual Refresh:** Use the command:
+
+```sql
+REFRESH MATERIALIZED VIEW view_name;
+```
 
 
 ## 3.9 Migrating Data
 
-### Data Migration and Transfer - Study Notes
 
 **Migration vs. Transfer:**
 
