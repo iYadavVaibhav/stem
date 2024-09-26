@@ -13,6 +13,7 @@ _all about ETL pipelines scheduling_
     - [Strategy Pattern](#strategy-pattern)
     - [Singleton, \& Object pool patterns](#singleton--object-pool-patterns)
     - [Python Helpers](#python-helpers)
+      - [DataClass](#dataclass)
     - [Python Best Practice](#python-best-practice)
   - [ETL Pipeline](#etl-pipeline)
   - [Links](#links)
@@ -251,7 +252,7 @@ It is a python lib that helps **validate python type checks**. It is additional 
 python -m mypy --no-implicit-reexport --ignore-missing-imports --no-namespace-packages ./
 ```
 
-**`Dataclass`**
+#### DataClass
 
 It helps store data as **object** of Dataclass. Instead of dictionary you can use class-object notation for handling data.
 
@@ -263,9 +264,47 @@ class PostData:
     title: str
     body: int
     author: str
-  ```
+```
 
 This will make this usable in class-object notation.
+
+**Using Data Class with JSON, like working with an API**
+
+Suppose you have JSON data coming from API and you want to load it into a class.
+
+```py
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
+@dataclass_json
+@dataclass
+class Person:
+    is_active: int = 0          # data type
+    title_code: str = 'Mr'      # default value
+    first_name: str = ''
+    middle_name: str = ''
+
+    # define functions like this
+    def get_name(self):
+        name = self.first_name + ' ' + self.last_name
+        return name
+```
+
+To build the objects
+
+```py
+# build obj from json
+person_items = None
+if res_json is not None:
+    person_items = []
+    for item in res_json['items']:
+        person = Person.from_dict(item)
+        person_items.append(person)
+```
+
+Here, you can also use `Person.from_json(item)` if `item` is JSON String.
+
+Link <https://realpython.com/python-data-classes/#default-values>
 
 **Context Managers**
 

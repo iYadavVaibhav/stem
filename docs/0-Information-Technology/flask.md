@@ -2372,6 +2372,47 @@ To run this CLI command do following and it will run all the rest cases.
 flask --app flasky.py test
 ```
 
+## Jupyter Notebook with Flask
+
+You can use Jupyter notebook with your flask app for **rapid** development and testing. Benefits:
+
+- use your flask modules in notebook like models, db-connections etc.
+- quickly develop the logic required in model / service layer.
+
+**Ensure correct path**
+
+```py
+import os
+
+# make cwd same as where app is
+os.chdir(os.path.join(os.getcwd(),'..'))
+```
+
+Lets say you are in `./dev/my.ipynb` and your flask app is in `./app/__init__.py`, then your notebook execution should be in `.` that is folder that has `app` so that notebook can import the `app` as a module.
+
+**Import app and build context:**
+
+```py
+from app import create_app
+
+app = create_app()
+app_context = app.app_context()
+app_context.push()
+```
+
+**Import Flask App modules you want to work on**
+
+```py
+import json
+import pandas as pd
+
+import app.config as config
+from app.bp.user.model import Users
+from app.utils.db_conn import get_sqlite_db, get_postgres_db
+
+from app.bp.postapi.services import get_posts, set_posts
+```
+
 
 ## Security Flaws Checks
 
@@ -2612,6 +2653,20 @@ Data of a task can be, JSON blob, as:
 
 - This API can be consumed by client side app which can be single page HTML.
 - Note, JSON object is defined in python as dict, `jonify` converts and send as JSON Object.
+
+### API Architecture
+
+API can have following modules:
+
+- `views.py` - handle requests and call requried service, validates request params
+- `service.py` - takes request param, calls database model, to do db crud and data processing, business logic implementation
+- `model.py` - data orm and data structures
+- `utils/api.py` - handles api key management
+- `utils/db.py` - handles DB connections
+- JSON in and JSON out.
+
+Use `DataClasses` for API data structure and JSON conversions.
+
 
 ## JWT Authentication in Flask
 

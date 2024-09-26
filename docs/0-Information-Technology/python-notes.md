@@ -1176,6 +1176,66 @@ EdX
 
 You can make the package installable in an environment so that it can used in any program by simply importing like other packages.
 
+### Using SetupTools
+
+- Install setup tools in venv, `python -m pip install --upgrade setuptools`
+
+- Ensure DIR structure as
+
+  ```sh
+  .
+  ├── Dockerfile
+  ├── Makefile
+  ├── app
+  │   ├── __init__.py         # flask app
+  │   └── bp
+  ├── config.py
+  ├── docker-compose.yaml
+  ├── pyproject.toml
+  ├── readme.md
+  ├── requirements.txt
+  ├── tests
+  │   ├── __init__.py
+  │   └── test_some.py
+  └── venv
+      └── bin
+  ```
+
+- Create and write to pyproject.toml file
+
+  ```sh
+  [project]
+  name = "my-package"
+  version = "1.0.0"
+  description = "My Package for.. this"
+
+  dynamic = ["dependencies"]
+
+  [tool.setuptools.dynamic]
+  dependencies = {file = ["requirements.txt"]}
+
+  [build-system]
+  requires = ["setuptools>=65.5.0"]
+  build-backend = "setuptools.build_meta"
+
+  [tool.setuptools.package-dir]
+  "" = "app"
+
+  [tool.setuptools.packages.find]
+  where = [
+      "app",
+  ]
+  ```
+
+- Install the new package in editable mode, `pip install -e .`
+
+Links:
+
+- [SetupTools - Quickstart](https://setuptools.pypa.io/en/latest/userguide/quickstart.html)
+- [Migule Example](https://github.com/miguelgrinberg/microdot/blob/main/pyproject.toml)
+
+### Using Flit_Core
+
 Folder Structure
 
 Inside a root folder like `vy_lib_package` you can have following structure

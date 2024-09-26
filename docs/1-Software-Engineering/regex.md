@@ -49,6 +49,19 @@ someString.replaceAll(new RegExp('[:,/,.]','g'),' ')
 someString.replace(/h1/,'h2')
 ```
 
+## Regex in Python
+
+```py
+import re
+
+text = 'aaa@xxx.com bbb@yyy.net ccc@zzz.org'
+
+# print(re.sub('pattern', 'replacement', text))
+print(re.sub('[a-z]+@', 'ABC@', s))
+
+# ABC@xxx.com ABC@yyy.net ABC@zzz.org
+```
+
 ## Snippets
 
 - multiline with one line `\s\n+` `\n`

@@ -231,7 +231,7 @@ finally:
 
 ```sh
 brew install freetds
-python -m pip install pymssql
+pip install pymssql --no-binary=pymssql
 ```
 
 ```py

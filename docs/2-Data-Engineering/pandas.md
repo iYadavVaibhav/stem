@@ -71,7 +71,7 @@ df_new = df[df.col_name != value]
 df.drop( df[df['value']==0].index, inplace=True)
 ```
 
-## Modify Data - Updates / Inserts
+## Updates / Inserts
 
 - the way you select cell/column, there you can assign value to make updates or inserts
 
@@ -117,14 +117,21 @@ Here, new dataframe can have one or more dict as list. More on [insert to pd -st
  df = df.sort_index()  # sorting by index
 ```
 
-## Change Data Type
+## Data Type Change
+
+To avoid errors in converting float IDs to String and handle NULLs, Do
+
+```py
+df.cust_id.fill_na('')
+df.cust_id = df.cust_id.apply(lambda x: str(x).replace('.0', ''))
+```
 
 ```py
 # this will change datatype but will keep decimal, 11.0 to '11.0'
 df['emp_id'] = df['emp_id'].astype(str)
 
 # this will convert 1.04 to 1
-df.customer_identifier = df.customer_identifier.apply(lambda x : str(int(x)) )
+df.cust_id = df.cust_id.apply(lambda x : str(int(x)) )
 
 # to check
 df.dtypes
@@ -132,7 +139,7 @@ df.dtypes
 
 More on [Stackoverflow](https://stackoverflow.com/a/75505969/1055028)
 
-## Summarize / Aggregate / Group Data
+## Group / Summarize / Aggregate
 
 - `df.product.nunique()` - unique products in dataframe. [pandas.Series.nunique](https://pandas.pydata.org/docs/reference/api/pandas.Series.nunique.html)
 - `df.product.value_counts()` - unique products and count of records for each. [pandas.Series.value_counts](https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html)
@@ -140,7 +147,6 @@ More on [Stackoverflow](https://stackoverflow.com/a/75505969/1055028)
 **Group Data**
 
 - aggregation functions - mean, sum, count, size, max, min, first, last. alos, `agg`
-- sorting - `.sort_values(by='count',ascending=False).head(20)`
 
 ```py
 # Groupby multiple columns & multiple aggregations
@@ -174,6 +180,17 @@ df_columns.mean()
 ```
 
 - More on [Pandas Pydata Aggregate](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.aggregate.html)
+
+## Sort Data
+
+```py
+# Sort Descending
+df.sort_values(by='count',ascending=False)
+
+# Sort by custom order
+source_sort_order = {'External': 1, 'Third Party': 2, 'Internal': 3}
+df_m.sort_values(by=['source'], key=lambda x: x.map(source_sort_order), inplace=True)
+```
 
 ## Create New Columns or Calculated Fields
 
@@ -277,29 +294,46 @@ def readable_column_names(df):
 
     return df
 
+
 def system_column_names(df):
+    """Converts column names to snake_case
+
+    Args:
+        df (dataframe): dataframe
+
+    Returns:
+        dataframe: updated columnname dataframe
+    """
     col_list = []     # holds names to check duplicates
     renamer = dict()  # holds col name and its number of duplicates
     for col in df.columns:
 
-        new_col_name = col
+        new_col_name = col.strip()
 
         # Camel case to space
         new_col_name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', new_col_name).lower()
 
-        new_col_name = new_col_name.lower().replace(' ', '_').replace('-', '_').replace('[', '_').replace(']', '_')
+        # convert multi space to single space
+        new_col_name = re.sub('([\s]{2,})', r' ', new_col_name)
+
+        new_col_name = new_col_name.lower().replace(' ', '_').replace('-', '_')
+
+        # multi _ to single _
+        new_col_name = re.sub('([_]{2,})', r'_', new_col_name)
+
 
         if new_col_name in col_list:
-            #rename
-            index = int(renamer.get(new_col_name,0) )
+            # rename
+            index = int(renamer.get(new_col_name, 0))
             renamer[new_col_name] = index + 1
-            new_col_name += '_'+ str(index + 1)
+            new_col_name += '_' + str(index + 1)
             pass
         else:
             col_list.append(new_col_name)
         # print(f'col: {col}, new: {new_col_name}')
-        df.rename(columns = {col: new_col_name}, inplace=True)
+        df.rename(columns={col: new_col_name}, inplace=True)
     return df
+
 ```
 
 ## Plot in Pandas

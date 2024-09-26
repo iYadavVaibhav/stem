@@ -104,6 +104,15 @@ Hide only on Small Devices `.d-none .d-sm-block`, [more](https://getbootstrap.co
 
 - [CM - BS5 Starter Template](https://github.com/CodeoMascot/frontends/blob/main/bs5-1.html)
 
+## Primer Design System - GitHub UI
+
+Primer is a set of guidelines, principles, and patterns for designing and building UI at GitHub.
+
+
+**Link:**
+
+- [Primer Design System](https://primer.style/)
+
 ## Branding
 
 Color of brand defines it and grabs attention of user. It is important to have a color palette for your brand.
