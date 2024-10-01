@@ -2658,7 +2658,7 @@ Data of a task can be, JSON blob, as:
 
 API can have following modules:
 
-- `views.py` - handle requests and call requried service, validates request params
+- `views.py` - handle requests and call required service, validates request params
 - `service.py` - takes request param, calls database model, to do db crud and data processing, business logic implementation
 - `model.py` - data orm and data structures
 - `utils/api.py` - handles api key management

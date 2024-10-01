@@ -1,121 +1,194 @@
 # U4 Data Security and Governance
 
-## 1.0 Introduction
-
-## 1.1 Introduction
-
-
-
 ## 2.0 Limiting Access to Data
-
 
 ## 2.1 IAM Foundations
 
-### Study Notes: Data Security and Governance for AWS Data Engineer Associate Certification
+**Identity and Access Management (IAM)**
 
-**Overview**
+- Core service for **managing access** to AWS resources. **Limiting access** based on user roles and needs.
 
-- **Course Focus**: Data security and governance in AWS.
-- **Example**: RDS (Relational Database Service), but principles apply to all AWS data services.
+- **Terms**
+  - **Principals**: Resources, applications, or users accessing AWS services. Entities requesting access to data.
+  - **IAM Users**: Directly map permissions to individual users.
+  - **IAM Groups**: Assign permissions to groups of users for easier management.
+  - **IAM Policies**:
+    - JSON format document.
+    - They are crucial for managing access
+    - Eg, Policy allows actions like putting, getting objects, or retrieving object versions from a bucket.
 
-**Key Concepts**
+- **Permissions**: Granted through IAM policies.
 
+- **Policy Types**:
+  - **Identity-Based Policy**: Attached to the principal (e.g., IAM user or role).
+  - **Resource-Based Policy**: Attached to the resource.
 
-1. **Access to Data**
-   - **Principals**: Entities requesting access to data (e.g., AWS services, applications, human users).
-   - **Access Control**: Limiting access based on user roles and needs.
-
-2. **Identity and Access Management (IAM)**
-   - **Definition**: Core service for managing access to AWS resources.
-   - **Principals**: Resources, applications, or users accessing AWS services.
-   - **Permissions**: Granted through IAM policies.
-   - **Policy Types**:
-     - **Identity-Based Policy**: Attached to the principal (e.g., IAM user or role).
-     - **Resource-Based Policy**: Attached to the resource.
-   - **Access Evaluation**:
-     1. Check for deny rules in any policy.
-     2. If no deny rule, check for allow rules.
+- **Access Evaluation**:
+     1. Check for **deny rules** in any policy.
+     2. If no deny rule, check for **allow rules**.
      3. Access granted if at least one policy allows it.
 
-3. **IAM Policies**
-   - **Format**: JSON
-   - **Example**: Policy allowing actions like putting, getting objects, or retrieving object versions from a bucket.
+**Programmatic Access Risks**
 
-4. **IAM Users and Groups**
-   - **IAM Users**: Directly map permissions to individual users.
-   - **IAM Groups**: Assign permissions to groups of users for easier management.
+- **Static Access Keys**: Risk of **keys being leaked** or compromised ⚠️.
+- **Solution**: Use IAM Identity Center to avoid long-lasting access keys.
 
-5. **Programmatic Access Risks**
-   - **Static Access Keys**: Risk of keys being leaked or compromised.
-   - **Solution**: Use IAM Identity Center to avoid long-lasting access keys.
+**IAM Identity Center**
 
-6. **IAM Identity Center**
-   - **Function**: Maps permission sets to IAM Roles.
-   - **Single Sign-On**: Provides temporary access keys for the duration of a session.
-   - **Benefits**: Simplifies management and reduces security risks.
+- offers a more secure alternative to static access keys.
+- Maps **permission sets to IAM Roles** not to users. Users get temporary sso login.
+- **Single Sign-On**: Provides temporary access keys for the duration of a session.
+- **Benefits**: Simplifies management and reduces security risks.
 
-7. **IAM Roles**
-   - **Usage**: For temporary access to AWS resources by AWS services, applications, or users through IAM Identity Center.
+**IAM Roles**
 
-**Summary**
-
-- **IAM Policies** are crucial for managing access.
-- **IAM Users and Groups** help manage permissions efficiently.
-- **IAM Identity Center** offers a more secure alternative to static access keys.
-- **IAM Roles** facilitate temporary access for AWS services and users.
-
----
-
-**Next Steps**: Continue exploring data security and governance in AWS in the upcoming lessons.
+- Facilitate **temporary access** for AWS services and users.
+- **Usage**: For temporary access to AWS resources by AWS services, applications, or users through IAM Identity Center.
 
 
 ## 2.2 Accessing Private Data Stores
 
-### Study Notes: Networking Scenarios for AWS Data Engineer Associate Certification
-
-**Overview**
-
-- **Focus**: Networking scenarios for granting access to private resources in AWS.
-
-**Key Concepts**
+_Networking Scenarios for granting access to private resources in AWS._
 
 
-1. **Network Connectivity for Private Resources**
-   - **Private Database (e.g., RDS)**: Hosted in private subnets.
-   - **Private Compute Services (e.g., EC2)**: Also in private subnets.
-   - **AWS Lambda**: Need to grant access to private resources.
+```mermaid
+flowchart LR
 
-2. **Connecting EC2 Instances to Private RDS**
-   - **Private Resources**: No public route through an internet gateway.
-   - **Security Groups**: Applied at the instance level. Stateful, with only allow rules.
-   - **Network Access Control Lists (NACLs)**: Applied at the subnet level. Stateless, with allow and deny rules.
+a1[IAM Users]
+a2[AWS Lambda]
+a3[Application]
 
-   **Differences between Security Groups and NACLs**:
-   - **Security Groups**:
-     - Applied to instances.
-     - Stateful (response traffic allowed if initiated).
-     - Rules are all allowed (implicit deny).
-   - **NACLs**:
-     - Applied to subnets.
-     - Stateless (return traffic needs explicit allowance).
-     - Rules evaluated in order (numbered).
+subgraph s2[Security Layers]
+   direction TB
+   b1[IAM]
+   b2[Network]
+   b3[Authentication]
+   b4[Encryption]
+end
 
-3. **Troubleshooting Connectivity Issues**
-   - **Check Routes**: Ensure proper routing from EC2 to RDS.
-   - **NACL Rules**: Verify if NACL is blocking traffic.
-   - **Security Group Rules**: Ensure inbound and outbound rules are correct for the instance and database.
+b1 --> b2 --> b3 --> b4
 
-4. **Accessing S3 from a Private Subnet**
-   - **Gateway Endpoints**: Private endpoints for S3 or DynamoDB, keeping traffic within AWS and avoiding public internet.
-   - **Benefits**: Secure and cost-effective.
+subgraph s3[AWS Resource]
+   direction TB
+   c1[Row Level Security]
+   c2[Resource]
+   c3[Monitoring & Logging]
+end
 
-5. **Lambda Functions and Private Resources**
-   - **Default Configuration**: Lambda functions do not access private VPCs by default.
-   - **Configuration**: Provision Lambda functions with VPC access.
-   - **Elastic Network Interface**: Allows Lambda functions to route requests to private resources.
+c1 --> c2 --> c3
+a1 --> s2
+a2 --> s2
+a3 --> s2
 
-6. **Lambda Functions Accessing S3 Buckets**
-   - **IAM Permissions**: Ensure Lambda functions have appropriate IAM permissions (identity-based or resource-based policy) to access S3 buckets.
+s2 --> s3
+s2 --> s3
+s2 --> s3
+```
+
+In the above diagram, consider you have setup level 1, that is proper IAM policies to connect. Then you need second thing setup, that is, proper network connection.
+
+```mermaid
+architecture-beta
+    group vpc(cloud)[VPC]
+    group psn1(cloud)[Private Subnet] in vpc
+    group psn2(cloud)[Private Subnet] in vpc
+
+    service db(database)[Database] in psn1
+    service server(server)[EC2] in psn2
+
+    service lambda(server)[Lambda]
+    service s3(server)[S3]
+
+    db:B <-- T:lambda
+    lambda:R --> L:s3
+    server:B --> T:s3
+    server:L --> R:db
+
+```
+
+Here, understand that S3 and Lambda are public services. They are not part of your private subnet. S3 is not in private subnet. Lambda has no fix VPC, rather it runs on AWS managed VPC. Hence they have access to public internet and same time do not have access to private subnet. While, EC2 and RDS are on your private network and are disconnected from public internet. You do need IAM permission but on top of that you also need proper network setup to allow the connections to correctly connect:
+
+- S3 to private EC2
+- Lambda to private RDS
+- Lambda to S3
+- from EC2 in one private Subnet to RDS in another private subnet.
+
+**Network Connectivity for Private Resources**
+
+- Private resources need to talk to each other without using public internet.
+- For this you need to configure the network security.
+- You can use Security groups and NACL to define this connectivity. Or more importantly to troubleshoot it if connection fails.
+
+- Examples of internal resources that need connectivity:
+  - **Private Database (e.g., RDS)**: Hosted in private subnets.
+  - **Private Compute Services (e.g., EC2)**: Also in private subnets.
+  - **AWS Lambda**: Need to grant access to private resources.
+
+- Inbound rule and outbound rule for a security group define
+  - what port is allowed
+  - what protocol is allowed
+  - What IP address / range is it allowed on
+  - eg,
+    - `198.51.100.0/24 TCP 22` allows SSH from internal range of IP
+    - `0.0.0.0 all all` will allow all connection from all IP (internet)
+    - `HTTP TCP 80 0.0.0.0/0 DENY` will deny any traffic on port 80 with protocol TCP.
+
+- **Security Groups**:
+  - Applied at the **instance level**. Just like firewall for the instance itself.
+  - Stateful, for allowed inbound traffic, the response is also allowed.
+  - Only define allow rules. What not allowed is denied by default.
+  - Order of rules don't matter. they are all applied at once.
+
+- **Network Access Control Lists (NACLs)**:
+  - Applied at the **subnet level**.
+  - **Stateless**, inbound traffic and outbound need explicit permission.
+  - Can define allow rules and deny rules.
+  - Rules are applied in order
+
+**Connecting Private EC2 Instances to Private RDS**
+
+- **Private Resources**: No public route through an internet gateway.
+- Steps to check:
+  1. Ensure that **route table** is properly routing traffic within your VPC.
+  2. Ensure database traffic is **allowed at NACL** level within your VPC.
+  3. Ensure there is **inbound** rule on database-security-group that allows request traffic from instance-security-group.
+  4. Ensure there is **Outbound** rule on instance-security-group that allows request traffic to database-security-group.
+
+**Connecting Private EC2 to S3**
+
+- EC2 is on private subnet and S3 are by default on your VPC.
+- EC2 to S3 via internet is slow, expensive and insecure.
+- You can connect internally by making, **Gateway Endpoints**.
+- **Gateway Endpoints** are **private end points** for S3 or DynamoDB that **permit private traffic** within the **same region**. It keeps traffic within AWS and avoiding public internet.
+
+**Connecting Lambda to Private RDS**
+
+- Lambda is not on fixed VPC. If not on your VPC it cannot connect to your Private RDS.
+- While configuring Lambda, you can set them to have access to one of your private VPC.
+  - Lambda still resided in AWS Managed Subnet.
+  - But will be given an **Elastic Subnet** that will allow network to your private subnet.
+- **Elastic Network Interface**: Allows Lambda functions to route requests to private resources.
+
+**Connecting Lambda to S3**
+
+- **IAM Permissions**: Ensure Lambda functions have appropriate IAM permissions (identity-based or resource-based policy) to access S3 buckets. Rest all is managed by AWS.
+
+**Differences between Security Groups and NACLs**:
+
+|         | Security Group              | NACL                                |
+| ------- | --------------------------- | ----------------------------------- |
+| Applied | Instance                    | Subnet                              |
+| State   | Stateful                    | Stateless                           |
+| Traffic | Both Side if one is allowed | Each side needs explicit permission |
+| Rules   | Only define whats allowed   | Can define allow and deny           |
+| Order   | Unordered, all at once      | Applied in order                    |
+
+
+**Troubleshooting Connectivity Issues**
+
+- **Check Routes**: Ensure proper routing from EC2 to RDS.
+- **NACL Rules**: Verify if NACL is blocking traffic.
+- **Security Group Rules**: Ensure inbound and outbound rules are correct for the instance and database.
 
 **Summary**
 
@@ -133,46 +206,53 @@ lab
 
 ## 2.4 Intro to Secrets Manager and Parameter Store
 
-### Study Notes: Authentication for AWS Data Engineer Associate Certification
+In the above diagram, consider you have setup level 1 and 2, that is proper IAM policies, and proper network setup. Then you need to setup third thing, that is, proper **Authentication**.
 
 **Overview**
 
-- **Focus**: Authentication methods for accessing AWS databases, specifically RDS.
+- Authentication methods for accessing AWS databases, specifically RDS.
 
 **Key Concepts**
 
+**Authentication Methods for RDS**
 
-1. **Authentication Methods for RDS**
-   - **IAM Authentication**: Available for MariaDB, MySQL, and PostgreSQL.
-     - **Limitations**: May not handle very high connection rates efficiently; could affect read/write performance.
-   - **Password Authentication**: Uses master username and password set during RDS database creation.
+1. **IAM Authentication**:
+   - Available for MariaDB, MySQL, and PostgreSQL.
+   - **Limitations**: May **not handle very high connection** rates efficiently
+   - Reduces read/write performance.
 
-2. **Secure Credential Management**
-   - **Storing Credentials**: Avoid hardcoding credentials in Lambda code or environment variables due to security risks.
+2. **Password Authentication**:
+   - Uses hardcoded master username and password set during RDS database creation.
+   - This is not secure as it may expose password as plain text.
+   - To overcome this, use **AWS Secrets Manager**
 
-3. **AWS Services for Secrets Management**
-   - **Parameter Store**:
-     - **Features**: Allows optional encryption of key-value parameters.
-     - **Management**: Requires manual updates to parameters.
-     - **Cost**: 10,000 parameters for free.
-   - **Secrets Manager**:
-     - **Features**: Always encrypted, with automatic secret rotation.
-     - **Cost**: $0.40 per secret per month.
-     - **Use Case**: Best for sensitive data requiring high security and rotation.
 
-4. **Choosing Between Parameter Store and Secrets Manager**
-   - **Parameter Store**: Suitable for centralized configuration and less sensitive information.
-   - **Secrets Manager**: Ideal for high-security secrets and automatic rotation.
+**AWS Services for Secrets Management**
 
-5. **Integration with RDS**
-   - **Secrets Manager**: Direct integration with RDS for automatic credential rotation.
+1. **Parameter Store**:
+   - **Allows optional encryption** of key-value parameters.
+   - **Programmatically access** key-value pairs
+   - Requires **manual updates** to parameters.
+   - **Cost**: 10,000 parameters for free.
+   - **Use case**: Suitable for centralized configuration and less sensitive information.
 
-6. **Accessing Secrets Programmatically**
-   - **Example**: Lambda function with IAM permissions to access Secrets Manager.
-     - **Process**:
-       1. Define secret's name and region.
-       2. Initialize session and client.
-       3. Retrieve secrets using `get_secret_value` function.
+2. **Secrets Manager**:
+   - Always encrypted, with automatic secret rotation.
+   - **Cost**: $0.40 per secret per month.
+   - **Use Case**: Best for sensitive data requiring high security and rotation. Ideal for high-security secrets and automatic rotation.
+   - **Exam Tip**: When security is top priority use secrets manager.
+
+**Integration with RDS**
+
+- **Secrets Manager**: Direct integration with RDS for automatic credential rotation.
+
+**Accessing Secrets Programmatically**
+
+- Make lambda function
+- Give it IAM access to secrets and secrets manager.
+- Define secret's name and region.
+- Initialize BOTO session and client.
+- Retrieve secrets using `get_secret_value` function.
 
 **Summary**
 
@@ -182,49 +262,54 @@ lab
   - **Secrets Manager**: For high-security credentials and automatic rotation.
 - **Integration**: Secrets Manager integrates with RDS for secure, managed credential handling.
 
-**Next Steps**: Continue with the next lesson for further topics in data security and authentication.
-
 ## 2.5 Using AWS Secrets Manager for Storing and Rotating Database Credentials
 
 lab
 
-
 ## 2.6 Securing Data Using Lake Formation
 
-### Study Notes: Securing Data with AWS Lake Formation
+IAM, Network, Authentication setup works for most use cases but may be **problematic when dealing with Data Lake**. For this AWS has created `AWS Lake Formation`. This manages the security using:
+
+- IAM
+- Row Level Security
+- Monitoring and Logging
+
+It does not use much use of Networking, Authentication, Encryption.
+
+Data Lake is usually made of following services:
+
+- S3 Buckets
+- Data Catalog (in Glue)
+- Data Analytics (in Athena)
+
+So now, each principal (user, service) need access to each of these resources. This will lead to create separate permission for each user for each resource, which becomes unmanageable. This is where "AWS Lake Formation" comes in. One permission can give access to all services in Lake.
 
 **Overview**
 
 - **Focus**: Using AWS Lake Formation for managing permissions and access in data lakes.
 
-**Key Concepts**
 
-
-1. **Data Lakes vs. Data Stores**
-   - **Data Stores**: Direct access to individual resources (e.g., RDS).
-   - **Data Lakes**: Aggregated data from multiple sources, requiring more complex permissions management.
-
-2. **AWS Lake Formation**
-   - **Purpose**: Simplifies the management of IAM permissions, granular permissions, and monitoring for data lakes.
+1. **AWS Lake Formation**
+   - Simplifies the management of IAM permissions, granular permissions, and monitoring for data lakes.
    - **Features**:
      - Centralizes access to all components of the data lake.
      - Applies permissions across services within the data lake, not just per service.
 
-3. **Permissions Management**
+2. **Permissions Management**
    - **IAM Permissions**: Define actions principals can take.
    - **Lake Formation Permissions**: Determine what data these actions apply to, using fine-grained permissions.
 
-4. **Fine-Grained Permissions**
+3. **Fine-Grained Permissions**
    - **RDBMS Syntax**: Used for restricting access at the database, table, or column level.
    - **Example**:
      - **Data Analyst**: Grants access to specific tables (e.g., Food Item Sales) using IAM and Lake Formation permissions.
      - **Data Lake Administrator**: Has broader access to manage and grant permissions to other users.
 
-5. **Cross-Account Access**
+4. **Cross-Account Access**
    - **Functionality**: Allows granting permissions to principals in different AWS accounts.
    - **Use Case**: Centralized data lake accessed by multiple accounts within an organization.
 
-6. **Event Logging**
+5. **Event Logging**
    - **CloudTrail Integration**: Tracks API actions within the data lake.
    - **Lake Formation**: Simplifies monitoring and auditing of data actions and permission changes.
 
@@ -235,89 +320,78 @@ lab
 - **Fine-Grained Permissions** are managed using RDBMS syntax.
 - **Cross-Account Access** and **Event Logging** enhance flexibility and security.
 
-**Next Steps**: Continue with the next lesson for further insights into data security and management.
-
 ## 2.7 Using Lake Formation Granular Permissions
 
-### Study Notes: Fine-Grained Permissions with AWS Lake Formation
+_Achieving super fine-grained permissions using Lake Formation_
 
-**Overview**
+**Key Terms**
 
-- **Focus**: Achieving super fine-grained permissions using Lake Formation.
+- **Data Catalog**
+  - **Centralizes data from multiple sources**.
+  - Organized into **databases and tables** accessible by analytic services and transformations.
 
-**Key Concepts**
+- **Fine-Grained Access Control**
+  - Provide tailored **access to specific tables and data** within the catalog.
 
+**Types of Filters**
 
-1. **Data Catalog**
-   - **Purpose**: Centralizes data from multiple sources.
-   - **Components**: Organized into databases and tables accessible by analytic services and transformations.
+- **Column Masking Filter**:
+  - **Hides** specific **columns** from certain users.
+  - Eg, Mask the `shipping address` column in an item orders table.
 
-2. **Fine-Grained Access Control**
-   - **Objective**: Provide tailored access to specific tables and data within the catalog.
+- **Row Filter Expression**:
+  - **Restricts** access to **rows** based on criteria.
+  - Eg, Allow an analyst to access only orders from the U.S. by filtering rows where the `country` column equals "U.S."
 
-3. **Types of Filters**
-   - **Column Masking Filter**:
-     - **Function**: Hides specific columns from certain users.
-     - **Example**: Mask the `shipping address` column in an item orders table.
-   - **Row Filter Expression**:
-     - **Function**: Restricts access to rows based on criteria.
-     - **Example**: Allow an analyst to access only orders from the U.S. by filtering rows where the `country` column equals "U.S."
-   - **Cell Level Security**:
-     - **Function**: Apply filters to individual cells within a table to achieve more granular control.
+- **Cell Level Security**:
+  - Apply filters to **individual cells** within a table to achieve more granular control.
 
-4. **Application of Filters**
-   - **Level**: Applied at the table level.
-   - **Usage**: Filters can be combined and applied when granting access to users or groups.
-   - **Examples**:
-     - **U.S. Sales Filter**: Grants access to an analyst focusing on U.S. sales data.
-     - **Canada Filter**: Grants access to an analyst focusing on Canadian orders.
+**Application of Filters**
 
-5. **Granting Permissions**
-   - **Users**: Permissions can be granted to individual users or groups with specific filters applied.
+- Filters can be **combined and applied** at the **table level** when granting access to users or groups.
+- **Permissions** can be granted to **individual users** or **groups** with specific filters applied.
+- Examples:
+  - **U.S. Sales Filter**: Grants access to an analyst focusing on U.S. sales data.
+  - **Canada Filter**: Grants access to an analyst focusing on Canadian orders.
 
 **Summary**
 
 - **Lake Formation** allows for detailed permissions management using data catalogs and filters.
 - **Filters** provide granular access control at the table level, including column masking, row filtering, and cell level security.
 - **Permission Granting**: Filters can be customized and combined to fit specific user needs.
+- **Hence**, using filter you can restrict access to table, column, row, or cell for user / group by making use of data catalog and filter.
 
-**Next Steps**: Review additional topics on data lake management and permissions.
+
 
 ## 3.0 Ensuring Data Encryption and Masking
 
-
 ## 3.1 Protecting PII and Masking Columns
 
-### Study Notes: Data Encryption and Masking
+_Protecting Personally Identifiable Information (PII) and masking data in AWS services, specifically S3 and Redshift_
 
-**Overview**
+**S3 Data Masking (Data Lake)**
 
-- **Instructor**: David Blocker
-- **Focus**: Protecting Personally Identifiable Information (PII) and masking data in AWS services, specifically S3 and Redshift.
+- Protecting PII across multiple S3 buckets and accounts using Amazon Macie.
+- **Amazon Macie**:
+  - Scans S3 buckets for PII and provides alerts or automated actions.
+  - Can be set up at the organizational level to cover all S3 buckets in the organization.
 
-**Key Concepts**
+**Amazon Redshift Data Masking**
 
+- Protecting PII in data warehouses from exposure to analysts and data engineers.
+- It can be done in three ways:
 
-1. **Amazon S3 and PII Protection**
-   - **Scope**: Protecting PII across multiple S3 buckets and accounts.
-   - **Amazon Macie**:
-     - **Purpose**: Scans S3 buckets for PII and provides alerts or automated actions.
-     - **Configuration**: Can be set up at the organizational level to cover all S3 buckets in the organization.
+  1. **Column-Level Masking**:
+     - Mask columns by **adjusting grants** for `SELECT` and `UPDATE` privileges. That is, you can grant access to only select/update only certain column in a table.
+     - Masking can be applied to **individual columns within tables**.
 
-2. **Amazon Redshift and Data Masking**
-   - **Purpose**: Protecting PII in data warehouses from exposure to analysts and data engineers.
-
-   - **Column-Level Masking**:
-     - **Method**: Mask columns by adjusting grants for `SELECT` and `UPDATE` privileges.
-     - **Granularity**: Masking can be applied to individual columns within tables.
-
-   - **Row-Level Security (RLS) Policies**:
-     - **Purpose**: Limits access to specific rows based on user or role.
-     - **Application**: Create and apply RLS policies to control row access.
+  2. **Row-Level Security (RLS) Policies**:
+     - Limits **access to specific rows** based on user or role.
+     - Create and apply RLS policies to control row access.
      - **Example**: A policy to restrict access to rows based on user roles.
 
-   - **Dynamic Data Masking**:
-     - **Purpose**: Masks part or all of a column's data at query time.
+  3. **Dynamic Data Masking**:
+     - Masks part or all of a column's data **at query time**.
      - **Benefit**: Does not consume extra space or impact queries that do not involve masked data.
      - **Example**: Masking a credit card number to show only the last four digits.
 
@@ -329,63 +403,62 @@ lab
   - **Row-Level Security**: Use RLS policies to restrict access to specific rows.
   - **Dynamic Data Masking**: Configure to mask data dynamically at query time based on user roles and permissions.
 
-**Next Steps**: Review additional concepts related to data encryption and explore more advanced use cases for data masking in AWS.
 
 ## 3.2 Data Encryption Options
 
-### Study Notes: Data Encryption and Masking
-
-**Overview**
-
-- **Instructor**: David Blocker
-- **Focus**: Encryption methods for protecting data at rest and in transit in AWS.
-
-**Key Concepts**
+_Encryption methods for protecting data at rest and in transit in AWS_
 
 
-1. **Types of Encryption**
-   - **Data at Rest**: Data stored in S3 buckets, EBS drives in EC2, or local storage on a device.
-   - **Data in Transit**: Data being transferred over networks, encrypted using TLS (Transport Layer Security), used in HTTPS.
+**Types of Encryption**
 
-2. **Encryption Methods**
-   - **Client-Side Encryption**:
-     - **Process**: Data is encrypted by the application before sending it to S3.
-     - **Responsibility**: The application manages the encryption key.
-     - **Benefit**: Data never leaves the application in an unencrypted state.
+1. **Data at Rest**: Data stored in S3 buckets, EBS drives in EC2, or local storage on a device.
+2. **Data in Transit**: Data being transferred over networks, encrypted using TLS (Transport Layer Security), used in HTTPS.
 
-   - **Server-Side Encryption**:
-     - **Process**: Data is sent to S3 in an unencrypted form and encrypted once it reaches S3.
-     - **Benefit**: Lower operational overhead as AWS manages encryption.
+**Encryption Methods**
 
-3. **Server-Side Encryption Options in S3**
-   - **S3-Managed Keys (SSE-S3)**:
-     - **Default**: Enabled by default for S3 buckets.
-     - **Encryption**: Uses 256-bit Advanced Encryption Standard (AES-256).
-     - **Implementation**: Each object is encrypted with a unique key.
+- **Client-Side Encryption**:
+  - Data is **encrypted by the application** before sending it to S3.
+  - The **application manages** the encryption key.
+  - Data never leaves the application in an unencrypted state.
 
-   - **AWS Key Management Service (KMS) Keys (SSE-KMS)**:
-     - **Control**: Provides more granular access control over key permissions.
-     - **Integration**: Key policies can be managed and tracked via CloudTrail.
-     - **Implementation**: Requires specifying KMS as the encryption type and providing the key ID.
+- **Server-Side Encryption**:
+  - Data is sent to S3 in an unencrypted form and **encrypted once it reaches S3**.
+  - **Lower operational overhead** as AWS manages encryption.
 
-   - **Customer-Provided Keys (SSE-C)**:
-     - **Control**: Full control over encryption keys, which can be managed on-premises or in other clouds.
-     - **Implementation**: Requires sending the encryption algorithm and Base64-encoded key with each request.
-     - **Risk**: Keys are compromised if sent over an unsecured network.
 
-4. **Encrypting Data in Amazon Redshift**
-   - **KMS Encryption**:
-     - **Options**: Use AWS-managed or customer-managed KMS keys.
-     - **Performance Impact**: Encryption affects database performance. Must be enabled upon launch or through migration.
-     - **Migration**: Possible downtime during migration to an encrypted cluster.
+**Server-Side Encryption Options in S3**
 
-5. **Encrypting Data in AWS Glue**
-   - **Data in Transit**: Ensure data is encrypted using TLS when transferred.
-   - **Data at Rest**:
-     - **Options**: Use KMS or S3-managed keys for encryption of data catalog and stored data.
+1. **S3-Managed Keys (SSE-S3)**:
+   - Enabled by **default** for S3 buckets.
+   - Uses 256-bit Advanced Encryption Standard (**AES-256**).
+   - Each object is encrypted with a unique key.
 
-6. **Access Permissions for Encrypted Data**
-   - **Requirements**: Users must have permissions not only to access the data but also to encrypt and decrypt it.
+2. **AWS Key Management Service (KMS) Keys (SSE-KMS)**:
+   - Provides **more granular** access control over key permissions.
+   - Key policies can be **managed and tracked via CloudTrail**.
+   - Requires specifying KMS as the encryption type and providing the key ID.
+
+3. **Customer-Provided Keys (SSE-C)**:
+   - **Full control** over encryption keys, which can be managed on-premises or in other clouds.
+   - Requires sending the encryption algorithm and Base64-encoded key with **each request**.
+   - **Risk**: Keys are **compromised** if sent over an unsecured network.
+
+
+**Encrypting Data in Amazon Redshift**
+
+- **KMS Encryption**:
+  - Use AWS-managed or customer-managed KMS keys.
+  - **Performance Impact**: Encryption affects database performance. Must be enabled upon launch or through migration.
+  - **Possible downtime** during migration to an encrypted cluster.
+
+**Encrypting Data in AWS Glue**
+
+- **Data in Transit**: Ensure data is encrypted using TLS when transferred.
+- **Data at Rest**: Use KMS or S3-managed keys for encryption of data catalog and stored data.
+
+**Access Permissions for Encrypted Data**
+
+- **Requirements**: Users must have permissions not only to access the data but also to encrypt and decrypt it.
 
 **Summary**
 
@@ -393,52 +466,43 @@ lab
 - **Redshift Encryption**: Use KMS for encryption; consider performance implications and manage encryption at database launch or migration.
 - **AWS Glue Encryption**: Secure data in transit with TLS and data at rest with KMS or S3-managed keys. Ensure users have appropriate encryption permissions.
 
-**Next Steps**: Review encryption policies, consider performance impacts of encryption, and explore more detailed encryption scenarios in AWS.
+
 
 ## 4.0 Data Privacy and Governance
 
+_cloudTrail and CloudWatch for Audit, Monitoring and Governance_
 
 ## 4.1 Preparing Logs for Audit: Tracking API Calls via CloudTrail
 
-### Study Notes: Data Privacy and Governance
+_Data privacy and governance, specifically tracking and auditing access with CloudTrail_
 
-**Overview**
+- **CloudTrail Overview**
+  - **Records API calls** made within your AWS account.
+  - Provides a **trail of all actions** taken, useful for auditing activities.
 
-- **Instructor**: David Blocker
-- **Focus**: Data privacy and governance, specifically tracking and auditing access with CloudTrail.
+- **Storing CloudTrail Logs**
+  1. **S3 Bucket**: Store logs in an S3 bucket and use tools like Amazon Athena to query and analyze logs.
+  2. **CloudTrail Lake**: A managed solution for storing, querying, and filtering CloudTrail logs by event types.
 
-**Key Concepts**
 
+- **Centralized Log Management**
+  - In an org, you can have multiple accounts generating logs, you need to analyze them all together, for this case you can create a separate account for centralized storing and analysing log trail.
+  - **Best Practice**: Use a centralized account to aggregate CloudTrail logs from multiple accounts.
+  - **Advantages**:
+    - Easier management of permissions and security.
+    - Simplifies access control and prevents accidental deletion or tampering.
+    - Enables cross-account log analysis.
 
-1. **CloudTrail Overview**
-   - **Function**: Records API calls made within your AWS account.
-   - **Purpose**: Provides a trail of all actions taken, useful for auditing activities.
-
-2. **Storing CloudTrail Logs**
-   - **Options**:
-     - **S3 Bucket**: Store logs in an S3 bucket and use tools like Amazon Athena to query and analyze logs.
-     - **CloudTrail Lake**: A managed solution for storing, querying, and filtering CloudTrail logs by event types.
-
-3. **Centralized Log Management**
-   - **Best Practice**: Use a centralized account to aggregate CloudTrail logs from multiple accounts.
-   - **Advantages**:
-     - Easier management of permissions and security.
-     - Simplifies access control and prevents accidental deletion or tampering.
-     - Enables cross-account log analysis.
-
-4. **Access Control for Centralized Logs**
-   - **Storage**: Logs are centrally stored in a dedicated account.
-   - **Security**: Restrict access to logs and ensure they are secure and tamper-proof.
-   - **Analytics**: Grant access to analytics services like Amazon Athena for querying centralized logs.
+- **Access Control for Centralized Logs**
+  - **Storage**: Logs are centrally stored in a **dedicated account**.
+  - **Security**: **Restrict access** to logs and ensure they are secure and tamper-proof.
+  - **Analytics**: Grant access to analytics services like **Amazon Athena** for querying centralized logs.
 
 **Summary**
 
 - **CloudTrail**: Essential for tracking API activity and auditing in AWS.
 - **Log Storage**: Use S3 for flexibility or CloudTrail Lake for a managed solution.
 - **Centralized Logging**: Recommended for managing logs from multiple accounts and simplifying access and security.
-
-**Next Steps**: Understand best practices for log management and explore tools for analysing and securing CloudTrail logs.
-
 
 
 ## 4.2 Using AWS Config and CloudTrail
@@ -447,48 +511,40 @@ Lab
 
 ## 4.3 CloudWatch Alarms and Logs
 
-### Study Notes: Monitoring and analysing Activity with CloudWatch
+_Using CloudWatch for monitoring resource performance and application logs_
 
-**Overview**
+- **CloudWatch Overview**
+  - **Monitors** resource **performance** and application logs.
+  - **Complementary to CloudTrail**: While CloudTrail tracks API activity, CloudWatch focuses on **performance metrics** and logs.
 
-- **Instructor**: David Blocker
-- **Focus**: Using CloudWatch for monitoring resource performance and application logs.
+- **Log Collection and Management**
+  - **Log Groups**: Collect CloudWatch logs into log groups.
+  - **Subscriptions**: Subscribe services to log events from specific log groups or across an entire account.
+  - **Streaming and Filtering**: Stream entire log groups or filter to capture specific event types.
 
-**Key Concepts**
+- **Metrics and Alarms**
+  - **Metric Filters**: Attach to log groups to define alarms based on metrics.
+  - **Alarms**: Triggered when metrics exceed defined thresholds for a certain period.
+  - **Notifications**: Use SNS notifications or automated actions in response to alarms (e.g., email alerts for DDL commands in Redshift).
 
+- **Real-Time Analysis**
+  - **Amazon OpenSearch**: Use for near real-time analysis of CloudWatch logs.
 
-1. **CloudWatch Overview**
-   - **Function**: Monitors resource performance and application logs.
-   - **Complementary to CloudTrail**: While CloudTrail tracks API activity, CloudWatch focuses on performance metrics and logs.
+- **CloudWatch vs. CloudTrail**
+  - **CloudTrail**: Records all API activity for auditing.
+  - **CloudWatch**: Monitors resource performance and captures application logs.
+  - **Use Cases**:
+    - **CloudTrail**: Tracking and auditing actions.
+    - **CloudWatch**: Resource monitoring and performance metrics.
 
-2. **Log Collection and Management**
-   - **Log Groups**: Collect CloudWatch logs into log groups.
-   - **Subscriptions**: Subscribe services to log events from specific log groups or across an entire account.
-   - **Streaming and Filtering**: Stream entire log groups or filter to capture specific event types.
+- **Log Storage and Cost Management**
+  - **Cost Considerations**: CloudWatch logs can become **expensive over time**.
+  - **Archiving**: **Backup** CloudWatch logs to **Amazon S3** for cost savings.
+  - **Analysis**: Analyze archived logs with **Amazon Athena**.
 
-3. **Metrics and Alarms**
-   - **Metric Filters**: Attach to log groups to define alarms based on metrics.
-   - **Alarms**: Triggered when metrics exceed defined thresholds for a certain period.
-   - **Notifications**: Use SNS notifications or automated actions in response to alarms (e.g., email alerts for DDL commands in Redshift).
-
-4. **Real-Time Analysis**
-   - **Amazon OpenSearch**: Use for near real-time analysis of CloudWatch logs.
-
-5. **CloudWatch vs. CloudTrail**
-   - **CloudTrail**: Records all API activity for auditing.
-   - **CloudWatch**: Monitors resource performance and captures application logs.
-   - **Use Cases**:
-     - **CloudTrail**: Tracking and auditing actions.
-     - **CloudWatch**: Resource monitoring and performance metrics.
-
-6. **Log Storage and Cost Management**
-   - **Cost Considerations**: CloudWatch logs can become expensive over time.
-   - **Archiving**: Backup CloudWatch logs to Amazon S3 for cost savings.
-   - **Analysis**: Analyze archived logs with Amazon Athena.
-
-7. **Log Retention**
-   - **Default Setting**: CloudWatch logs are stored indefinitely by default.
-   - **Recommendation**: Adjust log retention settings to avoid unnecessary storage costs.
+- **Log Retention**
+  - **Default Setting**: CloudWatch logs are stored indefinitely by default.
+  - **Recommendation**: Adjust log retention settings to avoid unnecessary storage costs.
 
 **Summary**
 
@@ -496,44 +552,37 @@ Lab
 - **Cost Management**: Backup logs to S3 to manage costs effectively.
 - **Retention Settings**: Adjust default log retention to control expenses.
 
-**Next Steps**: Understand how to set up and manage CloudWatch logs, metrics, and alarms, and learn cost-saving techniques for log storage.
-
 ## 4.4 Sharing Data Across Redshift Clusters
 
-### Study Notes: Sharing Data Across Redshift Clusters
-
-**Overview**
-
-- **Instructor**: David Blocker
-- **Focus**: Sharing data across Redshift clusters using datashares.
-
-**Key Concepts**
+_Sharing data across Redshift clusters using datashares_
 
 
-1. **Redshift Datashare**
-   - **Definition**: A datashare allows you to share Redshift data objects across clusters.
-   - **Components**: Can include databases, tables, user-defined functions, materialized views, or schemas.
+**Redshift Datashare**
 
-2. **Sharing Data**
-   - **Creation**: Define and create a datashare in the Redshift console.
-   - **Inclusion**: Add objects like schemas and tables to the datashare.
-   - **Granting Access**: Grant usage of the datashare to specific Redshift clusters.
-   - **Access Types**: Shared clusters will have read-only access to the datashare objects.
+- **Definition**: A datashare allows you to share Redshift data objects **across clusters**.
+- **Components**: Can include databases, tables, user-defined functions, materialized views, or schemas.
 
-3. **Sharing Capabilities**
-   - **Cluster Types**: Share across different types of Redshift clusters.
-   - **Availability Zones/Regions**: Share across different availability zones and AWS regions.
-   - **Accounts**: Share datashares across different AWS accounts.
+**Sharing Data**
 
-4. **Automatic Updates**
-   - **Live Data**: Datashares provide real-time access to live data from the source cluster. No need for manual refreshes to update data.
+- **Creation**: Define and **create a datashare** in the Redshift console.
+- **Inclusion**: Add objects like **schemas and tables** to the datashare.
+- **Granting Access**: Grant usage of the datashare to specific Redshift clusters.
+- **Access Types**: Shared clusters will have **read-only access** to the datashare objects.
+
+**Sharing Capabilities**
+
+- **Cluster Types**: Share across different types of Redshift clusters.
+- **Availability Zones/Regions**: Share **across** different availability **zones** and AWS **regions**.
+- **Accounts**: Share datashares **across** different AWS **accounts**.
+
+**Automatic Updates**
+
+- **Live Data**: Datashares provide **real-time access** to live data from the source cluster. **No need for manual refreshes** to update data.
 
 **Example Commands**
 
-- **Creating a Datashare**:
-  - Define and name the datashare.
-  - Add schemas and tables to the datashare.
-  - Grant usage of the datashare to the target Redshift cluster.
+
+
 
 **Summary**
 
@@ -541,16 +590,12 @@ Lab
 - **Access Control**: Grants read-only access to shared data.
 - **Real-Time Data**: Ensures up-to-date data access without manual refreshes.
 
-**Next Steps**: Learn the detailed commands and procedures for setting up and managing datashares in Redshift.
 
 ## 5.0 Conclusion
-
 
 ## 5.1 Summary
 
 ## 5.2 Data Security and Governance: Exam Tips
-
-### Study Notes: Data Engineer Associate Exam Review
 
 **Key Scenarios and Solutions**
 
