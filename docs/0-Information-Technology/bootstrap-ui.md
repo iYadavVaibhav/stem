@@ -138,16 +138,16 @@ Color and emotions
 Examples
 
 - Fed Ex - #fe5900 orange. #2b007c purple - [view](https://coolors.co/visualizer/fe5900-2b007c)
-- Paytm - Dark Blue #012A72, Light Blue #00B8F5 - [view](https://coolors.co/visualizer/012a72-00b8f5)
+- PayTm - Dark Blue #012A72, Light Blue #00B8F5 - [view](https://coolors.co/visualizer/012a72-00b8f5)
 
 Tried Pallets
 
 - bright orange #ff532f #ec3e02 - button, second #89190d
-- from https://coolors.co/visualizer/993b00-ff5833
+- from <https://coolors.co/visualizer/993b00-ff5833>
 - #FF5833, #993B00
-- https://mycolor.space/?hex=%23FF5833&sub=1
-- https://coolors.co/visualizer/ff5833-3a001e - Orange Brown
-- https://coolors.co/visualizer/23025f-ff5833 - Orange Purple
+- <https://mycolor.space/?hex=%23FF5833&sub=1>
+- <https://coolors.co/visualizer/ff5833-3a001e> - Orange Brown
+- <https://coolors.co/visualizer/23025f-ff5833> - Orange Purple
 - dark second, #660a00
 
 

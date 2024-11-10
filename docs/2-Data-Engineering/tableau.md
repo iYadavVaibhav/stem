@@ -9,7 +9,7 @@ Tableau is a data analysis and visualization tool.
 
 ## Date Calculations
 
-Here are some basic common calculations that helo in making **KPIs** and easy working with dates to find YOYs and MOMs
+Here are some basic common calculations that help in making **KPIs** and easy working with dates to find YOYs and MOMs
 
 - Month-Year to Business Date `DATEPARSE('yyyy-MM-dd',[Business Month]+'-01')`
 - Month-Year to Business Year - `Left([Business Month],4)`
@@ -61,7 +61,11 @@ THEN 'Last Year'
 END
 ```
 
-- CM `SUM(IIF([Monthly]=='Current Month',[Closed Customers],NULL))`
+- Current Month
+
+```js
+SUM(IIF([Monthly]=='Current Month',[Closed Customers],NULL))
+```
 
 - MOM
 
@@ -75,7 +79,7 @@ SUM(IIF ([Monthly] == 'Last Month',[Users],0))
 ```
 
 - MOM up `IF [Closed Customers MOM] > 0 THEN "▲" END`
-- MOM Donw `IF [Closed Customers MOM] <= 0 THEN "▼" END`
+- MOM Down `IF [Closed Customers MOM] <= 0 THEN "▼" END`
 
 - YOY
 
@@ -85,8 +89,13 @@ SUM(IIF ([Monthly] == 'Last Month',[Users],0))
 SUM(IIF ([Yearly] == 'Last Year',[Closed Customers],0))
 ```
 
+Above formulas are handy quickly build frequent calculations.
+
+
+## Formatting
+
 - YOY Up `IF [Closed Customers YOY] > 0 THEN "▲" END`
-- YOY Donw `IF [Closed Customers YOY] <= 0 THEN "▼" END`
+- YOY Down `IF [Closed Customers YOY] <= 0 THEN "▼" END`
 - YTD `SUM(IIF([Yearly] == 'Current Year',[Closed Customers],0))`
 
 **KPI Format Percentages**
@@ -96,7 +105,7 @@ SUM(IIF ([Yearly] == 'Last Year',[Closed Customers],0))
 - 🡄 🡆 🡅 🡇 `0%  🡅; -0% 🡇; 0%⠀⠀;`
 - more arrows - <http://xahlee.info/comp/unicode_arrows.html>
 
-TUG Austia - <https://github.com/tableau/community-tableau-server-insights> - readymade events
+TUG Austia - <https://github.com/tableau/community-tableau-server-insights> - ready made events
 
 **KPI Format Numbers**
 
@@ -129,7 +138,7 @@ Number standardize between 0 and 1 per category for trend line colors
 ```
 
 
-## Tableau JS Embedd API
+## Tableau JS Embedded API
 
 - Everything starts by loading a `viz`, this can be a dashboard or a sheet. Viz gives you `workbook` and Async callback function.
 - `workbook` has `sheets`, but can have only one `activeSheet`, like active Tab. You can only do operations on activeSheet.
@@ -139,16 +148,16 @@ Number standardize between 0 and 1 per category for trend line colors
   - Change ActiveSheet - `activateSheetAsync("sheet_name")` this can be dashboard or sheet
   - Get Data - `getSummaryDataAsync(data_options)` - returns table object with data and columns
 
-Network calls are made when you call Async funcitons, else it is a JS execution only.
+Network calls are made when you call Async functions, else it is a JS execution only.
 
 Read Data:
 
 - create sheet with all columns added to row pill.
 - activate this sheet,
 - then do `getData`,
-- to skip chache, increment counter.
+- to skip cache, increment counter.
 
-Writeback:
+Write-back:
 
 - Add a proc as data source. Proc to have at least three inputs, Switch, Value and Counter.
 - Create these params in workbook
@@ -158,7 +167,7 @@ Writeback:
     - 2 - UPDATE
     - 3 - DELETE
   - `psv` - pipe separated values
-  - `counter` - increment it whenever you want tableu to skip cache and call database server.
+  - `counter` - increment it whenever you want Tableau to skip cache and call database server.
 - Create sheet `exec_proc`, whenever this sheet is activated, it will execute proc depending on the three params above.
 
 ```js

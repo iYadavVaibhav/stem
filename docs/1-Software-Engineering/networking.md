@@ -10,14 +10,21 @@ Modem connects to internet. Router connects devices to modem.
 ```mermaid
 graph LR;
 
-router[Router \n DHCP Server]
+router[Router
+DHCP Server]
 
-d1[Laptop \n Pvt IP: 192.168.1.10] <--> router
-d2[Mobile \n Pvt IP:  192.168.1.22] <--> router
-d3[TV \n Pvt IP:  192.168.1.14] <--> router
-<!-- d4[Tablet \n Pvt IP:  192.168.1.12] <--> router -->
+d1[Laptop
+Pvt IP: 192.168.1.10] <--> router
+d2[Mobile
+Pvt IP:  192.168.1.22] <--> router
+d3[TV
+Pvt IP:  192.168.1.14] <--> router
+d4[Tablet
+Pvt IP:  192.168.1.12] <--> router
 
-router <--> Modem[Modem \n Public IP \n 82.129.70.44]
+router <--> Modem[Modem
+Public IP
+82.129.70.44]
 
 Modem <--ISP--> Internet
 
