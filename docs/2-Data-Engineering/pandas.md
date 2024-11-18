@@ -176,10 +176,48 @@ df_group = df.groupby("Product_Category")
 df_columns = df_group[["UnitPrice(USD)","Quantity"]]
 #Apply aggregate function
 df_columns.mean()
+```
 
+**User defined function with aggregate**
+
+```py
+def my_email_merge(x):
+    ...
+
+df_grouped = df.groupby(grp_by_cols).aggregate(
+    email_id=('email_address', lambda x: my_email_merge(x)),
+)
+```
+
+In above, `my_email_merge()` is a user defined functions, it takes dataframe col `email_address` and does processing, result is stored in new column `email_id` in grouped dataFrame.
+
+
+**Group and Work on Grouped Data**
+
+```py
+grouped = df_m[:].groupby(cols_to_group, dropna=False)
+# dropna false will keep rows that have null value in cols_to_group
+
+def build_category(x):
+    # x is df in a group
+    ...
+
+df['category'] = grouped.apply(lambda x: build_category(x), include_groups=False).values
+
+
+# returning multiple values from UDF on Grouped Data
+res = grouped.apply(lambda x: build_category(x), include_groups=False).values
+df_g['category'] = [r[0] for r in res]
+df_g['data'] = [r[1] for r in res]
+
+
+# add more columns from grouped
+df_g['name'] = grouped['name'].first().values
+df_g['surname'] = grouped['surname'].first().values
 ```
 
 - More on [Pandas Pydata Aggregate](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.aggregate.html)
+- Examples from [PyData Pandas User Guide](https://pandas.pydata.org/docs/user_guide/groupby.html)
 
 ## Sort Data
 

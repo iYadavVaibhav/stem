@@ -112,9 +112,11 @@ Using above two, you can restrict access to resource as required at desired leve
 
 ## 1.2 Amazon S3 Features and Capabilities
 
-- S3 Versioning
+- **S3 Versioning**
   - new version is created each time object is updated or created.
-  - On delete, S3 keeps the object but adds a delete marker which tells that object is deleted.
+    - eg, if you update `index.html` it will have a new version.
+  - On delete, S3 keeps the object but adds a **delete marker** which tells that object is deleted.
+    - to restore deleted bucket, delete the 'deleted marker' version of the bucket, this will make original bucket as latest version which is without delete marker.
   - Within a bucket, you can configure to version at
     - Object Level - versions specific objects. Eg, version important files but not logs.
     - Bucket Level - if all objects are important.
@@ -122,19 +124,26 @@ Using above two, you can restrict access to resource as required at desired leve
   - It can't be disabled, only suspended.
   - On suspend, future modifications are not versioned but previous versions remain.
 
-- Replication
+- **Replication**
   - Replicate objects from one bucket to another.
+  - Replication works only if **versioning is enabled**.
+  - The **version number remains the same** in both replication. So versions are replicated.
+  - Replication needs proper **IAM permission in between buckets**, so source bucket needs permission to write to destination bucket.
+  - **Replication and Delete Marker**
+    - by **default** if delete markers are **not replicated**, that is, if you delete a file in source bucket is marked with delete marker, but in destination bucket, by default if is not marked as deleted.
+    - You can **enable delete marker replication** in settings, then delete marker version is replicated in destination bucket.
+
   - It can be done two ways
     - Cross-Region Replication (CRR)
     - Same-Region Replication (SRR)
 
-  - Cross-Region Replication (CRR)
+  - **Cross-Region Replication (CRR)**
     - us-east-2 to eu-west-1
     - helpful in disaster recovery
     - compliance and geo redundancy - some compliance may require you to store data in certain regions
     - reduce latency - you can reduce latency by bringing data close to user region.
 
-  - Same-Region Replication (SRR)
+  - **Same-Region Replication (SRR)**
     - us-east-1 to us-east-1
     - disaster recovery use case
     - testing - you can sync test and prod
@@ -145,7 +154,12 @@ Using above two, you can restrict access to resource as required at desired leve
   - Once on, old data is not replicated automatically, only newly added data will be. To replicate old data, use S3 Batch Replication.
   - Delete Markers are not replicated by default.
 
-- Notifications
+- **Replication Handson**
+  - you need to create two buckets, origin and destination
+  - you need to enable versioning on both.
+  - In settings, Management > 'create replication rules'
+
+- **S3 Notifications**
   - You can send notifications on specific events.
   - You can configure S3 to notify you when one of the following events takes place:
     - Creating new objects
@@ -179,9 +193,12 @@ Using above two, you can restrict access to resource as required at desired leve
   3. Infrequent, high latency, low throughput - means you rarely access, takes time to fetch, is slow to read. Used for archival data.
 
 - Storages on S3
-  1. Amazon S3 Standard - General Purpose Storage - Use case Gaming, Big Data Analytics.
-  2. Amazon S3 Standard - Infrequent Storage - Costs less than general. Less frequent accessed but rapid read.
-  3. Amazon S3 Glacier - Low cost. For archiving/backing up.
+  1. Amazon S3 Standard General Purpose Storage - Use case Gaming, Big Data Analytics.
+  2. Amazon S3 Standard Infrequent Access Storage - Costs less than general. Less frequent accessed but rapid read.
+  3. Amazon S3 One Zone Infrequent Access
+  4. Amazon S3 Glacier Instant Retrieval
+  5. Amazon S3 Glacier Flexible Retrieval
+  6. Amazon S3 Glacier Deep Archive - Low cost. For archiving/backing up.
 
 **Infrequent Access - Sub storages**
 

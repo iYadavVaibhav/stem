@@ -726,7 +726,7 @@ select customer_doc->'customer_name'->>'first_name' from customer_summary;
 
 - **PostgreSQL** is relational db.
   - `pgadmin4` is GUI to it. It is available on web and can run on localhost.
-  - `pgcli` is eMac CLI to client for database access.
+  - `pgcli` is eMac CLI to client for database access. It can be installed within PIP as a package.
   - login with linux user on the server as `username@server`
   - then add server, expand it, see database, schemas, public.
 
