@@ -54,6 +54,35 @@ Brew Cask (GUI) commands:
 - `brew install --cask firefox` Install the Firefox browser
 - `brew list --cask`  List installed applications
 
+### Mac Command Line
+
+**Check defaults before altering hidden settings in OS X**
+
+
+```sh
+# defaults action target variable value
+defaults write com.apple.Finder AppleShowAllFiles true
+defaults read com.apple.Finder AppleShowAllFiles
+
+# clear defaults
+# defaults delete target variable
+defaults delete com.apple.Finder AppleShowAllFiles
+
+# dock size
+defaults read com.apple.Finder AppleShowAllFiles
+defaults read com.apple.dock tilesize
+# 64
+
+# on 1920x1200, set dock size 41 to capture 1080p without mac menu bar and app title bar
+defaults write com.apple.dock tilesize -int 41; killall Dock
+
+# on 1920x1200, set dock size 41 to capture 1080p from top
+defaults write com.apple.dock tilesize -int 99; killall Dock
+
+```
+
+- Link: [Check defaults before altering hidden settings in OS X](https://www.cnet.com/tech/computing/check-defaults-before-altering-hidden-settings-in-os-x/)
+
 ### Others
 
 `diskutil list` - lists all disks
