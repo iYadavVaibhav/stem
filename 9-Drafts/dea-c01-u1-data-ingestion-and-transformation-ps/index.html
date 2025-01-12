@@ -1,0 +1,3976 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/9-Drafts/dea-c01-u1-data-ingestion-and-transformation-ps/">
+      
+      
+        <link rel="prev" href="../dea-c01-u0-exam-course-intro-ps/">
+      
+      
+        <link rel="next" href="../dea-c01-u2-data-store-management-ps/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>U1 Data Ingestion and Transformation - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#u1-data-ingestion-and-transformation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              U1 Data Ingestion and Transformation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/aws-amazon-web-services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerize
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/gen-ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generative Artificial Intelligence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-airflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Airflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-iceberg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Iceberg Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Kafka
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Big Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools &amp; Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-warehousing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databricks Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-finance-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/business-analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/interview-career-growth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Career Growth Interview Mindset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/logarithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics &amp; IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u0-exam-course-intro-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS DEA-C01 Preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aws-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Glue
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-kinesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amazon Kinesis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Amazon Kinesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-performing-real-time-data-analysis-with-amazon-kinesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab: Performing Real-Time Data Analysis with Amazon Kinesis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-redshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amazon RedShift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Amazon RedShift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redshift-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redshift Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-data-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading Data Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-loading-data-into-a-redshift-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab: Loading Data into a Redshift Cluster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Lambda
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Lambda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-using-aws-lambda-with-amazon-kinesis-data-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab: Using AWS Lambda with Amazon Kinesis Data Stream
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggering-data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triggering Data Ingestion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consuming-data-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consuming Data APIs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-and-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security and Connections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etl-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      ETL Pipelines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-in-data-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Containers in Data Pipelines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-coming-from-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Coming from Everywhere
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimisation-in-data-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimisation in Data Transformation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-3-applying-programming-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 3; Applying Programming Concepts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iac-infrastructure-as-a-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iac Infrastructure as a Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-data-pivoting" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Data Pivoting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tumbling-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tumbling WIndows
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Connectivity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-big-data-all-stages-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Big Data All Stages Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-and-exam-tips-for-data-ingestion-and-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary and Exam Tips for Data Ingestion and Transformation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u2-data-store-management-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u3-data-operations-and-support-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u4-data-security-and-governance-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-py-design-patterns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python: Design Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aws-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Glue
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-kinesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amazon Kinesis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Amazon Kinesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-performing-real-time-data-analysis-with-amazon-kinesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab: Performing Real-Time Data Analysis with Amazon Kinesis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-redshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amazon RedShift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Amazon RedShift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redshift-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redshift Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-data-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading Data Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-loading-data-into-a-redshift-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab: Loading Data into a Redshift Cluster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Lambda
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS Lambda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-using-aws-lambda-with-amazon-kinesis-data-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab: Using AWS Lambda with Amazon Kinesis Data Stream
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggering-data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Triggering Data Ingestion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consuming-data-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consuming Data APIs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-and-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security and Connections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etl-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      ETL Pipelines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-in-data-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Containers in Data Pipelines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-coming-from-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Coming from Everywhere
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimisation-in-data-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimisation in Data Transformation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-3-applying-programming-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 3; Applying Programming Concepts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iac-infrastructure-as-a-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iac Infrastructure as a Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-data-pivoting" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Data Pivoting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tumbling-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tumbling WIndows
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Connectivity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-big-data-all-stages-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Big Data All Stages Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-and-exam-tips-for-data-ingestion-and-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary and Exam Tips for Data Ingestion and Transformation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/9-Drafts/dea-c01-u1-data-ingestion-and-transformation-ps.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/9-Drafts/dea-c01-u1-data-ingestion-and-transformation-ps.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="u1-data-ingestion-and-transformation">U1 Data Ingestion and Transformation</h1>
+<p>Tools to ingest and transform the data.</p>
+<h2 id="aws-glue">AWS Glue</h2>
+<ul>
+<li><strong>Serverless</strong> solution to discover, prepare/combine data.</li>
+</ul>
+<ul>
+<li>Collection of<ul>
+<li><strong>ETL Jobs</strong></li>
+<li><strong>Data Catalog</strong></li>
+<li><strong>Glue Studio</strong></li>
+<li><strong>Data Quality</strong></li>
+<li><strong>Data Brew</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Can <strong>read</strong> from <strong>S3, RDS, DynamoDB</strong> etc.</li>
+<li>Lets <strong>build ETL job</strong> using <strong>Python Shell, Glue Streaming, Cloud Studio</strong></li>
+<li>DPU s - <strong>Data Processing Units</strong><ul>
+<li><strong>G.1X</strong> - for memory intense workloads</li>
+<li><strong>G.2X</strong> - for ML transformations</li>
+<li><strong>G.0.25X</strong> - for low volume data</li>
+</ul>
+</li>
+</ul>
+<p><strong>AWS Glue: Data Catalog</strong></p>
+<ul>
+<li>Creates <strong>MetaData</strong> for assets</li>
+<li><strong>Active Table Definition</strong> including <strong>Columns Names</strong>, <strong>data types</strong> and other attributes.</li>
+<li>Automatically <strong>infer the schema</strong> of data.</li>
+</ul>
+<p><strong>AWS Glue: Glue Studio</strong></p>
+<ul>
+<li><strong>GUI</strong> to <strong>build ETL Jobs</strong></li>
+<li>Drag and Drop <strong>Transformations</strong></li>
+<li>GUI for Job <strong>Orchestration</strong> and <strong>Monitoring</strong><ul>
+<li>Job can be scheduled, trigged on event or manual start.</li>
+</ul>
+</li>
+<li><strong>Use Case</strong>: <strong>Getting, Storing and Transforming Data</strong>.</li>
+</ul>
+<p><strong>AWS Glue: Data Brew</strong></p>
+<ul>
+<li>Visual Data Preparation Tool, do <strong>build Data Profiling</strong></li>
+<li>Use <strong>SQL or Programming Language</strong> to process data.</li>
+<li>Provide <strong>built-in transformation functions</strong>.</li>
+<li><strong>Use Case</strong>: Gain <strong>insight</strong> and <strong>trends</strong> in data.</li>
+</ul>
+<h2 id="amazon-kinesis">Amazon Kinesis</h2>
+<ul>
+<li>Fully managed, <strong>serverless</strong>.</li>
+<li><strong>Data Streaming Service</strong>.</li>
+<li>Used to <strong>manage</strong> and <strong>process</strong> streaming data.</li>
+<li>Built in auto-scaling.</li>
+</ul>
+<ul>
+<li><strong>Family of Services</strong>, to let us do collection, delivery and analytics of streaming data, :<ul>
+<li>Data Streams</li>
+<li>Firehose - delivery system - connects to stream and delivers to destination</li>
+<li>Video Streams</li>
+<li>Managed Apache Flink - allows processing</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Kinesis Use Cases</strong><ul>
+<li>Anomaly detection in IoT</li>
+<li>Log processing for ML</li>
+<li>Pattern Detection</li>
+<li>Click Stream Analytics</li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon Kinesis : Data Streams</strong></p>
+<ul>
+<li>Stream is <strong>sequence of shards</strong> containing data records</li>
+</ul>
+<ul>
+<li><strong>Data records</strong> contains<ul>
+<li><strong>sequence number</strong> - to order the shards</li>
+<li><strong>partition key</strong> - to group the shards</li>
+<li><strong>data blob</strong> - up to 1MB - this is actual data</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Data Flow sides: There are <strong>two sides</strong><ul>
+<li>Data Producers</li>
+<li>Data Consumers</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Producers</strong><ul>
+<li>application that <strong>ingests</strong> data in near real time.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Consumers</strong><ul>
+<li>Application that <strong>collect</strong> then <strong>process</strong> or <strong>store</strong> the data.</li>
+</ul>
+</li>
+</ul>
+<pre class="mermaid"><code>
+flowchart LR
+
+a1[Data Producer \n
+IoT Devices
+Log/event Generators
+External Apps]
+
+a2[Kinesis \n
+Data Stream
+Firehose]
+
+a3[Data Consumer \n
+S3
+Redshift
+Third Party]
+
+a1 --&gt; a2 --&gt; a3
+</code></pre>
+<p><strong>Amazon Kinesis: Data Firehose</strong></p>
+<ul>
+<li>It is a <strong>Delivery System</strong>.</li>
+<li>Lets <strong>collect</strong> from AWS service like Kinesis or from Third Party</li>
+<li>Allows to Store data to <strong>send</strong> to other services like Flink to process.</li>
+</ul>
+<p><strong>Amazon Kinesis: Apache Flink (Managed Service)</strong></p>
+<ul>
+<li>use Programming Lang or SQL to process.</li>
+<li>Run notebook commands against data.</li>
+</ul>
+<p><strong>Kinesis vs Amazon SQS (Simple Queue Service)</strong></p>
+<ul>
+<li>Storage Time: 24 hr to 7 days; 1 minute to 14 days</li>
+<li>Number of Consumers: Multiple; Single, once message is read it is deleted from queue.</li>
+<li>Ordering: More support for ordering with shards; no ordering, but can implement FIFO programmatically.</li>
+<li>Routing: Related records can be routed; no support.</li>
+</ul>
+<p><strong>Kinesis vs Kafka</strong></p>
+<ul>
+<li>Configuration: Limited as it is serverless, auto-scaled and aws managed; Highly configurable in how it writes the data, as it is self hosted.</li>
+<li>Cost: less with pay-as-you-go model on cloud; more as it needs sophisticated engineering.</li>
+<li>Use Case: easy to start, sets up in few clicks; heavy lifting to start and setup.</li>
+</ul>
+<h3 id="lab-performing-real-time-data-analysis-with-amazon-kinesis">Lab: Performing Real-Time Data Analysis with Amazon Kinesis</h3>
+<p>Can be found under projects. <a href="https://github.com/iYadavVaibhav/personal_notes/blob/main/drafts/project-aws-gpt-pipeline.md">Link</a></p>
+<h2 id="amazon-redshift">Amazon RedShift</h2>
+<ul>
+<li>Supports <strong>distributed workloads</strong> for <code>Petabyte</code> scale.</li>
+<li>Store <strong>data in columns</strong> instead of rows.</li>
+</ul>
+<ul>
+<li><strong>Querying</strong> can be done using<ul>
+<li>Redshift Query Editor</li>
+<li>Console</li>
+<li>Redshift HTTP API</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Ready for both <strong>Structured and Semi-Structured</strong> data.</li>
+<li>Runs within a VPS, supports <strong>Multi AZ</strong> and offers <strong>serverless</strong> deployment option.</li>
+</ul>
+<ul>
+<li>It is <strong>PostgreSQL</strong> and hence all commands of postgres work.</li>
+</ul>
+<ul>
+<li><strong>Connectivity</strong>: You can connect using similar ways you use to connect to any PostgreSQL DB<ul>
+<li>CLI using <code>pgcli</code> or <code>psql</code></li>
+<li>Python adapter using <code>psycopg2</code></li>
+<li>JDBC or ODBC</li>
+<li>or use any other method that you that lets you connect to postgres database.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Use Cases</strong><ul>
+<li>OLAP - you can load data from traditional warehouse in to it for scalable analytics.</li>
+<li>Log Analysis - It lets you analyse logs. It can help understand user behaviour.</li>
+</ul>
+</li>
+</ul>
+<h3 id="redshift-architecture">Redshift Architecture</h3>
+<ul>
+<li>Redshift uses <strong>Cluster</strong> architecture. Clusters have nodes.</li>
+</ul>
+<ul>
+<li><strong>Nodes</strong><ul>
+<li>They are <strong>computing resources</strong>.</li>
+<li><strong>Max 128</strong> computing nodes can be in a cluster.</li>
+<li>There are two <strong>type of nodes</strong> in each cluster:<ul>
+<li>Leader Node</li>
+<li>Compute Node</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Single Node Cluster</strong><ul>
+<li>It has only one <strong>Compute Node</strong> with a <strong>Leader Node</strong>.</li>
+<li>Used for small dataset / testing.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Multi Node Cluster</strong><ul>
+<li>It has <strong>at least two Compute Node</strong> with a <strong>Leader Node</strong>.</li>
+<li>Used for large dataset / production.</li>
+</ul>
+</li>
+</ul>
+<pre class="mermaid"><code>flowchart TB
+
+subgraph s2[Multi Node Cluster]
+    direction TB
+    b1[Leader Node]
+    b2[Compute Node]
+    b3[Compute Node]
+    b1 -.- b2
+    b1 -.- b3
+end
+
+subgraph s1[Single Node Cluster]
+    direction TB
+    a1[Leader Node]
+    a2[Compute Node]
+    a1 -.- a2
+end</code></pre>
+<p><strong>Leader Node</strong></p>
+<ul>
+<li><strong>Receives query</strong> from Client applications.</li>
+<li><strong>Parses query</strong> and <strong>prepares Query Execution Plan</strong>.</li>
+<li>Coordinates <strong>parallel execution of plan</strong>.</li>
+<li><strong>Aggregates results</strong> of the queries and <strong>returns to client</strong>.</li>
+</ul>
+<p><strong>Compute Node</strong></p>
+<ul>
+<li>Partitions jobs into <strong>slices</strong> (using slice management)</li>
+<li><strong>Runs query execution plan</strong>.</li>
+<li><strong>Sends intermediate data</strong> back to the leader node.</li>
+</ul>
+<pre class="mermaid"><code>flowchart TB
+
+a1[Client]
+b1[Leader Node]
+b2[Compute Node]
+b3[Compute Node]
+b4[Compute Node]
+
+a1 &lt;--JDBC--&gt; b1
+a1 &lt;--ODBC--&gt; b1
+
+b1 &lt;--Massively Parallel Processing--&gt; b2
+b1 &lt;--MPP--&gt; b3
+b1 -.Unutilised.- b4
+</code></pre>
+<p><strong>Type of Compute Nodes</strong></p>
+<ul>
+<li><strong>Dense Compute (DC)</strong> For compute intensive tasks. Eg, analytics</li>
+<li><strong>Dense Storage (DS)</strong> For large warehouse. Has slower performance but huge capacity.</li>
+<li><strong>RA3</strong><ul>
+<li>Scales compute and Storage independently.</li>
+<li>Automatically off-loads the data to S3 if it outgrows local SSD.</li>
+<li>Recommended over DS node.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Scaling Options</strong></p>
+<ul>
+<li>You can scale by changing cluster, nodes or storage to S3. Lets explore then.<ul>
+<li><strong>Add Redshift Clusters (Concurrency Scaling)</strong></li>
+<li><strong>Query Data from S3 via Redshift Spectrum</strong></li>
+<li><strong>Resizing Cluster by Updating Nodes</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Add Redshift Clusters (Concurrency Scaling)</strong><ul>
+<li>Automatically <strong>adds more compute power temporarily</strong> based on high demand.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Query Data from S3 via Redshift Spectrum</strong><ul>
+<li>Ability to query large dataset <strong>directly from S3</strong></li>
+<li><strong>Avoids ETL</strong> from lake to database.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Resizing Cluster by Updating Nodes</strong><ul>
+<li>Scaling horizontally by adding/removing nodes.</li>
+<li>Scaling vertically by upgrading node type.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Resizing Options</strong></p>
+<ul>
+<li>You can resize using<ul>
+<li><strong>Classical resize</strong></li>
+<li><strong>Elastic resize</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Classical resize</strong><ul>
+<li><strong>Copies table and metadata</strong> from <strong>old source cluster</strong> to <strong>new target cluster</strong>.</li>
+<li>Cluster is in read-only mode, can't be edited.</li>
+<li><strong>Takes more time</strong> to complete</li>
+<li><strong>Does not retain the sys log</strong> of old cluster.</li>
+<li>Eg, you change compute node type from DS2 to RA3 then all data from DS2 nodes is copied to RA3 nodes in new cluster.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Elastic resize</strong><ul>
+<li><strong>Resize an existing cluster</strong> by adding/removing nodes <strong>in-place</strong>.</li>
+<li>Cluster is <strong>unavailable during resize</strong>.</li>
+<li><strong>Only upgrading node</strong> is allowed within a cluster, <strong>can't downgrade</strong>.</li>
+<li>Completes in minutes <strong>is fast</strong></li>
+<li><strong>Retains system logs</strong>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="loading-data-commands">Loading Data Commands</h3>
+<ul>
+<li>Data can be loaded into Redshift from<ul>
+<li>S3</li>
+<li>Kinesis</li>
+<li>EMR</li>
+<li>DynamoDB</li>
+<li>RDS</li>
+<li>DMS</li>
+</ul>
+</li>
+</ul>
+<p>Below diagram shows an option to load data from different services to Redshift using the <code>COPY</code> command of PostgreSQL.</p>
+<pre class="mermaid"><code>flowchart LR
+RDS --LOAD--&gt; S3
+FireHose --LOAD--&gt; S3 --COPY--&gt; Redshift
+DynamoDB --COPY---&gt; Redshift</code></pre>
+<p><strong>Loading from S3 to Redshift Table</strong></p>
+<ul>
+<li>Split the file into multiple chunks, this will let COPY command to load in parallel and hence leverage MPP architecture.</li>
+<li>Create IAM role with S3 read permission and attach it to cluster.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># on pgcli or psql</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>COPY<span class="w"> </span>my_table
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>from<span class="w"> </span><span class="s2">&quot;s3://my_bucket/my_table/table1.txt&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>iam_role<span class="w"> </span><span class="s1">&#39;arn:aws:iam::342341323:role/my_role_read_s3&#39;</span>
+</code></pre></div>
+<p>Here, <code>my_table</code> is the target table in redshift to which data will be copied from S3 source bucket.</p>
+<p><strong>Unload to S3 from Redshift</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># on pgcli or psql</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>UNLOAD<span class="w"> </span><span class="o">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="o">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>TO<span class="w"> </span><span class="s2">&quot;s3://my_bucket/my_table&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>iam_role<span class="w"> </span><span class="s1">&#39;arn:aws:iam::342341323:role/my_role_write_s3&#39;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>FORMAT<span class="w"> </span>PARQUET<span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Sorting Data in Redshift</strong></p>
+<ul>
+<li>Use <code>VACUUM</code> command to sort and save space.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Reclaim space and re-sort rows based on default threshold</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>VACUUM<span class="w"> </span>FULL<span class="w"> </span>sales_table<span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Re-sort rows only if less than 75% of rows are already sorted</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>VACUUM<span class="w"> </span>sort<span class="w"> </span>only<span class="w"> </span>sales_table<span class="w"> </span>to<span class="w"> </span><span class="m">75</span><span class="w"> </span>percent<span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Reindex and then vacuum</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>VACUUM<span class="w"> </span>reindex<span class="w"> </span>listing<span class="p">;</span>
+</code></pre></div>
+<h3 id="lab-loading-data-into-a-redshift-cluster">Lab: Loading Data into a Redshift Cluster</h3>
+<p>Can be found under projects. <a href="https://github.com/iYadavVaibhav/personal_notes/blob/main/drafts/project-aws-gpt-pipeline.md">Link</a></p>
+<h2 id="aws-lambda">AWS Lambda</h2>
+<p>It has two parts:</p>
+<ul>
+<li><strong>Lambda Functions</strong></li>
+<li><strong>Lambda Service</strong></li>
+</ul>
+<ul>
+<li><strong>Lambda Functions</strong><ul>
+<li>Code and <strong>function</strong> to complete tasks when event happens that match the trigger you set for the function.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Lambda Service</strong><ul>
+<li>Lets you handle the <strong>incoming calls</strong> to the functions</li>
+<li>Handles <strong>routing</strong> to and from the functions.</li>
+<li><strong>Runs Lambda functions</strong> as and when needed and <strong>scales automatically</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Use Cases</strong><ul>
+<li>IoT devices analysis - keep track</li>
+<li>Serverless websites - click stream analysis, where people are looking</li>
+<li>small event driven architecture</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Benefits</strong><ul>
+<li><strong>Self managed</strong>, need not worry for hardware</li>
+<li>Operating System and <strong>security is managed</strong></li>
+<li><strong>Pay</strong> only for <strong>compute time</strong> measured in <strong>milliseconds</strong>.</li>
+<li>Highly <strong>customisable</strong></li>
+<li>You can <strong>persist the data</strong> as required.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Workflow</strong><ul>
+<li><strong>create</strong> a function, you get a <strong>unique ARN</strong></li>
+<li>write the <strong>code</strong></li>
+<li>specify the <strong>trigger</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Requirements</strong><ul>
+<li><strong>IAM Role</strong> to access <strong>services</strong> Lambda needs access to</li>
+<li><strong>Memory size limit</strong> (RAM)<ul>
+<li>Specify memory size you think lambda would be consuming.</li>
+<li>Range allowed is 128 MB to 10,240 MB.</li>
+</ul>
+</li>
+<li><strong>Execution Time</strong><ul>
+<li>You can specify from <strong>1 second to 15 minutes</strong>. Max is 15 minutes</li>
+<li>After this time the <strong>function terminates</strong> regardless of its execution state.</li>
+</ul>
+</li>
+<li><strong>Event Source Mapping</strong><ul>
+<li>These are <strong>triggers</strong> that will <strong>invoke</strong> the Lambda <strong>function</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="lab-using-aws-lambda-with-amazon-kinesis-data-stream">Lab: Using AWS Lambda with Amazon Kinesis Data Stream</h3>
+<p>In drafts.</p>
+<h2 id="triggering-data-ingestion">Triggering Data Ingestion</h2>
+<ul>
+<li><strong>Trigger</strong><ul>
+<li>Trigger is an event that is generated from one service and <strong>invokes another service</strong> in AWS</li>
+<li>Eg, S3 Events, Redshift Events, EventBridge</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>EventBridge Triggers</strong><ul>
+<li>Triggers are based off of event patterns that are defined within rules.</li>
+<li>It an <strong>event</strong> happens, it will be matched again <strong>pattern</strong> defined in <strong>rule</strong>. If it <strong>matches a pattern</strong>, it will be <strong>sent to other service</strong> and the <strong>action</strong> will be takes <strong>as defined</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Redshift Events</strong><ul>
+<li>Log of things that happen within a cluster.Eg, table change, table update, cluster change, almost anything.</li>
+<li>Events can have notifications subscription and can be help for several weeks.</li>
+<li>Events have <code>date</code>, <code>description</code>, event <code>source</code>, and <code>source id</code>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Event Driven Action - Example with Kinesis EventBridge and Lambda</strong></p>
+<ul>
+<li><strong>Kinesis</strong> - DataStream can be configured as an event source for a trigger. Eg, Data being pushes to <em>singular mapped destination</em> can trigger lambda (or any other service).</li>
+<li><strong>EventBridge</strong> - It follows the event <em>patterns</em> defined in rule, and on a match it triggers an action on one or more services.</li>
+<li><strong>Lambda</strong> - It can get triggered and Lambda provides most configurable actions and can pass on to <em>one mapped destination</em> (another service) for specific action.</li>
+</ul>
+<h2 id="consuming-data-apis">Consuming Data APIs</h2>
+<p><em>accessing Redshift via HTTP API</em></p>
+<ul>
+<li><strong>Four ways</strong> APIs work<ul>
+<li><strong>SOAP</strong></li>
+<li><strong>RPC</strong></li>
+<li><strong>REST</strong></li>
+<li><strong>WebSocket</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>SOAP</strong><ul>
+<li><strong>Simple Object Access Protocol</strong></li>
+<li>Client Server exchange message using <strong>XML</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>RPC</strong><ul>
+<li><strong>Remote Procedure Calls</strong></li>
+<li>Client <strong>completes a function</strong> (procedure) on server and server sends back the output.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>REST</strong><ul>
+<li><strong>Representational State Transfer</strong></li>
+<li><strong>Most flexible</strong> architecture</li>
+<li>Client sends <strong>request</strong> to server as data and server sends back <strong>response</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>WebSocket</strong><ul>
+<li><strong>Two way communication</strong> between client and server</li>
+<li>Client can get update from server <strong>without requesting</strong></li>
+<li>Uses <strong>JSON object</strong> to pass data</li>
+</ul>
+</li>
+</ul>
+<p><strong>AWS Data Exchange API</strong></p>
+<ul>
+<li><strong>Requesters</strong> can <strong>access data via Subscriptions</strong>.</li>
+<li><strong>Providers</strong> can create and manage your data before you <strong>publish</strong> it.</li>
+</ul>
+<ul>
+<li>Two Parts<ul>
+<li><strong>Data Set</strong></li>
+<li><strong>Asset</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Data Set</strong><ul>
+<li><strong>Collection of data</strong> that can changes over time</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Asset</strong><ul>
+<li>Any <strong>piece of data</strong>. The data itself, like image, file, record etc.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Accessing Redshift via Data Exchange API</strong></p>
+<ul>
+<li>The Data Exchange API <strong>allows</strong> you to access Amazon Redshift.</li>
+<li><strong>Doesn't require a persistent connection</strong> to your database.</li>
+<li>Provides a <strong>secure HTTP endpoint</strong> and <strong>integration with AWS SDK</strong>.</li>
+</ul>
+<p><strong>Working with Amazon Redshift Data API</strong></p>
+<ol>
+<li>Make sure you (The caller) are <strong>authorized</strong> to call on the database</li>
+<li>Determine if you have the <strong>authentication credentials</strong>, whether temporary or via Secrets Manager</li>
+<li>(Best Practice) Setup a <strong>secret</strong> using Secrets Manager</li>
+<li>Check your <strong>limitation</strong> while using the data API</li>
+<li>Call the API using the <strong>Command Line Interface</strong> (AWS CLI) from code or using the query editor in the Amazon Redshift console</li>
+</ol>
+<p><strong>Lambda API</strong></p>
+<ul>
+<li>It is <strong>best practice to use SDKs</strong> instead of calling an API from the Application (that is use Python SDK for Lambda and then write you lambda function)</li>
+<li>Lambda API is used with <strong>serverless applications</strong> (simply said, your lambda function).</li>
+<li>It <strong>uses the API gateway</strong> which supports: API routing, serving HTML pages or binary files, issuing redirects, and much more.</li>
+</ul>
+<h2 id="security-and-connections">Security and Connections</h2>
+<p>Two basic ways of controlling security:</p>
+<p><strong><code>NACLs</code></strong> or <strong>Network Access Control Lists</strong></p>
+<ul>
+<li>They are <strong>serverless</strong>, means they inspect all the <strong>traffic</strong> in n/w that is coming and going from <strong>VPC and subnets</strong>.</li>
+<li>Configurable to <strong>allow or deny</strong> on number of <strong>protocols</strong> and <strong>port ranges</strong>.</li>
+<li>This acts as a <strong>firewall in your VPC</strong>.</li>
+</ul>
+<p><strong>Security Groups</strong></p>
+<ul>
+<li>They also help filter out traffic coming into VPC.</li>
+<li>They are state-full, means they inspect packets with context you built into it. This lets create complex rules, and lets log in detail.</li>
+<li>You can allow/deny by using IP address or block of IPs.</li>
+</ul>
+<p><strong>Architecture</strong></p>
+<ul>
+<li>Within VPC you have subnets.</li>
+<li>Subnets are secured by "Security Groups" and NACLs.</li>
+</ul>
+<pre class="mermaid"><code>
+flowchart TB
+
+subgraph s1[AWS VPC]
+  direction TB
+  a1[Traffic]
+  a2[Private Subnet
+
+  Private Resources]
+  a1 --Security Group / NACLs--&gt; a2
+
+  a3[Traffic]
+  a4[Public Subnet
+
+  Public Assets
+  Public Resources]
+  a3 --Security Group / NACLs--&gt; a4
+end
+  b1[Traffic] --Internet--&gt; s1
+</code></pre>
+<p><strong>Best Practices for RDS Security</strong></p>
+<ul>
+<li>RDS should be <strong>in Private Subnet</strong>, so that it <strong>cannot be accessed using Internet</strong>.</li>
+<li>You can let other resources <strong>access this RDS using NAT Gateway</strong>.</li>
+<li>Ensure developers come from a <strong>singular IP address</strong> (or IP Group), and you only allow access to RDS via that IP Address.</li>
+<li><strong>Limit the number of resources that use this particular subnet</strong> within the VPC.</li>
+<li>Set <strong>NACLs</strong> so that they <strong>only allow least necessary traffic</strong> to the subnet.</li>
+</ul>
+<h2 id="etl-pipelines">ETL Pipelines</h2>
+<ul>
+<li>It is being done from old pen and paper time.</li>
+<li>It is process of converting data in to meaningful information.</li>
+</ul>
+<p><strong>EMR vs Glue</strong></p>
+<ul>
+<li>EMR is designed for Integration and ETL; Glue is designed with big data in mind.</li>
+<li>More customisable options; more built-in capabilities</li>
+<li>You need to load the data connectors as needed; in-built migration and ETL providers.</li>
+</ul>
+<p><strong><code>AMWAA</code></strong> or <strong>Amazon Managed Workflows for Apache Airflow</strong></p>
+<ul>
+<li>Apache Airflow - Open Source tool used to build, schedule and monitor batch workflows.</li>
+<li>AMWAA is managed Airflow offering for managed orchestration.</li>
+<li>It lets you build your cluster, having your web server, scheduler and worker.</li>
+<li>You can upload DAG folder to S3.</li>
+<li>Then run DAG in Airflow.</li>
+</ul>
+<p><strong>AWS Step Functions</strong></p>
+<ul>
+<li>These provide serverless orchestration (AWS build functionality similar to Airflow).</li>
+<li>GUI to let you see application workflow as event-driven steps.</li>
+<li>Standard workflow execute each step exactly once.</li>
+<li>Express workflow have an at-least-once step execution but will run for at least five minutes.</li>
+</ul>
+<p><strong>AMWAA vs Step Functions</strong></p>
+<ul>
+<li>AMWAA lets auto scale with integration with AWS Fargate; Step Functions allow to scale to meet demand.</li>
+<li>Parses query and develops query execution plan; Pay-as-you-go model with first 4000 steps free per month.</li>
+<li>Allows managing complex code based workflows; Suitable for simplifying complex workflows.</li>
+</ul>
+<p><strong>Glue Workflow Options</strong></p>
+<ul>
+<li>Allows you to create and see complex ETL jobs. These jobs can have crawlers, triggers and other jobs.</li>
+<li>Workflows can be built using blueprint or can be created from scratch using one component at a time.</li>
+</ul>
+<h2 id="containers-in-data-pipelines">Containers in Data Pipelines</h2>
+<ul>
+<li>Containers help making Data Processing in data pipeline more efficient.</li>
+<li>Monolith data pipeline will have everything on one machine and tightly coupled together.</li>
+<li>By using containers, we can make each part of pipeline isolated in a container.</li>
+<li>You can tweak individual pieces, slow them down or scale up to make it more efficient.</li>
+</ul>
+<p><strong>Container Types</strong></p>
+<ul>
+<li><strong>Amazon Elastic Container Service</strong> or <strong>ECS</strong></li>
+<li><strong>Amazon Elastic Kubernetes Service</strong> or <strong>EKS</strong></li>
+</ul>
+<p><strong>Amazon Elastic Container Service</strong> or <strong>ECS</strong></p>
+<ul>
+<li>Orchestrates the deployment of containerised applications and mapping of resources.</li>
+<li>It lets launch, manage and scale as app grows.</li>
+</ul>
+<ul>
+<li>There are three layers:<ul>
+<li><strong>Capacity</strong>: the infrastructure layer on which the containers run.</li>
+<li><strong>Controller</strong>: the deployment layer where you can manage container and applications.</li>
+<li><strong>Provisioning</strong>: the layer which lets interact with schedulers for deploying and managing containers.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon Elastic Kubernetes Service</strong> or <strong>EKS</strong></p>
+<ul>
+<li>Managed service that let you interact with control panel of Kubernetes.</li>
+<li>It allows you to create cluster in which Kubernetes will run.</li>
+<li>Cluster can be made using Fargate containers or EC2 workers.</li>
+</ul>
+<p><strong>ECS vs EKS</strong></p>
+<ul>
+<li>AWS Orchestration Engine; EKS lets manage Kubernetes experience.</li>
+<li>Fine tune auto scalability; Allows multi-cloud deployments.</li>
+<li>Microservice architecture; Easy integration with other AWS services.</li>
+</ul>
+<h2 id="data-coming-from-everywhere">Data Coming from Everywhere</h2>
+<p>Out tech stack should be ready to ingest data from multi-sources. For this AWS offers two solutions</p>
+<ul>
+<li><strong>EMR Multi-Source</strong> and <strong>Redshift Multi Warehouse</strong> let handle incoming data.</li>
+</ul>
+<p><strong>EMR</strong></p>
+<ul>
+<li>Big Data Solution, for data processing and ML.</li>
+<li>Uses Open Source Frameworks like Hive, Spark and Pesto.</li>
+<li>It can run the app (with above frameworks) on ECS, EKS, Fargate or EC2.</li>
+<li>It can build cluster with primary, core and task nodes.<ul>
+<li>primary - manages running the cluster, distributing the data across nodes.</li>
+<li>core nodes - run the frameworks. They can be one or more.</li>
+<li>task nodes - don't store data, only transport/transform it. They are optional.</li>
+</ul>
+</li>
+<li>Multi Source setup has multiple primary nodes. So that it can take data simultaneously from many nodes.</li>
+</ul>
+<p><strong>Redshift Multi Warehouse</strong></p>
+<ul>
+<li>It is multi data warehousing on Redshift.</li>
+</ul>
+<ul>
+<li>It needs <strong>connection to a DataShare</strong></li>
+<li>Can be setup on three <strong>clusters</strong>, <code>serverless workgroup</code> or <code>ra3.4xl</code> and <code>ra3.16xl</code></li>
+<li>You need to have <strong>metadata</strong> discovered in data-share. It can be seen using view catalog data.</li>
+<li>You need to have <strong>encryption</strong> set up correctly.</li>
+</ul>
+<ul>
+<li>You need a <strong>data warehouse</strong>, <strong>loaded data</strong> from S3, or using query editor.</li>
+</ul>
+<ul>
+<li><strong>Limitations</strong>:<ul>
+<li>It <strong>cannot</strong> be accessed via <strong>Data API</strong>. You need to connect via dataShare.</li>
+<li>Auto Operations are not available, user needs to run queriers for auto-analysing.</li>
+<li>Users cannot see permission granted by data share.</li>
+</ul>
+</li>
+</ul>
+<h2 id="cost-optimisation-in-data-transformation">Cost Optimisation in Data Transformation</h2>
+<ul>
+<li>In context of Glue Python Shells, PySpark Jobs and Spark Jobs.</li>
+<li>All these jobs use DPU on AWS (Data Processing Units)</li>
+<li>DPU is attached to CPUs. More DPUs can be added to CPU and they will offload the task from CPU hence can process more data.</li>
+<li>The more DPU your job uses the more you pay.</li>
+</ul>
+<ul>
+<li>Spark<ul>
+<li>It lets run batch job in Glue</li>
+<li>Script can be run at ETL script using Glue Command Line.</li>
+<li>Gives 10 DPUs by default.</li>
+<li>Billed 1-10 minutes interval.</li>
+<li>It is designed to run hefty jobs and can scale quickly.</li>
+<li>It can scale horizontally, vertically or both depending on data coming in.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>PySpark lets use Spark using Python. Hence makes it easy to use spark and only python can be used to build ETL jobs.</li>
+</ul>
+<ul>
+<li>Python Shell on Glue is cheaper than running Glue on its own.</li>
+<li>Python Shell uses Spark in Glue and can be run using <code>pythonshell</code> command.</li>
+<li>It uses only one DPU at start.</li>
+<li>Billed per hour with minimum 1 minute.</li>
+<li>Designed to run light etl jobs.</li>
+</ul>
+<h2 id="module-3-applying-programming-concepts">Module 3; Applying Programming Concepts</h2>
+<h2 id="iac-infrastructure-as-a-code">Iac Infrastructure as a Code</h2>
+<ul>
+<li>For autoscaling, you need to build new environments and deploy you code to it. Doing this manually can be challenging and error prone.</li>
+<li>Using IaC, you can do this using code.</li>
+<li>CloudFormation lets you build code that creates infra.</li>
+<li>IaC also gives blueprint of your environment, this lets you see whole env as one picture and see flow of data.</li>
+<li>It lets do automation and scaling.</li>
+</ul>
+<ul>
+<li>IaC options<ul>
+<li><strong>Cloud Formation</strong></li>
+<li><strong>CDK</strong></li>
+<li><strong>Terraform (Third Party)</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Cloud Formation</strong> AWS build. Can scale to any size.</li>
+</ul>
+<ul>
+<li><strong>CDK</strong> layer on cloud formation. It lets build env in different languages. So not only yaml/json, you can use other languages.</li>
+</ul>
+<ul>
+<li><strong>Terraform (Third Party)</strong></li>
+</ul>
+<p><strong>Cloud Formation</strong></p>
+<ul>
+<li>Write in YAML/JSON</li>
+<li>It builds Stack.</li>
+<li>Stack lets build and connect resources, all at once.</li>
+<li>It offers Change Sets, that lets you see the change in stack and hence reduce error and have more clarity on actual changes.</li>
+<li>It is quick and easy deployment way.</li>
+<li>Helps easy roll out with visual instinct.</li>
+</ul>
+<p><strong>CDK</strong></p>
+<ul>
+<li>you can use JS/Py/C++</li>
+<li>In IDE, multi users at once.</li>
+<li>It can be declarative or imperative statements</li>
+<li>It also has Constructs which are per-build blocks that can be used in code.</li>
+<li>More developer friendly with write less, deploy more in mind.</li>
+<li>There are three levels of constructs<ul>
+<li><strong>Level 1: Cloud Formation Constructs</strong></li>
+<li><strong>Level 2: Abstract Constructs</strong></li>
+<li><strong>Level 3: Pattern Constructs</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Level 1: Cloud Formation Constructs</strong><ul>
+<li>uses same basic syntax as cloud formation</li>
+<li>it lets explicitly define all aspects of resources</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Level 2: Abstract Constructs</strong><ul>
+<li>Add cloud resources, where some ability is extracted away by CDK.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Level 3: Pattern Constructs</strong><ul>
+<li>These are pre-built custom patterns that define one or more AWS resources. Eg, "new LambdaRestAPI" may use Lambda and API Gateway together. So on line construct will create both services connected and working together.</li>
+</ul>
+</li>
+</ul>
+<h2 id="sql-data-pivoting">SQL Data Pivoting</h2>
+<ul>
+<li>Data pivoting lets you create headers in both rows and columns, just like pivot tables.</li>
+<li>To do this you need to:<ul>
+<li>Row Identifiers - any row that contains a value that uniquely identifies rows in the table.</li>
+<li>Column identifiers - these are columns that can be converted into new columns in combined result set.</li>
+<li>Aggregates - These are main values you need to summarise or aggregate based on the row and column identifiers.</li>
+</ul>
+</li>
+</ul>
+<h2 id="tumbling-windows">Tumbling WIndows</h2>
+<ul>
+<li>Streaming data if often received in windows of item or space. Theses windows can have time blocks or number of record blocks.</li>
+<li>Tumbling Window is when, a windowed query, processes the data inside a window.</li>
+<li>These windows are non-overlapping.</li>
+<li>This maintains order, rather than processing everything coming in bulk without order.</li>
+</ul>
+<p>Service that let do Tumbling WIndow operations are:</p>
+<ul>
+<li>Lambda<ul>
+<li>you can open your function to take data via window in range of 0 to 900 seconds.</li>
+<li>The max data it can take in is 5 MB.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>DynamoDB<ul>
+<li>Works with Lambda. Lambda will trigger the dynamo DB.</li>
+<li>Hence, Dynamo DB will be triggered for a window only (as window is implemented in lambda)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Kinesis<ul>
+<li>It sends data to other services.</li>
+<li>Other services will have window implemented to accept the data, hence kinesis will send data in windowed way.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Tumbling Window Aggregation<ul>
+<li>Application code gets data</li>
+<li>Runs Queries</li>
+<li>Results are presented.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Windowed SQL Operation can be<ul>
+<li>Time Based - window size is timed, it requires timestamp column in stream.</li>
+<li>Row Based - window size is number of rows</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Three type of Windows<ul>
+<li>Stagger Windows - Aggregates data using keyed time-based windows when data actually arrives. Allows for overlapping windows, hence reducing late or out of order data.</li>
+<li>Tumbling Windows - Opens/closes at scheduled intervals, thus allowing data at certain times only.</li>
+<li>Sliding Windows - window that continuously uses a fixed time or row count before closing.</li>
+</ul>
+</li>
+</ul>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> more info required.</li>
+</ul>
+<h2 id="database-connectivity">Database Connectivity</h2>
+<ul>
+<li>Four main type of JDBC Drivers<ol>
+<li>JDBC-ODBC Bridge Drivers translate and convert Java calls to ODBC function calls</li>
+<li>Native-API Drivers use client-side libraries of the target database</li>
+<li>The Network Protocol driver uses middleware to convert JDBC calls into a database call</li>
+<li>Database Protocol Drivers (or thin drivers) changes JDBC calls directly into vendor-specific database protocol</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>Four Steps of ODBC Connection<ol>
+<li>Applications process and <strong>call the ODBC functions</strong> then submit the SQL statements</li>
+<li>The <strong>driver manager loads drivers</strong> for each application sending a call</li>
+<li>The drivers <strong>handle the actual ODBC call</strong> and <strong>send the request to a data source</strong></li>
+<li>The data source is the data being accessed.</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>JDBC</strong></th>
+<th><strong>ODBC</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>java</td>
+<td>any language</td>
+</tr>
+<tr>
+<td>any platform</td>
+<td>windows only</td>
+</tr>
+<tr>
+<td>Object Oriented</td>
+<td>Procedural</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-big-data-all-stages-together">The Big Data All Stages Together</h2>
+<pre class="mermaid"><code>flowchart LR
+
+a1[Data Sources
+
+File
+API
+Database]
+
+a2[Data Storage
+
+Lands to S3]
+
+a3[Real Time Ingestion
+
+Kinesis]
+
+a1 --&gt; a2
+a1 --&gt; a3
+
+a4[Batch Processing
+
+Glue]
+
+a5[Machine Learning
+
+SageMaker]
+
+a6[Stream Processing
+
+Flink]
+
+a2 --&gt; a4
+a2 --&gt; a5
+a3 --&gt; a5
+a3 --&gt; a6
+
+a7[Analytic
+Data Store
+
+Data Analysis
+Redshift
+RDS
+DynamoDB]
+
+a4 --&gt; a7
+a5 --&gt; a7
+a6 --&gt; a7
+
+a8[Reporting
+and Dashboards]
+
+a7 --&gt; a8
+</code></pre>
+<h2 id="summary-and-exam-tips-for-data-ingestion-and-transformation">Summary and Exam Tips for Data Ingestion and Transformation</h2>
+<p>Same as above.</p>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-12T02:07:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-12</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span> 
+            <span> January 12, 2025 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

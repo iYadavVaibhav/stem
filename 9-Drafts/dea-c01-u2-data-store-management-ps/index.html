@@ -1,0 +1,5759 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/9-Drafts/dea-c01-u2-data-store-management-ps/">
+      
+      
+        <link rel="prev" href="../dea-c01-u1-data-ingestion-and-transformation-ps/">
+      
+      
+        <link rel="next" href="../dea-c01-u3-data-operations-and-support-ps/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>U2 Data Store Management - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#u2-data-store-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              U2 Data Store Management
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/aws-amazon-web-services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerize
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/gen-ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generative Artificial Intelligence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-airflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Airflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-iceberg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Iceberg Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Kafka
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Big Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools &amp; Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-warehousing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databricks Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-finance-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/business-analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/interview-career-growth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Career Growth Interview Mindset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/logarithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics &amp; IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u0-exam-course-intro-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS DEA-C01 Preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u1-data-ingestion-and-transformation-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.0 Data Stores
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-introduction-to-amazon-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Introduction to Amazon S3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-amazon-s3-features-and-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Amazon S3 Features and Capabilities
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-amazon-s3-storage-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Amazon S3 Storage Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-amazon-s3-lifecycle-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Amazon S3 Lifecycle Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-amazon-s3-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 Amazon S3 Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-introduction-to-amazon-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 Introduction to Amazon EC2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 Data Formats ===================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-types-of-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Types of Data Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Types of Data Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizational-styles-and-data-formats-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizational Styles and Data Formats Analogy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Data Formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-differences-between-avro-and-parquet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Differences Between Avro and Parquet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-transforming-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Transforming Data Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Transforming Data Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etl-and-data-transformation-with-aws-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      ETL and Data Transformation with AWS Glue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.0 Databases ======================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-introduction-to-amazon-dynamodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Introduction to Amazon DynamoDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Introduction to Amazon DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-dynamodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS DynamoDB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-amazon-dynamodb-dealing-with-rate-limits-and-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamodb-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDB Throughput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamodb-capacity-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDB Capacity Modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamodb-pricing-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDB Pricing Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-amazon-dynamodb-partiql" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Amazon DynamoDB: PartiQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-amazon-redshift-distribution-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Amazon Redshift Distribution Styles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-amazon-redshift-workload-management-wlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Amazon RedShift Workload Management (WLM)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#36-amazon-redshift-system-tables-and-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 Amazon Redshift System Tables and Views
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.6 Amazon Redshift System Tables and Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#amazon-redshift-system-tables-and-views-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amazon Redshift System Tables and Views - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37-dense-compute-versus-dense-storage-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 Dense Compute versus Dense Storage clusters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#38-amazon-redshift-spectrum-and-materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.8 Amazon RedShift Spectrum and Materialized Views
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.8 Amazon RedShift Spectrum and Materialized Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redshift-spectrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redshift Spectrum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federated-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Federated Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views-and-materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Views and Materialized Views
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#39-migrating-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.9 Migrating Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#310-database-migration-service-dms" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.10 Database Migration Service (DMS)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.10 Database Migration Service (DMS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-database-migration-service-dms-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Database Migration Service (DMS) - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-data-cataloging-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.0 Data Cataloging System ====================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-components-of-a-data-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Components of a Data Catalog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Components of a Data Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-data-catalog-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Data Catalog - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-lets-look-at-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Let's Look at Metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Let's Look at Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metadata-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metadata - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-demo-creating-a-data-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Demo: Creating a Data Catalog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Demo: Creating a Data Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-data-catalog-creation-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Data Catalog Creation - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-aws-glue-versus-apache-hive" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 AWS Glue versus Apache Hive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 AWS Glue versus Apache Hive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-glue-vs-apache-hive-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Glue vs Apache Hive - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-self-discovering-schemas-in-aws-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Self Discovering Schemas in AWS Glue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Self Discovering Schemas in AWS Glue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-lake-and-aws-glue-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Lake and AWS Glue - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-optimization-techniques-for-improving-query-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Optimization Techniques for Improving Query Performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Optimization Techniques for Improving Query Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-performance-optimization-techniques-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Performance Optimization Techniques - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-schema-evolution-and-updating-data-catalogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 Schema Evolution and Updating Data Catalogs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.7 Schema Evolution and Updating Data Catalogs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-changes-and-data-transformation-in-aws-glue-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Changes and Data Transformation in AWS Glue - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#50-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.0 Conclusion ====================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-data-store-management-exam-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Data Store Management: Exam Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Data Store Management: Exam Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-exam-questions-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Exam Questions - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u3-data-operations-and-support-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u4-data-security-and-governance-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-py-design-patterns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python: Design Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.0 Data Stores
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-introduction-to-amazon-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Introduction to Amazon S3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-amazon-s3-features-and-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Amazon S3 Features and Capabilities
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-amazon-s3-storage-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Amazon S3 Storage Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-amazon-s3-lifecycle-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Amazon S3 Lifecycle Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-amazon-s3-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 Amazon S3 Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-introduction-to-amazon-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 Introduction to Amazon EC2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 Data Formats ===================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-types-of-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Types of Data Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Types of Data Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizational-styles-and-data-formats-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizational Styles and Data Formats Analogy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Data Formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-differences-between-avro-and-parquet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Differences Between Avro and Parquet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-transforming-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Transforming Data Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Transforming Data Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etl-and-data-transformation-with-aws-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      ETL and Data Transformation with AWS Glue
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.0 Databases ======================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-introduction-to-amazon-dynamodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Introduction to Amazon DynamoDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Introduction to Amazon DynamoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-dynamodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS DynamoDB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-amazon-dynamodb-dealing-with-rate-limits-and-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamodb-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDB Throughput
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamodb-capacity-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDB Capacity Modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamodb-pricing-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDB Pricing Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-amazon-dynamodb-partiql" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Amazon DynamoDB: PartiQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-amazon-redshift-distribution-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Amazon Redshift Distribution Styles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-amazon-redshift-workload-management-wlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Amazon RedShift Workload Management (WLM)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#36-amazon-redshift-system-tables-and-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 Amazon Redshift System Tables and Views
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.6 Amazon Redshift System Tables and Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#amazon-redshift-system-tables-and-views-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amazon Redshift System Tables and Views - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37-dense-compute-versus-dense-storage-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 Dense Compute versus Dense Storage clusters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#38-amazon-redshift-spectrum-and-materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.8 Amazon RedShift Spectrum and Materialized Views
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.8 Amazon RedShift Spectrum and Materialized Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redshift-spectrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redshift Spectrum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#federated-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Federated Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views-and-materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Views and Materialized Views
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#39-migrating-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.9 Migrating Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#310-database-migration-service-dms" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.10 Database Migration Service (DMS)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.10 Database Migration Service (DMS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-database-migration-service-dms-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Database Migration Service (DMS) - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-data-cataloging-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.0 Data Cataloging System ====================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-components-of-a-data-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Components of a Data Catalog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Components of a Data Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-data-catalog-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Data Catalog - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-lets-look-at-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Let's Look at Metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Let's Look at Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metadata-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metadata - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-demo-creating-a-data-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Demo: Creating a Data Catalog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Demo: Creating a Data Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-data-catalog-creation-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Data Catalog Creation - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-aws-glue-versus-apache-hive" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 AWS Glue versus Apache Hive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 AWS Glue versus Apache Hive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-glue-vs-apache-hive-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AWS Glue vs Apache Hive - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-self-discovering-schemas-in-aws-glue" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Self Discovering Schemas in AWS Glue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Self Discovering Schemas in AWS Glue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-lake-and-aws-glue-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Lake and AWS Glue - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-optimization-techniques-for-improving-query-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Optimization Techniques for Improving Query Performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Optimization Techniques for Improving Query Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-performance-optimization-techniques-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query Performance Optimization Techniques - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-schema-evolution-and-updating-data-catalogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 Schema Evolution and Updating Data Catalogs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.7 Schema Evolution and Updating Data Catalogs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-changes-and-data-transformation-in-aws-glue-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Changes and Data Transformation in AWS Glue - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#50-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.0 Conclusion ====================
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-data-store-management-exam-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Data Store Management: Exam Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Data Store Management: Exam Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-exam-questions-study-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Exam Questions - Study Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/9-Drafts/dea-c01-u2-data-store-management-ps.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/9-Drafts/dea-c01-u2-data-store-management-ps.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="u2-data-store-management">U2 Data Store Management</h1>
+<h2 id="10-data-stores">1.0 Data Stores</h2>
+<h2 id="11-introduction-to-amazon-s3">1.1 Introduction to Amazon S3</h2>
+<p><strong>Shared Security Model</strong></p>
+<ul>
+<li>Think of it as your responsibility as home owner vs tenant vs air-bnb vs hotel guest. Your responsibility goes down respectively for the examples here. Similarly in AWS responsibility varies.</li>
+<li>Infra Services such as EC2 requires lot of securing responsibility as you are owner of infra. You own configs, security patches, firewall</li>
+<li>Manages Services like RDS, Container; you need to do minor updates.</li>
+<li>Serverless things like S3, Dynamo; AWS manages everything.</li>
+<li>You need to do<ul>
+<li>Customer data security using IAM</li>
+<li>Client side encryption</li>
+</ul>
+</li>
+<li>AWS does:<ul>
+<li>Server side encryption</li>
+<li>Network Protection</li>
+<li>Manges platform, OS, NW, Firewall, Global Infra</li>
+</ul>
+</li>
+</ul>
+<p><strong>Accessing Object via URL</strong></p>
+<ul>
+<li>There are two URLs to access an object.<ul>
+<li><code>Object URL</code>: Also called public URL, anyone can only access this if they have permission and bucket has public access.</li>
+<li><code>Open</code>: When you click "Open" then it gives you a pre-signed URL that lets you in the session to view an object, this is not shareable. It has encoded credentials.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Security Layers</strong></p>
+<ol>
+<li>VPC, this is first line of defence, like envelop</li>
+<li>IAM, or Authentication, this is 2nd line of defence, like name and address on letter.</li>
+<li>encryption, this is third line of defence, even if the message is read, it is meaning less unless you have a decryption key.</li>
+</ol>
+<p><strong>Layer 1: S3 and VPC</strong></p>
+<ul>
+<li>S3 is accessible over internet. It is independent of VPC.</li>
+<li>But, You can block public access.<ul>
+<li>Once blocked you can only make it accessible via VPC, by making private connection between your bucket and VPC.</li>
+<li>This private connection allows you to connect to S3 bucket internally without traversing via public internet.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Layer 2: Access Control</strong></p>
+<p>This has two levels</p>
+<ol>
+<li>
+<p>Identity Based</p>
+<ul>
+<li>AWS IAM Policies: are attached to IAM users, groups, or roles</li>
+<li>Controls access at a granular level based on user identity</li>
+</ul>
+</li>
+<li>
+<p>Resourced-Based</p>
+<ul>
+<li>Access Control Lists (ACLs)<ul>
+<li>Grant specific permissions to individual AWS accounts/groups</li>
+<li>Can be configured on the object level or bucket level</li>
+</ul>
+</li>
+<li>Bucket Policies<ul>
+<li>JSON-based policies that you attach to control access at the bucket level</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>Using above two, you can restrict access to resource as required at desired level.</p>
+<p><strong>S3 Bucket Policies</strong></p>
+<ul>
+<li>It is a JSON with following keys</li>
+<li><code>Effect</code> tells that it allows or denies</li>
+<li><code>Principal</code> tell who this policy applies to</li>
+<li><code>Action</code> tells get or write</li>
+<li><code>Resource</code> tells on which object the policy is applied to</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Deny&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="nt">&quot;Principal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::DOC-EXAMPLE-BUCKET/*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>S3 bucket policies allow you to specify a degree of fine-grained access to objects in your bucket.</li>
+<li>An eg is that, you can<ul>
+<li>Grant public read access to all objects in an S3 bucket</li>
+<li>Grace access across accounts</li>
+<li>Deny unencrypted uploads</li>
+<li>Define access based on criteria such as:<ul>
+<li>IP addresses</li>
+<li>IAM user/role</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>S3 Access Points</strong></p>
+<ul>
+<li>This lets more fine grain control on data within a bucket.</li>
+<li>You can allow an access point to read only certain data within a bucket. And this way you can manage different teams with different access to objects in bucket.</li>
+</ul>
+<p><strong>S3 Encryption</strong></p>
+<ul>
+<li><strong>Server-Side Encryption</strong> (SSE) - Takes place in AWS.</li>
+<li><strong>Client-side encryption</strong> - Takes place outside of AWS.</li>
+</ul>
+<ul>
+<li><strong>Server Side Encryption</strong></li>
+<li>Also called <strong>AT Rest</strong> encryption</li>
+<li>Either the client or AWS can be in charge of the encryption using Keys</li>
+<li>Two options to do SSE, you can do it using<ol>
+<li><strong>Customer Provided Keys (SSE-C)</strong><ul>
+<li>You use your managed keys during uploading objects on to S3.</li>
+</ul>
+</li>
+<li><strong>AWS Key Management Service</strong> (KMS), within this you can manage three different keys<ol>
+<li>AWS Owned Keys - Free, AWS owns and manages</li>
+<li>AWS Managed Keys - Chargeable, You own, AWS manages</li>
+<li>Customer Managed Keys - Chargeable. You own and manage</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><strong>S3 in transit Encryption</strong><ul>
+<li>S£ always does the encryption when data is in transit by using SSL/TLS protocols to secure the connection between client and S3</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Client-side encryption</strong><ul>
+<li>The client is always in charge of the encryption.</li>
+<li>Managed by client application.</li>
+<li>Client app will encrypt the data using keys before the data is sent to AWS.</li>
+</ul>
+</li>
+</ul>
+<h2 id="12-amazon-s3-features-and-capabilities">1.2 Amazon S3 Features and Capabilities</h2>
+<ul>
+<li><strong>S3 Versioning</strong><ul>
+<li>new version is created each time object is updated or created.<ul>
+<li>eg, if you update <code>index.html</code> it will have a new version.</li>
+</ul>
+</li>
+<li>On delete, S3 keeps the object but adds a <strong>delete marker</strong> which tells that object is deleted.<ul>
+<li>to restore deleted bucket, delete the 'deleted marker' version of the bucket, this will make original bucket as latest version which is without delete marker.</li>
+</ul>
+</li>
+<li>Within a bucket, you can configure to version at<ul>
+<li>Object Level - versions specific objects. Eg, version important files but not logs.</li>
+<li>Bucket Level - if all objects are important.</li>
+</ul>
+</li>
+<li>It is chargeable</li>
+<li>It can't be disabled, only suspended.</li>
+<li>On suspend, future modifications are not versioned but previous versions remain.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>Replication</strong></p>
+<ul>
+<li>Replicate objects from one bucket to another.</li>
+<li>Replication works only if <strong>versioning is enabled</strong>.</li>
+<li>The <strong>version number remains the same</strong> in both replication. So versions are replicated.</li>
+<li>Replication needs proper <strong>IAM permission in between buckets</strong>, so source bucket needs permission to write to destination bucket.</li>
+<li><strong>Replication and Delete Marker</strong><ul>
+<li>by <strong>default</strong> if delete markers are <strong>not replicated</strong>, that is, if you delete a file in source bucket is marked with delete marker, but in destination bucket, by default if is not marked as deleted.</li>
+<li>You can <strong>enable delete marker replication</strong> in settings, then delete marker version is replicated in destination bucket.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>It can be done two ways<ul>
+<li>Cross-Region Replication (CRR)</li>
+<li>Same-Region Replication (SRR)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Cross-Region Replication (CRR)</strong><ul>
+<li>us-east-2 to eu-west-1</li>
+<li>helpful in disaster recovery</li>
+<li>compliance and geo redundancy - some compliance may require you to store data in certain regions</li>
+<li>reduce latency - you can reduce latency by bringing data close to user region.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Same-Region Replication (SRR)</strong><ul>
+<li>us-east-1 to us-east-1</li>
+<li>disaster recovery use case</li>
+<li>testing - you can sync test and prod</li>
+<li>caching - you can access frequently accessed data into caching layer</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>S3 supports Asynchronous Replication, that is, once object is written to primary bucket after that it will be written to replica bucket. This is <strong>near real time</strong>, not real time.</li>
+<li><strong>Versioning is required for replication</strong>.</li>
+<li>Once on, old data is not replicated automatically, only newly added data will be. To replicate old data, use S3 Batch Replication.</li>
+<li>Delete Markers are not replicated by default.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Replication Handson</strong><ul>
+<li>you need to create two buckets, origin and destination</li>
+<li>you need to enable versioning on both.</li>
+<li>In settings, Management &gt; 'create replication rules'</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>S3 Notifications</strong><ul>
+<li>You can send notifications on specific events.</li>
+<li>You can configure S3 to notify you when one of the following events takes place:<ul>
+<li>Creating new objects</li>
+<li>Removing objects</li>
+<li>Restoring objects</li>
+<li>Replicating objects</li>
+<li>Expired S3 lifecycle events</li>
+<li>Transitioned S3 lifecycle events</li>
+<li>Automatic archival events from S3 Intelligent-Tiering</li>
+<li>Tagging objects</li>
+<li>PUT ACL objects (access control)</li>
+</ul>
+</li>
+<li>You can filter events, example notify create of object only for PNG extension.</li>
+<li>You can send notifications to:<ul>
+<li>Amazon SNS</li>
+<li>Event Bridge - can forward to other services</li>
+<li>Amazon SQS</li>
+<li>AWS Lambda</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-amazon-s3-storage-classes">1.3 Amazon S3 Storage Classes</h2>
+<p><strong>S3 Storage Classes</strong></p>
+<ul>
+<li>S3 offers different storage classes with different pricing, like SSD, HHD etc.</li>
+</ul>
+<ul>
+<li>Determining Ideal Storage Class based on Frequency<ol>
+<li>Frequently Accessed with low-latency and high-throughput - You often use it, and need it quickly</li>
+<li>Infrequent access and slightly low latency but high throughput - You don't often use it, but when needed should be easily accessible and quick to read.</li>
+<li>Infrequent, high latency, low throughput - means you rarely access, takes time to fetch, is slow to read. Used for archival data.</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>Storages on S3<ol>
+<li>Amazon S3 Standard General Purpose Storage - Use case Gaming, Big Data Analytics.</li>
+<li>Amazon S3 Standard Infrequent Access Storage - Costs less than general. Less frequent accessed but rapid read.</li>
+<li>Amazon S3 One Zone Infrequent Access</li>
+<li>Amazon S3 Glacier Instant Retrieval</li>
+<li>Amazon S3 Glacier Flexible Retrieval</li>
+<li>Amazon S3 Glacier Deep Archive - Low cost. For archiving/backing up.</li>
+</ol>
+</li>
+</ul>
+<p><strong>Infrequent Access - Sub storages</strong></p>
+<ul>
+<li>Amazon S3 Standard-Infrequent Access (S3 Standard-IA)<ul>
+<li>99.9% availability in multiple zones</li>
+<li>Use Cases: Disaster recovery, backups</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Amazon S3 One Zone-Infrequent Access (S3 One Zone-IA)<ul>
+<li>99.5% availability in a single zone</li>
+<li>Use Cases: Storing secondary backup copies of your data</li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon S3 Glacier Types</strong></p>
+<ul>
+<li>Instant Retrieval<ul>
+<li>Offers millisecond retrieval</li>
+<li>Use Cases<ul>
+<li>Medical images</li>
+<li>News media assets</li>
+<li>Data that needs to be accessed on quarterly basis</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Flexible Retrieval<ul>
+<li>Minimum storage duration of 90 days</li>
+<li>Retrieval Options:<ul>
+<li>Expedited - 1 to 5 minutes</li>
+<li>Standard - 3 to 5 hours</li>
+<li>Bulk (Free to retrieve, only storage costs) - 5 to 12 hours</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Deep Archive<ul>
+<li>Minimum storage duration of 180 days</li>
+<li>For long term storage</li>
+<li>Retrieval Options:<ul>
+<li>Standard - 12 hours</li>
+<li>Bulk - 48 hours</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>S3 Intelligent-Tiering</strong></p>
+<ul>
+<li><strong>Automatically</strong> moves objects between the Access Tiers.</li>
+<li>Incurs a <strong>small monthly fee</strong> for auto-tiering</li>
+</ul>
+<ul>
+<li>Frequent Access Tier - Automatically - Default tier</li>
+<li>Infrequent Access Tier - Automatically - Objects not accessed for 30 days</li>
+<li>Archive Instant Access Tier - Automatically - Objects not accessed for 90 days</li>
+<li>Archive Access Tier - Optional - Configurable from 90 days to 730 days</li>
+<li>Deep Archive Access Tier - Optional - Configurable from 180 days to 730 days</li>
+</ul>
+<p><strong>S3 Select and Glacier Select</strong></p>
+<ul>
+<li>You can use <strong>S3 Select</strong> to access data in S3. Select-enabled storage classes, such as Standard and Intelligent-Tiering.</li>
+<li>You can use <strong>Glacier Select</strong> to access in Amazon Glacier.</li>
+<li>Both allow you to use simple S<strong>QL statements</strong> to retrieve filtered data.</li>
+<li>Amazon performs server-side filtering which is up to <strong>400% faster and 80% cheaper</strong>.</li>
+</ul>
+<h2 id="14-amazon-s3-lifecycle-rules">1.4 Amazon S3 Lifecycle Rules</h2>
+<p><strong>S3 Lifecycle Rules</strong></p>
+<ul>
+<li>While Intelligent-Tier allows for automatic moves based on access pattern, but you can create your own rules to move things to different tiers.</li>
+<li>You can use <strong>S3 Lifecycle rules</strong> to move objects between storage classes and access tiers based on explicitly defined criteria. Eg, certain prefix e.g., <code>s3://my-bucket/jpg/*</code></li>
+</ul>
+<p><strong>S3 Actions</strong></p>
+<ul>
+<li>You can use actions to move objects from one tier to another or delete forever.</li>
+</ul>
+<ul>
+<li><strong>Transition Actions</strong><ul>
+<li>Define <strong>when and how</strong> objects should be <strong>moved</strong> from one access <strong>tier</strong> to another.</li>
+<li>Example: Move objects to Glacier for archiving after one year</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Expiration Actions</strong><ul>
+<li>Define at <strong>what age</strong> should objects expire (be permanently deleted)</li>
+<li>Examples: Delete after a specified retention period for compliance. Delete old version of files (if versioning is enabled)</li>
+<li>You <strong>won't be charged</strong> for storage <strong>after expiration time</strong>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Lifecycle Rule Example Scenario</strong></p>
+<ul>
+<li>Use case requirements<ul>
+<li>Imagine images is uploaded to S3 and then thumbnails are generated. Eg, movie ticket.</li>
+<li>Users only requires images to be frequently accessed for 60 days and then can wait for up to 6 hours.</li>
+<li>Thumbnails can be deleted after 60 days and may get regenerated from original image if required.</li>
+</ul>
+</li>
+<li>Lifecycle Setup<ul>
+<li>Images are stored in Standard for 60 days<ul>
+<li>Then rule moves them to Glacier after 60 days</li>
+</ul>
+</li>
+<li>Thumbnails are store on One-Zone IA as they don't need multi-zone disaster recovery<ul>
+<li>They can expire after 60 days.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Scenario 2 For Versioning and Lifecycle Rules</strong></p>
+<ul>
+<li>Use Case<ul>
+<li>Consider that you need to recover deleted file immediately for 30 days.</li>
+<li>After 30 days you can wait for 42 hours to recover a deleted file.</li>
+</ul>
+</li>
+<li><strong>Versioning</strong><ul>
+<li>You need to enable versioning so that deleted object get deleted marker</li>
+</ul>
+</li>
+<li><strong>Lifecycle Rule</strong><ul>
+<li>Keep objects in <strong>standard class for 30 days</strong></li>
+<li>After 30 days, <strong>transition</strong> object <strong>having delete marker</strong> to <strong>Standard Infrequent Access</strong></li>
+<li>After 1 year move them to Glacier Depp Archive to save cost.</li>
+</ul>
+</li>
+</ul>
+<h2 id="15-amazon-s3-security">1.5 Amazon S3 Security</h2>
+<p><strong>Analytics on Access Patter and Transition</strong></p>
+<ul>
+<li>You can Generates CSV reports with recommendations on how to transition objects based on<ul>
+<li>Access patterns for S3 objects<ul>
+<li>Access frequency</li>
+<li>Last access time</li>
+<li>Total data scanned</li>
+</ul>
+</li>
+<li>Cost analysis</li>
+</ul>
+</li>
+<li>Using these patterns, you can come up with lifecycle rules<ul>
+<li>Object in Standard and Standard IA</li>
+<li>This feature isn't available for objects stored in One-Zone lA or Glacier</li>
+</ul>
+</li>
+</ul>
+<h2 id="16-introduction-to-amazon-ec2">1.6 Introduction to Amazon EC2</h2>
+<ul>
+<li>EC2 is service on AWS that allows you to <strong>rent the virtual server (compute)</strong> on the cloud.</li>
+<li>Get it <strong>simply</strong> via console or by commands in API.</li>
+</ul>
+<ul>
+<li><strong>Benefits</strong> compared to physical servers<ul>
+<li>EC2 can <strong>grow and shrink</strong></li>
+<li><strong>Easy to launch</strong> in minutes</li>
+<li>You <strong>pay less</strong>, only for what you use.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Choosing Instance Types</strong> based following<ul>
+<li>Power - how powerful machine is required for use case?</li>
+<li>CPUs - the CPUs required? eg, <code>M5-Large</code> gives 2 vCPUs, while <code>C54-X-Large</code> gives 16 vCPUs</li>
+<li>Memory - the Ram required?</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>General Purpose Instances</strong><ul>
+<li><strong>Power</strong>: A balanced performance of compute, memory, and networking resources</li>
+<li><strong>vCPUS</strong>: A balanced ratio of vCPUs to memory</li>
+<li><strong>Memory</strong>: A balanced ratio of memory to vCPUs</li>
+<li>Great for diverse workloads</li>
+<li>Examples include <code>t3, t3a, t4</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Compute Optimized Instances Offer</strong><ul>
+<li><strong>Power</strong>: High computational power</li>
+<li><strong>vCPUs</strong>: A higher number of vCPUS relative to memory</li>
+<li><strong>Memory</strong>: Sufficient memory to support most workloads</li>
+<li>Great for applications that demand a lot of computational power</li>
+<li>Examples include <code>c6g, c5, c5a, c5n</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Memory Optimized Instances</strong><ul>
+<li><strong>Power</strong>: A large amount of RAM</li>
+<li><strong>vCPUS</strong>: Typically offer a lower number of vCPUs compared to other instance types</li>
+<li><strong>Memory</strong>: Highest memory capacities</li>
+<li>Great for memory-intensive workloads</li>
+<li>Examples include <code>r5, r5a, r5n</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Storage Optimized Instances</strong><ul>
+<li><strong>Power</strong>: High-speed storage</li>
+<li><strong>vCPUs</strong>: Less vCPUs</li>
+<li><strong>Memory</strong>: Moderate to high memory</li>
+<li>Great for low-latency storage for data-intensive workloads</li>
+<li>Examples include <code>13, 13en, d2, h1</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>EC2 doesn't offer persistent storage</strong><ul class="task-list">
+<li>that is, if EC2 is <strong>terminated</strong> the data stored is <strong>lost permanently</strong>.</li>
+<li>For persistence, you can use EBS or EFS to store data beyond life cycle of ec2.</li>
+<li class="task-list-item"><input type="checkbox"/> replace ec2 with EC2. s3 with S3.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Elastic Block Storage EBS</strong><ul>
+<li>It is more <strong>like attached Local Disk to a Computer</strong></li>
+<li>Each disc is <strong>mapped to individual EC2</strong></li>
+<li>Data is persisted beyond ec2 life.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Instance Store</strong><ul>
+<li>This is a block storage attached to EC2.</li>
+<li>It persists on reboot, but is lost when hibernated or terminated.</li>
+<li>It is used more for caching.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Elastic File System EFS</strong><ul>
+<li>It is more like <strong>network storage</strong> or <strong>shared file storage</strong>.</li>
+<li>It is mounted on to ec2.</li>
+<li>It is offered by service like EFS for linux, FSx for windows.</li>
+<li>Used cases, content sharing and distributed file storage.</li>
+<li>The storage can content can be used by multiple EC2s for different purpose.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Different types of EBS volumes</strong></p>
+<ul>
+<li>General Purpose (gp2)</li>
+<li>Provisioned IOPS (io1)</li>
+<li>Throughput Optimized (st1)</li>
+<li>Cold HDD (sc1)</li>
+<li>Magnetic</li>
+</ul>
+<p><strong>EC2 Pricing Models</strong></p>
+<ul>
+<li><strong>On Demand</strong>
+Allows you pay by the hour or the second, depending on the type of instance.</li>
+</ul>
+<ul>
+<li><strong>Reserved</strong> - Reserves capacity for 1 or 3 years depending on the contract for up to 72% discount on the hourly charge.</li>
+</ul>
+<ul>
+<li><strong>Spot</strong> - Allows you to purchase unused capacity at a discount of up to 90%.</li>
+</ul>
+<ul>
+<li><strong>Dedicated</strong> - A physical EC2 server dedicated for you.</li>
+</ul>
+<h2 id="20-data-formats">2.0 Data Formats ===================</h2>
+<h2 id="21-types-of-data-formats">2.1 Types of Data Formats</h2>
+<h3 id="organizational-styles-and-data-formats-analogy">Organizational Styles and Data Formats Analogy</h3>
+<ol>
+<li>
+<p><strong>Ultra Organizer (Structured Data)</strong>:</p>
+<ul>
+<li><strong>Highly organized</strong> and follows a <strong>predefined schema</strong> (tables, rows, columns).</li>
+<li>Data relationships are clearly defined, making it <strong>easily queryable</strong>.</li>
+<li>Example: <strong>SQL databases, CSV files, spreadsheets</strong>.</li>
+<li>Like a well-organized closet, you can quickly find what you're looking for.</li>
+</ul>
+</li>
+<li>
+<p><strong>Semi-Structured (Semi-Structured Data)</strong>:</p>
+<ul>
+<li>Contains <strong>organizational elements</strong> (tags, keys, attributes) but doesn’t follow a rigid schema.</li>
+<li>Provides some sort of hierarchy</li>
+<li>More flexible than structured data, but less queryable.</li>
+<li>Example: <strong>JSON, XML</strong>.</li>
+<li>Similar to a semi-organized closet—requires some effort to navigate but still manageable.</li>
+</ul>
+</li>
+<li>
+<p><strong>Chaotic (Unstructured Data)</strong>:</p>
+<ul>
+<li>Lacks a specific schema, and data relationships are not clear, making it <strong>hard to query</strong>.</li>
+<li>Requires <strong>pre-processing</strong> before analysis.</li>
+<li>Example: <strong>Images, audio, video, social media posts, text and docs</strong>.</li>
+<li>Like a messy closet, difficult to find what you need.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="common-data-formats">Common Data Formats</h3>
+<ol>
+<li>
+<p><strong>CSV (Comma-Separated Values)</strong>:</p>
+<ul>
+<li><strong>Structured data</strong> in <strong>tabular form</strong>.</li>
+<li>Use cases:<ul>
+<li><strong>Data exchange</strong> between applications (e.g., database export/import).</li>
+<li><strong>With Programming Languages</strong>, like python to read and write data. Libraries in programming languages (e.g., Python's CSV module) handle CSV files.</li>
+<li><strong>Quick data analysis</strong> with tools like Excel or Google Sheets.</li>
+<li><strong>Data backup and archival</strong>, especially for tabular data.</li>
+<li><strong>Human Readable and Editable</strong> format.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>JSON (JavaScript Object Notation)</strong>:</p>
+<ul>
+<li><strong>Semi-structured data</strong> organized in <strong>key-value pairs</strong>.</li>
+<li>Use cases:<ul>
+<li><strong>Configuration files and settings</strong>. Simple, readable.</li>
+<li><strong>Data exchange</strong> between web servers and browsers (common in APIs).</li>
+<li><strong>High interoperability</strong> across different programming languages.</li>
+<li>Can be used for <strong>backup and archiving</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Avro</strong>:</p>
+<ul>
+<li>Represents data in a way that is <strong>easy to serialize</strong> (convert to binary) <strong>and deserialize</strong> (convert back to original structure)</li>
+<li><strong>Row-based format</strong> with <strong>JSON-like syntax</strong> and an <em>optional</em> <strong>declarative schema</strong>.</li>
+<li>Use cases:<ul>
+<li><strong>Compact binary format</strong> for smaller payloads.</li>
+<li>Ideal for <strong>big data processing</strong> (e.g., Hadoop, Spark, Kafka).</li>
+<li><strong>Easily handles schema changes</strong> without breaking compatibility.</li>
+<li>Ensures <strong>data validation</strong> and <strong>strict typing</strong> for high interoperability.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// avro data with schema defined</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">   </span><span class="nt">&quot; type &quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;record&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">   </span><span class="nt">&quot; name &quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">   </span><span class="nt">&quot; fields &quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot; Name&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;age&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;int&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">   </span><span class="p">]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">   </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">Vaibhav</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">   </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Parquet</strong>:</p>
+<ul>
+<li>Open source, <strong>Column-oriented format</strong> designed for <strong>data warehousing</strong> and analytical queries.</li>
+<li>Similar to avro, but <strong>data and schema are combined into one</strong>.</li>
+<li>Use cases:<ul>
+<li><strong>Efficient data analysis</strong> (e.g., aggregation queries).</li>
+<li><strong>Optimized for Hadoop, Spark, Kafka</strong>, and other big data tools.</li>
+<li>Supports <strong>frequent schema changes</strong> without breaking compatibility.</li>
+<li>Allows <strong>selective column reading</strong> for faster data access.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="key-differences-between-avro-and-parquet">Key Differences Between Avro and Parquet</h3>
+<ul>
+<li><strong>Storage Type</strong>:<ul>
+<li><strong>Avro</strong>: Row-based storage.</li>
+<li><strong>Parquet</strong>: Column-oriented storage.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Schema Definition</strong>:<ul>
+<li><strong>Avro</strong>: Uses a <strong>JSON-based schema</strong>.</li>
+<li><strong>Parquet</strong>: Uses its own <strong>schema definition language</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Integration</strong>:<ul>
+<li>Both Avro and Parquet are widely used in <strong>Apache ecosystems</strong> (Hadoop, Spark, Kafka).</li>
+<li>Parquet is <strong>optimized for Impala</strong>, while Avro is <strong>supported</strong> by Impala.</li>
+</ul>
+</li>
+</ul>
+<h2 id="22-transforming-data-formats">2.2 Transforming Data Formats</h2>
+<h3 id="etl-and-data-transformation-with-aws-glue">ETL and Data Transformation with AWS Glue</h3>
+<p><strong>AWS Glue</strong> offers several ways to <strong>transform</strong> data:</p>
+<ul>
+<li><strong>Python shell jobs</strong> for quick data manipulation.</li>
+<li><strong>Spark ETL jobs</strong> for large-scale transformations.</li>
+<li><strong>PySpark or Scala jobs</strong> for batch and streaming data processing.</li>
+</ul>
+<ol>
+<li>
+<p><strong>Python Shell ETL Jobs</strong> in Glue:</p>
+<ul>
+<li>Suitable for <strong>simpler ETL tasks</strong> (e.g., small datasets).</li>
+<li>Provides <strong>pre-built libraries</strong> for transforming data between formats, such as <strong>CSV to Parquet</strong>.</li>
+<li>Libraries for <strong>aggregating data</strong> (e.g., sums, averages) and reading/writing formats.</li>
+<li><strong>Use case</strong>: Reading a CSV file from an S3 bucket, converting it to Parquet using the <code>CSV</code> module and <code>PyArrow</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Spark ETL Jobs</strong> in Glue:</p>
+<ul>
+<li>Ideal for <strong>complex transformations</strong> and <strong>large-scale data</strong>.</li>
+<li>Apache Spark is a <strong>distributed computing system</strong> that supports:<ul>
+<li><strong>Filtering data</strong> based on specific criteria.</li>
+<li><strong>Aggregating data</strong> (e.g., sums, averages, counts).</li>
+<li><strong>Joining data</strong> from multiple datasets using common keys.</li>
+</ul>
+</li>
+<li><strong>Use case</strong>: Processing <strong>large datasets in Redshift</strong> to identify top-selling products through aggregation.</li>
+</ul>
+</li>
+<li>
+<p><strong>PySpark or Scala for Batch and Streaming Jobs</strong> in Glue:</p>
+<ul>
+<li><strong>Batch Processing</strong>: Processing data in <strong>fixed-size batches</strong> (e.g., daily sales reports).<ul>
+<li>Example: A retail company collects daily sales data in CSV format. PySpark or Scala can read the CSV, transform, and aggregate the data.</li>
+</ul>
+</li>
+<li><strong>Streaming Processing</strong>: Processing data in <strong>micro-batches</strong> at regular intervals (e.g., real-time data analysis).<ul>
+<li>Example: analysing real-time <strong>clickstream data</strong> using Amazon Kinesis and processing it with PySpark or Scala for real-time insights.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>[ ] - do handson for above</p>
+<h2 id="30-databases">3.0 Databases ======================</h2>
+<h2 id="31-introduction-to-amazon-dynamodb">3.1 Introduction to Amazon DynamoDB</h2>
+<h3 id="aws-dynamodb">AWS DynamoDB</h3>
+<p><strong>Overview of DynamoDB</strong></p>
+<ul>
+<li><strong>DynamoDB</strong> is a fully managed, <strong>NoSQL non-relational</strong> database service.</li>
+<li>It supports <strong>key-value pairs</strong> and <strong>document data</strong> (JSON, HTML, XML).</li>
+<li><strong>Flexible</strong> table adaptation, but <strong>lacks joins</strong> and analytical query capabilities.</li>
+<li><strong>Access patterns</strong> must be defined <strong>before table creation</strong>?</li>
+<li><strong>Unlimited storage</strong>, with <strong>single-digit millisecond response times</strong>.</li>
+<li>Use <strong>DynamoDB Accelerator (DAX)</strong> for <strong>microsecond latency</strong>.</li>
+<li>It is limitless, can handle Terabytes smoothly.</li>
+</ul>
+<p><strong>Benefits of DynamoDB</strong></p>
+<ol>
+<li>
+<p><strong>Global Tables</strong> across Regions:</p>
+<ul>
+<li>Replicate data across AWS regions for <strong>fast, responsive access</strong> worldwide.</li>
+</ul>
+</li>
+<li>
+<p><strong>DynamoDB Streams</strong>:</p>
+<ul>
+<li>Captures <strong>time-ordered modifications</strong> to database items.</li>
+<li>That is, it stores any modification to item in a table like created, updated etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Partitioning and Availability</strong>:</p>
+<ul>
+<li>DynamoDB <strong>automatically scales</strong> by partitioning data. You need not take this step.</li>
+<li>Replicates data across <strong>three availability zones</strong> for <strong>fault tolerance</strong>.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Use Cases</strong></p>
+<ul>
+<li><strong>Media and metadata storage</strong> (photos, videos).</li>
+<li><strong>Retail applications</strong> (high traffic, e.g., during holidays). It can handle millions of request per second.</li>
+<li><strong>Gaming platforms</strong> (large-scale data handling).</li>
+<li><strong>Online transaction processing (OLTP)</strong> (financial transactions, e-commerce).</li>
+<li><strong>Hierarchical data models</strong> (e.g., employee directories).</li>
+<li><strong>Fluctuating workloads</strong> (e.g., social media, flash sales).</li>
+<li><strong>Mission-critical applications</strong> (healthcare, online banking). When downtime is not an option.</li>
+</ul>
+<p><strong>DynamoDB compared to Relational Database</strong></p>
+<ol>
+<li><strong>Tables</strong>: Similar to SQL tables.</li>
+<li><strong>Items</strong>: Equivalent to <strong>rows/records</strong> in SQL.</li>
+<li><strong>Attributes</strong>: Equivalent to <strong>columns/fields</strong> in SQL.<ul>
+<li>A unique group of attributes forms a <strong>single item</strong>.</li>
+<li>Max item size is <strong>400 KB</strong>.</li>
+</ul>
+</li>
+<li><strong>Primary Keys</strong>:<ul>
+<li>Consist of one or two attributes.</li>
+<li>Used to <strong>retrieve data</strong>. Selecting the right primary key is crucial for table design.</li>
+<li>This is why knowing the <strong>access pattern</strong> is important as based on that you would define the primary key and then based on that you will retrieve the data.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Time to Live (TTL)</strong></p>
+<ul>
+<li>Adds an expiry time to items.</li>
+<li>Items are <strong>automatically deleted</strong> once expired, including from <strong>indexes</strong>.</li>
+<li><strong>Deletion occurs within 48 hours</strong> of expiration.</li>
+<li>Delete data might appear in result, you need to add filter to remove it.</li>
+</ul>
+<ul>
+<li><strong>Use Case</strong>:<ul>
+<li>Use TTL for <strong>deleting sensitive data</strong>. Add expiry based on contract to keep PII.</li>
+<li>session data, event logs. Add expiry so that they get auto deleted after time and save on storage costs.</li>
+<li>for <strong>debugging</strong>. Add expiry to logs so that after debugging logs are auto deleted.</li>
+</ul>
+</li>
+</ul>
+<h2 id="32-amazon-dynamodb-dealing-with-rate-limits-and-throttling">3.2 Amazon DynamoDB: Dealing with Rate Limits and Throttling</h2>
+<h3 id="dynamodb-throughput">DynamoDB Throughput</h3>
+<p><strong>Throughput</strong> means <strong>rate</strong> at which data can be <strong>read</strong> and <strong>written</strong> to database. It depends on <strong>Capacity Modes</strong>. You basically can pre-define the unites required or pay as you go (more expensive) if load is unpredictable.</p>
+<p>Two capacity modes are:</p>
+<ol>
+<li><strong>Provisioned Capacity Mode</strong> - You predict and specify the units in advance.</li>
+<li><strong>On-Demand Capacity Mode</strong> - You are charges pay as you go.</li>
+</ol>
+<h3 id="dynamodb-capacity-modes">DynamoDB Capacity Modes</h3>
+<p><strong>Provisioned Capacity Mode</strong>:</p>
+<ul>
+<li>Throughput is calculated and provisioned using <strong>Read Capacity Units (RCUs)</strong> for read operations and <strong>Write Capacity Units (WCUs)</strong> for write operations.</li>
+<li>Suitable for <strong>predictable traffic</strong> and consistent capacity needs.</li>
+<li>Risk of <strong>over-provisioning</strong> (unnecessary charges) or <strong>under-provisioning</strong> (throttling).</li>
+<li>Offers <strong>consistent performance</strong> with a maximum of <strong>40,000 RCUs/WCUs per table</strong>.</li>
+<li><strong>Use Cases</strong>: Traffic that is predictable and then ramps up gradually.</li>
+</ul>
+<p><strong>On-Demand Capacity Mode</strong>:</p>
+<ul>
+<li>No need to provision throughput; DynamoDB charges for <strong>Read/Write Request Units</strong>.</li>
+<li>Automatically scales based on demand.</li>
+<li><strong>More expensive per request</strong> but removes the risk of under/over-provisioning.</li>
+<li>Best for <strong>unpredictable traffic</strong> or new tables with unknown workloads.</li>
+<li>Throttling occurs if demand exceeds <strong>2x the previous peak</strong> within 30 minutes.</li>
+<li>Can switch between modes <strong>every 24 hours</strong>. (on demand to provision and vice versa)</li>
+<li><strong>Use Cases</strong>: Where load is unpredictable.</li>
+</ul>
+<p><strong>Scaling in Provisioned Mode</strong></p>
+<ul>
+<li>Auto-scaling available to manage fluctuations in traffic.</li>
+<li><strong>Auto-scaling</strong>: Adjusts capacity between a defined minimum and maximum range. Range helps control cost.</li>
+<li><strong>Manual Scaling</strong>: You define the exact capacity units without auto-scaling.</li>
+<li>Recommended to <strong>switch to provisioned mode</strong> once the app’s traffic becomes predictable.</li>
+</ul>
+<p><strong>Over Throttling</strong></p>
+<ul>
+<li>User may send more read/write request than provisioned. This will throttle and throw <code>ProvisionedThroughputExceededException</code>. To save from this, <strong>Burst Capacity</strong> comes in.</li>
+</ul>
+<p><strong>Burst Capacity</strong></p>
+<ul>
+<li><strong>Burst capacity</strong> provides <strong>temporary additional throughput</strong> by storing unused capacity from partitions for up to <strong>5 minutes</strong> (300 seconds).</li>
+<li>Helpful during traffic spikes, but shouldn't be relied upon as the primary solution.</li>
+</ul>
+<p><strong>Solutions to Avoid Throttling</strong></p>
+<ol>
+<li><strong>Switch to On-Demand Mode</strong>: Avoids under-provisioning issues by automatically scaling capacity.</li>
+<li><strong>Increase RCUs/WCUs</strong>: Increase provisioned throughput to match demand.</li>
+<li><strong>AWS Application Auto Scaling</strong>: Automatically adjusts provisioned throughput based on traffic.</li>
+<li><strong>Retry Logic with Exponential Backoff</strong>: Implement retry logic to delay retries after failures, using an increasing time delay.</li>
+<li><strong>Optimize Queries</strong>:<ul>
+<li>Avoid querying unnecessary data.</li>
+<li>Use <strong>WHERE clauses</strong> to filter and retrieve only necessary data.</li>
+<li>Use <strong>Projection Expressions</strong> to retrieve specific attributes, reducing capacity usage.</li>
+</ul>
+</li>
+<li><strong>Hot Partition Resolution</strong>:<ul>
+<li>Avoid hot partitions (when one partition receives disproportionate traffic).</li>
+<li>Analyze <strong>access patterns</strong> and <strong>partition keys</strong> to distribute traffic evenly across partitions.</li>
+</ul>
+</li>
+</ol>
+<h3 id="dynamodb-pricing-model">DynamoDB Pricing Model</h3>
+<p>Cost is calculated separately for data storage, data read, data write. So:</p>
+<ul>
+<li>Idle table (not read or written) is only charged for storage and backups.</li>
+</ul>
+<h2 id="33-amazon-dynamodb-partiql">3.3 Amazon DynamoDB: PartiQL</h2>
+<p>You can read from dynamo db by making API call (something like MongoDB calls), you cannot use SQL directly, however, DynamoDB offers a wrapper which helps you query by SQL Syntax (behind the scene it converts to API calls and hence may not be always efficient).</p>
+<p><strong>PartiQL Editor</strong></p>
+<ul>
+<li><strong>PartiQL</strong> is a <strong>SQL-like syntax tool</strong> used to query DynamoDB tables via the <strong>AWS Console</strong>.</li>
+<li>It simplifies working with DynamoDB for developers familiar with SQL, supporting common statements like <strong>INSERT</strong>, <strong>UPDATE</strong>, <strong>SELECT</strong>, and <strong>DELETE</strong>.</li>
+<li>Query results can be displayed in <strong>table view</strong> or <strong>JSON view</strong>.</li>
+</ul>
+<p><strong>Accessing PartiQL</strong></p>
+<ul>
+<li>You can use PartiQL through:<ul>
+<li><strong>AWS Console</strong></li>
+<li><strong>AWS CLI (Command Line Interface)</strong></li>
+<li><strong>DynamoDB APIs</strong></li>
+<li><strong>NoSQL Workbench</strong> (a graphical tool you can install locally).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Behind the Scenes of PartiQL</strong></p>
+<ul>
+<li>PartiQL queries are automatically translated into <strong>DynamoDB API operations</strong>, but this process isn't <em>always</em> efficient.</li>
+<li><strong>Scans</strong> and <strong>queries</strong> are the two <strong>DynamoDB operations</strong> relevant to PartiQL.</li>
+</ul>
+<p><strong>Scans vs. Queries</strong></p>
+<ul>
+<li><strong>Scans</strong>:<ul>
+<li>It is equivalent to <code>SELECT *</code> in SQL.</li>
+<li>Command: <code>aws dynamodb scan --table-name</code>.</li>
+<li><strong>Expensive</strong> because they read the entire table and then apply filters after consuming capacity units, leading to high throughput consumption.</li>
+<li>If table is large, scan and consume your throughput capacity quickly..</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Queries</strong>:<ul>
+<li>It lets you find items using <strong>primary key</strong>, hence reads less data and is <strong>cost effective</strong>.</li>
+<li>Less expensive than scans, as they consume fewer capacity units.</li>
+<li>Command: <code>aws dynamodb query --table-name</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Best Practices to Avoid Inefficient PartiQL Queries</strong></p>
+<ol>
+<li>
+<p><strong>Deny Scan Operations</strong>:</p>
+<ul>
+<li>Use <strong>AWS IAM policies</strong> to deny scan permissions for the identity running PartiQL statements.</li>
+</ul>
+</li>
+<li>
+<p><strong>Create Secondary Indexes</strong>:</p>
+<ul>
+<li>Write queries that utilize these indexes to target specific data and improve performance.</li>
+</ul>
+</li>
+<li>
+<p><strong>Monitor Query Performance</strong>:</p>
+<ul>
+<li>Regularly analyze query performance to detect and resolve full scans early.</li>
+</ul>
+</li>
+</ol>
+<h2 id="34-amazon-redshift-distribution-styles">3.4 Amazon Redshift Distribution Styles</h2>
+<p><strong>Distribution Styles Overview</strong></p>
+<ul>
+<li>Distribution styles determine how data is spread across compute nodes in an <strong>Amazon Redshift</strong> cluster. There are four main styles:</li>
+</ul>
+<ol>
+<li>
+<p><strong>EVEN</strong> Style:</p>
+<ul>
+<li>Data is distributed <strong>evenly</strong> across all compute nodes, regardless of any column values.</li>
+<li>Best suited for <strong>balanced workloads</strong>.</li>
+<li>Recommended for tables that <strong>don't participate in JOIN operations</strong> to avoid data skew.</li>
+</ul>
+</li>
+<li>
+<p><strong>KEY</strong> Style:</p>
+<ul>
+<li>Data is distributed based on specific <strong>key values</strong>, where <strong>identical key values are placed on the same compute node</strong>.</li>
+<li>Ideal for <strong>JOIN-heavy queries</strong> when there is a clear distribution key.</li>
+</ul>
+</li>
+<li>
+<p><strong>ALL</strong> Style:</p>
+<ul>
+<li>The entire table is <strong>replicated</strong> across all nodes.</li>
+<li>Suitable for <strong>small, static tables</strong> that don't undergo frequent updates.</li>
+<li>Not recommended for frequently written tables, as changes must be applied to every node in the cluster.</li>
+</ul>
+</li>
+<li>
+<p><strong>AUTO</strong> Distribution:</p>
+<ul>
+<li>Redshift automatically determines the best distribution style based on the table size and characteristics.</li>
+<li>May initially use the <strong>ALL style</strong> for small tables and switch to <strong>EVEN style</strong> as the table grows.</li>
+<li>Recommended when the <strong>table size is unpredictable</strong> or if you're unsure which style to choose.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Recommendations</strong></p>
+<ul>
+<li>Use <strong>EVEN</strong> for non-JOIN tables.</li>
+<li>Use <strong>KEY</strong> for JOIN-heavy queries with a clear distribution key.</li>
+<li>Use <strong>ALL</strong> for small, static tables that aren't frequently updated.</li>
+<li>Use <strong>AUTO</strong> if the table size is likely to change or when you're uncertain which distribution style fits best.</li>
+</ul>
+<h2 id="35-amazon-redshift-workload-management-wlm">3.5 Amazon RedShift Workload Management (WLM)</h2>
+<p><strong>Superstore Analogy</strong></p>
+<ul>
+<li>Consider the checkout system of superstore, there can be different type of queues<ul>
+<li>based on quantity (customer with trolley, or customer with one item)</li>
+<li>based on type (premium customer, priority maternity disables old, regular)</li>
+</ul>
+</li>
+<li>These queues need to be manged, such as full trolley customer does not block single item person, old people can go to another queue and so on.</li>
+</ul>
+<ul>
+<li><strong>Amazon Redshift Workload Management</strong> also offers <strong>queue management</strong> in <em>similar</em> way:<ul>
+<li>Long-running queries (quantity based)</li>
+<li>Short fast-running queries queue (quantity based)</li>
+<li>Data Analytics queue (role based)</li>
+<li>Superuser queue (role based)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Purpose of WLM</strong></p>
+<ul>
+<li>Redshift <strong>Workload Management (WLM)</strong> helps prioritize and manage queries to optimize system performance.</li>
+<li>It categorizes queries into <strong>distinct queues</strong> based on roles, query types, or importance. For example, there can be queues for:<ul>
+<li><strong>Long-running queries</strong></li>
+<li><strong>Short and fast-running queries</strong></li>
+<li>Specific roles like <strong>data analytics</strong> teams</li>
+</ul>
+</li>
+<li>There is also a default <strong>super user queue</strong> for critical system operations such as administration and maintenance.</li>
+</ul>
+<p><strong>Benefits of WLM</strong></p>
+<ul>
+<li><strong>Prevents long-running queries</strong> from holding up short queries.</li>
+<li>Ensures <strong>high-priority queries</strong> (e.g., system-critical tasks) are not delayed by exploratory or less important queries.</li>
+</ul>
+<p><strong>Setting Up WLM</strong></p>
+<ul>
+<li>WLM is configured through <strong>parameter groups</strong> in Redshift, which manage database settings.</li>
+<li>Up to <strong>eight queues</strong> can be created, each with its own <strong>concurrency level</strong> (number of concurrent queries).<ul>
+<li>For example, if the concurrency level is set to 1, only one query can run at a time in that queue; if set to 5, five queries can run simultaneously.</li>
+</ul>
+</li>
+</ul>
+<p><strong>WLM Modes</strong></p>
+<ol>
+<li>
+<p><strong>Automatic Mode</strong>:</p>
+<ul>
+<li>Redshift <strong>manages concurrency</strong> and <strong>resource allocation</strong> (like memory) automatically based on query workload.</li>
+<li>Useful for demanding queries (e.g., hash joins between large tables) where Redshift will <strong>lower concurrency for better performance</strong>.</li>
+<li>Offers <strong>priority settings</strong> (CRITICAL, HIGHEST, HIGH, NORMAL, LOW, LOWEST) to assign importance to queries.</li>
+<li><strong>Default mode</strong> for Redshift's default parameter group.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manual Mode</strong>:</p>
+<ul>
+<li>Requires creating a <strong>custom parameter group</strong> and manually managing concurrency.</li>
+<li>You can set a <strong>concurrency level</strong> of up to <strong>50</strong> per queue and for all queues combined.</li>
+<li>Redshift automatically creates two <strong>default</strong> queues:
+    - A queue with a concurrency level of <strong>5</strong>.
+    - A <strong>super user queue</strong> with a concurrency level of <strong>1</strong>.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Key Considerations</strong></p>
+<ul>
+<li>Even in <strong>automatic mode</strong>, AWS recommends creating a separate <strong>custom parameter group</strong> for better control over configurations.</li>
+<li>WLM is ideal for balancing query workloads, avoiding bottlenecks, and ensuring critical tasks are prioritized effectively.</li>
+</ul>
+<h2 id="36-amazon-redshift-system-tables-and-views">3.6 Amazon Redshift System Tables and Views</h2>
+<h3 id="amazon-redshift-system-tables-and-views-study-notes">Amazon Redshift System Tables and Views - Study Notes</h3>
+<p><strong>System Tables</strong></p>
+<ul>
+<li><strong>Purpose</strong> Contain metadata and diagnostic information about the database, cluster performance, query execution, and overall health.</li>
+<li><strong>Not meant to be modified directly by users</strong> but useful for diagnostics and troubleshooting.</li>
+</ul>
+<p><strong>Examples of System Tables</strong></p>
+<ol>
+<li>
+<p><strong>STL Query</strong></p>
+<ul>
+<li>Provides information about executed queries.</li>
+<li>Includes query ID, start and end times, query text, and error messages.</li>
+</ul>
+</li>
+<li>
+<p><strong>STL Query Metrics</strong></p>
+<ul>
+<li>Provides metrics on individual executed queries such as SPU usage, I/O statistics, and memory usage.</li>
+<li>Valuable for performance tuning and troubleshooting.</li>
+</ul>
+</li>
+<li>
+<p><strong>STV Query Metrics</strong></p>
+<ul>
+<li>Aggregates metrics from all queries executed on the cluster.</li>
+<li>Includes total execution time, total rows processed, and total bytes processed.</li>
+</ul>
+</li>
+<li>
+<p><strong>STL WLM Query</strong></p>
+<ul>
+<li>Stores information about queries executed or running within workload management queues.</li>
+<li>Includes resource consumption data, useful for assessing query performance and workload management.</li>
+</ul>
+</li>
+<li>
+<p><strong>STL Alert Event Log</strong></p>
+<ul>
+<li>Contains information about system alerts and events related to hardware failures, software errors, or resource constraints.</li>
+</ul>
+</li>
+<li>
+<p><strong>STL Explain</strong></p>
+<ul>
+<li>Stores execution plans generated by the query optimizer.</li>
+<li>Helps in optimizing queries by analysing execution plans.</li>
+</ul>
+</li>
+<li>
+<p><strong>STL Scan</strong></p>
+<ul>
+<li>Contains detailed information about table scans during query execution.</li>
+<li>Includes table ID, scan duration, and number of rows scanned.</li>
+</ul>
+</li>
+</ol>
+<p><strong>System Views</strong></p>
+<ul>
+<li><strong>Purpose</strong> Use system tables to provide a consolidated summary and snapshot of the cluster’s data.</li>
+<li><strong>Types</strong><ul>
+<li><strong>STL Views</strong> Consolidate data from STL tables for monitoring database activity.</li>
+<li><strong>SVV Views</strong> Track various system aspects like configuration, user sessions, and table distribution.</li>
+</ul>
+</li>
+</ul>
+<p><strong>STV Tables</strong></p>
+<ul>
+<li><strong>Concept</strong> STV tables revolve around nodes and slices in Redshift, analogous to a library with shelves (nodes) and books (data blocks).</li>
+</ul>
+<p><strong>Examples of STV Tables</strong></p>
+<ol>
+<li>
+<p><strong>STV Block List</strong></p>
+<ul>
+<li>Contains information about all blocks in the cluster storage (books in the library).</li>
+</ul>
+</li>
+<li>
+<p><strong>STV Slices</strong></p>
+<ul>
+<li>Provides details on the mapping between slices and nodes.</li>
+<li>Useful for monitoring resource distribution across nodes.</li>
+</ul>
+</li>
+<li>
+<p><strong>STV Table Perm</strong></p>
+<ul>
+<li>Contains information about granted permissions.</li>
+<li>Each row includes details like table ID and username/role with granted permissions.</li>
+</ul>
+</li>
+</ol>
+<h2 id="37-dense-compute-versus-dense-storage-clusters">3.7 Dense Compute versus Dense Storage clusters</h2>
+<p><strong>Cluster Types</strong></p>
+<ol>
+<li>
+<p><strong>Single Node Cluster</strong></p>
+<ul>
+<li>Consists of a single node that combines the functionalities of both leader and compute nodes.</li>
+<li><strong>Leader Node</strong> Coordinates the overall operation of the cluster.</li>
+<li><strong>Compute Node</strong> Processes data and executes queries.</li>
+</ul>
+</li>
+<li>
+<p><strong>Multi-Node Cluster</strong></p>
+<ul>
+<li>Consists of one leader node and one or more compute nodes.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Node Types</strong></p>
+<ol>
+<li>
+<p><strong>Dense Compute Nodes</strong></p>
+<ul>
+<li>Optimized for <strong>computational performance</strong>.</li>
+<li><strong>High CPU and memory</strong> resources.</li>
+<li>Prioritize <strong>compute over storage</strong>.</li>
+<li><strong>Smaller capacity</strong>; higher cost per terabyte.</li>
+</ul>
+<ul>
+<li><strong>Use Cases</strong><ul>
+<li>High-query processing.</li>
+<li>Complex analytical queries.</li>
+<li>Concurrent queries or real-time analytics.</li>
+<li>Memory-intensive workloads.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Dense Storage Nodes</strong></p>
+<ul>
+<li>Optimized for <strong>storage</strong>.</li>
+<li><strong>Large storage</strong> capacity.</li>
+<li>Lower cost per terabyte; less expensive.</li>
+<li><strong>Use Cases</strong><ul>
+<li>Handling terabytes or petabytes of data.</li>
+<li>Balancing compute and storage needs.</li>
+<li>Lower cost for large storage but <strong>slower performance compared to dense compute</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Note</strong> Not inherently slower but may show slightly lower computational performance for intensive processing.</li>
+</ul>
+</li>
+<li>
+<p><strong>RA3 Nodes</strong></p>
+<ul>
+<li><strong>Scales compute and storage independently</strong>.</li>
+<li>Automatically <strong>offloads data to S3</strong> when local SSD capacity is exceeded.</li>
+<li><strong>Use Cases</strong><ul>
+<li>Recommended over dense storage nodes for better scalability.</li>
+</ul>
+</li>
+<li><strong>Cost Structure</strong><ul>
+<li><strong>Charges compute and storage separately</strong>.</li>
+<li>Requires tracking costs for both compute nodes and data stored in S3.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>Dense Storage vs. RA3</strong><ul>
+<li><strong>Dense Storage</strong> Charges combine compute and storage; simpler cost tracking.</li>
+<li><strong>RA3</strong> Separates charges; potentially more complex cost management.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Dense Compute</strong> Best for <strong>high performance and intensive computational</strong> tasks.</li>
+<li><strong>Dense Storage</strong> Best for <strong>large data volumes and lower storage cost</strong>; suitable if performance is less critical.</li>
+<li><strong>RA3</strong> Offers <strong>flexible scaling</strong> and is recommended for scenarios where scalability and cost tracking are key considerations.</li>
+</ul>
+<h2 id="38-amazon-redshift-spectrum-and-materialized-views">3.8 Amazon RedShift Spectrum and Materialized Views</h2>
+<p><strong>Scaling Options</strong></p>
+<ol>
+<li>
+<p><strong>Concurrency Scaling</strong></p>
+<ul>
+<li>Adds temporary compute power to handle spikes in concurrent read requests.</li>
+<li>Supports parallel query execution.</li>
+</ul>
+</li>
+<li>
+<p><strong>Cluster Resizing</strong></p>
+<ul>
+<li><strong>Horizontal Scaling</strong> Add or remove nodes from the cluster.</li>
+<li><strong>Vertical Scaling</strong> Change node types to scale up or down.</li>
+</ul>
+</li>
+</ol>
+<h3 id="redshift-spectrum">Redshift Spectrum</h3>
+<ul>
+<li><strong>Query</strong> large volumes of data stored in <strong>S3</strong> without loading it into Redshift.</li>
+<li>Direct <strong>querying of exabytes of data</strong> in S3.</li>
+<li>Managed <strong>automatic scaling</strong> behind the scenes.</li>
+</ul>
+<ul>
+<li><strong>Requirements</strong><ul>
+<li>Requires a <strong>Redshift cluster</strong> for interface.</li>
+<li>Cluster and S3 bucket must be in the <strong>same region</strong>.</li>
+<li><strong>Multiple Redshift clusters can query</strong> the same S3 data <strong>concurrently</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Data Handling</strong><ul>
+<li><strong>External read-only tables</strong> are created in Redshift to reference S3 data.</li>
+<li>Supports <code>SELECT</code> and <code>INSERT</code>; <strong>does not</strong> support <code>UPDATE</code> or <code>DELETE</code>.</li>
+<li>Uses external tables to <strong>specify data format, location,</strong> and <strong>structure</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Data Store Integration</strong><ul>
+<li>To ingest data in <strong>External Tables</strong> you can use<ul>
+<li>AWS Glue Data Catalog</li>
+<li>Amazon Athena</li>
+<li>EMR cluster with an Apache Hive meta-store</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="federated-query">Federated Query</h3>
+<ul>
+<li>Query <strong>data across various databases, warehouses</strong>, and <strong>data lakes</strong>.</li>
+<li>Combines data from Redshift with external databases like S3, RDS (PostgreSQL, MySQL), and Aurora.</li>
+<li><strong>Perform complex joins</strong> and quick transformations <strong>without needing an ETL</strong> pipeline.</li>
+</ul>
+<h3 id="views-and-materialized-views">Views and Materialized Views</h3>
+<p><strong>Regular Views</strong></p>
+<ul>
+<li><strong>Virtual tables</strong> created from saved queries that retrieve data from underlying tables.</li>
+<li>Data is fetched each time the view is queried, similar to a social media feed that updates with the latest data.</li>
+</ul>
+<p><strong>Materialized Views</strong></p>
+<ul>
+<li>Physical snapshots of query results stored in the view itself.</li>
+<li>Queries retrieve data from the stored snapshot rather than executing the query each time.</li>
+<li><strong>Use Case</strong> Suitable for predictable and recurring queries, such as end-of-quarter reports.</li>
+<li><strong>Creation Example</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">view_name</span><span class="w"> </span><span class="k">AS</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">columns</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">employee_table</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">department_table</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li><strong>Refreshing Views</strong></li>
+<li><strong>Auto Refresh</strong> Enabled to update the view when the source data changes.</li>
+<li><strong>Manual Refresh</strong> Use the command:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">REFRESH</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">view_name</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="39-migrating-data">3.9 Migrating Data</h2>
+<p><strong>Migration vs. Transfer</strong></p>
+<ol>
+<li>
+<p><strong>Migration</strong></p>
+<ul>
+<li><strong>Definition</strong> Moving an entire system or application, similar to moving houses.</li>
+<li><strong>Process</strong> Typically involves planning, discovery, validation, and execution.</li>
+</ul>
+</li>
+<li>
+<p><strong>Transfer</strong></p>
+<ul>
+<li><strong>Definition</strong> Moving individual files or objects, like moving a box or parcel.</li>
+<li><strong>Services</strong><ul>
+<li><strong>AWS DataSync</strong><ul>
+<li><strong>Purpose</strong> Transfers files and objects between on-premises and AWS storage services (e.g., S3).</li>
+<li><strong>Features</strong> Constant data synchronization for real-time data consistency and availability.</li>
+</ul>
+</li>
+<li><strong>AWS Transfer Family</strong><ul>
+<li><strong>Purpose</strong> Fully managed file transfer services for protocols like SFTP, FTPS, and FTP.</li>
+<li><strong>Advantages</strong> Seamless integration with existing authentication systems (e.g., Active Directory, LDAP).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>AWS Migration Services</strong></p>
+<ol>
+<li>
+<p><strong>AWS Application Discovery Service (ADS)</strong></p>
+<ul>
+<li><strong>Purpose</strong> Assists in discovering and gathering information about on-premises applications.</li>
+<li><strong>Assessments</strong><ul>
+<li><strong>Agentless Discovery</strong><ul>
+<li><strong>Method</strong> Uses AWS Agentless Discovery Connector to scan the network and infrastructure.</li>
+<li><strong>Use Case</strong> Ideal when installing additional software (agents) is not feasible.</li>
+</ul>
+</li>
+<li><strong>Agent-based Discovery</strong><ul>
+<li><strong>Method</strong> Deploys lightweight software agents to collect granular and real-time data.</li>
+<li><strong>Use Case</strong> Suitable for scenarios requiring more control and customization.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Application Migration Service</strong></p>
+<ul>
+<li><strong>Purpose</strong> Focuses on application-level migrations (rehosting or lifting and shifting).</li>
+<li><strong>Features</strong> Minimizes downtime by either migrating applications or replicating data.</li>
+<li><strong>Migration Lifecycle</strong><ul>
+<li><strong>Discovery</strong> Identify and analyze existing applications.</li>
+<li><strong>Planning</strong> Develop a migration roadmap.</li>
+<li><strong>Validation and Testing</strong> Set up a test environment to simulate and validate the migration.</li>
+<li><strong>Final Migration</strong> Perform the migration after successful validation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Snow Family</strong></p>
+<ul>
+<li><strong>Purpose</strong> Specialized in migrating large volumes of data when internet transfer is impractical.</li>
+<li><strong>Devices</strong><ul>
+<li><strong>Snowball</strong><ul>
+<li><strong>Capacity</strong> Suitable for data volumes of at least 10 terabytes.</li>
+</ul>
+</li>
+<li><strong>Snowball Edge</strong><ul>
+<li><strong>Capacity</strong> For data volumes over 10 terabytes.</li>
+<li><strong>Features</strong> Includes onboard compute resources for data processing (transformation, analysis).</li>
+</ul>
+</li>
+<li><strong>Snowmobile</strong><ul>
+<li><strong>Capacity</strong> Designed for data volumes exceeding 10 petabytes.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="310-database-migration-service-dms">3.10 Database Migration Service (DMS)</h2>
+<h3 id="aws-database-migration-service-dms-study-notes">AWS Database Migration Service (DMS) - Study Notes</h3>
+<p><strong>Overview</strong></p>
+<ul>
+<li><strong>Purpose</strong> AWS DMS is a fully managed service designed to migrate databases from on-premises to AWS or between databases.</li>
+<li><strong>Analogy</strong> Like a smart flatbed transporting data from the source to the target database.</li>
+<li><strong>Key Features</strong><ul>
+<li><strong>Discovery</strong> Identifies eligible source databases.</li>
+<li><strong>Consolidation</strong> Merges multiple source databases into a single target database.</li>
+<li><strong>Minimized Downtime</strong> Source database remains available during migration.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Migration Methods</strong></p>
+<ol>
+<li>
+<p><strong>One-Time Migration</strong></p>
+<ul>
+<li><strong>Description</strong> Moves data in a single operation from source to target.</li>
+<li><strong>Use Case</strong> Ideal for migrating databases to a new environment (e.g., on-prem to cloud).</li>
+<li><strong>Downtime</strong> May result in some downtime.</li>
+</ul>
+</li>
+<li>
+<p><strong>Continuous Replication (CDC - Change Data Capture)</strong></p>
+<ul>
+<li><strong>Description</strong> Synchronizes changes between source and target databases in near real-time.</li>
+<li><strong>Use Case</strong> Suitable for syncing without a full load, especially if initial data migration is done using other tools.</li>
+</ul>
+</li>
+<li>
+<p><strong>Full Load Plus CDC</strong></p>
+<ul>
+<li><strong>Description</strong> Combines full load for initial migration and continuous replication for ongoing changes.</li>
+<li><strong>Use Case</strong> When a full load is needed initially, followed by continuous data syncing.</li>
+</ul>
+</li>
+</ol>
+<p><strong>CDC Streaming Options to S3</strong></p>
+<ol>
+<li>
+<p><strong>Kinesis Data Streams</strong></p>
+<ul>
+<li><strong>Process</strong> CDC data is captured and ingested directly into S3 in Parquet format.</li>
+</ul>
+</li>
+<li>
+<p><strong>Kinesis Data Firehose</strong></p>
+<ul>
+<li><strong>Process</strong> Data is ingested into Kinesis Data Streams, then streamed into Kinesis Data Firehose for additional transformations before storing in S3.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Migration Types</strong></p>
+<ol>
+<li>
+<p><strong>Homogeneous Migration</strong></p>
+<ul>
+<li><strong>Description</strong> Migration between databases with compatible engines.</li>
+<li><strong>Example</strong> On-prem MySQL to RDS MySQL.</li>
+</ul>
+</li>
+<li>
+<p><strong>Heterogeneous Migration</strong></p>
+<ul>
+<li><strong>Description</strong> Migration between databases with different engines.</li>
+<li><strong>Process</strong><ul>
+<li><strong>Schema Conversion</strong> Use AWS Schema Conversion Tool to convert schema.</li>
+<li><strong>Data Migration</strong> Perform data migration after schema conversion.</li>
+</ul>
+</li>
+<li><strong>Example</strong> On-prem Oracle to RDS PostgreSQL.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Schema Conversion Tool</strong></p>
+<ul>
+<li><strong>Purpose</strong> Resolves compatibility issues between source and target database schemas.</li>
+</ul>
+<p><strong>DMS Components</strong></p>
+<ol>
+<li>
+<p><strong>Replication Instance</strong></p>
+<ul>
+<li><strong>Description</strong> EC2 instance running replication software within a VPC.</li>
+<li><strong>Tasks</strong><ul>
+<li><strong>Create</strong> Set up and configure the replication instance.</li>
+<li><strong>Endpoints</strong> Define source and target endpoints for database connections.</li>
+<li><strong>Replication Task</strong> Defines the data migration or replication process.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>IAM Role</strong></p>
+<ul>
+<li><strong>Purpose</strong> Provides DMS with the necessary permissions to access source and target databases.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Table Mappings and Transformation Rules</strong></p>
+<ol>
+<li>
+<p><strong>Table Mappings</strong></p>
+<ul>
+<li><strong>Description</strong> Specify relationships between columns in source and target tables.</li>
+<li><strong>Example</strong> Mapping <code>email</code> to <code>contact_email</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Transformation Rules</strong></p>
+<ul>
+<li><strong>Purpose</strong> Transform data during migration.</li>
+<li><strong>Types</strong><ul>
+<li><strong>Data Type Conversion</strong> E.g., string to number.</li>
+<li><strong>Calculations</strong> E.g., summing columns.</li>
+<li><strong>String Alterations</strong> E.g., modifying or combining strings.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="40-data-cataloging-system">4.0 Data Cataloging System ====================</h2>
+<h2 id="41-components-of-a-data-catalog">4.1 Components of a Data Catalog</h2>
+<h3 id="aws-data-catalog-study-notes">AWS Data Catalog - Study Notes</h3>
+<p><strong>Purpose of a Data Catalog</strong></p>
+<ul>
+<li>A <strong>data catalog</strong> systematically organizes data assets, similar to how a library organizes books.</li>
+<li>It helps users <strong>discover, understand</strong>, and <strong>categorize</strong> data, offering insights on:<ul>
+<li><strong>Location of data</strong></li>
+<li><strong>Contents of the data</strong> (e.g., columns, tables)</li>
+<li><strong>Users of the data</strong> (who accesses it)</li>
+<li><strong>Data quality</strong> (e.g., missing values, inconsistencies)</li>
+<li><strong>Data lineage</strong> (relationships and transformations from source to destination)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Components of a Data Catalog</strong></p>
+<ol>
+<li>
+<p><strong>Metadata Repository</strong></p>
+<ul>
+<li>Centralized storage for metadata about datasets.</li>
+</ul>
+</li>
+<li>
+<p><strong>Search and Discovery</strong></p>
+<ul>
+<li>Capability to search by database names, tables, columns, and keywords.</li>
+<li>Tags and annotations provide context for searches.</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Lineage</strong></p>
+<ul>
+<li>Visualizes data flow from source to final destination.</li>
+<li>Shows relationships between data elements (e.g., foreign keys).</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Asset Descriptions</strong></p>
+<ul>
+<li>Includes descriptions of tables, such as purpose, owner, and creation date.</li>
+</ul>
+</li>
+<li>
+<p><strong>Access and Security</strong></p>
+<ul>
+<li>Implements access controls to restrict data viewing or modifications.</li>
+<li>Provides security labels and permissions for data confidentiality.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Examples of Data Catalog Systems</strong></p>
+<ul>
+<li><strong>AWS Glue Data Catalog</strong></li>
+<li><strong>Hive Metastore</strong></li>
+</ul>
+<p><strong>Hive Metastore Overview</strong></p>
+<ul>
+<li>Stores metadata for tables (e.g., schemas, partitions, storage locations).</li>
+<li><strong>SQL-like language (HiveQL)</strong> is used to query distributed data on systems like HDFS or Amazon S3.</li>
+<li>Can be integrated with EMR or replaced with AWS Glue Data Catalog.</li>
+</ul>
+<ul>
+<li><strong>Elastic MapReduce (EMR)</strong><ul>
+<li>Fully managed service for processing large-scale structured, semi-structured, or unstructured data.</li>
+<li>Supports <strong>Apache Hadoop</strong> and <strong>Apache Spark</strong> for distributed and parallel data processing.</li>
+<li><strong>EMR Cluster</strong> Made of EC2 compute nodes, which scale up or down based on processing requirements.</li>
+</ul>
+</li>
+</ul>
+<h2 id="42-lets-look-at-metadata">4.2 Let's Look at Metadata</h2>
+<h3 id="metadata-study-notes">Metadata - Study Notes</h3>
+<p><strong>What is Metadata?</strong></p>
+<ul>
+<li><strong>Metadata</strong> is "data about data," providing context and characteristics about the main data.</li>
+<li>It includes details like:<ul>
+<li><strong>Location</strong> of data</li>
+<li><strong>Schema</strong> (data types, table structure)</li>
+<li><strong>Data Lineage</strong> (relationship between data elements)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Types of Metadata</strong></p>
+<ol>
+<li>
+<p><strong>Structural Metadata</strong>:</p>
+<ul>
+<li>Describes how the data is organized (e.g., table names, columns, data types).</li>
+<li>Used to show <strong>data lineage</strong> and relationships between tables.</li>
+</ul>
+</li>
+<li>
+<p><strong>Descriptive Metadata</strong>:</p>
+<ul>
+<li>Provides information about the content and purpose of the data.</li>
+<li>Includes <strong>table descriptions</strong>, comments, and annotations to enable search and discovery.</li>
+</ul>
+</li>
+<li>
+<p><strong>Administrative Metadata</strong>:</p>
+<ul>
+<li>Focuses on data management aspects like <strong>ownership</strong>, <strong>access permissions</strong>, and <strong>versioning</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Technical Metadata</strong>:</p>
+<ul>
+<li>Describes technical details such as file formats (e.g., Parquet, Avro, CSV).</li>
+<li>Includes serialization/deserialization processes and indexing information.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Uses of Metadata</strong></p>
+<ol>
+<li>
+<p><strong>Data Lineage</strong>:</p>
+<ul>
+<li><strong>Tracks data flow</strong> from source to final destination (e.g., databases, applications).</li>
+<li>Helps with <strong>impact analysis</strong>, showing how changes in data affect downstream processes.</li>
+<li>Supports <strong>compliance</strong> and <strong>auditing</strong> by tracking data handling.</li>
+<li>Aids in <strong>troubleshooting</strong> and identifying stages where problems occur.</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Quality Metrics</strong>:</p>
+<ul>
+<li><strong>Accuracy</strong>: Measures how correct the data values are.</li>
+<li><strong>Completeness</strong>: Measures how fully the data is populated.</li>
+<li><strong>Consistency</strong>: Measures coherence of data across different sources or time periods.</li>
+<li><strong>Validity</strong>: Measures conformance to predefined rules (e.g., valid ranges).</li>
+<li><strong>Uniqueness</strong>: Measures uniqueness of data entries (e.g., unique IDs).</li>
+</ul>
+</li>
+</ol>
+<p><strong>Benefits of Data Quality Metrics</strong>:</p>
+<ul>
+<li><strong>Informed Decision-Making</strong>: Ensures data-driven decisions are based on accurate, reliable data.</li>
+<li><strong>Cost Savings</strong>: Reduces expenses from errors, rework, and inefficiencies.</li>
+<li><strong>Compliance</strong>: Ensures adherence to regulatory requirements, reducing risks of non-compliance.</li>
+</ul>
+<p><strong>Collaboration Tools for Managing Metadata</strong></p>
+<ol>
+<li>
+<p><strong>Annotations and Comments</strong>:</p>
+<ul>
+<li>Add <strong>descriptions</strong> or <strong>tags</strong> to provide context and explain data to other teams.</li>
+<li>Supported in AWS Glue for enhanced data collaboration.</li>
+</ul>
+</li>
+<li>
+<p><strong>Change Tracking</strong>:</p>
+<ul>
+<li>Use <strong>AWS CloudTrail</strong> to monitor who makes updates to metadata and when.</li>
+</ul>
+</li>
+<li>
+<p><strong>Notifications</strong>:</p>
+<ul>
+<li>Configure <strong>AWS CloudWatch Events</strong> to trigger notifications (via SNS) when metadata is updated.</li>
+</ul>
+</li>
+</ol>
+<h2 id="43-demo-creating-a-data-catalog">4.3 Demo: Creating a Data Catalog</h2>
+<h3 id="aws-data-catalog-creation-study-notes">AWS Data Catalog Creation - Study Notes</h3>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <strong>data catalog</strong> organizes virtual databases, tables, and metadata entries. It allows you to manage, query, and retrieve data efficiently.</li>
+</ul>
+<p><strong>Steps to Create a Data Catalog</strong></p>
+<ol>
+<li>
+<p><strong>Set Up a Database</strong>:</p>
+<ul>
+<li>Use <strong>AWS Glue</strong> to create a database (e.g., "Manhattan Insights").</li>
+</ul>
+</li>
+<li>
+<p><strong>Add Tables Using AWS Glue Crawler</strong>:</p>
+<ul>
+<li>The <strong>AWS Glue Crawler</strong> automatically scans and creates tables from a data source (e.g., Amazon S3).</li>
+<li><strong>Data Source</strong>: Select <strong>S3</strong> and navigate to the appropriate folder path (e.g., source data feed folder).</li>
+<li><strong>Classifiers</strong>: Create a CSV classifier to define the file format (e.g., "manhattan-csv-classifier").</li>
+</ul>
+</li>
+<li>
+<p><strong>IAM Role</strong>:</p>
+<ul>
+<li>Create an IAM role (e.g., "Properties Analyst") to allow Glue to access data from S3.</li>
+</ul>
+</li>
+<li>
+<p><strong>Run the Crawler</strong>:</p>
+<ul>
+<li>After configuring the Crawler, review the summary and create it.</li>
+<li>Run the Crawler, and it will create a table based on the data in S3.</li>
+</ul>
+</li>
+<li>
+<p><strong>Check the Table</strong>:</p>
+<ul>
+<li>Verify that the table was created correctly in Glue, with the appropriate <strong>S3 path</strong>, <strong>CSV classification</strong>, and <strong>partition key</strong> (e.g., neighbourhood).</li>
+</ul>
+</li>
+<li>
+<p><strong>Query Data Using Amazon Athena</strong>:</p>
+<ul>
+<li>Use <strong>Amazon Athena</strong> to query the created table.</li>
+<li>Set the <strong>S3 output location</strong> for query results.</li>
+<li>Run the query in Athena to retrieve and view the data.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Example Setup</strong></p>
+<ul>
+<li><strong>Data Source</strong>: Amazon S3, partitioned by neighbourhoods (e.g., EastHarlem, Harlem).</li>
+<li><strong>Columns</strong>: Price, bedrooms, bathrooms, square footage, status, and address.</li>
+<li><strong>Database</strong>: Manhattan Insights.</li>
+<li><strong>Table</strong>: source_datafeed with neighbourhood as the partition key.</li>
+</ul>
+<p><strong>Final Steps in Athena</strong></p>
+<ol>
+<li>Set the <strong>output path</strong> for query results (Athena Output Results in S3).</li>
+<li>Run the query to retrieve data with the correct schema and partition key.</li>
+</ol>
+<h2 id="44-aws-glue-versus-apache-hive">4.4 AWS Glue versus Apache Hive</h2>
+<h3 id="aws-glue-vs-apache-hive-study-notes">AWS Glue vs Apache Hive - Study Notes</h3>
+<p><strong>AWS Glue Overview</strong></p>
+<ul>
+<li><strong>Purpose</strong>: A fully managed ETL (Extract, Transform, Load) service designed for processing and analysing big data.</li>
+<li><strong>Key Features</strong>:<ul>
+<li><strong>Crawlers</strong>: Infer schema and create the AWS Glue Data Catalog to organize metadata.</li>
+<li><strong>ETL Jobs</strong>: Automate data ingestion, transformation, and loading via the Glue console or custom Python scripts.</li>
+<li><strong>Data Transformation</strong>: Built-in functions or custom code to transform data before loading it into target databases.</li>
+<li><strong>Deployment</strong>: Fully managed, with no need for infrastructure setup or management.</li>
+<li><strong>Processing Support</strong>: Supports <strong>batch</strong> and <strong>streaming</strong> processing for real-time or scheduled data jobs.</li>
+<li><strong>AWS Integration</strong>: Seamlessly integrates with AWS services like S3, Athena, and RDS.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Apache Hive Overview</strong></p>
+<ul>
+<li><strong>Purpose</strong>: A data processing framework for transforming and analysing big data using a SQL-like language.</li>
+<li><strong>Key Features</strong>:<ul>
+<li><strong>HiveQL</strong>: Use SQL queries (HiveQL) to perform operations like filtering, aggregation, and joins on data stored in HDFS or S3.</li>
+<li><strong>Hive Metastore</strong>: Centralized metadata store for organizing data in the Hive ecosystem.</li>
+<li><strong>Processing Support</strong>: Primarily supports <strong>batch processing</strong>, making it less ideal for real-time analytics.</li>
+<li><strong>Deployment</strong>: Runs on <strong>Hadoop clusters</strong>, requiring significant infrastructure setup and maintenance.</li>
+<li><strong>Integration</strong>: Works with the Hadoop ecosystem, including HDFS, YARN, and Hadoop MapReduce.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Differences Between AWS Glue and Apache Hive</strong></p>
+<ol>
+<li>
+<p><strong>Architecture</strong>:</p>
+<ul>
+<li><strong>AWS Glue</strong>: A fully managed service in AWS, handling all infrastructure needs, including resource provisioning, scaling, and maintenance.</li>
+<li><strong>Apache Hive</strong>: Runs on <strong>Hadoop clusters</strong>, requiring manual infrastructure management and setup.</li>
+</ul>
+</li>
+<li>
+<p><strong>Processing Types</strong>:</p>
+<ul>
+<li><strong>AWS Glue</strong>: Supports both <strong>batch</strong> and <strong>real-time (streaming)</strong> processing.</li>
+<li><strong>Apache Hive</strong>: Primarily supports <strong>batch processing</strong> and does not handle real-time data efficiently.</li>
+</ul>
+</li>
+<li>
+<p><strong>ETL Job Translation</strong>:</p>
+<ul>
+<li><strong>AWS Glue</strong>: Translates ETL jobs for AWS data environments.</li>
+<li><strong>Apache Hive</strong>: Translates <strong>HiveQL</strong> queries into MapReduce jobs that run on Hadoop clusters.</li>
+</ul>
+</li>
+<li>
+<p><strong>Integration</strong>:</p>
+<ul>
+<li><strong>AWS Glue</strong>: Integrates with AWS services like S3, Athena, and RDS.</li>
+<li><strong>Apache Hive</strong>: Integrates with Hadoop components like HDFS, YARN, and Hadoop MapReduce.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li><strong>AWS Glue</strong>: Ideal for cloud-based, fully managed ETL workflows with real-time or batch processing needs.</li>
+<li><strong>Apache Hive</strong>: Suitable for environments already using Hadoop clusters, with a focus on batch processing of large datasets.</li>
+</ul>
+<h2 id="45-self-discovering-schemas-in-aws-glue">4.5 Self Discovering Schemas in AWS Glue</h2>
+<h3 id="data-lake-and-aws-glue-study-notes">Data Lake and AWS Glue - Study Notes</h3>
+<p><strong>Data Lake Overview</strong></p>
+<ul>
+<li>A <strong>data lake</strong> is a centralized repository designed to store, process, and secure large volumes of data in its <strong>raw format</strong> (native format).</li>
+<li>It acts as a <strong>single source of truth</strong>, consolidating various data types from multiple sources into a consistent store.</li>
+<li><strong>Purpose</strong>: Avoids data silos by integrating different forms of data into one system.</li>
+</ul>
+<p><strong>ETL Process in a Data Lake</strong></p>
+<ul>
+<li><strong>ETL (Extract, Transform, Load)</strong>: A common data integration process used by data engineers.<ol>
+<li><strong>Extract</strong>: Data is pulled from multiple sources.</li>
+<li><strong>Transform</strong>: Data is validated and transformed to meet quality rules.</li>
+<li><strong>Load</strong>: Data is loaded into target systems for downstream consumption (APIs, reports).</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><strong>Flow Example</strong>:<ul>
+<li>Data extracted from sources enters the data lake (e.g., <strong>Amazon S3</strong>).</li>
+<li>Data is transformed and validated according to business rules.</li>
+<li>Processed data is loaded into a target database for business users.</li>
+</ul>
+</li>
+</ul>
+<p><strong>AWS Glue in the ETL Process</strong></p>
+<ul>
+<li><strong>Storage Layer</strong>: <strong>Amazon S3</strong> serves as the storage layer for the data lake.</li>
+<li><strong>AWS Glue</strong>:<ul>
+<li><strong>Crawls</strong> data in S3 to infer schema and creates the <strong>AWS Glue Data Catalog</strong>.</li>
+<li><strong>Transforms and loads</strong> data into the target database using <strong>Glue ETL scripts</strong>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>AWS Glue Data Catalog Population</strong></p>
+<ol>
+<li>
+<p><strong>Automatic Schema Discovery</strong>:</p>
+<ul>
+<li>The <strong>Glue Crawler</strong> automatically analyses the data and identifies metadata (column names, data types) without manual intervention.</li>
+<li><strong>Use Case</strong>: Ideal for scenarios where data changes frequently.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manual Schema Definition</strong>:</p>
+<ul>
+<li>Users explicitly define the schema (column names, data types, etc.).</li>
+<li><strong>Use Case</strong>: Best for stable data environments or when specific schema requirements must be enforced.</li>
+</ul>
+</li>
+</ol>
+<h2 id="46-optimization-techniques-for-improving-query-performance">4.6 Optimization Techniques for Improving Query Performance</h2>
+<h3 id="query-performance-optimization-techniques-study-notes">Query Performance Optimization Techniques - Study Notes</h3>
+<ol>
+<li>
+<p><strong>Indexing</strong></p>
+<ul>
+<li><strong>Purpose</strong>: Speeds up data retrieval by avoiding full table scans.</li>
+<li><strong>Analogy</strong>: Similar to a book index or table of contents that helps you find specific information without scanning the whole book.</li>
+<li><strong>Examples</strong>:<ul>
+<li><strong>Spreadsheets</strong>: Rows and columns are indexed to reference specific cells.</li>
+<li><strong>SQL Databases</strong>: Indexes are created on table columns to speed up queries.</li>
+<li><strong>Relational Tables</strong>: Primary keys and unique constraints act as indexes to improve retrieval performance.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Partitioning</strong></p>
+<ul>
+<li><strong>Purpose</strong>: Divides large datasets into smaller, more manageable subsets called <strong>partitions</strong> to reduce the amount of data scanned and enable parallel processing.</li>
+<li><strong>Example Use Cases</strong>:<ul>
+<li><strong>Time-Based Partitioning</strong>: Sales data partitioned by month, quarter, or year. Queries targeting a specific period (e.g., Q4) can access that partition directly, skipping irrelevant data.</li>
+<li><strong>Alphabetical Partitioning</strong>: Customer data partitioned by the first letter of last names (e.g., A-C, D-F) for faster lookups.</li>
+</ul>
+</li>
+<li><strong>Benefit</strong>: Allows parallel processing, which is faster than sequential scanning of the entire dataset.</li>
+</ul>
+</li>
+<li>
+<p><strong>Compression</strong></p>
+<ul>
+<li><strong>Purpose</strong>: Reduces the storage space required for data by encoding it in a more compact form.</li>
+<li><strong>Trade-Off</strong>: Compression and decompression consume CPU resources, so it's important to assess whether the storage savings justify the CPU overhead.</li>
+<li><strong>Examples</strong>:<ul>
+<li>Common compression techniques include <strong>GZIP</strong>, <strong>ZIP</strong>, <strong>GZ</strong>, and <strong>RAR</strong>.</li>
+<li><strong>Amazon Redshift</strong> has built-in compression algorithms like <strong><code>LZOP</code></strong>, <strong>BZIP2</strong>, and <strong>GZIP</strong> to optimize data storage in its fully managed warehouse.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Summary of Benefits</strong>:</p>
+<ul>
+<li><strong>Indexing</strong>: Improves query speed by providing direct access to data without full scans.</li>
+<li><strong>Partitioning</strong>: Reduces the amount of data scanned and enables faster parallel processing.</li>
+<li><strong>Compression</strong>: Reduces storage costs but requires careful consideration of CPU trade-offs.</li>
+</ul>
+<h2 id="47-schema-evolution-and-updating-data-catalogs">4.7 Schema Evolution and Updating Data Catalogs</h2>
+<h3 id="schema-changes-and-data-transformation-in-aws-glue-study-notes">Schema Changes and Data Transformation in AWS Glue - Study Notes</h3>
+<p><strong>Updating Data Catalogs</strong></p>
+<ol>
+<li>
+<p><strong>Manual Approach</strong>:</p>
+<ul>
+<li>Update the data catalog via the <strong>Glue Console</strong> or manually trigger <strong>Glue Crawlers</strong> to re-scan data sources and update metadata.</li>
+</ul>
+</li>
+<li>
+<p><strong>Programmatic Approach</strong>:</p>
+<ul>
+<li>Use <strong>AWS Glue APIs</strong>, <strong>AWS SDKs</strong> (like Boto3 in Python), or ETL scripts (like <strong>pandas</strong> or <strong>PySpark</strong>) to update the catalog.</li>
+</ul>
+</li>
+<li>
+<p><strong>Automated Approach</strong>:</p>
+<ul>
+<li>Schedule <strong>AWS Glue Crawlers</strong> to run periodically, ensuring the catalog stays up-to-date with schema changes.</li>
+<li><strong>AWS CloudFormation</strong> can automate catalog updates alongside other infrastructure components.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Schema Evolution Methods</strong>:</p>
+<ol>
+<li>
+<p><strong>Schema Updates</strong>:</p>
+<ul>
+<li>Directly modify schemas (e.g., add/delete columns) while preserving underlying data.</li>
+</ul>
+</li>
+<li>
+<p><strong>Partitioning</strong>:</p>
+<ul>
+<li>Add or remove partitions (e.g., yearly data) by updating metadata about the partition's location, format, or compression.</li>
+</ul>
+</li>
+<li>
+<p><strong>Table Updates</strong>:</p>
+<ul>
+<li>Create/delete tables, update table properties, or change table ownership (i.e., AWS account or IAM role).</li>
+</ul>
+</li>
+<li>
+<p><strong>Index Changes</strong>:</p>
+<ul>
+<li>Alter indexes (used to improve query performance), which requires reflecting these changes in the data catalog.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Impact of Schema Changes</strong>:</p>
+<ol>
+<li>
+<p><strong>Deleting Columns</strong>:</p>
+<ul>
+<li>You won’t be able to query deleted columns, though the underlying data remains.</li>
+</ul>
+</li>
+<li>
+<p><strong>Adding Columns</strong>:</p>
+<ul>
+<li>New columns can be queried. You may fill them with <code>null</code>, default values, or existing data.</li>
+</ul>
+</li>
+<li>
+<p><strong>Changing Data Types</strong>:</p>
+<ul>
+<li>AWS will interpret columns according to the new data type, but this may cause <strong>conversion errors</strong> or inconsistencies if the data can't be cast to the new type.</li>
+</ul>
+</li>
+</ol>
+<p><strong>ETL Data Transformation Techniques</strong>:</p>
+<ol>
+<li>
+<p><strong>Custom Transformations</strong>:</p>
+<ul>
+<li>User-defined functions created from scratch (Python/Scala).</li>
+<li>Example: Converting data formats (JSON to Avro).</li>
+</ul>
+</li>
+<li>
+<p><strong>Built-In Transformations</strong>:</p>
+<ul>
+<li>Predefined functions for common tasks:<ul>
+<li><strong>DropFields</strong>: Remove specific columns.</li>
+<li><strong>DropNullFields</strong>: Remove columns with all <code>null</code> values.</li>
+<li><strong>Filter</strong>: Filter rows based on criteria.</li>
+<li><strong>Join</strong>: Combine datasets on common keys (like SQL joins).</li>
+<li><strong>Map</strong>: Modify each record, perform external lookups, etc.</li>
+<li><strong>ResolveChoice</strong>: Resolve schema inconsistencies (e.g., convert mixed data types).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Data Structures in AWS Glue</strong>:</p>
+<ol>
+<li>
+<p><strong>DataFrames</strong>:</p>
+<ul>
+<li>Commonly used for structured data (rows/columns).</li>
+<li>Requires <strong>manual schema updates</strong> if there are changes.</li>
+<li>Supported by <strong>Apache Spark</strong> APIs.</li>
+</ul>
+</li>
+<li>
+<p><strong>DynamicFrames</strong>:</p>
+<ul>
+<li>Designed for semi-structured data.</li>
+<li>Supports schema evolution automatically.</li>
+<li>Used with <strong>AWS Glue's built-in scripts</strong> for transformations.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Machine Learning Transformations in AWS Glue</strong>:</p>
+<ul>
+<li>AWS Glue has specialized <strong>ML transformations</strong> for tasks like:<ul>
+<li><strong>Deduplication</strong>: Identifying duplicate records.</li>
+<li><strong>Record Linkage</strong>: Linking related records from different sources.</li>
+<li><strong>Data Quality Enhancement</strong>: Improving overall data quality.</li>
+</ul>
+</li>
+<li>Example: <strong>FindMatches</strong> operation for deduplication, determining the likelihood of records referring to the same entity.</li>
+</ul>
+<h2 id="50-conclusion">5.0 Conclusion ====================</h2>
+<h2 id="51-summary">5.1 Summary</h2>
+<p><em>same as above</em></p>
+<h2 id="52-data-store-management-exam-tips">5.2 Data Store Management: Exam Tips</h2>
+<h3 id="sample-exam-questions-study-notes">Sample Exam Questions - Study Notes</h3>
+<p><strong>Question 1: Data Catalogs</strong></p>
+<ul>
+<li><strong>Scenario</strong>: A data engineering team needs to create a central metadata repository for Amazon EMR and Amazon Athena queries. Some metadata is stored in Apache Hive and must be imported into the repository.</li>
+<li><strong>Ask</strong>: Which solution minimizes development effort?</li>
+</ul>
+<p><strong>Choices</strong></p>
+<ol>
+<li>A. Deploy a Hive Metastore on an EMR cluster.</li>
+<li>B. Utilize Amazon EMR and Apache Ranger.</li>
+<li>C. Employ the AWS Glue Data Catalog.</li>
+<li>D. Implement a custom metadata import solution with AWS Lambda and Amazon S3.</li>
+</ol>
+<p><strong>Correct Answer</strong>: <strong>C. Employ the AWS Glue Data Catalog</strong></p>
+<ul>
+<li><strong>Reasoning</strong>: AWS Glue Data Catalog is fully managed, automates metadata discovery, and integrates with EMR and Athena, reducing development overhead compared to the other options.</li>
+</ul>
+<p><strong>Question 2: Optimizing Athena Queries</strong></p>
+<ul>
+<li><strong>Scenario</strong>: You need to optimize Amazon Athena queries. The data is stored in uncompressed <code>.csv</code> files, and users mainly run analytical queries with filters.</li>
+<li><strong>Ask</strong>: What approach will most effectively improve query performance?</li>
+</ul>
+<p><strong>Choices</strong></p>
+<ol>
+<li>A. Convert the data to JSON format with Snappy compression.</li>
+<li>B. Apply Snappy compression to the existing <code>.csv</code> files.</li>
+<li>C. Switch the data format to Apache Parquet and use Snappy compression.</li>
+<li>D. Employ gzip compression on the <code>.csv</code> files.</li>
+</ol>
+<p><strong>Correct Answer</strong>: <strong>C. Switch the data format to Apache Parquet and use Snappy compression</strong></p>
+<ul>
+<li><strong>Reasoning</strong>: <strong>Parquet</strong> is a columnar storage format ideal for analytical queries and filtering specific categories, and <strong>Snappy compression</strong> improves storage and query efficiency.</li>
+</ul>
+<p><strong>Question 3: Purpose-Built Databases</strong></p>
+<ul>
+<li><strong>Scenario</strong>: A business uses an on-premise Microsoft SQL Server for financial data and transfers this data monthly to AWS. The company wants to reduce costs and minimize disruption during migration to Amazon RDS for SQL Server.</li>
+<li><strong>Ask</strong>: Which AWS service should be used for cost-effective data migration?</li>
+</ul>
+<p><strong>Choices</strong></p>
+<ol>
+<li>A. AWS Direct Connect.</li>
+<li>B. AWS Database Migration Service (DMS).</li>
+<li>C. AWS Snowball.</li>
+<li>D. AWS Transfer Family.</li>
+</ol>
+<p><strong>Correct Answer</strong>: <strong>B. AWS Database Migration Service (DMS)</strong></p>
+<ul>
+<li><strong>Reasoning</strong>: <strong>DMS</strong> provides a cost-effective solution for migrating data from on-premise SQL Server to Amazon RDS. It also supports near real-time replication, minimizing disruptions to applications accessing the database.</li>
+</ul>
+<p><strong>Key Takeaways</strong>:</p>
+<ul>
+<li><strong>AWS Glue Data Catalog</strong>: Best for automating metadata discovery and integration with EMR and Athena.</li>
+<li><strong>Apache Parquet</strong> with <strong>Snappy Compression</strong>: Ideal for optimizing query performance in Athena for large analytical datasets.</li>
+<li><strong>AWS DMS</strong>: The preferred tool for cost-effective and low-disruption database migration from on-premises to AWS.</li>
+</ul>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-12T02:07:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-12</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span> 
+            <span> January 12, 2025 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

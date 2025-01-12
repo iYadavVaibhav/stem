@@ -1,0 +1,3663 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/9-Drafts/dea-c01-u4-data-security-and-governance-ps/">
+      
+      
+        <link rel="prev" href="../dea-c01-u3-data-operations-and-support-ps/">
+      
+      
+        <link rel="next" href="../ll-py-design-patterns/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>U4 Data Security and Governance - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#u4-data-security-and-governance" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              U4 Data Security and Governance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/aws-amazon-web-services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerize
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/gen-ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generative Artificial Intelligence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-airflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Airflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-iceberg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Iceberg Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Kafka
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Big Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools &amp; Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-warehousing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databricks Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-finance-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/business-analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/interview-career-growth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Career Growth Interview Mindset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/logarithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics &amp; IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u0-exam-course-intro-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS DEA-C01 Preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u1-data-ingestion-and-transformation-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u2-data-store-management-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u3-data-operations-and-support-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#20-limiting-access-to-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 Limiting Access to Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-iam-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 IAM Foundations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-accessing-private-data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Accessing Private Data Stores
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-understanding-iam-and-basic-network-security-in-the-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Understanding IAM and Basic Network Security in the Cloud
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-intro-to-secrets-manager-and-parameter-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Intro to Secrets Manager and Parameter Store
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-using-aws-secrets-manager-for-storing-and-rotating-database-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Using AWS Secrets Manager for Storing and Rotating Database Credentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-securing-data-using-lake-formation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Securing Data Using Lake Formation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-using-lake-formation-granular-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 Using Lake Formation Granular Permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-ensuring-data-encryption-and-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.0 Ensuring Data Encryption and Masking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-protecting-pii-and-masking-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Protecting PII and Masking Columns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-data-encryption-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Data Encryption Options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-data-privacy-and-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.0 Data Privacy and Governance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-preparing-logs-for-audit-tracking-api-calls-via-cloudtrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Preparing Logs for Audit: Tracking API Calls via CloudTrail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-using-aws-config-and-cloudtrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Using AWS Config and CloudTrail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-cloudwatch-alarms-and-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 CloudWatch Alarms and Logs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-sharing-data-across-redshift-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Sharing Data Across Redshift Clusters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#50-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.0 Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-data-security-and-governance-exam-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Data Security and Governance: Exam Tips
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-py-design-patterns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python: Design Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#20-limiting-access-to-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 Limiting Access to Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-iam-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 IAM Foundations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-accessing-private-data-stores" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Accessing Private Data Stores
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-understanding-iam-and-basic-network-security-in-the-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Understanding IAM and Basic Network Security in the Cloud
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-intro-to-secrets-manager-and-parameter-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Intro to Secrets Manager and Parameter Store
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-using-aws-secrets-manager-for-storing-and-rotating-database-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Using AWS Secrets Manager for Storing and Rotating Database Credentials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-securing-data-using-lake-formation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 Securing Data Using Lake Formation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-using-lake-formation-granular-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 Using Lake Formation Granular Permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-ensuring-data-encryption-and-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.0 Ensuring Data Encryption and Masking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-protecting-pii-and-masking-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Protecting PII and Masking Columns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-data-encryption-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Data Encryption Options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-data-privacy-and-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.0 Data Privacy and Governance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-preparing-logs-for-audit-tracking-api-calls-via-cloudtrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Preparing Logs for Audit: Tracking API Calls via CloudTrail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-using-aws-config-and-cloudtrail" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Using AWS Config and CloudTrail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-cloudwatch-alarms-and-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 CloudWatch Alarms and Logs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-sharing-data-across-redshift-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Sharing Data Across Redshift Clusters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#50-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.0 Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-data-security-and-governance-exam-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Data Security and Governance: Exam Tips
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/9-Drafts/dea-c01-u4-data-security-and-governance-ps.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/9-Drafts/dea-c01-u4-data-security-and-governance-ps.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="u4-data-security-and-governance">U4 Data Security and Governance</h1>
+<h2 id="20-limiting-access-to-data">2.0 Limiting Access to Data</h2>
+<h2 id="21-iam-foundations">2.1 IAM Foundations</h2>
+<p><strong>Identity and Access Management (IAM)</strong></p>
+<ul>
+<li>Core service for <strong>managing access</strong> to AWS resources. <strong>Limiting access</strong> based on user roles and needs.</li>
+</ul>
+<ul>
+<li><strong>Terms</strong><ul>
+<li><strong>Principals</strong>: Resources, applications, or users accessing AWS services. Entities requesting access to data.</li>
+<li><strong>IAM Users</strong>: Directly map permissions to individual users.</li>
+<li><strong>IAM Groups</strong>: Assign permissions to groups of users for easier management.</li>
+<li><strong>IAM Policies</strong>:<ul>
+<li>JSON format document.</li>
+<li>They are crucial for managing access</li>
+<li>Eg, Policy allows actions like putting, getting objects, or retrieving object versions from a bucket.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Permissions</strong>: Granted through IAM policies.</li>
+</ul>
+<ul>
+<li><strong>Policy Types</strong>:<ul>
+<li><strong>Identity-Based Policy</strong>: Attached to the principal (e.g., IAM user or role).</li>
+<li><strong>Resource-Based Policy</strong>: Attached to the resource.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Access Evaluation</strong>:
+     1. Check for <strong>deny rules</strong> in any policy.
+     2. If no deny rule, check for <strong>allow rules</strong>.
+     3. Access granted if at least one policy allows it.</li>
+</ul>
+<p><strong>Programmatic Access Risks</strong></p>
+<ul>
+<li><strong>Static Access Keys</strong>: Risk of <strong>keys being leaked</strong> or compromised ⚠️.</li>
+<li><strong>Solution</strong>: Use IAM Identity Center to avoid long-lasting access keys.</li>
+</ul>
+<p><strong>IAM Identity Center</strong></p>
+<ul>
+<li>offers a more secure alternative to static access keys.</li>
+<li>Maps <strong>permission sets to IAM Roles</strong> not to users. Users get temporary sso login.</li>
+<li><strong>Single Sign-On</strong>: Provides temporary access keys for the duration of a session.</li>
+<li><strong>Benefits</strong>: Simplifies management and reduces security risks.</li>
+</ul>
+<p><strong>IAM Roles</strong></p>
+<ul>
+<li>Facilitate <strong>temporary access</strong> for AWS services and users.</li>
+<li><strong>Usage</strong>: For temporary access to AWS resources by AWS services, applications, or users through IAM Identity Center.</li>
+</ul>
+<h2 id="22-accessing-private-data-stores">2.2 Accessing Private Data Stores</h2>
+<p><em>Networking Scenarios for granting access to private resources in AWS.</em></p>
+<pre class="mermaid"><code>flowchart LR
+
+a1[IAM Users]
+a2[AWS Lambda]
+a3[Application]
+
+subgraph s2[Security Layers]
+   direction TB
+   b1[IAM]
+   b2[Network]
+   b3[Authentication]
+   b4[Encryption]
+end
+
+b1 --&gt; b2 --&gt; b3 --&gt; b4
+
+subgraph s3[AWS Resource]
+   direction TB
+   c1[Row Level Security]
+   c2[Resource]
+   c3[Monitoring &amp; Logging]
+end
+
+c1 --&gt; c2 --&gt; c3
+a1 --&gt; s2
+a2 --&gt; s2
+a3 --&gt; s2
+
+s2 --&gt; s3
+s2 --&gt; s3
+s2 --&gt; s3</code></pre>
+<p>In the above diagram, consider you have setup level 1, that is proper IAM policies to connect. Then you need second thing setup, that is, proper network connection.</p>
+<pre class="mermaid"><code>architecture-beta
+    group vpc(cloud)[VPC]
+    group psn1(cloud)[Private Subnet] in vpc
+    group psn2(cloud)[Private Subnet] in vpc
+
+    service db(database)[Database] in psn1
+    service server(server)[EC2] in psn2
+
+    service lambda(server)[Lambda]
+    service s3(server)[S3]
+
+    db:B &lt;-- T:lambda
+    lambda:R --&gt; L:s3
+    server:B --&gt; T:s3
+    server:L --&gt; R:db
+</code></pre>
+<p>Here, understand that S3 and Lambda are public services. They are not part of your private subnet. S3 is not in private subnet. Lambda has no fix VPC, rather it runs on AWS managed VPC. Hence they have access to public internet and same time do not have access to private subnet. While, EC2 and RDS are on your private network and are disconnected from public internet. You do need IAM permission but on top of that you also need proper network setup to allow the connections to correctly connect:</p>
+<ul>
+<li>S3 to private EC2</li>
+<li>Lambda to private RDS</li>
+<li>Lambda to S3</li>
+<li>from EC2 in one private Subnet to RDS in another private subnet.</li>
+</ul>
+<p><strong>Network Connectivity for Private Resources</strong></p>
+<ul>
+<li>Private resources need to talk to each other without using public internet.</li>
+<li>For this you need to configure the network security.</li>
+<li>You can use Security groups and NACL to define this connectivity. Or more importantly to troubleshoot it if connection fails.</li>
+</ul>
+<ul>
+<li>Examples of internal resources that need connectivity:<ul>
+<li><strong>Private Database (e.g., RDS)</strong>: Hosted in private subnets.</li>
+<li><strong>Private Compute Services (e.g., EC2)</strong>: Also in private subnets.</li>
+<li><strong>AWS Lambda</strong>: Need to grant access to private resources.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Inbound rule and outbound rule for a security group define<ul>
+<li>what port is allowed</li>
+<li>what protocol is allowed</li>
+<li>What IP address / range is it allowed on</li>
+<li>eg,<ul>
+<li><code>198.51.100.0/24 TCP 22</code> allows SSH from internal range of IP</li>
+<li><code>0.0.0.0 all all</code> will allow all connection from all IP (internet)</li>
+<li><code>HTTP TCP 80 0.0.0.0/0 DENY</code> will deny any traffic on port 80 with protocol TCP.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Security Groups</strong>:<ul>
+<li>Applied at the <strong>instance level</strong>. Just like firewall for the instance itself.</li>
+<li>Stateful, for allowed inbound traffic, the response is also allowed.</li>
+<li>Only define allow rules. What not allowed is denied by default.</li>
+<li>Order of rules don't matter. they are all applied at once.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Network Access Control Lists (NACLs)</strong>:<ul>
+<li>Applied at the <strong>subnet level</strong>.</li>
+<li><strong>Stateless</strong>, inbound traffic and outbound need explicit permission.</li>
+<li>Can define allow rules and deny rules.</li>
+<li>Rules are applied in order</li>
+</ul>
+</li>
+</ul>
+<p><strong>Connecting Private EC2 Instances to Private RDS</strong></p>
+<ul>
+<li><strong>Private Resources</strong>: No public route through an internet gateway.</li>
+<li>Steps to check:<ol>
+<li>Ensure that <strong>route table</strong> is properly routing traffic within your VPC.</li>
+<li>Ensure database traffic is <strong>allowed at NACL</strong> level within your VPC.</li>
+<li>Ensure there is <strong>inbound</strong> rule on database-security-group that allows request traffic from instance-security-group.</li>
+<li>Ensure there is <strong>Outbound</strong> rule on instance-security-group that allows request traffic to database-security-group.</li>
+</ol>
+</li>
+</ul>
+<p><strong>Connecting Private EC2 to S3</strong></p>
+<ul>
+<li>EC2 is on private subnet and S3 are by default on your VPC.</li>
+<li>EC2 to S3 via internet is slow, expensive and insecure.</li>
+<li>You can connect internally by making, <strong>Gateway Endpoints</strong>.</li>
+<li><strong>Gateway Endpoints</strong> are <strong>private end points</strong> for S3 or DynamoDB that <strong>permit private traffic</strong> within the <strong>same region</strong>. It keeps traffic within AWS and avoiding public internet.</li>
+</ul>
+<p><strong>Connecting Lambda to Private RDS</strong></p>
+<ul>
+<li>Lambda is not on fixed VPC. If not on your VPC it cannot connect to your Private RDS.</li>
+<li>While configuring Lambda, you can set them to have access to one of your private VPC.<ul>
+<li>Lambda still resided in AWS Managed Subnet.</li>
+<li>But will be given an <strong>Elastic Subnet</strong> that will allow network to your private subnet.</li>
+</ul>
+</li>
+<li><strong>Elastic Network Interface</strong>: Allows Lambda functions to route requests to private resources.</li>
+</ul>
+<p><strong>Connecting Lambda to S3</strong></p>
+<ul>
+<li><strong>IAM Permissions</strong>: Ensure Lambda functions have appropriate IAM permissions (identity-based or resource-based policy) to access S3 buckets. Rest all is managed by AWS.</li>
+</ul>
+<p><strong>Differences between Security Groups and NACLs</strong>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Security Group</th>
+<th>NACL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Applied</td>
+<td>Instance</td>
+<td>Subnet</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Stateful</td>
+<td>Stateless</td>
+</tr>
+<tr>
+<td>Traffic</td>
+<td>Both Side if one is allowed</td>
+<td>Each side needs explicit permission</td>
+</tr>
+<tr>
+<td>Rules</td>
+<td>Only define whats allowed</td>
+<td>Can define allow and deny</td>
+</tr>
+<tr>
+<td>Order</td>
+<td>Unordered, all at once</td>
+<td>Applied in order</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Troubleshooting Connectivity Issues</strong></p>
+<ul>
+<li><strong>Check Routes</strong>: Ensure proper routing from EC2 to RDS.</li>
+<li><strong>NACL Rules</strong>: Verify if NACL is blocking traffic.</li>
+<li><strong>Security Group Rules</strong>: Ensure inbound and outbound rules are correct for the instance and database.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>EC2 to RDS</strong>: Ensure proper security group and NACL configurations.</li>
+<li><strong>Private Subnet to S3</strong>: Use gateway endpoints for secure and cost-effective access.</li>
+<li><strong>Lambda Functions</strong>:<ul>
+<li><strong>Access to Private Resources</strong>: Configure VPC access.</li>
+<li><strong>Access to S3</strong>: Ensure IAM permissions are correctly set.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Next Steps</strong>: Proceed to the next lesson for further topics in data security and networking.</p>
+<h2 id="23-understanding-iam-and-basic-network-security-in-the-cloud">2.3 Understanding IAM and Basic Network Security in the Cloud</h2>
+<p>lab</p>
+<h2 id="24-intro-to-secrets-manager-and-parameter-store">2.4 Intro to Secrets Manager and Parameter Store</h2>
+<p>In the above diagram, consider you have setup level 1 and 2, that is proper IAM policies, and proper network setup. Then you need to setup third thing, that is, proper <strong>Authentication</strong>.</p>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Authentication methods for accessing AWS databases, specifically RDS.</li>
+</ul>
+<p><strong>Key Concepts</strong></p>
+<p><strong>Authentication Methods for RDS</strong></p>
+<ol>
+<li>
+<p><strong>IAM Authentication</strong>:</p>
+<ul>
+<li>Available for MariaDB, MySQL, and PostgreSQL.</li>
+<li><strong>Limitations</strong>: May <strong>not handle very high connection</strong> rates efficiently</li>
+<li>Reduces read/write performance.</li>
+</ul>
+</li>
+<li>
+<p><strong>Password Authentication</strong>:</p>
+<ul>
+<li>Uses hardcoded master username and password set during RDS database creation.</li>
+<li>This is not secure as it may expose password as plain text.</li>
+<li>To overcome this, use <strong>AWS Secrets Manager</strong></li>
+</ul>
+</li>
+</ol>
+<p><strong>AWS Services for Secrets Management</strong></p>
+<ol>
+<li>
+<p><strong>Parameter Store</strong>:</p>
+<ul>
+<li><strong>Allows optional encryption</strong> of key-value parameters.</li>
+<li><strong>Programmatically access</strong> key-value pairs</li>
+<li>Requires <strong>manual updates</strong> to parameters.</li>
+<li><strong>Cost</strong>: 10,000 parameters for free.</li>
+<li><strong>Use case</strong>: Suitable for centralized configuration and less sensitive information.</li>
+</ul>
+</li>
+<li>
+<p><strong>Secrets Manager</strong>:</p>
+<ul>
+<li>Always encrypted, with automatic secret rotation.</li>
+<li><strong>Cost</strong>: $0.40 per secret per month.</li>
+<li><strong>Use Case</strong>: Best for sensitive data requiring high security and rotation. Ideal for high-security secrets and automatic rotation.</li>
+<li><strong>Exam Tip</strong>: When security is top priority use secrets manager.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Integration with RDS</strong></p>
+<ul>
+<li><strong>Secrets Manager</strong>: Direct integration with RDS for automatic credential rotation.</li>
+</ul>
+<p><strong>Accessing Secrets Programmatically</strong></p>
+<ul>
+<li>Make lambda function</li>
+<li>Give it IAM access to secrets and secrets manager.</li>
+<li>Define secret's name and region.</li>
+<li>Initialize BOTO session and client.</li>
+<li>Retrieve secrets using <code>get_secret_value</code> function.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Authentication</strong>: Choose IAM or password authentication based on database and connection needs.</li>
+<li><strong>Secrets Management</strong>:<ul>
+<li><strong>Parameter Store</strong>: For general configurations and optional encryption.</li>
+<li><strong>Secrets Manager</strong>: For high-security credentials and automatic rotation.</li>
+</ul>
+</li>
+<li><strong>Integration</strong>: Secrets Manager integrates with RDS for secure, managed credential handling.</li>
+</ul>
+<h2 id="25-using-aws-secrets-manager-for-storing-and-rotating-database-credentials">2.5 Using AWS Secrets Manager for Storing and Rotating Database Credentials</h2>
+<p>lab</p>
+<h2 id="26-securing-data-using-lake-formation">2.6 Securing Data Using Lake Formation</h2>
+<p>IAM, Network, Authentication setup works for most use cases but may be <strong>problematic when dealing with Data Lake</strong>. For this AWS has created <code>AWS Lake Formation</code>. This manages the security using:</p>
+<ul>
+<li>IAM</li>
+<li>Row Level Security</li>
+<li>Monitoring and Logging</li>
+</ul>
+<p>It does not use much use of Networking, Authentication, Encryption.</p>
+<p>Data Lake is usually made of following services:</p>
+<ul>
+<li>S3 Buckets</li>
+<li>Data Catalog (in Glue)</li>
+<li>Data Analytics (in Athena)</li>
+</ul>
+<p>So now, each principal (user, service) need access to each of these resources. This will lead to create separate permission for each user for each resource, which becomes unmanageable. This is where "AWS Lake Formation" comes in. One permission can give access to all services in Lake.</p>
+<p><strong>Overview</strong></p>
+<ul>
+<li><strong>Focus</strong>: Using AWS Lake Formation for managing permissions and access in data lakes.</li>
+</ul>
+<ol>
+<li>
+<p><strong>AWS Lake Formation</strong></p>
+<ul>
+<li>Simplifies the management of IAM permissions, granular permissions, and monitoring for data lakes.</li>
+<li><strong>Features</strong>:<ul>
+<li>Centralizes access to all components of the data lake.</li>
+<li>Applies permissions across services within the data lake, not just per service.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Permissions Management</strong></p>
+<ul>
+<li><strong>IAM Permissions</strong>: Define actions principals can take.</li>
+<li><strong>Lake Formation Permissions</strong>: Determine what data these actions apply to, using fine-grained permissions.</li>
+</ul>
+</li>
+<li>
+<p><strong>Fine-Grained Permissions</strong></p>
+<ul>
+<li><strong>RDBMS Syntax</strong>: Used for restricting access at the database, table, or column level.</li>
+<li><strong>Example</strong>:<ul>
+<li><strong>Data Analyst</strong>: Grants access to specific tables (e.g., Food Item Sales) using IAM and Lake Formation permissions.</li>
+<li><strong>Data Lake Administrator</strong>: Has broader access to manage and grant permissions to other users.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Cross-Account Access</strong></p>
+<ul>
+<li><strong>Functionality</strong>: Allows granting permissions to principals in different AWS accounts.</li>
+<li><strong>Use Case</strong>: Centralized data lake accessed by multiple accounts within an organization.</li>
+</ul>
+</li>
+<li>
+<p><strong>Event Logging</strong></p>
+<ul>
+<li><strong>CloudTrail Integration</strong>: Tracks API actions within the data lake.</li>
+<li><strong>Lake Formation</strong>: Simplifies monitoring and auditing of data actions and permission changes.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Lake Formation</strong> provides a centralized approach to managing data access and permissions within a data lake.</li>
+<li><strong>IAM</strong> defines what actions can be taken, while <strong>Lake Formation</strong> specifies which data those actions can access.</li>
+<li><strong>Fine-Grained Permissions</strong> are managed using RDBMS syntax.</li>
+<li><strong>Cross-Account Access</strong> and <strong>Event Logging</strong> enhance flexibility and security.</li>
+</ul>
+<h2 id="27-using-lake-formation-granular-permissions">2.7 Using Lake Formation Granular Permissions</h2>
+<p><em>Achieving super fine-grained permissions using Lake Formation</em></p>
+<p><strong>Key Terms</strong></p>
+<ul>
+<li><strong>Data Catalog</strong><ul>
+<li><strong>Centralizes data from multiple sources</strong>.</li>
+<li>Organized into <strong>databases and tables</strong> accessible by analytic services and transformations.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Fine-Grained Access Control</strong><ul>
+<li>Provide tailored <strong>access to specific tables and data</strong> within the catalog.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Types of Filters</strong></p>
+<ul>
+<li><strong>Column Masking Filter</strong>:<ul>
+<li><strong>Hides</strong> specific <strong>columns</strong> from certain users.</li>
+<li>Eg, Mask the <code>shipping address</code> column in an item orders table.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Row Filter Expression</strong>:<ul>
+<li><strong>Restricts</strong> access to <strong>rows</strong> based on criteria.</li>
+<li>Eg, Allow an analyst to access only orders from the U.S. by filtering rows where the <code>country</code> column equals "U.S."</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Cell Level Security</strong>:<ul>
+<li>Apply filters to <strong>individual cells</strong> within a table to achieve more granular control.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Application of Filters</strong></p>
+<ul>
+<li>Filters can be <strong>combined and applied</strong> at the <strong>table level</strong> when granting access to users or groups.</li>
+<li><strong>Permissions</strong> can be granted to <strong>individual users</strong> or <strong>groups</strong> with specific filters applied.</li>
+<li>Examples:<ul>
+<li><strong>U.S. Sales Filter</strong>: Grants access to an analyst focusing on U.S. sales data.</li>
+<li><strong>Canada Filter</strong>: Grants access to an analyst focusing on Canadian orders.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Lake Formation</strong> allows for detailed permissions management using data catalogs and filters.</li>
+<li><strong>Filters</strong> provide granular access control at the table level, including column masking, row filtering, and cell level security.</li>
+<li><strong>Permission Granting</strong>: Filters can be customized and combined to fit specific user needs.</li>
+<li><strong>Hence</strong>, using filter you can restrict access to table, column, row, or cell for user / group by making use of data catalog and filter.</li>
+</ul>
+<h2 id="30-ensuring-data-encryption-and-masking">3.0 Ensuring Data Encryption and Masking</h2>
+<h2 id="31-protecting-pii-and-masking-columns">3.1 Protecting PII and Masking Columns</h2>
+<p><em>Protecting Personally Identifiable Information (PII) and masking data in AWS services, specifically S3 and Redshift</em></p>
+<p><strong>S3 Data Masking (Data Lake)</strong></p>
+<ul>
+<li>Protecting PII across multiple S3 buckets and accounts using Amazon Macie.</li>
+<li><strong>Amazon Macie</strong>:<ul>
+<li>Scans S3 buckets for PII and provides alerts or automated actions.</li>
+<li>Can be set up at the organizational level to cover all S3 buckets in the organization.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Amazon Redshift Data Masking</strong></p>
+<ul>
+<li>Protecting PII in data warehouses from exposure to analysts and data engineers.</li>
+<li>
+<p>It can be done in three ways:</p>
+<ol>
+<li>
+<p><strong>Column-Level Masking</strong>:</p>
+<ul>
+<li>Mask columns by <strong>adjusting grants</strong> for <code>SELECT</code> and <code>UPDATE</code> privileges. That is, you can grant access to only select/update only certain column in a table.</li>
+<li>Masking can be applied to <strong>individual columns within tables</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Row-Level Security (RLS) Policies</strong>:</p>
+<ul>
+<li>Limits <strong>access to specific rows</strong> based on user or role.</li>
+<li>Create and apply RLS policies to control row access.</li>
+<li><strong>Example</strong>: A policy to restrict access to rows based on user roles.</li>
+</ul>
+</li>
+<li>
+<p><strong>Dynamic Data Masking</strong>:</p>
+<ul>
+<li>Masks part or all of a column's data <strong>at query time</strong>.</li>
+<li><strong>Benefit</strong>: Does not consume extra space or impact queries that do not involve masked data.</li>
+<li><strong>Example</strong>: Masking a credit card number to show only the last four digits.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>S3</strong>: Use Amazon Macie for scanning and protecting PII across S3 buckets and accounts.</li>
+<li><strong>Redshift</strong>:<ul>
+<li><strong>Column-Level Masking</strong>: Apply masking through access control grants.</li>
+<li><strong>Row-Level Security</strong>: Use RLS policies to restrict access to specific rows.</li>
+<li><strong>Dynamic Data Masking</strong>: Configure to mask data dynamically at query time based on user roles and permissions.</li>
+</ul>
+</li>
+</ul>
+<h2 id="32-data-encryption-options">3.2 Data Encryption Options</h2>
+<p><em>Encryption methods for protecting data at rest and in transit in AWS</em></p>
+<p><strong>Types of Encryption</strong></p>
+<ol>
+<li><strong>Data at Rest</strong>: Data stored in S3 buckets, EBS drives in EC2, or local storage on a device.</li>
+<li><strong>Data in Transit</strong>: Data being transferred over networks, encrypted using TLS (Transport Layer Security), used in HTTPS.</li>
+</ol>
+<p><strong>Encryption Methods</strong></p>
+<ul>
+<li><strong>Client-Side Encryption</strong>:<ul>
+<li>Data is <strong>encrypted by the application</strong> before sending it to S3.</li>
+<li>The <strong>application manages</strong> the encryption key.</li>
+<li>Data never leaves the application in an unencrypted state.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Server-Side Encryption</strong>:<ul>
+<li>Data is sent to S3 in an unencrypted form and <strong>encrypted once it reaches S3</strong>.</li>
+<li><strong>Lower operational overhead</strong> as AWS manages encryption.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Server-Side Encryption Options in S3</strong></p>
+<ol>
+<li>
+<p><strong>S3-Managed Keys (SSE-S3)</strong>:</p>
+<ul>
+<li>Enabled by <strong>default</strong> for S3 buckets.</li>
+<li>Uses 256-bit Advanced Encryption Standard (<strong>AES-256</strong>).</li>
+<li>Each object is encrypted with a unique key.</li>
+</ul>
+</li>
+<li>
+<p><strong>AWS Key Management Service (KMS) Keys (SSE-KMS)</strong>:</p>
+<ul>
+<li>Provides <strong>more granular</strong> access control over key permissions.</li>
+<li>Key policies can be <strong>managed and tracked via CloudTrail</strong>.</li>
+<li>Requires specifying KMS as the encryption type and providing the key ID.</li>
+</ul>
+</li>
+<li>
+<p><strong>Customer-Provided Keys (SSE-C)</strong>:</p>
+<ul>
+<li><strong>Full control</strong> over encryption keys, which can be managed on-premises or in other clouds.</li>
+<li>Requires sending the encryption algorithm and Base64-encoded key with <strong>each request</strong>.</li>
+<li><strong>Risk</strong>: Keys are <strong>compromised</strong> if sent over an unsecured network.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Encrypting Data in Amazon Redshift</strong></p>
+<ul>
+<li><strong>KMS Encryption</strong>:<ul>
+<li>Use AWS-managed or customer-managed KMS keys.</li>
+<li><strong>Performance Impact</strong>: Encryption affects database performance. Must be enabled upon launch or through migration.</li>
+<li><strong>Possible downtime</strong> during migration to an encrypted cluster.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Encrypting Data in AWS Glue</strong></p>
+<ul>
+<li><strong>Data in Transit</strong>: Ensure data is encrypted using TLS when transferred.</li>
+<li><strong>Data at Rest</strong>: Use KMS or S3-managed keys for encryption of data catalog and stored data.</li>
+</ul>
+<p><strong>Access Permissions for Encrypted Data</strong></p>
+<ul>
+<li><strong>Requirements</strong>: Users must have permissions not only to access the data but also to encrypt and decrypt it.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>S3 Encryption</strong>: Choose between S3-managed keys, KMS keys, or customer-provided keys based on security needs.</li>
+<li><strong>Redshift Encryption</strong>: Use KMS for encryption; consider performance implications and manage encryption at database launch or migration.</li>
+<li><strong>AWS Glue Encryption</strong>: Secure data in transit with TLS and data at rest with KMS or S3-managed keys. Ensure users have appropriate encryption permissions.</li>
+</ul>
+<h2 id="40-data-privacy-and-governance">4.0 Data Privacy and Governance</h2>
+<p><em>cloudTrail and CloudWatch for Audit, Monitoring and Governance</em></p>
+<h2 id="41-preparing-logs-for-audit-tracking-api-calls-via-cloudtrail">4.1 Preparing Logs for Audit: Tracking API Calls via CloudTrail</h2>
+<p><em>Data privacy and governance, specifically tracking and auditing access with CloudTrail</em></p>
+<ul>
+<li><strong>CloudTrail Overview</strong><ul>
+<li><strong>Records API calls</strong> made within your AWS account.</li>
+<li>Provides a <strong>trail of all actions</strong> taken, useful for auditing activities.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Storing CloudTrail Logs</strong><ol>
+<li><strong>S3 Bucket</strong>: Store logs in an S3 bucket and use tools like Amazon Athena to query and analyze logs.</li>
+<li><strong>CloudTrail Lake</strong>: A managed solution for storing, querying, and filtering CloudTrail logs by event types.</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><strong>Centralized Log Management</strong><ul>
+<li>In an org, you can have multiple accounts generating logs, you need to analyze them all together, for this case you can create a separate account for centralized storing and analysing log trail.</li>
+<li><strong>Best Practice</strong>: Use a centralized account to aggregate CloudTrail logs from multiple accounts.</li>
+<li><strong>Advantages</strong>:<ul>
+<li>Easier management of permissions and security.</li>
+<li>Simplifies access control and prevents accidental deletion or tampering.</li>
+<li>Enables cross-account log analysis.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Access Control for Centralized Logs</strong><ul>
+<li><strong>Storage</strong>: Logs are centrally stored in a <strong>dedicated account</strong>.</li>
+<li><strong>Security</strong>: <strong>Restrict access</strong> to logs and ensure they are secure and tamper-proof.</li>
+<li><strong>Analytics</strong>: Grant access to analytics services like <strong>Amazon Athena</strong> for querying centralized logs.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>CloudTrail</strong>: Essential for tracking API activity and auditing in AWS.</li>
+<li><strong>Log Storage</strong>: Use S3 for flexibility or CloudTrail Lake for a managed solution.</li>
+<li><strong>Centralized Logging</strong>: Recommended for managing logs from multiple accounts and simplifying access and security.</li>
+</ul>
+<h2 id="42-using-aws-config-and-cloudtrail">4.2 Using AWS Config and CloudTrail</h2>
+<p>Lab</p>
+<h2 id="43-cloudwatch-alarms-and-logs">4.3 CloudWatch Alarms and Logs</h2>
+<p><em>Using CloudWatch for monitoring resource performance and application logs</em></p>
+<ul>
+<li><strong>CloudWatch Overview</strong><ul>
+<li><strong>Monitors</strong> resource <strong>performance</strong> and application logs.</li>
+<li><strong>Complementary to CloudTrail</strong>: While CloudTrail tracks API activity, CloudWatch focuses on <strong>performance metrics</strong> and logs.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Log Collection and Management</strong><ul>
+<li><strong>Log Groups</strong>: Collect CloudWatch logs into log groups.</li>
+<li><strong>Subscriptions</strong>: Subscribe services to log events from specific log groups or across an entire account.</li>
+<li><strong>Streaming and Filtering</strong>: Stream entire log groups or filter to capture specific event types.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Metrics and Alarms</strong><ul>
+<li><strong>Metric Filters</strong>: Attach to log groups to define alarms based on metrics.</li>
+<li><strong>Alarms</strong>: Triggered when metrics exceed defined thresholds for a certain period.</li>
+<li><strong>Notifications</strong>: Use SNS notifications or automated actions in response to alarms (e.g., email alerts for DDL commands in Redshift).</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Real-Time Analysis</strong><ul>
+<li><strong>Amazon OpenSearch</strong>: Use for near real-time analysis of CloudWatch logs.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>CloudWatch vs. CloudTrail</strong><ul>
+<li><strong>CloudTrail</strong>: Records all API activity for auditing.</li>
+<li><strong>CloudWatch</strong>: Monitors resource performance and captures application logs.</li>
+<li><strong>Use Cases</strong>:<ul>
+<li><strong>CloudTrail</strong>: Tracking and auditing actions.</li>
+<li><strong>CloudWatch</strong>: Resource monitoring and performance metrics.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Log Storage and Cost Management</strong><ul>
+<li><strong>Cost Considerations</strong>: CloudWatch logs can become <strong>expensive over time</strong>.</li>
+<li><strong>Archiving</strong>: <strong>Backup</strong> CloudWatch logs to <strong>Amazon S3</strong> for cost savings.</li>
+<li><strong>Analysis</strong>: Analyze archived logs with <strong>Amazon Athena</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Log Retention</strong><ul>
+<li><strong>Default Setting</strong>: CloudWatch logs are stored indefinitely by default.</li>
+<li><strong>Recommendation</strong>: Adjust log retention settings to avoid unnecessary storage costs.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>CloudWatch</strong>: Essential for monitoring and managing resource performance and logs.</li>
+<li><strong>Cost Management</strong>: Backup logs to S3 to manage costs effectively.</li>
+<li><strong>Retention Settings</strong>: Adjust default log retention to control expenses.</li>
+</ul>
+<h2 id="44-sharing-data-across-redshift-clusters">4.4 Sharing Data Across Redshift Clusters</h2>
+<p><em>Sharing data across Redshift clusters using datashares</em></p>
+<p><strong>Redshift Datashare</strong></p>
+<ul>
+<li><strong>Definition</strong>: A datashare allows you to share Redshift data objects <strong>across clusters</strong>.</li>
+<li><strong>Components</strong>: Can include databases, tables, user-defined functions, materialized views, or schemas.</li>
+</ul>
+<p><strong>Sharing Data</strong></p>
+<ul>
+<li><strong>Creation</strong>: Define and <strong>create a datashare</strong> in the Redshift console.</li>
+<li><strong>Inclusion</strong>: Add objects like <strong>schemas and tables</strong> to the datashare.</li>
+<li><strong>Granting Access</strong>: Grant usage of the datashare to specific Redshift clusters.</li>
+<li><strong>Access Types</strong>: Shared clusters will have <strong>read-only access</strong> to the datashare objects.</li>
+</ul>
+<p><strong>Sharing Capabilities</strong></p>
+<ul>
+<li><strong>Cluster Types</strong>: Share across different types of Redshift clusters.</li>
+<li><strong>Availability Zones/Regions</strong>: Share <strong>across</strong> different availability <strong>zones</strong> and AWS <strong>regions</strong>.</li>
+<li><strong>Accounts</strong>: Share datashares <strong>across</strong> different AWS <strong>accounts</strong>.</li>
+</ul>
+<p><strong>Automatic Updates</strong></p>
+<ul>
+<li><strong>Live Data</strong>: Datashares provide <strong>real-time access</strong> to live data from the source cluster. <strong>No need for manual refreshes</strong> to update data.</li>
+</ul>
+<p><strong>Example Commands</strong></p>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Datashare Functionality</strong>: Facilitates data sharing across clusters, regions, and accounts.</li>
+<li><strong>Access Control</strong>: Grants read-only access to shared data.</li>
+<li><strong>Real-Time Data</strong>: Ensures up-to-date data access without manual refreshes.</li>
+</ul>
+<h2 id="50-conclusion">5.0 Conclusion</h2>
+<h2 id="51-summary">5.1 Summary</h2>
+<h2 id="52-data-security-and-governance-exam-tips">5.2 Data Security and Governance: Exam Tips</h2>
+<p><strong>Key Scenarios and Solutions</strong></p>
+<ol>
+<li>
+<p><strong>Connecting EC2 to Private RDS Instance</strong></p>
+<ul>
+<li><strong>Issue</strong>: Unable to connect an EC2 instance to a private RDS instance.</li>
+<li><strong>Troubleshooting Steps</strong>:<ul>
+<li>Verify routing and IAM permissions.</li>
+<li>Check security group settings:<ul>
+<li><strong>RDS Security Group</strong>: Should allow inbound traffic from the EC2 security group.</li>
+<li><strong>EC2 Security Group</strong>: Should allow outbound traffic to the RDS security group.</li>
+</ul>
+</li>
+<li>Also verify Network ACL (NACL) settings to ensure they allow database traffic.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Accessing Sensitive Data in Redshift</strong></p>
+<ul>
+<li><strong>Scenario</strong>: Redshift database contains Personally Identifiable Information (PII) that should not be exposed.</li>
+<li><strong>Solutions</strong>:<ul>
+<li><strong>Column Masking</strong>: Mask sensitive columns when granting access.</li>
+<li><strong>Row-Level Security (RLS) Policies</strong>: Use RLS to restrict access to specific rows.</li>
+<li><strong>Dynamic Data Masking</strong>: Optionally use dynamic data masking to show portions or transformed versions of the data.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Encrypting Data at Rest in S3</strong></p>
+<ul>
+<li><strong>Requirement</strong>: Control over encryption keys and their policies.</li>
+<li><strong>Options</strong>:<ul>
+<li><strong>S3 Managed Keys</strong>: Default but do not allow control over key policies.</li>
+<li><strong>KMS Keys</strong>: Provides access to key policies and is easier to manage than customer-provided keys.</li>
+<li><strong>Customer-Provided Keys</strong>: Offers full control but requires more management effort.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Sharing Materialized Views Across AWS Accounts</strong></p>
+<ul>
+<li><strong>Scenario</strong>: Share a materialized view from a Redshift cluster with data engineers in another AWS account.</li>
+<li><strong>Solution</strong>: Use <strong>Datashares</strong>.<ul>
+<li>Create a datashare and include the materialized view.</li>
+<li>Grant read-only access to the datashare for the other Redshift cluster, which can be in a different account, region, or cluster type.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Conclusion</strong></p>
+<ul>
+<li><strong>Exam Preparation</strong>: Review these scenarios and solutions to gauge readiness for the Data Engineer Associate exam.</li>
+<li><strong>Final Advice</strong>: Ensure familiarity with troubleshooting connections, managing sensitive data access, encryption options, and data sharing techniques.</li>
+</ul>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-12T02:07:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-12</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span> 
+            <span> January 12, 2025 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

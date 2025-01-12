@@ -1,0 +1,3513 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes on working of Git and Github">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/1-Software-Engineering/git/">
+      
+      
+        <link rel="prev" href="../domain-driven-development/">
+      
+      
+        <link rel="next" href="../js-ecma6-notes/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Git and GitHub - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-and-github" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git and GitHub
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/aws-amazon-web-services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerize
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/gen-ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generative Artificial Intelligence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-local-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read Local Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-local-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Write Local Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-remote-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read Remote Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-remote-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Write Remote Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests - PR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-clone-a-repository-from-githubcom" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to clone a repository from GitHub.com
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-diff-patch-bundle-text-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Diff Patch &amp; Bundle - Text Sync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename-git-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename git branch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-authentication-for-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH Authentication for Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-remote-repo-username-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Remote Repo Username Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-commit-author-for-last-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix Commit Author for Last Commit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-commit-author-for-multiple-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix Commit author for multiple commits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handling Conflicts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-controlling-in-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version controlling in GIT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Tags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-corrupt-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix Corrupt Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guide-disconnected-sync-when-network-is-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guide - Disconnected Sync when Network is Restricted
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guide-git-local-to-remote-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guide - Git Local to Remote Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Todo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-airflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Airflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-iceberg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Iceberg Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Kafka
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Big Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools &amp; Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-warehousing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databricks Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-finance-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/business-analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/interview-career-growth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Career Growth Interview Mindset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/logarithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics &amp; IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u0-exam-course-intro-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS DEA-C01 Preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u1-data-ingestion-and-transformation-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u2-data-store-management-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u3-data-operations-and-support-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u4-data-security-and-governance-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/ll-py-design-patterns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python: Design Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-local-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read Local Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-local-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Write Local Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-remote-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read Remote Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-remote-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Write Remote Repo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests - PR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-clone-a-repository-from-githubcom" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to clone a repository from GitHub.com
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-diff-patch-bundle-text-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Diff Patch &amp; Bundle - Text Sync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rename-git-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename git branch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-authentication-for-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH Authentication for Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-remote-repo-username-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Remote Repo Username Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-commit-author-for-last-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix Commit Author for Last Commit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-commit-author-for-multiple-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix Commit author for multiple commits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handling Conflicts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-controlling-in-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version controlling in GIT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Tags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix-corrupt-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix Corrupt Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guide-disconnected-sync-when-network-is-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guide - Disconnected Sync when Network is Restricted
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guide-git-local-to-remote-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guide - Git Local to Remote Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#todo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Todo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/1-Software-Engineering/git.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/1-Software-Engineering/git.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="git-and-github">Git and GitHub</h1>
+<p>Git is version control software to track changes in source code. GitHub is cloud storage for Gits. We check-in and check-out files to git and it keeps a track of the history.</p>
+<h2 id="installation">Installation</h2>
+<ul>
+<li><code>git --version</code> to check the version of git installed.</li>
+<li><code>where git</code> to find path<ul>
+<li>to fix this, add the location of folder having <code>git.exe</code> to <code>$PATH</code>.</li>
+</ul>
+</li>
+<li><em>On mac it was pre installed as part of Xcode Command Line Tools.</em></li>
+</ul>
+<h2 id="terminology">Terminology</h2>
+<ul>
+<li><code>HEAD</code> variable that points to default branch.</li>
+<li><code>checkout</code> switch or activate a branch</li>
+<li><code>remote</code> - Git repo on server. Git stores remote URLs in objects called "remotes"<ul>
+<li><code>origin</code> origin is the default remote for almost all repositories. It has info on fetch/push url, remote branches, track status etc.</li>
+</ul>
+</li>
+<li><code>track</code> - local-branch needs a link to remote-branch to do push and pull.<ul>
+<li>as a <code>tracking reference to the upstream server</code></li>
+<li>set <code>the remote as upstream</code>  </li>
+<li>to <code>track remote branch</code></li>
+<li>current branch <code>has no upstream branch.</code></li>
+<li><code>-u</code> or <code>--set-upstream</code> or <code>--set-upstream-to=origin/master</code> or <code>--track</code> all are same.</li>
+<li><code>upstream branch</code> - remote-branch to which local-branch tracks to</li>
+</ul>
+</li>
+<li><code>fetch</code> look for changes but <strong>don't download</strong></li>
+<li><code>pull</code> <strong>download</strong> changes to local</li>
+<li><code>fork</code> - copies the code to <strong>your-remote-space</strong>. Keeps link to <strong>original upstream</strong>, in case you want to pull future changes.</li>
+<li><code>clone</code> to <strong>local-system</strong> for making changes</li>
+<li><code>pull request</code> Ask <strong>remote-repo owner</strong> to pull your branch into main branch. This will <strong>merge</strong> your updates. Do follow developer guidelines for this to be accepted.</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<ul>
+<li>You can get/set/edit/unset variables that configure git. Values can be set at <strong>global</strong> or <strong>system</strong> or <strong>local</strong> (repo) level.</li>
+<li>Global configs are stored in <code>.gitconfig</code> file in <code>home</code> dir usually. It holds YAML data. You can set values using commands and see the values set.<ul>
+<li><code>~/.gitconfig</code> global</li>
+<li><code>./.git/config</code> local in repo</li>
+</ul>
+</li>
+<li>username and email are required to be correctly set locally as they are written in each commit (who did it?). This also helps to associate correct account when pushed to remote.</li>
+<li>format is <code>git config --flag name.key value</code></li>
+</ul>
+<ul>
+<li><strong>read</strong> config<ul>
+<li><code>git config user.name</code> shows name  </li>
+<li><code>git config user.email</code> shows email</li>
+<li><code>git config --list --global</code> get all global options, --list or -l</li>
+<li><code>git config --list --local</code> get all local options</li>
+<li><code>git config --get remote.origin.url</code> - remote URL, --get is optional</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>write</strong> config<ul>
+<li><code>git config --global user.name "Your Name"</code> sets the user name in global file</li>
+<li><code>git config user.name "Your Name"</code> sets user name in local repo file</li>
+<li><code>git config --global credential.helper 'cache --timeout=72000'</code> caches. so enter credentials once every 20 hours</li>
+<li><code>git config --global credential.helper store</code> - stores the username and password in store utility</li>
+<li><code>git config --global --unset http.proxy</code> to unset a variable</li>
+</ul>
+</li>
+</ul>
+<h2 id="read-local-repo">Read Local Repo</h2>
+<ul>
+<li><code>git status</code> - current local branch and changes</li>
+<li><code>git branch</code> - local branches</li>
+<li><code>git branch -r</code> - remote branches</li>
+<li>
+<p><code>git branch -a</code> - all, local and remote branches</p>
+<ul>
+<li>
+<p>output</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>*<span class="w"> </span>PRJ-454
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>develop
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>remotes/origin/PRJ-454
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>remotes/origin/PRJ-508
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>remotes/origin/HEAD<span class="w"> </span>-&gt;<span class="w"> </span>origin/develop
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>remotes/origin/origin/develop
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>first two are local and then remotes, see <code>HEAD</code> points to one of the remote branch, this is checkout and acts as default.</li>
+</ul>
+</li>
+</ul>
+<h2 id="write-local-repo">Write Local Repo</h2>
+<ul>
+<li>create repo<ul>
+<li><code>git clone https://...git</code> - <strong>clone remote</strong> repository</li>
+<li><code>git init</code> - start repository local</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>commits<ul>
+<li><code>git add --all</code></li>
+<li><code>git commit -m "Initial Commit"</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Remotes</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># add remote to existing local repo</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://repo.git
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># update remote</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>https://repo.git
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># View remotes added to local repo</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>git<span class="w"> </span>remote<span class="w"> </span>-v
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># View URL of a remote</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>git<span class="w"> </span>remote<span class="w"> </span>get-url<span class="w"> </span>--all<span class="w"> </span>&lt;remote-name&gt;
+</code></pre></div>
+<ul>
+<li>branch/pull<ul>
+<li><code>git checkout -b &lt;new-branch&gt;</code> - <strong>creates</strong> new-local-branch and <strong>checksout</strong>. It has <strong>no upstream</strong> to track.</li>
+<li><code>git checkout &lt;branch-name&gt;</code> - <strong>checksout</strong> existing-local-branch</li>
+<li><code>git checkout head</code> - checksout detached default branch</li>
+<li><code>git checkout HEAD</code> - checksout default branch, usually master.</li>
+<li><code>git branch -u origin/remote-branch-name</code> to set-upstream on current-local-branch to track. remote-branch-name should exist.</li>
+<li><code>git branch -u origin/remote-branch-name local-branch-name</code> to set upstream on <strong>another</strong>-local-branch.</li>
+<li><code>git pull</code> - downloads changes from remote to current-local-branch</li>
+<li><code>git pull origin remote_branch_name</code> - pulls an existing remote branch to local repository, local branch with same name should exist, else do <code>git checkout -b &lt;new-branch&gt;</code></li>
+<li>If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:<ul>
+<li><code>git switch -c &lt;new-branch-name&gt;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>merge - changes from one branch to another, say from <code>hotfix</code> to <code>master</code><ul>
+<li><code>git checkout branch-merge-into</code> - master if you have to merge changes into master</li>
+<li><code>git merge branch-merge-from</code> - say hotfix</li>
+<li><code>git rebase master</code> - if you have new changes in master that you want in your branch. more <a href="https://stackoverflow.com/questions/5340724/get-changes-from-master-into-branch-in-git">here</a>.</li>
+<li>it can go smooth or can have conflicts, then resolve conflicts</li>
+<li>more details <a href="https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging">here</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>stash<ul>
+<li>stash means keep safely. When you have to switch from branch A to B but not commit changes in branch A, then stash changes in A, switch to B, do work, back to A, then stash pop to return to your uncommited changes.</li>
+<li><code>git stash</code> on branch A, to not commit but keep changes safely</li>
+<li><code>git checkout B</code> - do changes, commit.. push.. whatever</li>
+<li><code>git checkout A</code></li>
+<li><code>git stash pop</code> - to return your uncommited changes in A.</li>
+<li>more <a href="https://opensource.com/article/21/4/git-stash">here</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>delete<ul>
+<li><code>git branch -d my-branch-name</code> - use <code>-D</code> to force delete</li>
+<li><code>git remote prune origin</code> - removed deleted remote branch from local history in branch -a.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Remove Files and Folders</strong></p>
+<p>If a file is tracked in git then adding it to <code>.gitignore</code> will not ignore it. So you will have to do following for it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># to remove dir</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>-r<span class="w"> </span>the_project/dev_dir
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># to remove a file</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>git<span class="w"> </span>rm<span class="w"> </span>--cached<span class="w"> </span>the_project/secrets.py
+</code></pre></div>
+<h2 id="read-remote-repo">Read Remote Repo</h2>
+<ul>
+<li><code>git remote show origin</code> all the information about a remote called origin. Output:<ul>
+<li>fetch and push URL</li>
+<li>All remote branches, their tracking status and HEAD branch</li>
+<li>who pulls from whom</li>
+<li>who pushes to whom<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>*<span class="w"> </span>remote<span class="w"> </span>origin
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Fetch<span class="w"> </span>URL:<span class="w"> </span>URL/user/repo.git
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Push<span class="w">  </span>URL:<span class="w"> </span>URL/user/repo.git
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>HEAD<span class="w"> </span>branch:<span class="w"> </span>master
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Remote<span class="w"> </span>branches:
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span>PRJ-001<span class="w"> </span>tracked
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span>PRJ-000<span class="w"> </span>stale<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s1">&#39;git remote prune&#39;</span><span class="w"> </span>to<span class="w"> </span>remove<span class="o">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span>master<span class="w">  </span>tracked
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Local<span class="w"> </span>branches<span class="w"> </span>configured<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;git pull&#39;</span>:
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span>PRJ-001<span class="w"> </span>merges<span class="w"> </span>with<span class="w"> </span>remote<span class="w"> </span>PRJ-001
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span>master<span class="w">  </span>merges<span class="w"> </span>with<span class="w"> </span>remote<span class="w"> </span>master
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Local<span class="w"> </span>refs<span class="w"> </span>configured<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;git push&#39;</span>:
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span>PRJ-001<span class="w"> </span>pushes<span class="w"> </span>to<span class="w"> </span>PRJ-001<span class="w"> </span><span class="o">(</span>up<span class="w"> </span>to<span class="w"> </span>date<span class="o">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span>master<span class="w">  </span>pushes<span class="w"> </span>to<span class="w"> </span>master<span class="w">  </span><span class="o">(</span>up<span class="w"> </span>to<span class="w"> </span>date<span class="o">)</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>git fetch</code> - reads from remote if changes are available to pull, <strong>does not pull</strong></li>
+</ul>
+<h2 id="write-remote-repo">Write Remote Repo</h2>
+<ul>
+<li><code>--set-upstream</code> or <code>-u</code> to set upstream</li>
+<li><code>git push</code> writes current-local-branch to remote<ul>
+<li><code>git push -u origin &lt;local-branch-name&gt;</code> - sets upstream as origin/local-branch-name and pushes current-local-branch to remote git. New remote-branch "local-branch-name" is created, if not exists.</li>
+<li><code>git push -u origin local-branch:remote-branch</code> - uses different branch names. Creates new on remote if does not exist.<ul>
+<li>Output <code>Branch 'local-branch' set up to track remote branch 'remote-branch' from 'origin'.</code></li>
+</ul>
+</li>
+<li><code>git push -u origin HEAD</code> need not write</li>
+<li><code>git push -u origin</code> - sets upstream as origin and pushes current-local-branch to remote.</li>
+</ul>
+</li>
+<li><code>git push origin</code> pushes <strong>all</strong> branches to remote</li>
+</ul>
+<h2 id="pull-requests-pr">Pull Requests - PR</h2>
+<p>Is a request made by developer (coder) to other developers (reviewers) so that reviewers can review the <em>feature-branch</em> and up on satisfaction they can approve it. On required approvals coder can <code>merge</code> the <em>feature</em> branch to <em>main</em> branch. This will pull the feature branch to main branch, hence named <em>pull request</em>.</p>
+<p><strong>Review</strong></p>
+<p>To approve a Pull Request you need to create the same on your local machine. So on terminal do:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>JIRA-123
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Switched<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>branch<span class="w"> </span><span class="s1">&#39;JIRA-123&#39;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>branch<span class="w"> </span><span class="s1">&#39;JIRA-123&#39;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span>track<span class="w"> </span><span class="s1">&#39;origin/JIRA-123&#39;</span>.
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>$<span class="w"> </span>git<span class="w"> </span>pull
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>remote:<span class="w"> </span>Enumerating<span class="w"> </span>objects:<span class="w"> </span><span class="m">22</span>,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>remote:<span class="w"> </span>Counting<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">22</span>/22<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>...
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Already<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span>date.
+</code></pre></div>
+<p>If you accidently pull a wrong remote branch to local,eg in local-develop you pulled remote-JIRA-123 , you can reset using</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/develop
+</code></pre></div>
+<p><strong>Create a Pull Request</strong></p>
+<p>When you develop a new feature, you can create a Pull Request so that reviewers can review and approve it.</p>
+<p>Pull Request needs a source (your feature branch) and destination (the main branch).</p>
+<p>It is good to have a <strong>template</strong> for the documentation of Pull Request that reviews can use to review.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gs">**Title**</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>JIRA-123 - The Story Name
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="gs">**Info**</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>I have done ...
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>So that...
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="gs">**Steps for reviewers**</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="k">-</span><span class="w"> </span>Ensure that ...
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="k">-</span><span class="w"> </span>Copy this to ...
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">-</span><span class="w"> </span>Add env ...
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">-</span><span class="w"> </span>Run below commands ...
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="sb">`Insert Code`</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="k">-</span><span class="w"> </span>Check that ...
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="k">-</span><span class="w"> </span>Verify that ...
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="k">-</span><span class="w"> </span>Approve PR.
+</code></pre></div>
+<h2 id="how-to-clone-a-repository-from-githubcom">How to clone a repository from GitHub.com</h2>
+<ul>
+<li><code>git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY</code></li>
+<li>eg, <code>git clone https://github.com/miguelgrinberg/microblog.git</code></li>
+<li>This will bring all the files from remote to local directory with git repository on local folder.</li>
+<li>Now if you have permission to commit to this repo then you can <strong>authenticate to push</strong>, else <strong>change the remote</strong> to another repo that you can push to.</li>
+</ul>
+<h2 id="git-diff-patch-bundle-text-sync">Git Diff Patch &amp; Bundle - Text Sync</h2>
+<p><em>all about syncing in network restrictions</em></p>
+<p><strong>Git Patch</strong></p>
+<p>It is changes in text-format. It lets collaborate using text files instead of remote servers.</p>
+<blockquote>
+<p>"A patch in Git is a textual representation of the changes in a commit, formatted in a way that Git can reconstruct the commit and apply it on a branch in another repository." - InitialCommit</p>
+</blockquote>
+<p>It should be used when you want to share one or more commits over email. It was used to when push/pull to remote was not used, rather email was used to sync changes. So text having information of changes done was sent to another user via email and they can apply to branch in their repository.</p>
+<p><code>git format-patch</code> command builds patch from multiple commits. It generates the patch file. To generate a patch file is called "format a patch".</p>
+<p><strong>Git  Diff</strong></p>
+<p><code>git diff</code> command shows difference between two things (files/commits/branches).</p>
+<p>The output <code>format-patch</code> and <code>diff</code> is same, except that</p>
+<ul>
+<li>the <code>format-patch</code> has additional information about the commits, author details, timestamp and file change meta data. This extra information is also merged when applying the patch to another repository.</li>
+<li>the <code>format-patch</code> can be used over multiple-commits and generates one patch for each commits. You can then apply these patches in another repository to one-by-one to reach each commit.</li>
+</ul>
+<p>You can use diff to create patch</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>diff<span class="w"> </span>&lt;old-commit&gt;<span class="w"> </span>&lt;new-commit&gt;<span class="w"> </span>&gt;<span class="w"> </span>diff.patch
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>diff<span class="w"> </span>branch1<span class="w"> </span>branch2<span class="w"> </span>&gt;<span class="w"> </span>diff.patch
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># diffs branch1 with branch2 and stores output in diff.patch file</span>
+</code></pre></div>
+<p>Here, branch2 should be new to list latest changes in patch, else the patch will have reverse changes.</p>
+<p><strong>Applying Patch</strong></p>
+<p><code>git apply</code> is command that lets apply patch to a branch. You can also use <code>patch</code> which is separate command for updates and not git specific.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>apply<span class="w"> </span>diff.patch
+</code></pre></div>
+<p><strong>Git Bundle</strong></p>
+<p><code>git bundle</code> is a command that builds one file having whole repository with all commits. It allows easy file sharing without need of central server. Note: this file is binary not text.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>bundle<span class="w"> </span>create<span class="w"> </span>&lt;bundle_file&gt;<span class="w"> </span>&lt;refs&gt;
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>git<span class="w"> </span>bundle<span class="w"> </span>create<span class="w"> </span>my_prj.repo<span class="w"> </span>HEAD
+</code></pre></div>
+<p><code>&lt;refs&gt;</code> can be HEAD or branch name or tags.</p>
+<p><strong>Links</strong></p>
+<ul>
+<li><a href="https://initialcommit.com/blog/git-format-patch">Initialcommit - git-format-patch</a></li>
+<li><a href="https://www.linkedin.com/pulse/what-git-bundle-stephen-paynter/">Git bundle on Lindedin</a></li>
+</ul>
+<h2 id="rename-git-branch">Rename git branch</h2>
+<ul>
+<li><code>git branch --move main master</code> - moves main to master, <code>-m</code> is same as <code>--move</code></li>
+<li><code>git push -u origin master</code> - pushed master to remote as master (new on remote if not exists)</li>
+<li><code>git branch -a</code> - to view all branches</li>
+<li>finally make <code>master</code> as default on remote and delete <code>main</code>.</li>
+<li>or simply rename on github.com.</li>
+</ul>
+<h2 id="ssh-authentication-for-git">SSH Authentication for Git</h2>
+<p>You can <strong>pull</strong> using HTTP/SSH. <strong>HTTP</strong> lets you pull without authentication and is <strong>recommended</strong> for <strong>public</strong> repos.</p>
+<p>For <strong>push</strong> you always need <strong>authenticated</strong> n/w, and <strong>recommended</strong> method is <strong>SSH</strong>. Also, to pull private repo you need auth.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span>~/.ssh/
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ls<span class="w"> </span>-la
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># If no id_rsa.pub key, generate</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>ssh-keygen
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># copy public key</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>cat<span class="w"> </span>~/.ssh/id_rsa.pub
+</code></pre></div>
+<p>Now you would have id_rsa.pub and id_rsa files.</p>
+<p>The file <code>id_rsa.pub</code> has your public key. This is secret, but can be givent to server/bitbucket/github, so that they have your public key and can authenticate you without your username password.</p>
+<p><strong>Add key to Github</strong></p>
+<p>Copy the content, Open GitHub, click your profile icon, settings, SSH and GPC Keys, Click on the new ssh key button. Enter any title and key that you copied.</p>
+<p><strong>Checking SSH Auth</strong></p>
+<ul>
+<li>Check using <code>ssh -T git@github.com</code></li>
+<li>Output should say <code>Hi &lt;user_name&gt;! You've successfully authenticated, but GitHub does not provide shell access.</code></li>
+</ul>
+<p><strong>Fixing SSH issue</strong></p>
+<ul>
+<li>error - <code>ssh: connect to host github.com port 22: Connection refused</code></li>
+<li>change ssh config to use new url and port, Override SSH settings <code>gedit ~/.ssh/config</code> and add</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Add section below to it</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Host<span class="w"> </span>github.com
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>Hostname<span class="w"> </span>ssh.github.com
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span>Port<span class="w"> </span><span class="m">443</span>
+</code></pre></div>
+<ul>
+<li>save and try again.</li>
+<li>Change your git remote to use SSH URL instead of HTTPS <code>git remote set-url origin git@github.com:YOUR-USERNAME/REPO-NAME.git</code></li>
+</ul>
+<p><strong>Links</strong> - <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">https://docs.github.com/en/authentication/connecting-to-github-with-ssh</a></p>
+<h2 id="multiple-remote-repo-username-setup">Multiple Remote Repo Username Setup</h2>
+<p>You may want to push code to different Remote Repo, eg, tom@github and ram@github. One rsa key does not work on multiple accounts. You need to have different rsa keys. Git Config needs to know which rsa key to use. Also git config need to know name and email.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Generate SSH Key for new user</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tom@gmail.com&quot;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># name: id_rsa_tom</span>
+</code></pre></div>
+<p>Here, -t defines type of key to generate. -C defines comment to the key, this helps see the comment in the key.</p>
+<p>Now copy content of <code>id_rsa_tom.pub</code> and use it on server to let you authenticate.</p>
+<p>On local, you need to set git config to use correct user details:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Change SSH Key to be used in Git Repo</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.sshcommand<span class="w"> </span><span class="s1">&#39;ssh -i /home/tom/.ssh/id_rsa_tom -F /dev/null&#39;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Tom Guy&quot;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tom@gmail.com&quot;</span>
+</code></pre></div>
+<p>You can modify above based on which user you want to use for remote push/pull. You can use <code>--local</code> if you are in git dir.</p>
+<p>In case you have commited by wrong user, you can edit the commit before push.</p>
+<h2 id="fix-commit-author-for-last-commit">Fix Commit Author for Last Commit</h2>
+<p>Ensure you have correct git config, user.name and user.email. Then amend the comment</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Configre new username</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span>username
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span>user.name@gmail.com
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># Amend last commit if done wrong</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;User Name &lt;user.name@gmail.com&gt;&quot;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># Check if last commit is updated</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>git<span class="w"> </span>log
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># Change SSH Key to be used in Git Repo</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>git<span class="w"> </span>config<span class="w"> </span>--local<span class="w"> </span>core.sshcommand<span class="w"> </span><span class="s1">&#39;ssh -i /home/username1/.ssh/id_rsa_username -F /dev/null&#39;</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="c1"># Pull GitHub content to rebase</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>git<span class="w"> </span>config<span class="w"> </span>pull.rebase<span class="w"> </span><span class="nb">true</span><span class="w"> </span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="c1"># Pull to avoid conflict</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="c1"># Push to GitHub with new username</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<h2 id="fix-commit-author-for-multiple-commits">Fix Commit author for multiple commits</h2>
+<p>First, update the git config with correct username and email.</p>
+<p>Find commit number which is older than the commits you want to update author, eg, <code>91d5062</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git<span class="w"> </span>rebase<span class="w"> </span>-r<span class="w"> </span>91d5062<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span>--exec<span class="w"> </span><span class="s1">&#39;git commit --amend --no-edit --reset-author&#39;</span>
+</code></pre></div>
+<p>Link: <a href="https://stackoverflow.com/a/1320317/1055028">Stackoverflow - How do I change the author and committer name/email for multiple commits?</a></p>
+<p>For only <strong>last commit</strong> message update"</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;New commit message&quot;</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="sb">```</span><span class="c1">## Fix Github Commit author for multiple commits</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>First,<span class="w"> </span>update<span class="w"> </span>the<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>with<span class="w"> </span>correct<span class="w"> </span>username<span class="w"> </span>and<span class="w"> </span>email.
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>Find<span class="w"> </span>commit<span class="w"> </span>number<span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>older<span class="w"> </span>than<span class="w"> </span>the<span class="w"> </span>commits<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>author,<span class="w"> </span>eg,<span class="w"> </span><span class="sb">`</span>91d5062<span class="sb">`</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="sb">```</span>sh
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>git<span class="w"> </span>rebase<span class="w"> </span>-r<span class="w"> </span>91d5062<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span>--exec<span class="w"> </span><span class="s1">&#39;git commit --amend --no-edit --reset-author&#39;</span>
+</code></pre></div>
+<p>Link: <a href="https://stackoverflow.com/a/1320317/1055028">Stackoverflow - How do I change the author and committer name/email for multiple commits?</a></p>
+<p>For only <strong>last commit</strong> message update"</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;New commit message&quot;</span>
+</code></pre></div>
+<h2 id="handling-conflicts">Handling Conflicts</h2>
+<p>If you push to git from two different repositories then there may be conflict. eg, you push from mac repo and a cloud repo or ubuntu repo. To handle conflict:</p>
+<ul>
+<li>Open conflicted file in editor and look for <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> .</li>
+<li>You'll see the changes from the HEAD or base branch (github usually) after the line <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code></li>
+<li><code>========</code>, it divides your changes from the other branch as <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;YOUR_BRANCH_NAME</code></li>
+<li>You can decide if you want keep your branch changes or not. If you want to keep the changes what you did, delete the conflict marker they are, <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> and then do a merge.</li>
+<li>Once done, <code>add commit push</code> :)</li>
+</ul>
+<h2 id="version-controlling-in-git">Version controlling in GIT</h2>
+<p>You can see previous versions of file in your git repository.</p>
+<ul>
+<li>to see the checkins done</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>&gt;<span class="w"> </span>git<span class="w"> </span>reflog
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>044cf0e<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">0</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>updates
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>aae1995<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">1</span><span class="o">}</span>:<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>initial<span class="o">)</span>:<span class="w"> </span>first<span class="w"> </span>commit
+</code></pre></div>
+<ul>
+<li><code>git show HEAD@{1}:path/to/file.ext</code> show file on terminal</li>
+<li>press down arrow to navigate and <code>q</code> to quit</li>
+</ul>
+<p>or</p>
+<ul>
+<li><code>git show -1 filename</code> - shows difference with last revision</li>
+<li>use -1 or -2 or -3 and so on for going into history.</li>
+</ul>
+<h2 id="git-tags">Git Tags</h2>
+<p>First commit and then add a tag, <code>git tag -a v1.4 -m "my version 1.4"</code> to add new annotated tag.</p>
+<p><code>git push origin --tags</code> to push tags to remote.</p>
+<p><code>git tag -d v0.6</code> to delete tag</p>
+<p>Remote tag example: `git push -d origin v0.6``</p>
+<p><strong>Links</strong> - Git Tags</p>
+<ul>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">https://git-scm.com/book/en/v2/Git-Basics-Tagging</a></li>
+</ul>
+<h2 id="fix-corrupt-git">Fix Corrupt Git</h2>
+<p>Following works on ubuntu</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>git<span class="w"> </span>repair
+</code></pre></div>
+<h2 id="guide-disconnected-sync-when-network-is-restricted">Guide - Disconnected Sync when Network is Restricted</h2>
+<p>Scenario is that you need to sync repo1 and repo2 but there is no central server or connectivity between them. You can't do git push/pull as there is no remote. In this case we use text file having changes called patch.</p>
+<p>Here, repo1 is network restricted, repo2 is not.</p>
+<p><strong>Build Patch</strong></p>
+<p>On repo1, ensure you are on <code>dev</code> branch and that all changes are commited.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Ensure</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;ready_to_diff&quot;</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="c1"># Build Patch</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>git<span class="w"> </span>diff<span class="w"> </span>master<span class="w"> </span>dev<span class="w"> </span>&gt;<span class="w"> </span>diff.patch
+</code></pre></div>
+<p>This generates a patch with all changes done compared to master branch. Now copy the contents of this file to another machine having <code>repo2</code></p>
+<p><strong>Applying patch on Repo2</strong></p>
+<p>Now on repo2, ensure you are on master branch and all changes are commited. Create a new branch to patch:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>master_patched
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>touch<span class="w"> </span>diff.patch
+</code></pre></div>
+<p>Copy and paste contents to <code>diff.patch</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>git<span class="w"> </span>apply<span class="w"> </span>--reject<span class="w"> </span>--whitespace<span class="o">=</span>fix<span class="w"> </span>diff.patch
+</code></pre></div>
+<p>Once you verify that patch is applied and all changes are in place, delete the patch file</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>rm<span class="w"> </span>diff.patch
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;patched&quot;</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1"># merge to master</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>git<span class="w"> </span>checkout<span class="w"> </span>master
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>git<span class="w"> </span>merge<span class="w"> </span>master_patched
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="c1"># commit and push</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;patched_merged&quot;</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>git<span class="w"> </span>push
+</code></pre></div>
+<p>Now you have synced changes from repo1 to repo2. Lastly, bring these changes to repo1 so that both are in perfect sync.</p>
+<p><strong>Resetting Repo 1</strong></p>
+<p>On repo1</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>master
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>git<span class="w"> </span>branch<span class="w"> </span>-D<span class="w"> </span>dev
+</code></pre></div>
+<p>Now delete all files and folders except <code>.git</code>. Then download zip, extract.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>mv<span class="w"> </span>.git<span class="w"> </span>../tmp.git/
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>*.*
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>rm<span class="w"> </span>-rf<span class="w"> </span>*
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>rm<span class="w"> </span>-rf<span class="w"> </span>.*
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>mv<span class="w"> </span>../tmp.git<span class="w"> </span>./.git
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>curl<span class="w"> </span>-L<span class="w"> </span>http://github.com/iYadavVaibhav/stem/archive/master.zip<span class="w"> </span>&gt;<span class="w"> </span>master.zip
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>unzip<span class="w"> </span>master.zip
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>mv<span class="w"> </span>./stem-master/*<span class="w"> </span>.
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>rm<span class="w"> </span>master.zip
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>rm<span class="w"> </span>-rf<span class="w"> </span>stem-master
+</code></pre></div>
+<p>Then, commit and create dev branch</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;downloaded patched&quot;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>dev
+</code></pre></div>
+<p>Now your repo1 is updated with all changes merged and is ready to work.</p>
+<p><strong>Link</strong> - <a href="https://gist.github.com/nepsilon/22bc62a23f785716705c">https://gist.github.com/nepsilon/22bc62a23f785716705c</a></p>
+<h2 id="guide-git-local-to-remote-basics">Guide - Git Local to Remote Basics</h2>
+<p><strong>Setup Git</strong></p>
+<ul>
+<li>On any folder, do this <strong>once</strong></li>
+<li>eg, <code>mkdir myProject</code> then <code>cd myProject</code></li>
+<li><code>git init</code> this will create a <strong>local</strong> git repository on your local drive. Now if you need to add this to a remote git repository, for example, a repository on github.com or bitbucket then you need to add remote to this folder.</li>
+</ul>
+<p>Now once you have written your code, you can add and commit new code to local git:</p>
+<p><strong>Add and Commit code</strong></p>
+<ul>
+<li><code>git add .</code> adds all files to git. To add one file, pass filename.</li>
+<li><code>git diff</code> shows changes made to files.</li>
+<li><code>git commit -m "Message"</code> commits to git with message.</li>
+<li>optional, <code>cat .gitignore</code> add files that you want git to ignore</li>
+</ul>
+<p><strong>Add Remote</strong></p>
+<ul>
+<li>Create a new repository on GitHub.com</li>
+<li>on your local folder, <code>git remote add  [name] [url]</code> will add remote. Here, <code>name</code> can be origin and <code>url</code> is https/ssh url of git repo created online on GitHub.com. Use SSH only if you have <a href="#ssh-authentication-for-git">SSH authentication</a> setup.</li>
+<li>Once remote is added to your local git then you can push or pull the files based on the commands below.</li>
+</ul>
+<p><strong>Syncing local and remote</strong></p>
+<ul>
+<li><code>git pull</code> pulls updates from remote to local</li>
+<li><code>git push</code> pushes the committed changes from local to remote. We can also specify remote name and branch here. eg:<ul>
+<li><code>git push -u origin master</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="todo">Todo</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> - Merge guide to operations</li>
+</ul>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://kbroman.org/github_tutorial/">Github RSA by Karl Broman</a></li>
+</ul>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-12T02:07:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-12</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span>
+            <span> Jul 2018 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

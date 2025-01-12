@@ -1,0 +1,3451 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Data Engineering, Data Science, Business Analytics, Data Visualization, Business Intelligence">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/9-Drafts/dea-c01-u3-data-operations-and-support-ps/">
+      
+      
+        <link rel="prev" href="../dea-c01-u2-data-store-management-ps/">
+      
+      
+        <link rel="next" href="../dea-c01-u4-data-security-and-governance-ps/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>U3 Data Operations and Support - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#u3-data-operations-and-support" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              U3 Data Operations and Support
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/aws-amazon-web-services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerize
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/gen-ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generative Artificial Intelligence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-airflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Airflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-iceberg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Iceberg Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Kafka
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/apache-spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Big Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools &amp; Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/data-warehousing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/databricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databricks Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-Data-Engineering/tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-finance-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/business-analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/interview-career-growth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Career Growth Interview Mindset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/logarithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics &amp; IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u0-exam-course-intro-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS DEA-C01 Preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u1-data-ingestion-and-transformation-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u2-data-store-management-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-course-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.0 Course Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-automate-data-processing-by-using-aws-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 Automate Data Processing by Using AWS Services
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-data-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Data APIs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-intro-to-amazon-emr" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Intro to Amazon EMR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-intro-to-aws-glue-databrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Intro to AWS Glue DataBrew
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-apache-offerings" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Apache Offerings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-intro-to-amazon-eventbridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Intro to Amazon EventBridge
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.0 Analytics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-intro-to-amazon-athena" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Intro to Amazon Athena
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-creating-a-glue-crawler-for-athena-and-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Creating a Glue Crawler for Athena and S3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-publishing-data-using-amazon-quicksight" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Publishing Data Using Amazon QuickSight
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-visualizing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Visualizing Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-maintaining-and-monitoring-data-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.0 Maintaining and Monitoring Data Pipelines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-intro-to-amazon-macie" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Intro to Amazon Macie
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-intro-to-amazon-cloudwatch-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Intro to Amazon CloudWatch Logs
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dea-c01-u4-data-security-and-governance-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-py-design-patterns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python: Design Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-course-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.0 Course Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-automate-data-processing-by-using-aws-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 Automate Data Processing by Using AWS Services
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-data-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Data APIs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-intro-to-amazon-emr" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Intro to Amazon EMR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-intro-to-aws-glue-databrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Intro to AWS Glue DataBrew
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-apache-offerings" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Apache Offerings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-intro-to-amazon-eventbridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Intro to Amazon EventBridge
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.0 Analytics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-intro-to-amazon-athena" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Intro to Amazon Athena
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-creating-a-glue-crawler-for-athena-and-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Creating a Glue Crawler for Athena and S3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-publishing-data-using-amazon-quicksight" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Publishing Data Using Amazon QuickSight
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-visualizing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Visualizing Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-maintaining-and-monitoring-data-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.0 Maintaining and Monitoring Data Pipelines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-intro-to-amazon-macie" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Intro to Amazon Macie
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-intro-to-amazon-cloudwatch-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Intro to Amazon CloudWatch Logs
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/9-Drafts/dea-c01-u3-data-operations-and-support-ps.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/9-Drafts/dea-c01-u3-data-operations-and-support-ps.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="u3-data-operations-and-support">U3 Data Operations and Support</h1>
+<p>Automate, monitor and ensure the quality of data pipeline.</p>
+<h2 id="10-course-introduction">1.0 Course Introduction</h2>
+<h2 id="11-introduction">1.1 Introduction</h2>
+<h2 id="20-automate-data-processing-by-using-aws-services">2.0 Automate Data Processing by Using AWS Services</h2>
+<h2 id="21-data-apis">2.1 Data APIs</h2>
+<p><strong>Data APIs for External Data Sources</strong></p>
+<ul>
+<li>When processing data in AWS, you may need to <strong>interact with external data sources</strong> (e.g., other cloud providers or on-premise sources).</li>
+<li><strong>Data APIs</strong> allow <strong>secure data flow</strong> between AWS services and external sources.</li>
+</ul>
+<p><strong>Examples of Data APIs</strong>:</p>
+<ol>
+<li>
+<p><strong>JDBC (Java Database Connector) / ODBC (Open Database Connector)</strong>:</p>
+<ul>
+<li>Used to connect AWS services like <strong>Redshift</strong>, <strong>Athena</strong>, and <strong>Glue</strong> to <strong>relational databases</strong>.</li>
+<li>Allows direct connections to external relational data sources.</li>
+</ul>
+</li>
+<li>
+<p><strong>Amazon AppFlow</strong>:</p>
+<ul>
+<li>Integrates with third-party <strong>SaaS applications</strong> (e.g., Salesforce, SAP, Slack) to <strong>import data into AWS</strong>.</li>
+<li>Fully managed integration service for SaaS platforms.</li>
+<li><strong>Allows data processing</strong>: Ability to <strong>filter, enrich, and validate</strong> data before importing it into AWS.</li>
+<li>Built-in integrations with platforms like <strong>Google Analytics</strong>, <strong>Facebook Ads</strong>, and <strong>ServiceNow</strong>.</li>
+<li><strong>Exam</strong>: Recommended when dealing with <strong>SaaS data processing questions</strong> on exams.</li>
+</ul>
+</li>
+<li>
+<p><strong>AWS Data Exchange</strong>:</p>
+<ul>
+<li>A marketplace for <strong>third-party data APIs</strong>.</li>
+<li>Allows consumers to <strong>subscribe to and use data APIs</strong> from data providers.</li>
+<li><strong>Exam</strong>: Mentioned as a high-level concept for exams, mostly appearing as a distractor.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Key Takeaways</strong>:</p>
+<ul>
+<li>Use <strong>JDBC/ODBC</strong> for connecting AWS services to <strong>relational databases</strong>.</li>
+<li>For SaaS data (Salesforce, SAP, etc.), use <strong>Amazon AppFlow</strong> to import and process data.</li>
+<li><strong>AWS Data Exchange</strong> is a marketplace for <strong>vetted data APIs</strong>, useful for machine learning models and large data needs.</li>
+</ul>
+<h2 id="22-intro-to-amazon-emr">2.2 Intro to Amazon EMR</h2>
+<p><strong>Overview of Amazon EMR</strong></p>
+<ul>
+<li>Used for <strong>ETL of data at petabyte</strong> scale.</li>
+</ul>
+<ul>
+<li><strong>MapReduce process</strong>: Splitting data, parallel processing, reassembling data.<ul>
+<li><strong>Mapping</strong>: Distributing data for parallel processing.</li>
+<li><strong>Reducing</strong>: Reassembling processed data.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Underlying Technology</strong></p>
+<ul>
+<li><strong>Apache Hadoop</strong>: Open-source <strong>framework for big data</strong> analytics, leveraging tools for data preparation and analysis.</li>
+<li><strong>Apache Hive</strong>: <strong>Data warehousing too</strong>l with SQL-like interface.</li>
+<li><strong>Apache Spark</strong>: Defines <strong>data transformations</strong> and trains ML models.</li>
+<li><strong>Presto</strong>: Optimized <strong>big data query engine</strong>.</li>
+</ul>
+<p><strong>Amazon EMR Infrastructure</strong></p>
+<ul>
+<li><strong>Cluster Management</strong>: Manages EC2 instances for big data operations.</li>
+<li><strong>Single Availability Zone</strong>: For performance optimization, nodes are physically close.</li>
+</ul>
+<ul>
+<li><strong>Node Types</strong><ul>
+<li><strong>Primary Nodes</strong>: Distribute data and tasks (can have standby nodes for high availability).</li>
+<li><strong>Core Nodes</strong>: Data Handling, Host distributed file system and run tasks.</li>
+<li><strong>Task Nodes</strong>: Amplify processing power without participating in the distributed file system.</li>
+</ul>
+</li>
+</ul>
+<p><strong>File Systems in EMR</strong></p>
+<ul>
+<li><strong>HDFS (Hadoop Distributed File System)</strong>: Default; stores distributed data.</li>
+<li><strong><code>EMRFS</code></strong>: Integrates HDFS with S3 for persistent storage.</li>
+<li><strong>Local File System</strong>: Temporary storage for job-specific data.</li>
+</ul>
+<p><strong>Cluster Types</strong></p>
+<ul>
+<li><strong>Ephemeral Cluster</strong>: Temporary; spins up and tears down with job completion (cost-effective).</li>
+<li><strong>Long-standing Cluster</strong>: Persistent; for continuous or high-performance use.</li>
+</ul>
+<p><strong>Hive Metastore</strong></p>
+<ul>
+<li>Stores metadata about data (schemas, partitions, types).</li>
+<li><strong>External Hive Metastore Options</strong><ul>
+<li><strong>AWS Glue Data Catalog</strong>: Integrates with AWS services; fully managed and highly available.</li>
+<li><strong>Amazon Aurora/RDS</strong>: For third-party open-source apps (e.g., Apache Ranger).</li>
+</ul>
+</li>
+</ul>
+<p><strong>EMR vs AWS Glue</strong></p>
+<ul>
+<li><strong>Commonality</strong>: Both use Apache Spark for data transformation.</li>
+<li><strong>EMR Advantages</strong><ul>
+<li>More open-source tools.</li>
+<li>Better cost-performance for large datasets or intensive processing.</li>
+</ul>
+</li>
+<li><strong>AWS Glue Advantages</strong><ul>
+<li>More built-in features.</li>
+<li>Less configuration management; better for operational efficiency.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Additional Resource</strong></p>
+<ul>
+<li><strong>EMR Studio</strong>: Integrated development environment for defining and developing EMR jobs (not likely on exams but useful).</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>EMR</strong> is ideal for complex, large-scale data processing with open-source tools and performance optimization.</li>
+<li><strong>AWS Glue</strong> is suited for operational efficiency and integration with other AWS services.</li>
+</ul>
+<h2 id="23-intro-to-aws-glue-databrew">2.3 Intro to AWS Glue DataBrew</h2>
+<p><em>like alteryx or tableau prep</em></p>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Visual data preparation tool for non-technical data analysts.</li>
+<li><strong>Functionality</strong>: Enables no-code or low-code transformations, data validation, and anomaly detection.</li>
+</ul>
+<p><strong>Key Features</strong></p>
+<ul>
+<li><strong>Data Preparation</strong>: Provides over 250 prebuilt transformations for cleaning and normalizing data.</li>
+<li><strong>Data Quality</strong>: Validates data against defined rules before staging it in S3 buckets.</li>
+<li><strong>Data Lineage</strong>: Allows visual mapping of data lineage.</li>
+</ul>
+<p><strong>Workflow</strong></p>
+<ol>
+<li>
+<p><strong>Data Collection</strong></p>
+<ul>
+<li>Data resides in a data lake or warehouse.</li>
+<li>Subset of data migrated to an S3 bucket for further analysis.</li>
+</ul>
+</li>
+<li>
+<p><strong>Using DataBrew</strong></p>
+<ul>
+<li><strong>Data Rules</strong>: Analysts define rules in DataBrew to ensure data quality.</li>
+<li><strong>Validation</strong>: Rules are continuously applied; non-compliant data is not transferred to the staging bucket.</li>
+<li><strong>Alerts</strong>: Analysts receive notifications about malformed data for remediation.</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Transformations</strong></p>
+<ul>
+<li><strong>Common Transformations</strong><ul>
+<li>Remove or replace missing values.</li>
+<li>Combine different datasets.</li>
+<li>Create new columns (e.g., split timestamp into year, month, day).</li>
+<li>Filter data to select subsets for analysis.</li>
+<li>Label mapping (e.g., map categories to numerical values).</li>
+<li>Aggregate data.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Exam Tip</strong></p>
+<ul>
+<li><strong>Focus</strong>: For scenarios involving automated data transformations or validation rules without coding, AWS Glue DataBrew is the relevant service.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>AWS Glue DataBrew</strong> is ideal for visual data preparation and ensuring data quality with no-code/low-code solutions.</li>
+</ul>
+<h2 id="24-apache-offerings">2.4 Apache Offerings</h2>
+<p><em>Understand how AWS services implement or act as alternatives to popular Apache applications</em></p>
+<p><strong>Apache Flink</strong></p>
+<ul>
+<li>Data <strong>analytics for streaming</strong> data.</li>
+<li><strong>AWS Service</strong>: <strong>Amazon Managed Service for Apache Flink</strong>.</li>
+</ul>
+<ul>
+<li><strong>Use Case</strong><ul>
+<li>Stream data from sources like Amazon Kinesis for live analysis or ETL before storing in S3.</li>
+</ul>
+</li>
+<li><strong>Capabilities</strong><ul>
+<li>Streaming ETL</li>
+<li>Continuous metric generation</li>
+<li>Real-time analytics</li>
+<li>Interactive analysis</li>
+</ul>
+</li>
+</ul>
+<p><strong>Apache Airflow</strong></p>
+<ul>
+<li>Workflow management and orchestration.</li>
+<li><strong>AWS Service</strong><ul>
+<li><strong>Amazon Managed Workflows for Apache Airflow</strong>: For migrating existing Airflow workflows.</li>
+<li><strong>AWS Step Functions</strong>: Preferred for robust AWS service integration and lower operational overhead.</li>
+<li><strong>AWS Glue Workflows</strong>: Specifically for ETL data pipelines.</li>
+<li><strong>Amazon EventBridge</strong>: For event processing and scheduling.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Apache Kafka</strong></p>
+<ul>
+<li>Distributed <strong>event streaming platform</strong>.</li>
+<li><strong>AWS Service</strong><ul>
+<li><strong>Amazon Managed Streaming Service for Apache Kafka</strong>: For migrating existing Kafka applications.</li>
+<li><strong>Amazon Kinesis</strong>: Simplified option for new projects on AWS.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Apache Hive</strong></p>
+<ul>
+<li>Data <strong>warehousing on Hadoop</strong>, enabling SQL-like interaction with large datasets.</li>
+<li><strong>AWS Service</strong>: Amazon <strong>EMR</strong></li>
+<li><strong>Use Case</strong>: Manage and interact with <strong>petabytes of data</strong>.</li>
+</ul>
+<p><strong>Apache Spark</strong></p>
+<ul>
+<li>Large-scale data <strong>processing and transformations</strong>.</li>
+<li><strong>AWS Services</strong><ul>
+<li><strong>Amazon EMR</strong>: For processing big data with Spark.</li>
+<li><strong>AWS Glue</strong>: Uses Spark for defining ETL jobs.</li>
+</ul>
+</li>
+<li><strong>Example</strong>: Crawl S3 bucket to create a Glue Data Catalog, transform data, and store in a new S3 bucket for analysis with Amazon Athena.</li>
+</ul>
+<p><strong>AWS vs Apache Offerings</strong></p>
+<ul>
+<li><strong>AWS Preference</strong>: For fully managed and <strong>integrated</strong> offerings (e.g., Step Functions, Kinesis, Glue) over Apache applications when building from scratch.</li>
+<li><strong>Managed Apache Services</strong>: Used for <strong>migrating existing Apache-based</strong> applications to AWS.</li>
+</ul>
+<p><strong>Exam Tip</strong></p>
+<ul>
+<li><strong>Focus</strong>: AWS tends to favour their integrated services for new implementations, but Managed Apache services are suitable for migrating existing applications.</li>
+</ul>
+<h2 id="25-intro-to-amazon-eventbridge">2.5 Intro to Amazon EventBridge</h2>
+<p><strong>Process and schedule asynchronous events across the AWS ecosystem</strong></p>
+<ul>
+<li><strong>Capabilities</strong><ul>
+<li><strong>Ingest and deliver events</strong> to/from AWS services.</li>
+<li><strong>Schedule automated</strong> actions.</li>
+<li><strong>Receive and route events</strong> based on defined <strong>rules</strong>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Components</strong></p>
+<ul>
+<li><strong>Event Bus</strong>: Central component where events are <strong>received and routed</strong>.</li>
+<li><strong>Event Rules</strong>: Define conditions <strong>to trigger automated</strong> actions.</li>
+</ul>
+<p><strong>Event Movements</strong></p>
+<ul>
+<li><strong>Event Ingestion</strong>: Can handle events from AWS services or API calls.</li>
+<li><strong>Event Routing</strong>: Route events to one or more targets (e.g., AWS Lambda, Glue workflows).</li>
+<li><strong>Event Scheduling</strong>: Generate events on a schedule, independent of event sources.</li>
+</ul>
+<p><strong>Use Cases</strong></p>
+<ul>
+<li><strong>Complex Event-Driven Architectures</strong>: Ideal for handling events from multiple sources or scheduling.</li>
+<li><strong>Simple Workflows</strong>: For simpler scenarios (e.g., S3 file upload triggering a Lambda function), consider more direct solutions.</li>
+</ul>
+<p><strong>Best Practices</strong></p>
+<ul>
+<li><strong>Simplest Solution</strong>: Choose the <strong>most straightforward method</strong> that meets your needs. For example, use S3 event notifications to trigger Lambda functions directly if possible.</li>
+</ul>
+<p><strong>Exam Tip</strong></p>
+<ul>
+<li><strong>EventBridge</strong>: Use it when handling <strong>complex</strong> event routing or scheduling. For simpler use cases, consider more direct solutions to <strong>avoid overcomplication</strong>.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Amazon EventBridge</strong> is versatile for managing and scheduling events but evaluate if simpler solutions suffice for your specific scenario.</li>
+</ul>
+<h2 id="30-analytics">3.0 Analytics</h2>
+<h2 id="31-intro-to-amazon-athena">3.1 Intro to Amazon Athena</h2>
+<p><strong>Athena Overview</strong></p>
+<ul>
+<li><strong>Amazon Athena</strong> is ideal for <strong>querying large datasets in S3 with SQL</strong></li>
+<li>It uses <strong>optimized formats</strong> and <strong>compression/partitioning</strong> to enhance performance and manage data effectively.</li>
+<li>Fully managed, serverless, interactive query service.</li>
+<li><strong><code>Trino</code></strong> (open-source) is <strong>underlying engine</strong>.</li>
+</ul>
+<p><strong>Capabilities</strong></p>
+<ul>
+<li><strong>Data Querying</strong>: Directly query data in S3 using SQL.</li>
+<li><strong>Data Formats Supported</strong><ul>
+<li><strong>Common</strong>: CSV, JSON, Apache Parquet.</li>
+<li><strong>Other</strong>: Apache Avro, Apache ORC.</li>
+</ul>
+</li>
+<li><strong>Apache Hive / Spark Support</strong><ul>
+<li>create table and schema using <strong>Hive DDL</strong></li>
+<li>Run <strong>ad-hoc Apache Spark Applications</strong> (Optional for testing, but Glue or EMR are preferred for implementation).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Best Practices / Optimization</strong></p>
+<ul>
+<li><strong>Partitioning</strong></li>
+<li><strong>Compression</strong></li>
+<li><strong>Columnar Formats</strong></li>
+</ul>
+<p>Details of best practice</p>
+<ol>
+<li>
+<p><strong>Data Partitioning</strong></p>
+<ul>
+<li>Essential for efficient querying of large datasets.</li>
+<li><strong>Group related data</strong> based on values (e.g., date, country).</li>
+<li><strong>Benefit</strong>: Load only relevant data for each query.</li>
+<li><strong>Imp</strong>: Data will <strong>not</strong> populate to your partitions by default. For Hive Style partitions, you will have to perform the <code>MSCK REPAIR TABLE</code> command. For non-Hive partitions, you will have to run the <code>ALTER TABLE ADD PARTITION</code> command.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tickets</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">   </span><span class="k">user</span><span class="w"> </span><span class="n">string</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">   </span><span class="nb">text</span><span class="w"> </span><span class="n">string</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">   </span><span class="k">timeStamp</span><span class="w"> </span><span class="n">string</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">   </span><span class="n">impression</span><span class="w"> </span><span class="n">string</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">PARTITIONED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="n">string</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">parquet</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">LOCATION</span><span class="w"> </span><span class="s1">&#39;s3://PS-EXAMPLE-BUCKET/tables/&#39;</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Data Compression</strong></p>
+<ul>
+<li>Use supported formats to optimize performance.</li>
+<li><strong>Supported Formats</strong>: gzip, Snappy.</li>
+<li><strong>Splittable Formats</strong><ul>
+<li>You can <strong>split the compressed data</strong> file for <strong>Parquet and ORC</strong> (due to <strong>segmentation and metadata</strong>).</li>
+</ul>
+</li>
+<li>JSON and CSV when compressed, cannot be split / processed in parallel.</li>
+</ul>
+</li>
+<li>
+<p><strong>Columnar File Formats</strong></p>
+<ul>
+<li>Use columnar format for faster query results.</li>
+<li>Prefer Parquet or ORC for better performance.</li>
+<li><strong>Optimized Formats</strong>: Parquet and ORC.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Exam Tip</strong></p>
+<ul>
+<li><strong>Focus on Partitioning and Optimization</strong>: Partitioning and using columnar formats like Parquet or ORC are key for efficient querying in Athena.</li>
+</ul>
+<h2 id="32-creating-a-glue-crawler-for-athena-and-s3">3.2 Creating a Glue Crawler for Athena and S3</h2>
+<p><em>lab</em></p>
+<h2 id="33-publishing-data-using-amazon-quicksight">3.3 Publishing Data Using Amazon QuickSight</h2>
+<p><strong>QuickSight Overview</strong></p>
+<ul>
+<li>Create and share <strong>visualizations</strong> from various data sources.</li>
+<li>Serverless application for data visualization.</li>
+<li>Standalone application in AWS (has its own user and permission management)</li>
+</ul>
+<p><strong>User Management</strong></p>
+<ul>
+<li>QuickSight exists as standalone application in AWS.</li>
+<li><strong>QuickSight Users &amp; Permission</strong> are for Administrators, data analysts, and business leaders with separate permissions. They are not same as IAM Users.</li>
+<li><strong>IAM Users/Roles</strong> are for AWS resources, like s3 and athena. Quicksight needs IAM role to have permission to AWS resources. But QuickSight user don't, they only need access to viz/dashboard.</li>
+<li>Different users can be granted access to different dashboards.</li>
+</ul>
+<p><strong>Data Sources</strong></p>
+<ul>
+<li>It can connect to many internal and external data sources.</li>
+<li><strong>Common Sources</strong>: Athena-S3, redshift, aurora, RDS, OpenSearch.</li>
+<li><strong>External Sources</strong>: Relational databases, third-party sources (e.g., GitHub, Snowflake, Jira).</li>
+</ul>
+<p><strong>AWS Resource Access Management</strong></p>
+<ul>
+<li><strong>IAM Role Requirement</strong>: QuickSight needs an IAM role to access AWS resources.</li>
+<li><strong>Special Note</strong>: When integrating with Athena, ensure QuickSight has access to underlying S3 buckets.</li>
+</ul>
+<p><strong>QuickSight vs CloudWatch</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>QuickSight</th>
+<th>CloudWatch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interactive</td>
+<td>Highly</td>
+<td>Less</td>
+</tr>
+<tr>
+<td>Use Case</td>
+<td>BI</td>
+<td>Resource Optimization</td>
+</tr>
+<tr>
+<td>Viz Selection</td>
+<td>Variety</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>Users</td>
+<td>Separate from IAM</td>
+<td>IAM Users</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exam Tip</strong></p>
+<ul>
+<li><strong>Choosing Between QuickSight and CloudWatch</strong>: Use QuickSight for advanced data visualizations and business intelligence; use CloudWatch for monitoring and automation of AWS resources.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Amazon QuickSight</strong> is a powerful tool for creating interactive and visually appealing dashboards for business intelligence, integrating with a wide range of data sources, and managing user permissions separately from AWS IAM.</li>
+</ul>
+<h2 id="34-visualizing-data">3.4 Visualizing Data</h2>
+<p>You can use Athena, Glue Studio, QuickSight and Redshift Query Editor to "<strong>visually</strong>" prepare, transform and analyze data.</p>
+<p><strong>AWS Glue Studio</strong></p>
+<ul>
+<li>Visual interface for <strong>filtering and transforming</strong> data.</li>
+<li>Build Glue pipelines using a visual editor.</li>
+</ul>
+<p><strong>Amazon Athena</strong></p>
+<ul>
+<li>"Athena Visual Query Analysis" tool lets <strong>analyze query performance</strong> by showing <strong>logical steps</strong> and <strong>time taken</strong>.</li>
+<li><strong>Use Case</strong>: Optimize Athena query performance.</li>
+</ul>
+<p><strong>Amazon Redshift Query Editor</strong></p>
+<ul>
+<li>Ver 2.0 lets <strong>create simple visualizations</strong> (e.g., line charts, bar charts) directly from the query editor.</li>
+<li><strong>Use Case</strong>: Ad-hoc visualizations or testing query results.</li>
+</ul>
+<p><strong>Amazon QuickSight</strong></p>
+<ul>
+<li><strong>Advanced data analysis</strong> and visualization tool.</li>
+<li><strong>Features</strong>: Connects to various data sources and creates shareable visualizations.</li>
+<li><strong>Use Case</strong>: Ideal for comprehensive organizational data sharing.</li>
+</ul>
+<p><strong>Types of Visualizations</strong></p>
+<ul>
+<li><strong>Line Charts</strong>: Track trends over time.</li>
+<li><strong>Bar Charts</strong>: Compare categories.</li>
+<li><strong>Pie Charts</strong>: Illustrate percentages or parts of a whole.</li>
+<li><strong>Scatter Plots</strong>: Compare two dimensions.</li>
+<li><strong>Bubble Charts</strong>: Compare three dimensions (size/color represents additional dimension).</li>
+<li><strong>Funnel Charts</strong>: Show stages in a process (e.g., customer journey).</li>
+<li><strong>Histograms</strong>: Display distribution of values.</li>
+<li><strong>Gauges</strong>: Display single metrics or key performance indicators.</li>
+</ul>
+<p><strong>Exam Tips</strong></p>
+<ul>
+<li><strong>Choosing Visualizations</strong>: Understand when to use each type based on the data and the insights you want to convey.</li>
+<li><strong>Service Choice</strong>: Select appropriate AWS tools based on your visualization needs, ranging from simple (Redshift Query Editor) to advanced (QuickSight).</li>
+</ul>
+<h2 id="40-maintaining-and-monitoring-data-pipelines">4.0 Maintaining and Monitoring Data Pipelines</h2>
+<h2 id="41-intro-to-amazon-macie">4.1 Intro to Amazon Macie</h2>
+<p><em>Maintaining and Monitoring Data Pipelines with Amazon Macie</em></p>
+<ul>
+<li><strong>Introduction to Amazon Macie</strong><ul>
+<li>Simplifies <strong>monitoring for sensitive data</strong> within <strong>S3 buckets</strong>.</li>
+<li><strong>Continuously scans</strong> S3 buckets for sensitive data, such as <strong>Personally Identifiable Information</strong> (PII) and intellectual property.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Key Features</strong><ul>
+<li><strong>Sensitive Data Detection</strong>: Scans and identifies sensitive data within S3 buckets.</li>
+<li><strong>Alerts and Automation</strong>: <strong>Sends alerts</strong> or triggers automated actions if sensitive data is detected.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Multi-Account Management</strong>:<ul>
+<li>Can be <strong>activated in multiple accounts</strong> in an organization</li>
+<li><strong>Centrally managed</strong> from a single account.</li>
+<li><strong>Manages and aggregates</strong> findings across an AWS organization.</li>
+<li><strong>Aggregates findings</strong> across accounts</li>
+<li><strong>Automates actions</strong> centrally, like sending alerts.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Use Cases</strong><ul>
+<li><strong>Complex Data Pipelines</strong>: Ideal for monitoring data pipelines with multiple stages and buckets.</li>
+<li><strong>Central Monitoring</strong> of S3 bucker across all org accounts.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Benefits</strong><ul>
+<li><strong>Operational Efficiency</strong>: Provides effective monitoring with minimal operational overhead.</li>
+<li><strong>Centralized Management</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="42-intro-to-amazon-cloudwatch-logs">4.2 Intro to Amazon CloudWatch Logs</h2>
+<p><em>Monitoring Data Pipelines with Amazon CloudWatch</em></p>
+<p><strong>CloudWatch Overview</strong></p>
+<ul>
+<li><strong>Monitors AWS services</strong> and data pipelines by <strong>collecting and analysing logs</strong> from various sources.</li>
+<li><strong>Log Sources</strong>: Amazon EC2, CloudTrail, custom application logs, etc.</li>
+<li><strong>Log Groups</strong>: Logs are organized into groups, retained indefinitely by default.</li>
+</ul>
+<p><strong>Log Collection Methods</strong></p>
+<ul>
+<li><strong>Native Support</strong>: Enable logging in AWS services to send logs to CloudWatch.</li>
+<li><strong>CloudWatch Agent</strong>: Install on EC2 instances or on-premises servers.</li>
+<li><strong>AWS CLI</strong> use it send logs to cloud watch</li>
+<li><strong>Programmatic Access</strong>: Use APIs, or SDK to send logs.</li>
+</ul>
+<p><strong>Log Analysis</strong></p>
+<ul>
+<li><strong>Anomaly Detection</strong><ul>
+<li><strong>Functionality</strong>: <strong>Uses machine learning</strong> to <strong>create baselines</strong> and <strong>detect deviations</strong>.</li>
+<li><strong>Benefits</strong>: Identifies novel errors by flagging outliers.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Insights</strong><ul>
+<li><strong>Query Capabilities</strong>: Create and execute queries, including <strong>natural language queries</strong>.</li>
+<li><strong>Execution</strong>: Up to <strong>50 log groups</strong> can be queried <strong>simultaneously</strong>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Exporting Logs</strong><ul>
+<li><strong>To Amazon S3</strong>: <strong>Manual or programmatic export</strong> for periodic analysis.</li>
+<li><strong>Cost Efficiency</strong>: <strong>S3 is cheaper</strong> for long-term storage compared to CloudWatch.</li>
+<li><strong>Analysis Tools</strong>: Use Amazon <strong>Athena</strong> and <strong>QuickSight</strong> for querying and visualization.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Real-Time Streaming</strong></p>
+<ul>
+<li><strong>Log Streaming</strong><ul>
+<li><strong>To Amazon Kinesis</strong>: <strong>Stream logs</strong> for real-time processing.</li>
+<li><strong>To Amazon OpenSearch Service</strong>: Ideal for <strong>near-real-time monitoring</strong> and search.</li>
+</ul>
+</li>
+<li><strong>Subscription Filters</strong><ul>
+<li>lets <strong>Triggers events</strong> based on specific patterns within logs in real time.</li>
+<li><strong>Actions</strong>: Can stream to Amazon Kinesis or trigger AWS Lambda functions for automated responses.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Exam Tip<ul>
+<li><strong>To Amazon OpenSearch Service</strong>: Ideal for <strong>near-real-time monitoring</strong> and search.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Amazon CloudWatch</strong> provides comprehensive logging and monitoring capabilities, from basic log collection to advanced real-time analysis and anomaly detection. It integrates with various AWS services and offers multiple methods for analysing and reacting to log data, including using AWS-native tools and third-party services.</li>
+</ul>
+<h1 id="50-conclusion">5.0 Conclusion</h1>
+<h2 id="51-summary">5.1 Summary</h2>
+<h2 id="52-data-operations-and-support-exam-tips">5.2 Data Operations and Support: Exam Tips</h2>
+<ol>
+<li>
+<p><strong>Creating a Persistent, Central Data Catalog</strong></p>
+<ul>
+<li><strong>Scenario</strong>: Centralize metadata for an EMR Apache Hive metadata store with minimal operational overhead.</li>
+<li><strong>Solution</strong>: Use AWS Glue Data Catalog.<ul>
+<li><strong>AWS Glue Data Catalog</strong>: Provides a centralized, managed catalog that integrates easily with other AWS data sources.</li>
+<li><strong>Alternatives</strong>: Amazon Aurora or RDS, but Glue is generally simpler and more effective.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Scanning S3 Buckets for PII</strong></p>
+<ul>
+<li><strong>Scenario</strong>: Ensure S3 buckets across your data pipeline do not contain Personally Identifiable Information (PII).</li>
+<li><strong>Solution</strong>: Enable Amazon Macie.<ul>
+<li><strong>Amazon Macie</strong>: Scans S3 buckets for sensitive data like PII and alerts or triggers actions if such data is found.</li>
+<li><strong>Note</strong>: Macie is a key service to understand for exam scenarios, often appearing both as a correct answer and a distractor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Enabling Non-Technical Data Analysts</strong></p>
+<ul>
+<li><strong>Scenario</strong>: Validate and enrich incoming data with a process that's easy to automate and suitable for non-technical data analysts.</li>
+<li><strong>Solution</strong>: Use AWS Glue DataBrew.<ul>
+<li><strong>AWS Glue DataBrew</strong>: A low or no-code tool that allows data analysts to define data validations and transformations.</li>
+<li><strong>General Tip</strong>: For low or no-code solutions, consider Glue DataBrew.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Aggregating and Monitoring Custom CloudWatch Logs</strong></p>
+<ul>
+<li><strong>Scenario</strong>: Aggregate data, monitor logs, and set up anomaly detection for custom CloudWatch logs in real time.</li>
+<li><strong>Solution</strong>: Use Amazon OpenSearch Service.<ul>
+<li><strong>Amazon OpenSearch Service</strong>: Provides near-real-time monitoring and search capabilities for CloudWatch logs.</li>
+<li><strong>Note</strong>: OpenSearch is ideal for real-time log analysis and searchability.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>AWS Glue Data Catalog</strong> is best for centralizing metadata.</li>
+<li><strong>Amazon Macie</strong> helps in scanning S3 buckets for sensitive data.</li>
+<li><strong>AWS Glue DataBrew</strong> is suited for non-technical users needing low-code data transformations.</li>
+<li><strong>Amazon OpenSearch Service</strong> is optimal for real-time log monitoring and analysis.</li>
+</ul>
+<p>Good luck with your exam preparation and future learning journey!</p>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-12T02:07:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-12</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span> 
+            <span> January 12, 2025 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4041 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="MySQL, SQLite, Database, SQL">
+      
+      
+        <meta name="author" content="Vaibhav Yadav - Data Engineer, Scientist and Analyst">
+      
+      
+        <link rel="canonical" href="https://iYadavVaibhav.github.io/stem/2-Data-Engineering/databases/">
+      
+      
+        <link rel="prev" href="../data-warehousing/">
+      
+      
+        <link rel="next" href="../databricks/">
+      
+      
+      <link rel="icon" href="../../assets/images/apple-touch-icon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Databases & SQL - Vaibhav Yadav's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#databases-sql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-header__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vaibhav Yadav's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Databases &amp; SQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Vaibhav Yadav&#39;s Wiki" class="md-nav__button md-logo" aria-label="Vaibhav Yadav's Wiki" data-md-component="logo">
+      
+  <img src="../../assets/images/apple-touch-icon.png" alt="logo">
+
+    </a>
+    Vaibhav Yadav's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/iYadavVaibhav/stem" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    iyadavvaibhav/stem
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home iYV
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    0 Information Technology
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            0 Information Technology
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/aws-amazon-web-services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Amazon Web Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bokeh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bokeh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/bootstrap-ui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap UI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerize
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/flutter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flutter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/gen-ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generative Artificial Intelligence
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/google-cloud-platform/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Cloud Platform
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/htmx-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTMX and use with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/javascript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/material-mkdocs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Material for MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/nativescript-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NativeScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pelican/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pelican
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/plotly-dash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotly and Dash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/pwa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA with Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/python-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/r-language/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R and R-Studio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/react-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    React JS Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/text-editors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Text Editors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/tools-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/virtual-box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Virtual Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../0-Information-Technology/web-server-config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Server Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    1 Software Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            1 Software Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/cs-se-basics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSE Basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/data-structures-algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Structures and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/design-principle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Design Principles and Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/domain-driven-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Domain Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git and GitHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/js-ecma6-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA 6+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/linux-terminal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Terminal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/oops-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OOPs in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/regex/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Regex
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security, IAM, RBAC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/software-diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-Software-Engineering/web-development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2 Data Engineering
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            2 Data Engineering
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-airflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Airflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-iceberg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Iceberg Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-kafka/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Kafka
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apache-spark/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Spark
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Big Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Engineering Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-frameworks-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Tools &amp; Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Operations in Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-science/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Solutions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-warehousing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Databases &amp; SQL
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-ddl-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- DDL -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cascade" class="md-nav__link">
+    <span class="md-ellipsis">
+      CASCADE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      TRIGGERS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-dml-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- DML -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#date-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distinct
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvl-coalesce" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVL COALESCE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-when-then" class="md-nav__link">
+    <span class="md-ellipsis">
+      CASE WHEN THEN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-rollup-cube" class="md-nav__link">
+    <span class="md-ellipsis">
+      GROUP ROLLUP CUBE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#having" class="md-nav__link">
+    <span class="md-ellipsis">
+      HAVING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      EXISTS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sub-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sub Queries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joins" class="md-nav__link">
+    <span class="md-ellipsis">
+      JOINS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    <span class="md-ellipsis">
+      UNION
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cte-common-table-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTE - Common Table Expression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#window-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Window Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pivot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-dbms-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- DBMS -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denormalisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Denormalisation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partitioning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materialized Views
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-replicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read Replicas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indexes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-execution-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Execution Plan
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-defined-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Defined Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hstore" class="md-nav__link">
+    <span class="md-ellipsis">
+      HStore
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-and-semi-structured-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON and Semi-structured data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-databases-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- Databases -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQLite
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microsoft SQL Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elasticsearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elasticsearch
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../databricks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databricks Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etl_pipelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL Pipelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pandas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pandas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-data-wrangling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Data Wrangling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tableau/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tableau
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    3 Management & Strategy
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            3 Management & Strategy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/ajile-sprint-scrum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agile, Scrum and Sprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-Management-%26-Strategy/project-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    4 Functional & Business
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            4 Functional & Business
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/banking-finance-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Banking and Finance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-Functional-%26-Business/business-analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    5 Personal Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            5 Personal Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/interview-career-growth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Career Growth Interview Mindset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../5-Personal-Development/pd-courses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Development Courses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    6 Math & Logic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            6 Math & Logic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/logarithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../6-Math-%26-Logic/probability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Probability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7 Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            7 Other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../7-Other/electronics-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Electronics &amp; IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    8 Blog & Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            8 Blog & Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/fake-data-using-faker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create fake data using Faker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/github-pages-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll on Github
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/hello-humans/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hello Humans
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../8-Blog-%26-Articles/syntax-highlight-jekyll/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jekyll Syntax Highlight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    9 Drafts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            9 Drafts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u0-exam-course-intro-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS DEA-C01 Preparation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u1-data-ingestion-and-transformation-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U1 Data Ingestion and Transformation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u2-data-store-management-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U2 Data Store Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u3-data-operations-and-support-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U3 Data Operations and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/dea-c01-u4-data-security-and-governance-ps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    U4 Data Security and Governance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/ll-py-design-patterns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python: Design Patterns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/ll-software-architecture-domain-driven-design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture: Domain-Driven Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/mblog-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    App - mBlog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/mongodb-notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mongo DB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../9-Drafts/notepad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notepad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-ddl-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- DDL -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cascade" class="md-nav__link">
+    <span class="md-ellipsis">
+      CASCADE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      TRIGGERS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-dml-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- DML -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#date-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distinct
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nvl-coalesce" class="md-nav__link">
+    <span class="md-ellipsis">
+      NVL COALESCE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-when-then" class="md-nav__link">
+    <span class="md-ellipsis">
+      CASE WHEN THEN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-rollup-cube" class="md-nav__link">
+    <span class="md-ellipsis">
+      GROUP ROLLUP CUBE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#having" class="md-nav__link">
+    <span class="md-ellipsis">
+      HAVING
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      EXISTS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sub-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sub Queries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joins" class="md-nav__link">
+    <span class="md-ellipsis">
+      JOINS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    <span class="md-ellipsis">
+      UNION
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cte-common-table-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      CTE - Common Table Expression
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#window-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Window Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pivot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-dbms-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- DBMS -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denormalisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Denormalisation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partitioning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materialized Views
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-replicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read Replicas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indexes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-execution-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Execution Plan
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-defined-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Defined Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hstore" class="md-nav__link">
+    <span class="md-ellipsis">
+      HStore
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-and-semi-structured-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON and Semi-structured data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-databases-" class="md-nav__link">
+    <span class="md-ellipsis">
+      ----- Databases -----
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQLite
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microsoft-sql-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microsoft SQL Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elasticsearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elasticsearch
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+    
+                  
+
+  
+    <a href="https://github.com/iYadavVaibhav/stem/edit/master/docs/2-Data-Engineering/databases.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/iYadavVaibhav/stem/raw/master/docs/2-Data-Engineering/databases.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="databases-sql">Databases &amp; SQL</h1>
+<p><em>all about databases, SQL only</em></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox"/> add query examples for each.</li>
+</ul>
+<p><strong>Database</strong> lets store data usually in tabular format.</p>
+<h2 id="-ddl-">----- DDL -----</h2>
+<p>Data Definition Commands, they let define the data table structure and things around them.</p>
+<h2 id="cascade">CASCADE</h2>
+<p>can be used when defining tables, it helps do action on the child table based on a action on parent table.</p>
+<h2 id="triggers">TRIGGERS</h2>
+<p>Triggers let do action on another table based on activity on one table.</p>
+<h2 id="-dml-">----- DML -----</h2>
+<p>Data Manipulation Language, this lets manipulate the data.</p>
+<h2 id="date-operations">Date Operations</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">-- get month from timestamp</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">extract</span><span class="p">(</span><span class="k">month</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">activity_date</span><span class="p">)</span>
+</code></pre></div>
+<p>Link <a href="https://www.postgresql.org/docs/8.1/functions-datetime.html">https://www.postgresql.org/docs/8.1/functions-datetime.html</a></p>
+<h2 id="distinct">Distinct</h2>
+<p>Can bes used after select to fetch only distinct row in result set. It works on <strong>multiple</strong> column as a set of row, whole row would be unique.</p>
+<h2 id="nvl-coalesce">NVL COALESCE</h2>
+<p>To change null values cell</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">NVL</span><span class="w"> </span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;val-when-null&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">NVL2</span><span class="w"> </span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;val-not-null&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;val-when-null&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>COALESCE</strong></p>
+<p>returns first not-null value, or null if all are null, <code>COALESCE()</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">column</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="w"> </span><span class="n">CAOLESCE</span><span class="p">(</span><span class="n">expression_1</span><span class="p">,</span><span class="err">…</span><span class="p">.,</span><span class="n">expression_n</span><span class="p">)</span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="case-when-then">CASE WHEN THEN</h2>
+<p>END ELSE is an optional component but WHEN THEN these cases must be included in the CASE statement.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="p">...,</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">CASE</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">col_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;val_1&quot;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;res_1&#39;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">col_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;val_2&quot;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;res_2&#39;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">col_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;val_4&quot;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;res_4&#39;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;val_0&#39;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">END</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">col_my</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">FROM</span><span class="w"> </span><span class="p">...</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1">-- syntax 2</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">CASE</span><span class="w"> </span><span class="n">col_a</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">val_1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">res_1</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">val_1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">res_1</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="k">ELSE</span><span class="w"> </span><span class="n">res_0</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">END</span><span class="w"> </span><span class="k">CASE</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="c1">-- Use in Order by</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">CustomerName</span><span class="p">,</span><span class="w"> </span><span class="n">Country</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Customer</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="p">(</span><span class="k">CASE</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="k">WHEN</span><span class="w"> </span><span class="n">Country</span><span class="w">  </span><span class="k">IS</span><span class="w"> </span><span class="s1">&#39;India&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">Country</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="k">ELSE</span><span class="w"> </span><span class="n">Age</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="k">END</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>DECODE</strong></p>
+<p>same as case</p>
+<p><strong>Use AVG to find Percentage</strong></p>
+<p>Percentage is <code>flag/total</code>, say flag is active uses as 1 and total is total users.</p>
+<p>AVG age is (sum of age) / (number of students), that is, if age is 1 and 0, like flag, then avg(flag) is percentage. Because avg will be sum(flag)/total row. So use:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">select</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">avg</span><span class="p">(</span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">is_active_flg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">end</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pct_low_fat_and_recyclable</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">from</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="n">p</span>
+</code></pre></div>
+<h2 id="group-rollup-cube">GROUP ROLLUP CUBE</h2>
+<p>Use <code>GROUP BY</code> to group data. the columns in select should be same as in group by clause, or you can have aggregated columns.</p>
+<p>use <code>ROLLUP</code>, to add <strong>sub-totals</strong> and totals in grouped columns.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">ROLLUP</span><span class="p">(</span><span class="w"> </span><span class="n">col_a</span><span class="p">,</span><span class="w"> </span><span class="n">col_b</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">)</span>
+</code></pre></div>
+<p>Use <code>CUBE</code> similar to rollup to get subtotals by combination of dimensions.</p>
+<p>Eg, lets say database having, country, state, department and Sales. You can make a <strong>cube</strong> to get sub totals by combination of dimensions, that is, country-department totals, country-state totals, state-department totals, and total by all 3dims.</p>
+<h2 id="having">HAVING</h2>
+<p>HAVING is used to specify a condition for a group or an aggregate function.</p>
+<p>WHERE filters before grouping, then HAVING filters after grouping.</p>
+<h2 id="exists">EXISTS</h2>
+<p>The EXISTS operator tests for the existence of rows in the results set of the subquery. If a subquery row value is found the condition is flagged TRUE and the search does not continue in the inner query, and if it is not found then the condition is flagged FALSE and the search continues in the inner query.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">job_id</span><span class="p">,</span><span class="w"> </span><span class="n">department_id</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">outer</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="err">’</span><span class="n">X</span><span class="err">’</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">manager_id</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">outer</span><span class="p">.</span><span class="n">employee_id</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="sub-queries">Sub Queries</h2>
+<ul>
+<li>A subquery is a <strong>query within a query</strong>.</li>
+<li>We can <strong>use</strong> it in multiple ways:<ul>
+<li>in <code>from</code> as another table</li>
+<li>in <code>where</code> as a set to filter in main query</li>
+<li>as a <code>column</code></li>
+</ul>
+</li>
+<li>example</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">cost</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">items</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="w">        </span><span class="c1">--sub query</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">items</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">);</span>
+</code></pre></div>
+<p><strong>Correlated Sub-Queries</strong></p>
+<p>The <strong>Correlated Subqueries are dependent on the outer query</strong> and are <strong>executed for each row</strong> of the main query.</p>
+<p>Whereas, <strong>regular subqueries</strong> (non-correlated) are <strong>independent of the outer query</strong> and are evaluated <strong>only once</strong> before the main query runs.</p>
+<p>Correlated subqueries are useful when you need to filter the result of the outer query based on some condition that requires referencing values from the outer query itself. They are commonly used in scenarios where the condition relies on data from related tables.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span><span class="w"> </span><span class="n">department_id</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">outer</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">                </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">                 </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">                 </span><span class="k">WHERE</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">                        </span><span class="k">outer</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">department_id</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="joins">JOINS</h2>
+<p>A <code>CROSS JOIN</code> produces a cartesian product between the two tables, returning <strong>all possible combinations of all rows</strong>. It has <strong>no ON clause</strong> because you're just joining everything to everything.</p>
+<p>A <code>FULL JOIN</code> / <code>OUTER JOIN</code> / <code>JOIN</code> are same and have <code>ON</code> clause that has matching condition in between tables.</p>
+<p><strong>Problem: Rank with Self Join</strong></p>
+<p>You can self join a table:</p>
+<ul>
+<li>left side is your table</li>
+<li>right side is again your table but only rows that have sales more than the current row, so<ul>
+<li>sales 5 in left, will have sales 6, 7, 8 joined to it</li>
+<li>sales 10 will have only 11 joined to it.</li>
+</ul>
+</li>
+<li>then you can count the rows that got joined from right table. It will give you the rank.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Sales</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">a2</span><span class="p">.</span><span class="n">sales</span><span class="p">)</span><span class="w"> </span><span class="n">Sales_Rank</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Total_Sales</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">Total_Sales</span><span class="w"> </span><span class="n">a2</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Sales</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">a2</span><span class="p">.</span><span class="n">Sales</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="p">(</span><span class="n">a1</span><span class="p">.</span><span class="n">Sales</span><span class="o">=</span><span class="n">a2</span><span class="p">.</span><span class="n">Sales</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a2</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Sales</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Sales</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">a1</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+<p>Link: <a href="https://www.experts-exchange.com/questions/24783940/RANK-Using-a-SELF-JOIN-or-other.html">https://www.experts-exchange.com/questions/24783940/RANK-Using-a-SELF-JOIN-or-other.html</a></p>
+<h2 id="union">UNION</h2>
+<p>In Union the order is not guaranteed to be preserved. As a result, you can add <code>row_number()</code> or <code>rank()</code> and table_number hardcoded as table1 and table2 to reselect from union.</p>
+<p><code>UNION</code> only returns a <strong>unique</strong> record, while <code>UNION ALL</code> returns all the records (<strong>including duplicates</strong>)</p>
+<h2 id="cte-common-table-expression">CTE - Common Table Expression</h2>
+<ul>
+<li>It is a query that we write before the main query.</li>
+<li>use <code>WITH</code> to implement create CBT and use it in main query</li>
+<li>Example</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">WITH</span><span class="w"> </span><span class="n">names_cte</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">)</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">names_cte</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>CTEs can be <strong>recursive</strong></li>
+<li>CTEs are <strong>reusable</strong></li>
+<li>CTE are more <strong>readable</strong> and help manage long and complex queries</li>
+<li>CTE are similar to Subqueries, however, <strong>CTE can't be used in WHERE clause</strong></li>
+</ul>
+<p>The WITH clause lets define a table. The definition is available only to the query in which the with clause occurs.</p>
+<p><strong>Recursion</strong></p>
+<p>Imagine you have a tree structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">data_sci</span><span class="p">.</span><span class="n">org_structure</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">data_sci</span><span class="p">.</span><span class="n">org_structure</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">integer</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">department_name</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="n">parent_department_id</span><span class="w"> </span><span class="nb">integer</span><span class="p">);</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">data_sci</span><span class="p">.</span><span class="n">org_structure</span><span class="w"> </span><span class="k">values</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CEO Office&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">null</span><span class="p">),</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;VP Sales&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;VP Operations&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Northeast Sales&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Northwest Sales&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">  </span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Infrastructure Operations&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">  </span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Management Operations&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div>
+<p>and you want to find complete path from one node to root (top parent), you know the algo, find parent of child, then find grand-parent, ... until you reach the root.</p>
+<p>This is where recursion can help.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">WITH</span><span class="w"> </span><span class="k">RECURSIVE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">table_name_recursive_cte</span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;</span><span class="n">columns</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="o">&lt;</span><span class="n">terminal</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">statement</span><span class="o">&gt;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="k">UNION</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="o">&lt;</span><span class="k">recursive</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">statement</span><span class="o">&gt;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">SELECT</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span><span class="p">...</span>
+</code></pre></div>
+<p>Eg</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">report_structure</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">department_name</span><span class="p">,</span><span class="n">parent_department_id</span><span class="p">)</span><span class="w"> </span><span class="k">as</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w">  </span><span class="n">department_name</span><span class="p">,</span><span class="w"> </span><span class="n">parent_department_id</span><span class="w"> </span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">data_sci</span><span class="p">.</span><span class="n">org_structure</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w"> </span><span class="k">union</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">os</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">os</span><span class="p">.</span><span class="n">department_name</span><span class="p">,</span><span class="w"> </span><span class="n">os</span><span class="p">.</span><span class="n">parent_department_id</span><span class="w"> </span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">data_sci</span><span class="p">.</span><span class="n">org_structure</span><span class="w"> </span><span class="n">os</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">report_structure</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="n">parent_department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">os</span><span class="p">.</span><span class="n">id</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w"> </span><span class="k">select</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">  </span><span class="o">*</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">report_structure</span>
+</code></pre></div>
+<p>This will find all parent for child id 7, you can similarly pass any id and find all its parents using recursion.</p>
+<h2 id="window-functions">Window Functions</h2>
+<p>You can partition the data over a column, and then apply some function over the rows in each partition. The value of function is related to items in a partition, but resets in each partition. Some of the functions that you can apply are</p>
+<ul>
+<li><code>RANK()</code> gives rank based on value, if two item get same rank, next one would be same as row number, that is, 1,2,2,4 and so on, where 2, 3 have same rank 2, hence 4th item has rank 4, 3 is skipped.</li>
+<li><code>DENSE_RANK()</code> gives rank, but it doesn't skip rank, 1,2,2,3 and so on.</li>
+<li><code>ROW_NUMBER()</code> give row number like 1,2,3,4 and so no</li>
+<li><code>SUM(col_a)</code> - like sum (cost) over months, this will give <strong>running total</strong> by months</li>
+<li><code>NTILE(n)</code> - over a partition, it gives a number to each data item by dividing into n quarters, eg, 4 will break into 4 quartiles based on value of data item in window.</li>
+<li><code>LEAD(sales)</code> will show 2nd row in 1st row and so on..</li>
+<li><code>LAG(sales)</code> will show 1st row in 2nd row and so on..; <code>LAG(sales,2)</code> will show 1st row in 3rd row and so on.. you can specify the offset, by default it is 1.</li>
+</ul>
+<p>Syntax: <code>RANK() OVER (PARTITION BY col_b ORDER BY col_a)</code></p>
+<ul>
+<li><strong>Imp</strong> In PARTITION BY... , the <strong>ORDER BY</strong> .... makes huge difference as order changes the way function is applied, eg:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">-- this gives running total by each month and resets on year</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">sum</span><span class="p">(</span><span class="n">total_sales</span><span class="p">)</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">year_sold</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">year_sold</span><span class="p">,</span><span class="w"> </span><span class="n">month_sold</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">running_total</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1">-- this gives running total by year and resets on year, it skips months, that is one total for year and is same in each month</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="k">sum</span><span class="p">(</span><span class="n">total_sales</span><span class="p">)</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">year_sold</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">running_total</span>
+</code></pre></div>
+<p>The partition that you create is called <strong>window</strong>. You can use as above, or have to use same partition again and again, you can define the partition as window and re-use it. syntax <code>WINDOW win_name AS (PARTITION by col_a ORDER by col_b)</code></p>
+<p>Example query:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">-- Window Function</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">firstName</span><span class="p">,</span><span class="w"> </span><span class="n">mdl</span><span class="p">.</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">sls</span><span class="p">.</span><span class="n">salesId</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_sold</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">firstName</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">sls</span><span class="p">.</span><span class="n">salesId</span><span class="p">)</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ranks</span><span class="p">,</span><span class="w"> </span><span class="c1">-- this could also be fname, it is just to show</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="n">dense_rank</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dense_ranks</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">row_numbers</span><span class="p">,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="k">sum</span><span class="p">(</span><span class="n">sls</span><span class="p">.</span><span class="n">salesAmount</span><span class="p">)</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">running_sales</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="w"> </span><span class="n">sls</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">employee</span><span class="w"> </span><span class="n">emp</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">sls</span><span class="p">.</span><span class="n">employeeId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">employeeId</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">inventory</span><span class="w"> </span><span class="n">inv</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">inv</span><span class="p">.</span><span class="n">inventoryId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sls</span><span class="p">.</span><span class="n">inventoryId</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="n">mdl</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">mdl</span><span class="p">.</span><span class="n">modelId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inv</span><span class="p">.</span><span class="n">modelId</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">firstName</span><span class="p">,</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">lastName</span><span class="p">,</span><span class="w"> </span><span class="n">mdl</span><span class="p">.</span><span class="n">model</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="n">WINDOW</span><span class="w"> </span><span class="n">fname</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">firstName</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="n">sls</span><span class="p">.</span><span class="n">salesId</span><span class="p">)</span><span class="w"> </span><span class="k">desc</span><span class="p">)</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="c1">-- Running Total using Window fn with CTE</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="k">with</span><span class="w"> </span><span class="n">total_sales_cte</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="k">select</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">  </span><span class="n">soldDate</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">soldDate</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">year_sold</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">soldDate</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">month_sold</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">salesAmount</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_sales</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="k">from</span><span class="w"> </span><span class="n">sales</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">year_sold</span><span class="p">,</span><span class="w"> </span><span class="n">month_sold</span>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">soldDate</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="c1">--LIMIT 5</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="p">)</span>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">  </span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">total_sales</span><span class="p">)</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">year_sold</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">year_sold</span><span class="p">,</span><span class="w"> </span><span class="n">month_sold</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">running_total</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="k">from</span><span class="w"> </span><span class="n">total_sales_cte</span>
+</code></pre></div>
+<p>Links:</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/LinkedInLearning/level-up-advanced-sql-4311094/main/CarsForAll.db">All Cars DB SQLite</a>, <a href="https://www.linkedin.com/learning/level-up-advanced-sql/">LL Course Adv SQL</a></li>
+</ul>
+<h2 id="pivot">Pivot</h2>
+<p>Lets say you have table as below</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Occupation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ashley</td>
+<td>Professor</td>
+</tr>
+<tr>
+<td>Samantha</td>
+<td>Actor</td>
+</tr>
+<tr>
+<td>Julia</td>
+<td>Doctor</td>
+</tr>
+<tr>
+<td>Britney</td>
+<td>Professor</td>
+</tr>
+<tr>
+<td>Maria</td>
+<td>Professor</td>
+</tr>
+<tr>
+<td>Meera</td>
+<td>Professor</td>
+</tr>
+</tbody>
+</table>
+<p>You can pivot by hardcoding the column names and using case statement.</p>
+<p>Lets first try to give row numbers over occupations</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Occupation</th>
+<th>row_id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Actor</td>
+<td>Eve</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Actor</td>
+<td>Jennifer</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Actor</td>
+<td>Kate</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Actor</td>
+<td>Samantha</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Doctor</td>
+<td>Amanda</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Doctor</td>
+<td>Julia</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Doctor</td>
+<td>Emma</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Professor</td>
+<td>Ashley</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Professor</td>
+<td>Jason</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Professor</td>
+<td>Britney</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Then select from this table and hardcode the column names</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">-- sql server</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">select</span><span class="w"> </span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="n">t1</span><span class="p">.</span><span class="n">row_id</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">o</span><span class="o">=</span><span class="s1">&#39;Doctor&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;Doctors&#39;</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">o</span><span class="o">=</span><span class="s1">&#39;Professor&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;Professors&#39;</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">o</span><span class="o">=</span><span class="s1">&#39;Singer&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;Singers&#39;</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="k">case</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">o</span><span class="o">=</span><span class="s1">&#39;Actor&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">END</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;Actors&#39;</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="k">FROM</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">Occupation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">o</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">Name</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">Row_number</span><span class="p">()</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="p">(</span><span class="n">partition</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">occupation</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">row_id</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="k">from</span><span class="w"> </span><span class="n">occupations</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">t1</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">row_id</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">row_id</span>
+</code></pre></div>
+<p>Output:</p>
+<table>
+<thead>
+<tr>
+<th>row_id</th>
+<th>Doctors</th>
+<th>Professors</th>
+<th>Singers</th>
+<th>Actors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Amanda</td>
+<td>Ashley</td>
+<td>Chris</td>
+<td>Eve</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Julia</td>
+<td>Boris</td>
+<td>Jane</td>
+<td>Jennifer</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Jane</td>
+<td>Britney</td>
+<td>Jenny</td>
+<td>Emma</td>
+</tr>
+<tr>
+<td>4</td>
+<td>NULL</td>
+<td>Maria</td>
+<td>Kris</td>
+<td>Samantha</td>
+</tr>
+<tr>
+<td>5</td>
+<td>NULL</td>
+<td>Meera</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>6</td>
+<td>NULL</td>
+<td>Naomi</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NULL</td>
+<td>Priyanka</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>That's how you can pivot tables.</p>
+<h2 id="-dbms-">----- DBMS -----</h2>
+<h2 id="normalization">Normalization</h2>
+<p>Normalization is done to avoid data duplication and easily manage relational data, specially 1-many and many-many relationships</p>
+<p><strong>OLTP</strong></p>
+<ul>
+<li>It is mostly normalized, as there are many reads and writes but on specific data, eg, add new book, update an author</li>
+<li>you work on <strong>row level</strong>, eg, update address of a customer, you need all detail but only of one customer, so one row</li>
+</ul>
+<p><strong>Snowflake schemas are normalized</strong>, avoiding data redundancy by storing dimensional data in separate tables. This improves data quality and reduces the required storage space.</p>
+<p>LINK: <a href="https://www.keboola.com/blog/star-schema-vs-snowflake-schema">NORM VS DE-NORM</a></p>
+<h2 id="denormalisation">Denormalisation</h2>
+<ul>
+<li>it improves <strong>read performance</strong>.</li>
+<li><strong>reduced risk of anomalies</strong> as we are mostly analysing and not updating / writing / deleting data at atomic level.</li>
+<li>streaming inserts, like from IoT can use denormalized data model as it has simple structure of timestamp and value.</li>
+<li><strong>Eliminates complex joins</strong> and give performance gain</li>
+<li>Common way is <strong>star-schema</strong> where you have facts and dimensions.</li>
+<li><strong>Wide table</strong> is also good but when data is petabyte scale then use specific databases like google big query.</li>
+</ul>
+<p><strong>OLAP</strong></p>
+<ul>
+<li>It is for data analysis, many read by many process on many data points. hence denormalized is preferred.</li>
+<li>you work on <strong>column level</strong>, eg average of temperature.</li>
+</ul>
+<p><strong>Why star schema is not normalized?</strong></p>
+<ul>
+<li>In a star schema, there is only one level of dimension tables, and all foreign key relationships are defined between the fact table and the dimensions. A <strong>query never needs to join tables beyond the single layer</strong> of dimension tables, resulting in better performance than if the dimension tables were normalized.</li>
+</ul>
+<h2 id="partitioning">Partitioning</h2>
+<ul>
+<li>large table can be inefficient, as it may have large indexes to manage. It has to scan large index.</li>
+<li>Horizontal Partitioning divides table into parts, it <strong>limits scans to subset of partitions</strong>. So if you break into 3 horizontal partition, there will be smaller index to scan/maintain and limited rows to read.</li>
+<li>efficient deleting, lets say you can drop a old timed partition, eg if older than 5 year, drop whole partition.</li>
+</ul>
+<p>Vertical Partitions</p>
+<ul>
+<li>partitions into set of columns, good when using columnar storage</li>
+<li>retains all rows in one partition</li>
+<li>cam have global indexes, but reduced I/O as reading less</li>
+</ul>
+<p>Range Partitioning</p>
+<ul>
+<li>similar to horizontal, uses time / numeric range / alphabetical range for partitioning</li>
+<li>it partitions on non-overlapping keys.</li>
+</ul>
+<p>Hash Partitioning</p>
+<ul>
+<li>identify a partitioning key, apply a hash and take modulus of hash (remainder) to identify which partition it should go into. Eg, you determine the number of partitions you need, then can do hash partitioning.</li>
+<li>useful when range partition does not make sense, or you need more balanced partitions.</li>
+</ul>
+<p>Code in Postgres</p>
+<ul>
+<li><strong>define partition</strong> when creating,</li>
+<li>you can <strong>create partition tables</strong> by creating table as <code>partition of for values from ... to ...</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="p">...</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="n">msmt_date</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="p">...</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">)</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">RANGE</span><span class="w"> </span><span class="p">(</span><span class="n">msmt_date</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tab_part_a</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">table_x</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">  </span><span class="k">FOR</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2021-01-01&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;2021-01-31&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">-- monthly</span>
+</code></pre></div>
+<h2 id="materialized-views">Materialized Views</h2>
+<ul>
+<li>Instead of executing query again and again through execution plan, you can save results using materialized view.</li>
+<li>Persist the results, form of caching</li>
+<li>trade space for time.</li>
+</ul>
+<p>When to use</p>
+<ul>
+<li>long running <strong>complex</strong> queries with joins</li>
+<li>computing <strong>aggregate data</strong></li>
+</ul>
+<p>When NOT to use</p>
+<ul>
+<li>can get <strong>out of sync</strong>, so depends how <strong>consistent</strong> data is required in view, eg 1hr refresh of materialized view will not have data generated in last 59 mins.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">mv_myview</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="c1">-- your sql query</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="p">)</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mv_myview</span><span class="p">;</span><span class="w">    </span><span class="c1">-- use as normal table</span>
+</code></pre></div>
+<h2 id="read-replicas">Read Replicas</h2>
+<p>There is a primary server which takes all read and write operation, you can add a read replica fo this server where all the writes also go in, now you can query this.</p>
+<p>Data is up to date with write ahead log.</p>
+<p>this makes primary to focus on writes, other replica(s) can <strong>help heavy reads</strong>.</p>
+<p>there are things to consider, like consistency requirements, transaction completion, all depends on trade offs.</p>
+<p><strong>Challenge Sensor Data - Write Heady example</strong></p>
+<p>You have sensor data coming in from IoT device, there <strong>should not be latency or lag in writes</strong>.</p>
+<p><strong>System Design</strong></p>
+<ul>
+<li>You should model the table to be same as data coming in, eg (device_id, timestamp, measure1, measure 2), <strong>exactly</strong> these 4.</li>
+<li>then can have <strong>materialized view</strong> on top of these to have aggregated hourly / daily results</li>
+<li>also consider <strong>partitioning</strong> which would ideally be on the time column.</li>
+<li>consider when do you need to <strong>purge the materialised view</strong>, old hourly data need not to be kept</li>
+<li>latest hour data materialized view need to be <strong>refreshed more frequently</strong> if required</li>
+<li>all these questions should be asked from domain expert, <strong>interrogate</strong>.</li>
+<li>if low level raw data is required, then avoid doing reads on primary server, rather create <strong>read-replica</strong> for this.</li>
+</ul>
+<h2 id="indexes">Indexes</h2>
+<p>This is <strong>indexing strategy</strong>. Indexes help reduce the data blocks. But there is cost to it. more space, more writes on each update/write. more cardinality (more distinct values) then indexing is more useful.</p>
+<p>Indexes are <strong>ordered</strong>, whereas tables might be unordered.</p>
+<p><strong>Indexing Attributes</strong></p>
+<ul>
+<li><strong>Access Types</strong>: does it help to access range or a specific value</li>
+<li><strong>Access Time</strong>: time to find the result</li>
+<li><strong>Insertion Time</strong>: time to find the appropriate space to insert data</li>
+<li><strong>Deletion Time</strong>: time to find data, delete it and update the index.</li>
+<li><strong>Space Overhead</strong>: additional space required by the index.</li>
+</ul>
+<p>Index is not used in Google Big query or aws red shift. They are columnar storage databases and have different strategy.</p>
+<p>Type</p>
+<ul>
+<li>B-tree</li>
+<li>bit map</li>
+<li>hash index</li>
+</ul>
+<p>B-tree</p>
+<ul>
+<li>balanced tree index</li>
+<li>look-up in logarithmic time, same as binary search.</li>
+<li>its like binary tree, small value go to left, large go to right, and so on. it halves and halves and halves, hence, <span class="arithmatex">\(O(\log n)\)</span></li>
+</ul>
+<p>Bitmap index</p>
+<ul>
+<li>small possible values in column, encode to bit string. eg, yes 1, no is 0, null is 00; Any enums can be represented by bit map.</li>
+<li>read intensive and few writes, because can be expensive to create bit maps for write</li>
+<li>PostgreSql does not support natively</li>
+</ul>
+<p>Hash</p>
+<ul>
+<li>Function for mapping arbitrary length data to a fixed-size string</li>
+<li>unique values output, eg <code>hello</code> is <code>5d41402abc4b2a76b9719d911017c592</code> in <strong>MD5</strong> hash. and is always same for a string.</li>
+<li>any change in input produces new hash.</li>
+<li>You cannot reverse a hash, simple it is way math algo have done it, as eg, consider 912 is hash, 912 = 900 + 12 or 400 + 512 and so on. You will have to try all possible outputs to match, but can't exactly know what it is.</li>
+</ul>
+<ul>
+<li>Use case: It is useful when there are usually unique value in column, like email. Rather than fetch by email, you create hash index on it, and then you can fetch using hash index scan.</li>
+</ul>
+<p>GiST and SP-GiST</p>
+<ul>
+<li>Generalized search tree.</li>
+<li>for specialized data types, like <code>ltree</code> and <code>htree</code>. special type like circle, box, latitudes, etc.</li>
+<li>SP - partitioned trees.</li>
+</ul>
+<p><code>GIN</code> and <code>BRIN</code></p>
+<ul>
+<li>Generalized inverted index. values that are in composite item.</li>
+<li>slow insertion.</li>
+<li>either you can make insert fast or fetching.</li>
+<li><code>BRIN</code> - block range index,<ul>
+<li>used with very large index, ike post-code or dates.</li>
+<li>pages adjacent in table.</li>
+<li>stores summary information in block ranges.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Challenge</strong></p>
+<p>Claims data, large size, 12 col data. how would you index to optimize join on claim id.</p>
+<p>Solution</p>
+<ul>
+<li>claim id is for join. by default, Postgres has b-tree. but claim_id is unique in dataset, so b-tree is not useful, rather we can use hash-index. So that would be one-one lookup.</li>
+</ul>
+<h2 id="sql-execution-plan">SQL Execution Plan</h2>
+<p><em>how database engine executes the SQL statements</em></p>
+<ul>
+<li>In SQL we <strong>tell what</strong> we want, <strong>not how</strong> we want, in java/python we do tell how we want to do.</li>
+<li>The c<strong>ost of execution</strong> mostly depends on the <strong>number of rows</strong>.</li>
+<li>Few scans on large table is okay, otherwise, prefer indexes.</li>
+<li>Indexes help filter data on index, rather than on rows. And this may help in fetching just a partition.</li>
+</ul>
+<p><strong>Table Join Algo</strong></p>
+<ul>
+<li>tables join on keys, the internal algo is one of these</li>
+<li><strong>Nested Loop Join</strong> - compare all rows in both tables. n^2 ?</li>
+<li><strong>Hash Join</strong> - Calculate hash value of keys and join based on matching hash values.</li>
+<li><strong>Sort Merge Join</strong> - Sort both tables and then join rows with advantage of order. n log n ?</li>
+</ul>
+<p><strong>Plan Builder</strong></p>
+<ul>
+<li>It builds the plan of execution based on the meta data statistics.</li>
+<li>You can look at query plan for a query</li>
+<li>If that query plan is inefficient, you can run <code>ANALYZE</code> command to update the statistics on meta data.</li>
+</ul>
+<ul>
+<li>SQL is <strong>declarative</strong> language, where you declare <strong>what</strong> you need. Whereas, programming is <strong>procedural</strong> language where you tell <strong>how</strong> to do things.</li>
+</ul>
+<p><strong>Explain</strong></p>
+<ul>
+<li>Add <code>EXPLAIN</code> before any query to see the <strong>query plan</strong>.</li>
+<li>It shows operations, like Seq Scan.. or Append. It can be something happening in parallel and others.</li>
+<li>With indexed in table, the plan changes, instead of sequence scan, you can see index scan, which takes less time.</li>
+<li>This way you can see what going on under the hood, are the indexes useful?</li>
+</ul>
+<ul>
+<li>Explain Join - here you can see the algo used for join. If the execution plan is expensive, you can consider adding indexes on key used for join.</li>
+</ul>
+<ul>
+<li>Eg, <code>Seq Scan on employee(cost=0.00..26.50 rows=323 width=65)</code> means it is a full table scan.</li>
+</ul>
+<p><strong>Analyze</strong></p>
+<p>If you add <code>Explain Analyze</code> before a query you can see the time taken by query to get completed.</p>
+<p><strong>Challenge</strong></p>
+<ul>
+<li>You have to optimise a long running query. You see that it has<ul>
+<li>3 tables</li>
+<li>2 left joins</li>
+<li>2 tables with ~500k rows and one with 200 rows</li>
+</ul>
+</li>
+</ul>
+<p><strong>Solution</strong></p>
+<ul>
+<li>Run EXPLAIN</li>
+<li>look for full-table scan, if so create index, on col used in join.</li>
+<li>look to filter dataset if not required.</li>
+<li>Run ANALYZE to ensure stats are up to date.</li>
+</ul>
+<p><strong>Tip</strong> You can generate <strong>fake data</strong> in Postgres using <code>generate_series()</code> function. It is like range() in Python. It can generate numbers, timestamps etc. And use <code>random()</code> for random data.</p>
+<ul>
+<li>select is executed before group hence you can use select aliases in group by.</li>
+</ul>
+<ul>
+<li>examples<ul>
+<li>you can calculate month, year from order_date and use that in group by.</li>
+<li>use sum over month to find running total</li>
+<li>make this CTE, then reuse it.</li>
+</ul>
+</li>
+</ul>
+<h2 id="user-defined-functions">User Defined Functions</h2>
+<ul>
+<li>you can define functions to do some steps, it can be overloaded</li>
+<li>Postgres supports using python in functions.</li>
+</ul>
+<h2 id="hstore">HStore</h2>
+<p>You can use HStore with postgres to support storage of key-value pair in efficient way.</p>
+<ul>
+<li>Useful when you have large number of attributes not being used, this creates sparse columns.</li>
+<li>GIN and GiST indexes can be used efficiently.</li>
+<li>Eg: Catalog for store items.</li>
+<li>you can have a normal table. with columns as defined and have another column defined as HBase, which can have key value pair to store attributes.</li>
+<li>Useful when you do not have fixed structure to attributes. It is combination of sql with no-sql.</li>
+</ul>
+<h2 id="json-and-semi-structured-data">JSON and Semi-structured data</h2>
+<p>Postgres 9+ lets you store both kind of data in relational database with flexibility of semi-structured data. You can have a column data type as JSON and store JSON in it. It will have JSON as text, but JSON key can be queries and filtered using <code>-&gt;</code> notation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">customer_summary</span><span class="w">  </span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">serial</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">  </span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="n">customer_doc</span><span class="w"> </span><span class="n">jsonb</span><span class="p">);</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">customer_summary</span><span class="w"> </span><span class="p">(</span><span class="n">customer_doc</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">  </span><span class="p">(</span><span class="s1">&#39;{</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="s1">  &quot;customer_name&quot;: { &quot;first_name&quot;: &quot;Alice&quot;, &quot;last_name&quot;: &quot;Johnson&quot; },</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="s1">  &quot;address&quot;: { &quot;city&quot;: &quot;Boston&quot;, &quot;state&quot;: &quot;MA&quot; }</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="s1">}&#39;</span><span class="p">);</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="k">select</span><span class="w"> </span><span class="n">customer_doc</span><span class="o">-&gt;</span><span class="s1">&#39;customer_name&#39;</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;first_name&#39;</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">customer_summary</span><span class="p">;</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="c1">-- Alice</span>
+</code></pre></div>
+<h2 id="-databases-">----- Databases -----</h2>
+<ul>
+<li><strong>Relational Databases</strong><ul>
+<li>store in rows. Eg, MySQL, <code>PostgreSQl</code></li>
+<li>good to store transactions and build relationships.</li>
+<li>Eg, <strong>PostgreSQL</strong> is relational db.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Columnar Databases</strong><ul>
+<li>used commonly in warehousing. eg, Amazon Redshift, Google BigQuery, Apache Cassandra.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>NoSQL Databases</strong><ul>
+<li>They do not have defined structure and are document based.</li>
+<li><strong>Elasticsearch</strong> - a search engine based on <code>Apache Lucene</code> and can be used as NoSql db.</li>
+<li><strong>Apache Kibana</strong> - adds GUI to ElasticSearch.</li>
+</ul>
+</li>
+</ul>
+<h2 id="postgresql">PostgreSQL</h2>
+<ul>
+<li><strong>PostgreSQL</strong> is relational db.<ul>
+<li><code>pgadmin4</code> is GUI to it. It is available on web and can run on localhost.</li>
+<li><code>pgcli</code> is eMac CLI to client for database access. It can be installed within PIP as a package.</li>
+<li>login with linux user on the server as <code>username@server</code></li>
+<li>then add server, expand it, see database, schemas, public.</li>
+</ul>
+</li>
+</ul>
+<h2 id="sqlite">SQLite</h2>
+<ul>
+<li>It is a micro database that can work in memory or a saved in file, eg, <code>store.db</code> .</li>
+<li>Queries are same as any other SQL.</li>
+<li>It can be used in many ways, some are:<ul>
+<li>Python Program and DB Engine In memory</li>
+<li>Python Program and DB Engine as File</li>
+<li>SQLite installed as utility and access via shell, this is <code>sqlite3.exe</code> program.</li>
+<li>SQLite ODBC driver.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Interaction</strong></p>
+<ul>
+<li>shell<ul>
+<li><code>sqlite3</code> opens a shell in command line, just like mysql shell. DB is in memory<ul>
+<li>to open a file, use <code>.open FILENAME</code> to open an existing database.</li>
+</ul>
+</li>
+<li><code>sqlite3 data.sqlite</code> to work on this file</li>
+<li><code>ctrl + z</code> enter to exit</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>DDL<ul>
+<li><code>.tables</code> to show all tables</li>
+<li><code>.schema orders</code> to check create statement</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>load CSV<ul>
+<li><code>.mode csv</code> and then <code>.import data.csv orders</code> loads csv to db, creates if not exists.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>GUI <a href="https://sqlitebrowser.org/">SQLite Browser</a></li>
+</ul>
+<h2 id="mysql">MySQL</h2>
+<p>Installation:</p>
+<ul>
+<li><code>brew install mysql</code></li>
+</ul>
+<p>Start Server:</p>
+<ul>
+<li><code>brew services start mysql</code> - background mysql start</li>
+<li><code>mysql.server start</code> - no background</li>
+<li><code>mysql_secure_installation</code> - run this and set root pwd, etc.</li>
+<li><code>ps -ef | grep mysqld</code> process</li>
+</ul>
+<p>Login:</p>
+<ul>
+<li><code>mysql -u root -p</code> then enter password</li>
+</ul>
+<p>Queries:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">show</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">create</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="s1">&#39;bob_me&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;bob_pwd&#39;</span><span class="p">;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">bob_db</span><span class="p">;</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="k">grant</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">privileges</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">bob_db</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;bob_me&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Client - SequelPro:</p>
+<ul>
+<li>Connecting:<ul>
+<li>Standard</li>
+<li>Host: 127.0.0.1</li>
+<li>enter username and password and connect.</li>
+</ul>
+</li>
+</ul>
+<p>Shutdown Server:</p>
+<ul>
+<li><code>mysql.server stop</code> - stops server</li>
+</ul>
+<p>Other Notes:</p>
+<ul>
+<li>Column and Table names are case-sensitive.</li>
+<li><code>mysqladmin</code> is also installed</li>
+</ul>
+<p>Trouble Shooting:</p>
+<ul>
+<li>If you see error in clients, eg Sequel Pro, it might not be ready yet for a new kind of user login, <a href="https://stackoverflow.com/questions/51179516/sequel-pro-and-mysql-connection-failed">link</a>.</li>
+<li>do <code>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'newrootpassword';</code> then try logging in.</li>
+</ul>
+<h2 id="microsoft-sql-server">Microsoft SQL Server</h2>
+<p><strong>Snippets</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1">-- Create and Insert</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">FirstName</span><span class="p">,</span><span class="w"> </span><span class="n">LastName</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="k">INTO</span><span class="w"> </span><span class="n">TestTable</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Person</span><span class="p">.</span><span class="n">Contact</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">EmailPromotion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="c1">-- Existing Table Append</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">TestTable</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">FirstName</span><span class="p">,</span><span class="w"> </span><span class="n">LastName</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="k">FROM</span><span class="w"> </span><span class="n">Person</span><span class="p">.</span><span class="n">Contact</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">EmailPromotion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</code></pre></div>
+<h2 id="redis">Redis</h2>
+<ul>
+<li><code>redis-server</code> to start the server.</li>
+</ul>
+<h2 id="elasticsearch">Elasticsearch</h2>
+<ul>
+<li><strong>Elastic Search</strong> is a search engine based on <code>Apache Lucene</code> and can be used as NoSql db.</li>
+<li>you can set cluster and node in elastic search.</li>
+<li>once installed it doesn't has GUI but is rather an API. at <code>localhost:9200</code> you can see JSON out from API</li>
+<li>uses JSON Query called Elastic Query DSL (Domain Specific Language)</li>
+</ul>
+<ul>
+<li><strong>Apache Kibana</strong><ul>
+<li>adds GUI to ElasticSearch.</li>
+<li>you can use it to build visualizations and dashboards of your data held in Elasticsearch.</li>
+<li>after installation it can be accessed on <code>http://localhost:5601</code></li>
+<li>you can create viz from index in elasticsearch. viz is widget that can be added to dashboard. dashboard filter filter all widget if field is present.</li>
+<li><code>developer tools</code> is scratch-pad area where you can crate and query data/indices.</li>
+</ul>
+</li>
+</ul>
+<!-- taken from 
+https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-file.html -->
+
+
+
+<hr />
+<div class="md-source-file">
+    <small>
+
+        
+            <span class="md-icon" title="Last Updated">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+            </span> 
+            <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-01-12T02:07:49+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-01-12</span>
+        
+        
+
+        
+            <span class="md-icon" title="Written On">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+            </span>
+            <span> May 2019 </span>
+        
+        
+    </small>
+</div>
+
+
+
+
+
+
+                
+
+    
+    
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2016 - 2024 Vaibhav Yadav
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://in.linkedin.com/in/iyadavvaibhav" target="_blank" rel="noopener" title="in.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/iYadavVaibhav/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/iYadavVaibhav/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.kaggle.com/iyadavvaibhav/kernels" target="_blank" rel="noopener" title="www.kaggle.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M304.2 501.5 158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.25 0 6-3z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://public.tableau.com/profile/iyadavvaibhav" target="_blank" rel="noopener" title="public.tableau.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.654.174v2.203H9.682v.58h1.972V5.16h.696V2.957h1.97v-.58h-1.97V.174h-.348zm6.03 2.262-.002 1.623v1.623h-2.957v.927h2.957v3.188h1.043l.011-1.582.02-1.576 1.465-.02 1.46-.01v-.927h-2.953V2.436h-.522zm-12.407.06v3.19H2.291v.925h2.986v3.19h.985V6.61h3.013v-.925H6.262V2.496H5.77zm6.086 5.27v3.593H8.06v1.188h3.304v3.596h1.28v-3.596h3.309v-1.188h-3.31V7.766h-.637zm9.721 1.55v2.221h-2.012v.811h2.012v2.261h.887v-2.261H24v-.811h-2.029v-2.22h-.422zm-19.111.131v2.174H0v.621h1.973v2.194h.667v-2.194h2v-.62H2.609V9.446h-.318zm15.709 4.516v3.254h-3.016v.927h3.016v3.217h1.072v-3.216h2.986v-.928h-2.986v-3.254h-.533zm-12.463.008v3.246H2.262v.928h2.957v3.189H6.32v-3.189h2.955v-.928H6.32V13.97h-.55zm6.316 4.578.002 1.103v1.1H9.566v.812h1.971v2.262h.928l.012-1.119.017-1.143h1.969v-.812h-2v-2.203h-.465z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "navigation.top", "search.highlight", "search.suggest", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
