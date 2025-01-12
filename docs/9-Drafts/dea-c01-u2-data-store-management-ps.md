@@ -18,6 +18,12 @@
   - Network Protection
   - Manges platform, OS, NW, Firewall, Global Infra
 
+**Accessing Object via URL**
+
+- There are two URLs to access an object.
+  - `Object URL`: Also called public URL, anyone can only access this if they have permission and bucket has public access.
+  - `Open`: When you click "Open" then it gives you a pre-signed URL that lets you in the session to view an object, this is not shareable. It has encoded credentials.
+
 **Security Layers**
 
 1. VPC, this is first line of defence, like envelop
