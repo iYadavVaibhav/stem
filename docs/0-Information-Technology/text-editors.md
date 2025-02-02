@@ -106,6 +106,25 @@ VS Code will autoload the `.env` file in root of workspace when the folder is op
 {"applyAtShellIntegration":true,"applyAtProcessCreation":true}
 ```
 
+**Common Settings VSCode**
+
+```json
+{
+    "git.enabled": true,
+    "git.enableSmartCommit": true,
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "workbench.startupEditor": "newUntitledFile",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "editor.minimap.enabled": false,
+    "editor.accessibilitySupport": "off",
+    "window.customTitleBarVisibility": "never"
+}
+```
+
 ### Extensions
 
 They are developed to enhance the functionality of VS Code. Each extension has settings that can be added to VS Code JSON settings at all level workspace, user ot global.
@@ -143,7 +162,8 @@ Ext | Desc
 **Find and Select All**
 
 - Find the string using `cmd + F`
-- Then do, `Alt + Return` or `cmd + Shift + L` to select all matches/highlights.
+- Then do, `Alt + Return` or `cmd + Shift + L` to select _all matches cursors_.
+- Select text and do `Alt + Shift + I` for _line end cursors_.
 
 **Add New Key Bindings**
 
@@ -329,22 +349,33 @@ Markdownlint disable rules:
 
 ```json
     "markdownlint.config": {
-        "default": true,
-        "MD007": { "indent": 4 }
-    }
+        "MD012": false, // no-multiple-blanks
+        "MD024": false, // no-duplicate-heading
+        "MD025": false, // only one H1
+        "MD036": false, // no-full-line-bold
+        "MD049": false, // Emphasis style should be consistent *em* or _em_
+        "MD032": false, // Blank around lists
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
 ```
+
+### Ext: cSpell in VS Code
 
 cSpell disable code check in Markdown code blocks:
 
 ```json
+    "cSpell.language": "en-GB",
     "cSpell.languageSettings": [
         {
             // use with Markdown files
             "languageId": "markdown",
-            // Exclude code inline and multiline both
             "ignoreRegExpList": [
+                // Exclude code inline and multiline both
                 "^\\s*```[\\s\\S]*?^\\s*```",
                 "\\s`[\\s\\S]*?\\s*`",
+                "\\*`[\\s\\S]*?\\s*`",
             ]
         }
     ],
