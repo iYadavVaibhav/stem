@@ -59,6 +59,8 @@ API lets you give prompt to model and it returns model response. This way you ca
 
 ## LLMs Large Language Models
 
+- **LLM** stands for Large Language Model. It is model trained on vast amounts of text data to understand and generate _human-like language_.
+- eg, GPT-4, Claude, or Llama are general purpose models.
 - it uses transformers, theory researched by Google in 2017. GPT-3 is first model released in 2020 May (175B param trained)
 - Different models use different techniques to train model
   - some increase the dataset
@@ -69,6 +71,93 @@ API lets you give prompt to model and it returns model response. This way you ca
 
 - Open models
   - OPT from Meta and BLOOM are open models. You can see the weights and dataset it is trained on.
+
+
+
+
+
+
+
+## LangChain
+
+- **LangChain** is framework designed to **enhance LLMs** by integrating them with **data sources, APIs, and tools**, enabling them to **retrieve information, automate workflows, and perform reasoning-based tasks.**
+- LangChain itself doesn’t have its own model—it acts as a _framework_ that connects various LLMs. It uses general purpose models (gpt-4, claude, llama) but fine tuned for specific usage.
+
+So, **LangChain** essentially **makes LLMs smarter and more focused** by connecting them to **specific datasets** and enabling **contextual actions**.
+
+### LangChain vs ChatGPT/Gemini
+
+- LLMs (like GPT-4) are **stateless** — they don’t remember previous interactions and can't access external knowledge **on their own**. LangChain helps **extend their capabilities** by connecting them with structured data.
+
+LangChain **isn't a general-purpose LLM** like ChatGPT or Gemini (which can handle a wide range of tasks and conversations on their own). Instead, **LangChain adds context awareness** by **integrating LLMs with external data sources, APIs, and tools**. This allows users to use LLMs on **specific, structured data** (like databases, documents, or APIs), making them **more efficient and contextually aware** for specific tasks, like querying databases or automating workflows.
+
+In summary:  
+- **ChatGPT/Gemini** → General-purpose AI for open-ended conversations and tasks.
+- **GPT-4/LLaMA** → Powerful language models for various uses, but still need extra context or integration.
+- **LangChain** → A framework that **enhances** LLMs by giving them **specific data access** and **structured workflows**.
+
+### Usage of LangChain
+
+- Query **databases** (SQL, NoSQL)  
+- Retrieve **documents** (PDFs, websites, APIs)  
+- Store **memory** for conversations  
+- Use **agents** to take **chained actions** to execute workflows (like booking a meeting, generating code, or searching the web)  
+- Combine data sources with multiple **LLMs, embeddings, and vector databases**  
+- Works with **retrieval-augmented generation (RAG)** for knowledge-aware AI.  
+
+
+**Example Usage:**  
+- **SQL**: Querying databases (`"Get the total sales for 2023" → Generates SQL query → Runs on DB`)  
+- **Vector**: Document retrieval (`"Summarize policies from this PDF" → Uses embeddings → Retrieves data`)  
+- **API**: AI-powered automation (`"Schedule a meeting" → Calls a calendar API → Books a slot`)  
+
+
+### Components in LangChain
+
+- **LLM Wrappers**
+  - **easy integrations** for various models like open-ai gpt-4
+
+- **Prompt Engineering**
+  - allows you to **fine-tune how prompts** are structured for better responses. Eg, can include variables in prompt to make it user specific, eg, "How can I help you _Vaibhav_?"
+
+- **Chains (Combining LLMs & Data Sources)**
+  - Predefined **step-by-step workflows** combining LLM and external tools.
+  - Chains let you **combine multiple components**—e.g., an LLM with a **database** or **API**.
+
+- **Retrieval-Augmented Generation (RAG)**
+  - Using external data to **enhance** LLM responses in real-time.
+  - RAG allows LLMs to retrieve **relevant knowledge** from external sources (like db, PDFs, vector databases, or APIs) before generating a response. Eg, Searching a PDF for answers.
+
+- **Agents (AI That Can Act & Make Decisions)**
+  - **Autonomous decision-makers** that decide what action to take next.
+  - Agents allow LLMs to **autonomously interact with APIs, search engines, and tools**.
+  - Allows AI to **call APIs, search the web, execute SQL queries, and take actions** dynamically.
+
+- **Memory (Persistent Context for Conversations)**  
+  - **Stores context** from past interactions for personalized, ongoing conversations.
+  - Stores past interactions so AI can remember **previous chats, user preferences, or session history**.  
+  - Example: AI **customer support chatbots** that remember user preferences across sessions.
+
+### Overlap of Components in LangChain
+
+- Agents in LangChain can use Chains as part of their decision-making process.
+- The Agent decides what action to take based on the input, and it may choose to invoke a Chain as one of those actions.
+- Agents are more dynamic because they choose when and how to use them based on context, whereas Chains are more static, providing a structured sequence of tasks.
+
+- Decision Making of Agent in picking which Chain to use:
+  - **agents** use **rule-based decision-making** for simpler cases, or as a **first step** in determining which action to take.
+  - **Agents** may use **LLMs** like GPT-4 to make decisions, especially for **complex queries** or when reasoning over context is needed.
+  - Often, the decision-making process in **agents** combines both approaches, with **rules** for fast, deterministic tasks, and **LLMs** for reasoning in more **dynamic scenarios**.
+
+
+## GitHub Copilot
+
+GitHub Copilot, powered by **OpenAI’s Codex model**, is an AI tool that assists software developers by providing code suggestions and completions directly within integrated development environments (IDEs) like Visual Studio Code.
+
+GitHub Copilot shares some similarities with agents and chains (in that it uses context to generate intelligent code completions), it doesn’t fully implement agents or chains in the LangChain sense. Copilot is more focused on providing real-time code suggestions based on immediate context, rather than making autonomous decisions or managing multi-step workflows.
+
+Copilot can be thought of as using a _RAG-like approach_ where your codebase (or the current code you're writing) is the contextual data that gets retrieved and augmented by the model to generate more accurate and context-aware code suggestions.
+
 
 ## Embeddings Using OpenAI for Vector Search on Text
 
@@ -82,3 +171,4 @@ API lets you give prompt to model and it returns model response. This way you ca
 - you can use any model offered by OpenAI. You need to pay for token sent and received.
 - in chat, all old prompt and response from assistant is sent in each request. because rest-api is stateless and it does not know anything about your last conversation.
 - you can use python library or postman to use models.
+
