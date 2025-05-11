@@ -5,3 +5,4 @@ history.txt
 *.patch
 docs/1-Software-Engineering/.DS_Store
 my-notes.md
+.DS_Store
