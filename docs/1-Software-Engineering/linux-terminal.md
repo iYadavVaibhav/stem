@@ -685,6 +685,8 @@ wget -qO- http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86/apk-tools-static-2
 apk add python3
 apk add py3-pip
 pip install youtube-dl
+
+pkg install git
 ```
 
 ## Links
